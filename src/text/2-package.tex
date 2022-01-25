@@ -8,7 +8,7 @@ which mostly follow the stages in the data reduction workflow.
 \subsection{Overview}
 \begin{figure*}[t]
 \centering
-\includegraphics[width=1.\textwidth]{figures/data-flow-gammapy}
+\includegraphics[width=1.\textwidth]{static/data-flow-gammapy}
 \caption{
 Gammapy sub-package structure and data analysis workflow.
 }
@@ -22,8 +22,7 @@ The \verb|gammapy.data| sub-package provides access to
 DL3 level data and observation handling.
 
 
-\begin{listing}
-\begin{minted}{python}
+\begin{lstlisting}
 
 from gammapy.data import DataStore
 
@@ -31,10 +30,9 @@ data_store = DataStore.from_dir("$GAMMAPY_DATA")
 obs_ids = [1, 2, 3]
 observations = data_store.get_observations(obs_ids)
 
-\end{minted}
 \caption{Using gammapy.data to access DL3 level data with a DataStore}
 \label{codeexample:data}
-\end{listing}
+\end{lstlisting}
 
 
 
@@ -42,18 +40,16 @@ observations = data_store.get_observations(obs_ids)
 \todo{Regis Terrier}
 Data reduction
 
-\begin{listing}
-\begin{minted}[numbers=right]{python}
+\begin{lstlisting}
 
 from gammapy.makers import MapDatasetMaker
 
 maker = MapDatasetMaker()
 dataset = maker.run(dataset, observation)
 
-\end{minted}
 \caption{Using gammapy.data to access DL3 level data}
 \label{codeexample:maker}
-\end{listing}
+\end{lstlisting}
 
 
 \subsection{gammapy.datasets}
@@ -61,8 +57,7 @@ dataset = maker.run(dataset, observation)
 DL4 level data
 
 
-\begin{listing}
-\begin{minted}{python}
+\begin{lstlisting}
 
 from astropy.coordinates import SkyCoord
 from gammapy.maps import WcsGeom
@@ -78,10 +73,9 @@ dataset = MapDataset.create(
 )
 
 
-\end{minted}
 \caption{Using gammapy.data to access DL3 level data with a DataStore}
 \label{codeexample:data}
-\end{listing}
+\end{lstlisting}
 
 
 
@@ -89,8 +83,7 @@ dataset = MapDataset.create(
 \todo{Quentin Remy}
 Models and fitting
 
-\begin{listing}
-\begin{minted}[numbers=right]{python}
+\begin{lstlisting}
 
 from gammapy.modeling.models import (
 	SkyModel,
@@ -106,10 +99,9 @@ model = SkyModel(
 	spatial_model=point
 	name="my-model"
 )
-\end{minted}
 \caption{Using gammapy.data to access DL3 level data}
 \label{codeexample:maker}
-\end{listing}
+\end{lstlisting}
 
 
 \subsection{gammapy.estimators}
@@ -132,15 +124,13 @@ Dark matter models, source population modelling
 \subsection{gammapy.catalog}
 Gamma-ray catalog access
 
-\begin{listing}
-\begin{minted}{python}
+\begin{lstlisting}
 
 from gammapy.catalog import SOURCE_CATALOGS
 
-\end{minted}
 \caption{Using gammapy.data to access DL3 level data with a DataStore}
 \label{codeexample:data}
-\end{listing}
+\end{lstlisting}
 
 
 \subsection{gammapy.maps}
@@ -152,8 +142,7 @@ number of non-spatial data axes, such as time or energy.
 
 It provides a uniform API for WCS, HEALPix and region based data structures.
 
-\begin{listing}
-\begin{minted}{python}
+\begin{lstlisting}
 
 from gammapy.maps import Map
 from astropy.coordinates import SkyCoord
@@ -170,10 +159,9 @@ m_hpx = Map.create(
 	binsz=0.1, map_type='hpx', skydir=skydir, width=10.0
 )
 
-\end{minted}
 \caption{Using gammapy.data to access DL3 level data with a DataStore}
 \label{codeexample:data}
-\end{listing}
+\end{lstlisting}
 
 
 \subsection{gammapy.irf}

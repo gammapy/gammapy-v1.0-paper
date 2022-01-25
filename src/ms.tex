@@ -1,25 +1,64 @@
-% Define document class
-\documentclass[twocolumn]{aastex631}
+%                                                                 aa.dem
+% AA vers. 9.0, LaTeX class for Astronomy & Astrophysics
+% demonstration file
+%                                                       (c) EDP Sciences
+%-----------------------------------------------------------------------
+%
+%\documentclass[referee]{aa} % for a referee version
+%\documentclass[onecolumn]{aa} % for a paper on 1 column
+%\documentclass[longauth]{aa} % for the long lists of affiliations
+%\documentclass[rnote]{aa} % for the research notes
+%\documentclass[letter]{aa} % for the letters
+%\documentclass[bibyear]{aa} % if the references are not structured
+%                              according to the author-year natbib style
 
-% Filler text
-\usepackage{blindtext}
+% \documentclass[]{aa}
+\documentclass[traditabstract]{aa}
 
-% Begin!
+\usepackage{graphicx}
+\usepackage{txfonts}
+\usepackage{url}
+% The [draft] was added to avoid a LaTeX issue
+% See https://tex.stackexchange.com/a/154184
+%\usepackage[draft]{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}\PackageWarning{TODO:}{#1!}}
+
+
 \begin{document}
 
-% Title
-\title{An open source scientific article}
+\input{text/0-shortcuts}
 
-% Author list
-\author[0000-0000-0000-0000]{First Author}
+% Front matter
+\title{Gammapy: A Python package for gamma-ray astronomy}
+\titlerunning{Gammapy}
+\input{text/0-authors}
+\input{text/0-abstract}
+% \date{Received September 15, 1996; accepted March 16, 1997}
+\keywords{
+Gamma rays: general -
+Astronomical instrumentation, methods and techniques -
+Methods: data analysis
+}
 
-% Abstract with filler text
-\begin{abstract}
-    \blindtext
-\end{abstract}
+\maketitle
 
-% Main body with filler text
-\section{Introduction}
-\Blindtext[4]
+% Main part
+\input{text/1-introduction}
+\section{Analysis Workflow Overview}
+\input{text/2-package}
+\input{text/3-applications}
+\input{text/3.1-cta}
+\input{text/3.2-hess}
+\input{text/3.3-fermi}
+\input{text/4-project}
+\input{text/5-summary-outlook}
+\input{text/6-acknowledgements}
+
+% Back matter
+\bibliographystyle{aa}
+\bibliography{bib.bib}
 
 \end{document}
