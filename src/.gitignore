@@ -4,6 +4,7 @@
 # ... except the following...
 !figures
 !static
+!text
 !.gitignore
 !*.tex
 !*.bib
