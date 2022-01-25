@@ -1,6 +1,7 @@
 channels:
   - defaults
 dependencies:
+  - gammapy=0.19
   - numpy>=1.20
   - pip>=20.3.3
   - python=3.9
