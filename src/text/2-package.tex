@@ -16,23 +16,18 @@ Gammapy sub-package structure and data analysis workflow.
 \end{figure*}
 
 
-
 \subsection{gammapy.data}
 The \verb|gammapy.data| sub-package provides access to
 DL3 level data and observation handling.
 
 
-\begin{lstlisting}
+\begin{figure}
 
-from gammapy.data import DataStore
-
-data_store = DataStore.from_dir("$GAMMAPY_DATA")
-obs_ids = [1, 2, 3]
-observations = data_store.get_observations(obs_ids)
+\import{snippets/generated/}{gp_data}
 
 \caption{Using gammapy.data to access DL3 level data with a DataStore}
-\label{codeexample:data}
-\end{lstlisting}
+\label{fig*:minted}
+\end{figure}
 
 
 
