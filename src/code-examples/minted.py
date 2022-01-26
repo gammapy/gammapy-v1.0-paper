@@ -1,5 +1,9 @@
 from pathlib import Path
 import subprocess
+import logging
+
+log = logging.getLogger(__file__)
+logging.basicConfig(level=logging.DEBUG)
 
 PATH = Path(__file__).parent
 
@@ -21,4 +25,5 @@ if __name__ == '__main__':
         filename_out = GENERATED / filename.name.replace(".py", ".tex")
         command += ["-o", f"{filename_out}"]
         command += [f"{filename}"]
+        log.info(f"Executing {' '.join(command)}")
         subprocess.call(command)
