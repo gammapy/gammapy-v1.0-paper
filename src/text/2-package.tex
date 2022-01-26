@@ -23,10 +23,10 @@ DL3 level data and observation handling.
 
 \begin{figure}
 
-\import{snippets/generated/}{gp_data}
+\import{code-examples/generated/}{gp_data}
 
 \caption{Using gammapy.data to access DL3 level data with a DataStore}
-\label{fig*:minted}
+\label{fig*:minted:gp_data}
 \end{figure}
 
 
@@ -35,16 +35,12 @@ DL3 level data and observation handling.
 \todo{Regis Terrier}
 Data reduction
 
-\begin{lstlisting}
-
-from gammapy.makers import MapDatasetMaker
-
-maker = MapDatasetMaker()
-dataset = maker.run(dataset, observation)
+\begin{figure}
+\import{code-examples/generated/}{gp_makers}
 
 \caption{Using gammapy.data to access DL3 level data}
-\label{codeexample:maker}
-\end{lstlisting}
+\label{ig*:minted:gp_makers}
+\end{figure}
 
 
 \subsection{gammapy.datasets}
@@ -52,25 +48,12 @@ dataset = maker.run(dataset, observation)
 DL4 level data
 
 
-\begin{lstlisting}
+\begin{figure}
 
-from astropy.coordinates import SkyCoord
-from gammapy.maps import WcsGeom
-from gammapy.datasets import MapDataset
-
-skydir = SkyCoord("0d", "0d")
-geom = WcsGeom.create(
-	skydir=skydir, width="5 deg", binsz="0.2 deg"
-)
-
-dataset = MapDataset.create(
-	geom=geom, name="my-dataset"
-)
-
-
+\import{code-examples/generated/}{gp_datasets}
 \caption{Using gammapy.data to access DL3 level data with a DataStore}
-\label{codeexample:data}
-\end{lstlisting}
+\label{fig*:minted:gp_datasets}
+\end{figure}
 
 
 
@@ -78,25 +61,11 @@ dataset = MapDataset.create(
 \todo{Quentin Remy}
 Models and fitting
 
-\begin{lstlisting}
-
-from gammapy.modeling.models import (
-	SkyModel,
-	PowerLawSpectralModel,
-	PointSpatialModel
-)
-
-pwl = PowerLawSpectralModel()
-point = PointSpatialModel()
-
-model = SkyModel(
-	spectral_model=pwl,
-	spatial_model=point
-	name="my-model"
-)
-\caption{Using gammapy.data to access DL3 level data}
-\label{codeexample:maker}
-\end{lstlisting}
+\begin{figure}
+\import{code-examples/generated/}{gp_models}
+\caption{Using gammapy.modeling.models}
+\label{fig*:minted:gp_models}
+\end{figure}
 
 
 \subsection{gammapy.estimators}
@@ -119,13 +88,11 @@ Dark matter models, source population modelling
 \subsection{gammapy.catalog}
 Gamma-ray catalog access
 
-\begin{lstlisting}
-
-from gammapy.catalog import SOURCE_CATALOGS
-
-\caption{Using gammapy.data to access DL3 level data with a DataStore}
+\begin{figure}
+\import{code-examples/generated/}{gp_catalogs}
+\caption{Using gammapy.catalogs}
 \label{codeexample:data}
-\end{lstlisting}
+\end{figure}
 
 
 \subsection{gammapy.maps}
@@ -137,26 +104,13 @@ number of non-spatial data axes, such as time or energy.
 
 It provides a uniform API for WCS, HEALPix and region based data structures.
 
-\begin{lstlisting}
+\begin{figure}
 
-from gammapy.maps import Map
-from astropy.coordinates import SkyCoord
 
-skydir = SkyCoord("0d", "5d", frame="galactic")
-
-# Create a WCS Map
-m_wcs = Map.create(
-	binsz=0.1, map_type='wcs', skydir=skydir, width=10.0
-)
-
-# Create a HPX Map
-m_hpx = Map.create(
-	binsz=0.1, map_type='hpx', skydir=skydir, width=10.0
-)
-
+    \import{code-examples/generated/}{gp_maps}
 \caption{Using gammapy.data to access DL3 level data with a DataStore}
 \label{codeexample:data}
-\end{lstlisting}
+\end{figure}
 
 
 \subsection{gammapy.irf}

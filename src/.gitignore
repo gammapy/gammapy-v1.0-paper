@@ -5,7 +5,8 @@
 !figures
 !static
 !text
-!snippets
+!code-examples
+!code-examples/snippets/*.py
 !.gitignore
 !*.tex
 !*.bib
