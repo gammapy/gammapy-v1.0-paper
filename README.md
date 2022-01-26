@@ -1,8 +1,4 @@
 <p align="center">
-<a href="https://github.com/rodluger/showyourwork">
-<img width = "450" src="https://raw.githubusercontent.com/rodluger/showyourwork/img/showyourwork.png" alt="showyourwork"/>
-</a>
-<br>
 <br>
 <a href="https://github.com/gammapy/gammapy-v1.0-paper/actions/workflows/showyourwork.yml">
 <img src="https://github.com/gammapy/gammapy-v1.0-paper/actions/workflows/showyourwork.yml/badge.svg" alt="Article status"/>

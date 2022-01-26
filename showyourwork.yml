@@ -3,3 +3,9 @@ verbose: true
 dependencies:
     src/ms.tex:
         - src/code-examples/generated/gp_data.tex
+        - src/code-examples/generated/gp_catalogs.tex
+        - src/code-examples/generated/gp_datasets.tex
+        - src/code-examples/generated/gp_makers.tex
+        - src/code-examples/generated/gp_maps.tex
+        - src/code-examples/generated/gp_models.tex
+

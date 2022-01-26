@@ -17,7 +17,12 @@ rule minted:
     input:
         "src/code-examples/minted.py"
     output:
-        "src/code-examples/generated/gp_data.tex"
+        "src/code-examples/generated/gp_data.tex",
+        "src/code-examples/generated/gp_catalogs.tex",
+        "src/code-examples/generated/gp_datasets.tex",
+        "src/code-examples/generated/gp_makers.tex",
+        "src/code-examples/generated/gp_maps.tex",
+        "src/code-examples/generated/gp_models.tex",
     conda:
         "environment.yml"
     shell:
