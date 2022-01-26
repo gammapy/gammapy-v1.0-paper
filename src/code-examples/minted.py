@@ -3,7 +3,7 @@ import subprocess
 
 PATH = Path(__file__).parent
 
-SNIPPETS = PATH / "input"
+SNIPPETS = PATH / "snippets"
 GENERATED = PATH / "generated"
 
 # for example 'frame=single' to frame the code

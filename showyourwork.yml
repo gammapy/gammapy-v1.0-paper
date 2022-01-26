@@ -2,4 +2,4 @@
 verbose: true
 dependencies:
     src/ms.tex:
-        - src/snippets/gen/gp_data.tex
+        - src/code-examples/generated/gp_data.tex

@@ -15,11 +15,11 @@ use rule * from showyourwork
 
 rule minted:
     input:
-        "src/snippets/minted.py"
+        "src/code-examples/minted.py"
     output:
-        "src/snippets/generated/gp_data.tex"
+        "src/code-examples/generated/gp_data.tex"
     conda:
         "environment.yml"
     shell:
-        "cd src/snippets && python minted.py"
+        "cd src/code-examples && python minted.py"
 
