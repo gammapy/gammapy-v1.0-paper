@@ -18,18 +18,14 @@
 \usepackage{graphicx}
 \usepackage{txfonts}
 \usepackage{url}
-% The [draft] was added to avoid a LaTeX issue
-% See https://tex.stackexchange.com/a/154184
-%\usepackage[draft]{hyperref}
 \usepackage{xcolor}
-\input{code-examples/minted.tex}
 \usepackage{listings}
 \usepackage{import}
 \usepackage{fancyvrb}
 \usepackage{color}
 \usepackage[utf8]{inputenc}
 
-
+\input{code-examples/minted.tex}
 \newcommand{\todo}[1]{\textcolor{red}{TODO: #1}\PackageWarning{TODO:}{#1!}}
 
 
@@ -53,7 +49,6 @@ Methods: data analysis
 
 % Main part
 \input{text/1-introduction}
-\section{Analysis Workflow Overview}
 \input{text/2-package}
 \input{text/3-applications}
 \input{text/3.1-cta}
