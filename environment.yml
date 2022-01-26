@@ -1,5 +1,7 @@
 channels:
   - defaults
+  - conda-forge
+
 dependencies:
   - gammapy=0.19
   - numpy>=1.20
