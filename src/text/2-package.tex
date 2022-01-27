@@ -3,72 +3,60 @@
 \section{Gammapy package}
 \label{sec:package}
 
-The \gammapy package is structured into multiple sub-packages
-which mostly follow the stages in the data reduction workflow.
-
+The \gammapy package is structured into multiple sub-packages which mostly
+follow the stages in the data reduction workflow.
 
 \subsection{Overview}
 \begin{figure*}[t]
-\centering
-\includegraphics[width=1.\textwidth]{static/data-flow-gammapy}
-\caption{
-Gammapy sub-package structure and data analysis workflow.
-}
-\label{fig:workflow}
-\end{figure*}
-
+	\centering
+	\includegraphics[width=1.\textwidth]{static/data-flow-gammapy}
+	\caption{
+		Gammapy sub-package structure and data analysis workflow. }
+	\label{fig:workflow} \end{figure*}
 
 \subsection{gammapy.data}
-The \verb|gammapy.data| sub-package provides access to
-DL3 level data and observation handling.
-
+The \verb|gammapy.data| sub-package provides access to DL3 level data and
+observation handling.
 
 \begin{figure}
 
-\import{code-examples/generated/}{gp_data}
+	\import{code-examples/generated/}{gp_data}
 
-\caption{Using gammapy.data to access DL3 level data with a DataStore}
-\label{fig*:minted:gp_data}
+	\caption{Using gammapy.data to access DL3 level data with a DataStore}
+	\label{fig*:minted:gp_data}
 \end{figure}
-
-
 
 \subsection{gammapy.makers}
 \todo{Regis Terrier}
 Data reduction
 
 \begin{figure}
-\import{code-examples/generated/}{gp_makers}
+	\import{code-examples/generated/}{gp_makers}
 
-\caption{Using gammapy.data to access DL3 level data}
-\label{ig*:minted:gp_makers}
+	\caption{Using gammapy.data to access DL3 level data}
+	\label{ig*:minted:gp_makers}
 \end{figure}
-
 
 \subsection{gammapy.datasets}
 \todo{Atreyee Sinha}
 DL4 level data
 
-
 \begin{figure}
 
-\import{code-examples/generated/}{gp_datasets}
-\caption{Using gammapy.data to access DL3 level data with a DataStore}
-\label{fig*:minted:gp_datasets}
+	\import{code-examples/generated/}{gp_datasets}
+	\caption{Using gammapy.data to access DL3 level data with a DataStore}
+	\label{fig*:minted:gp_datasets}
 \end{figure}
-
-
 
 \subsection{gammapy.modeling}
 \todo{Quentin Remy}
 Models and fitting
 
 \begin{figure}
-\import{code-examples/generated/}{gp_models}
-\caption{Using gammapy.modeling.models}
-\label{fig*:minted:gp_models}
+	\import{code-examples/generated/}{gp_models}
+	\caption{Using gammapy.modeling.models}
+	\label{fig*:minted:gp_models}
 \end{figure}
-
 
 \subsection{gammapy.estimators}
 \todo{Axel Donath}
@@ -91,29 +79,26 @@ Dark matter models, source population modelling
 Gamma-ray catalog access
 
 \begin{figure}
-\import{code-examples/generated/}{gp_catalogs}
-\caption{Using gammapy.catalogs}
-\label{codeexample:data}
+	\import{code-examples/generated/}{gp_catalogs}
+	\caption{Using gammapy.catalogs}
+	\label{codeexample:data}
 \end{figure}
-
 
 \subsection{gammapy.maps}
 \todo{Laura Olivera-Nieto}
 The \verb|gammapy.maps| sub-package provides classes for representing pixelized
 data structures with at least two spatial dimensions representing a set of
-coordinates or a region on a sphere. In addition it allows to handle and arbitray
-number of non-spatial data axes, such as time or energy.
+coordinates or a region on a sphere. In addition it allows to handle and
+arbitray  number of non-spatial data axes, such as time or energy.
 
 It provides a uniform API for WCS, HEALPix and region based data structures.
 
 \begin{figure}
 
-
-    \import{code-examples/generated/}{gp_maps}
-\caption{Using gammapy.data to access DL3 level data with a DataStore}
-\label{codeexample:data}
+	\import{code-examples/generated/}{gp_maps}
+	\caption{Using gammapy.data to access DL3 level data with a DataStore}
+	\label{codeexample:data}
 \end{figure}
-
 
 \subsection{gammapy.irf}
 \todo{Fabio Pintore}
@@ -123,21 +108,16 @@ IRF classes
 \todo{Regis Terrier}
 Statistics methods
 
-
 \subsection{gammapy.utils}
 Utility functions...
 
+Outline: * List typical analysis use cases * Can use from Python and Jupyter ->
+show Figure with Jupyter notebook here. * Gammapy code structure * How Numpy
+and Astropy is used
 
-Outline:
-* List typical analysis use cases
-* Can use from Python and Jupyter -> show Figure with Jupyter notebook here.
-* Gammapy code structure
-* How Numpy and Astropy is used
-
-
-Figures:
-* Add a Figure showing dataflow in a typical application
-DL3 at the top, spectrum, map, lightcurve, fit results at the bottom.
-Mention major classes in between (DataStore, EventList, Map, MapMaker, MapFit, …)
-* Probably not: Figure showing sub-packages and how they relate (gammapy.data and gammapy.irf at the base, then gammapy.maps, etc.
-* The code example Figure how to make a counts map, to explain how the package works.
+Figures: * Add a Figure showing dataflow in a typical application DL3 at the
+top, spectrum, map, lightcurve, fit results at the bottom. Mention major
+classes in between (DataStore, EventList, Map, MapMaker, MapFit, …) * Probably
+not: Figure showing sub-packages and how they relate (gammapy.data and
+gammapy.irf at the base, then gammapy.maps, etc. * The code example Figure how
+to make a counts map, to explain how the package works.

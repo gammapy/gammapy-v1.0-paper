@@ -2,34 +2,52 @@
 % 5 {} token are mandatory
 
 \abstract{
-% TODO: the feature are still to detailed and partly copy and pasted form the ICRS abstract...avoid this
-% context heading (optional)
-% {} leave it empty if necessary  
-%{Gammapy context:}
-Historically the data as well as analysis software in gamma-ray astronomy is proprietary to the experiments. With the future Cherenkov Telescope Array (CTA), which will be operated as an open gamma-ray observatory with public data, there is a corresponding need for open high-level analysis software. In this article we present the first major version v1.0 of \gammapy, a community-developed open-source Python package for gamma-ray astronomy. 
-%
-We present its general design and provide an overview of the analysis methods and features it implements. Starting from event lists and a description of the specific instrument response functions (IRF) stored in open FITS based data formats, \gammapy implements . Thereby it handles the dependency of the IRFs with time, energy as well as position on the sky. It offers a variety of background estimation methods for spectral, spatial and spectro-morphological analysis. Counts, background and IRFs data are bundled in datasets and can be serialised, rebinned and stacked.
-%
-\gammapy supports to model binned data using Poisson maximum likelihood fitting. It comes with built-in spectral, spatial and temporal models as well as support for custom user models, to model e.g. energy dependent morphology of gamma-ray sources. Multiple datasets can be combined in a joint-likelihood approach to either handle time dependent IRFs, different classes of events or combination of data from multiple instruments. Gammapy also implements methods to estimate flux points, including likelihood profiles per energy bin, light curves as well as flux and signficance maps in energy bins.
-%
-We further describe the general development approach and how \gammapy integrates into ecosystem of other scientific and astronomical Python packages. We also present analysis examples with simulated CTA data and provide results of scientific validation analyses using data of existing instruments such as \hess and \fermi.
+	% TODO: the feature are still to detailed and partly copy and pasted form the ICRS abstract...avoid this
+	% context heading (optional)
+	% {} leave it empty if necessary  
+	%{Gammapy context:}
+	Historically the data as well as analysis software in gamma-ray astronomy is
+	proprietary to the experiments. With the future Cherenkov Telescope Array
+	(CTA), which will be operated as an open gamma-ray observatory with public
+	data, there is a corresponding need for open high-level analysis software. In
+	this article we present the first major version v1.0 of \gammapy, a
+	community-developed open-source Python package for gamma-ray astronomy.
+	 We present its general design and provide an%
+	overview of the analysis methods and features it implements. Starting from
+	event lists and a description of the specific instrument response functions
+	(IRF) stored in open FITS based data formats, \gammapy implements . Thereby it
+	handles the dependency of the IRFs with time, energy as well as position on the
+	sky. It offers a variety of background estimation methods for spectral, spatial
+	and spectro-morphological analysis. Counts, background and IRFs data are
+	bundled in datasets and can be serialised, rebinned and stacked.
+	 \gammapy supports to model binned data using%
+	Poisson maximum likelihood fitting. It comes with built-in spectral, spatial
+	and temporal models as well as support for custom user models, to model e.g.
+	energy dependent morphology of gamma-ray sources. Multiple datasets can be
+	combined in a joint-likelihood approach to either handle time dependent IRFs,
+	different classes of events or combination of data from multiple instruments.
+	Gammapy also implements methods to estimate flux points, including likelihood
+	profiles per energy bin, light curves as well as flux and signficance maps in
+	energy bins.  We further describe the general%
+	development approach and how \gammapy integrates into ecosystem of other
+	scientific and astronomical Python packages. We also present analysis examples
+	with simulated CTA data and provide results of scientific validation analyses
+	using data of existing instruments such as \hess and \fermi.
 
+	% The gamma-ray can be considered as the last frontier 
+	% In the last two decades the measurement of gamma-ray emission from the universe has 
+	% evolved from a niche  
 
-% The gamma-ray can be considered as the last frontier 
-% In the last two decades the measurement of gamma-ray emission from the universe has 
-% evolved from a niche  
+	% aims heading (mandatory)
+	%{Gammapy aims}
+	%Reproducible analyses, share algorithms etc. 
 
-% aims heading (mandatory)
-%{Gammapy aims}
-%Reproducible analyses, share algorithms etc. 
+	% methods heading (mandatory)
+	%{Gammapy methods}
 
+	% results heading (mandatory)
+	%{Gammapy results}
 
-% methods heading (mandatory)
-%{Gammapy methods}
-
-% results heading (mandatory)
-%{Gammapy results}
-
-% conclusions heading (optional), leave it empty if necessary 
-%{Gammapy conclusions}
+	% conclusions heading (optional), leave it empty if necessary 
+	%{Gammapy conclusions}
 }
