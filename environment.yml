@@ -10,6 +10,8 @@ dependencies:
   - pip>=20.3.3
   - python=3.9
   - latexindent.pl
+  - pre-commit
+  - rust
   - pip:
       - matplotlib>=3.3.3
       - pygments
