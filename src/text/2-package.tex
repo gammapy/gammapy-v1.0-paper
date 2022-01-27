@@ -1,12 +1,14 @@
 \section{Analysis Workflow Overview}
+\label{sec:analysis-workflow-overview}
 
 \section{Gammapy package}
-\label{sec:package}
+\label{sec:gammapy-package}
 
 The \gammapy package is structured into multiple sub-packages which mostly
 follow the stages in the data reduction workflow.
 
 \subsection{Overview}
+\label{ssec:overview}
 \begin{figure*}[t]
 	\centering
 	\includegraphics[width=1.\textwidth]{static/data-flow-gammapy}
@@ -15,6 +17,7 @@ follow the stages in the data reduction workflow.
 	\label{fig:workflow} \end{figure*}
 
 \subsection{gammapy.data}
+\label{ssec:gammapy-data}
 The \verb|gammapy.data| sub-package provides access to DL3 level data and
 observation handling.
 
@@ -27,6 +30,7 @@ observation handling.
 \end{figure}
 
 \subsection{gammapy.makers}
+\label{ssec:gammapy-makers}
 \todo{Regis Terrier}
 Data reduction
 
@@ -38,6 +42,7 @@ Data reduction
 \end{figure}
 
 \subsection{gammapy.datasets}
+\label{ssec:gammapy-datasets}
 \todo{Atreyee Sinha}
 DL4 level data
 
@@ -48,7 +53,8 @@ DL4 level data
 	\label{fig*:minted:gp_datasets}
 \end{figure}
 
-\subsection{gammapy.modeling}
+\subsection{gammapy.modeling
+\label{ssec:gammapy-modeling}
 \todo{Quentin Remy}
 Models and fitting
 
@@ -59,23 +65,29 @@ Models and fitting
 \end{figure}
 
 \subsection{gammapy.estimators}
+\label{ssec:gammapy-estimators}
 \todo{Axel Donath}
 Estimators
 
 \subsection{gammapy.visualisation}
+\label{ssec:gammapy-visualisation}
 Plotters etc.
 
 \subsection{gammapy.analysis}
+\label{ssec:gammapy-analysis}
 \todo{Jose Enrique writes this...}
 High level analysis API
 
 \subsection{gammapy.astro}
+\label{ssec:gammapy-astro}
 Dark matter models, source population modelling
 
 \subsection{gammapy.data}
+\label{ssec:gammapy-data}
 \todo{Cosimo Nigro}
 
 \subsection{gammapy.catalog}
+\label{ssec:gammapy-catalog}
 Gamma-ray catalog access
 
 \begin{figure}
@@ -85,6 +97,7 @@ Gamma-ray catalog access
 \end{figure}
 
 \subsection{gammapy.maps}
+\label{ssec:gammapy-maps}
 \todo{Laura Olivera-Nieto}
 The \verb|gammapy.maps| sub-package provides classes for representing pixelized
 data structures with at least two spatial dimensions representing a set of
@@ -94,21 +107,23 @@ arbitray  number of non-spatial data axes, such as time or energy.
 It provides a uniform API for WCS, HEALPix and region based data structures.
 
 \begin{figure}
-
 	\import{code-examples/generated/}{gp_maps}
 	\caption{Using gammapy.data to access DL3 level data with a DataStore}
 	\label{codeexample:data}
 \end{figure}
 
 \subsection{gammapy.irf}
+\label{ssec:gammapy-irf}
 \todo{Fabio Pintore}
 IRF classes
 
 \subsection{gammapy.stats}
+\label{ssec:gammapy-stats}
 \todo{Regis Terrier}
 Statistics methods
 
 \subsection{gammapy.utils}
+\label{ssec:gammapy-utils}
 Utility functions...
 
 Outline: * List typical analysis use cases * Can use from Python and Jupyter ->
