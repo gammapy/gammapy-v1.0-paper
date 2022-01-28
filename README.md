@@ -30,21 +30,21 @@ or have an [official role](https://gammapy.org/team.html) in the Gammapy project
 
 ## Getting Started
 To get started with paper writing, make a fork of the repository and clone the
-forked repository to your local machine::
+forked repository to your local machine:
 
     git clone https://github.com/yourgithub/gammapy-v1.0-paper.git
 
 Now enter the local folder of the repository, create the corresponding `conda`
-environment and activate it::
+environment and activate it:
 
     conda env create -f environment.yml
     conda activate gammapy-v1.0-paper
 
-To actually build the paper and paper figures locally just use::
+To actually build the paper and paper figures locally just use:
 
     make
 
-To clean up failed executions you can use::
+To clean up failed executions you can use:
 
     make clean
 
