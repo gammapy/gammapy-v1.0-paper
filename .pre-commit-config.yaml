@@ -23,6 +23,12 @@ repos:
       - id: check-yaml
       - id: trailing-whitespace
         files: ".*\\.(?:tex|py)$"
+  - repo: https://github.com/codespell-project/codespell
+    rev: v1.16.0
+    hooks:
+      - id: codespell
+        exclude: ^code-examples/minted.tex
+        files: ".*\\.(?:tex|py)$"
   - repo: local
     hooks:
       - id: latexindent
