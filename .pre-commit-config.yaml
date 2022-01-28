@@ -23,3 +23,10 @@ repos:
       - id: check-yaml
       - id: trailing-whitespace
         files: ".*\\.(?:tex|py)$"
+  - repo: local
+    hooks:
+      - id: latexindent
+        name: latexindent
+        entry: "python latexindent.py"
+        language: system
+        pass_filenames: false
