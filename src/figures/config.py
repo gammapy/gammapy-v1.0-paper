@@ -13,10 +13,19 @@ FIGURE_WIDTH_AA = {
 }
 
 
-def get_figure_size_aa(aspect_ratio=1, width_aa="single-column"):
-    """Get figure size in inches"""
-    width = FIGURE_WIDTH_AA[width_aa]
-    height = width / aspect_ratio
-    return width.to_value(imperial.inch), height.to_value(imperial.inch)
+class FigureSizeAA:
+    """Figure size A&A"""
+    def __init__(self, aspect_ratio=1, width_aa="single-column"):
+        self.width = FIGURE_WIDTH_AA[width_aa]
+        self.height = self.width / aspect_ratio
 
+    @property
+    def inch(self):
+        """Figure size in inch"""
+        return self.width.to_value(imperial.inch), self.height.to_value(imperial.inch)
+
+    @property
+    def mm(self):
+        """Figure size in mm"""
+        return self.width.value, self.height.value
 

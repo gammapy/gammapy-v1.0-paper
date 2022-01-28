@@ -19,16 +19,9 @@ u.imperial.enable()
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
-# Gammapy logo font
-# matplotlib.rc("text", usetex=True)
-# matplotlib.rc("font", **{"family": "sans-serif"})
-# params = {"text.latex.preamble": [r"\usepackage{amsmath}"]}
-# plt.rcParams.update(params)
 plt.rcParams["mathtext.fontset"] = "cm"
 
-
-FIGSIZE_MM = [180, 131] * u.mm
-FIGSIZE = FIGSIZE_MM.to_value("inch")
+FIGSIZE = config.FigureSizeAA(aspect_ratio=1.3740, width_aa="two-column")
 
 FOLDER_ICON = np.array(
     [(0, 0), (0, 0.8), (0.08, 1), (0.5, 1), (0.58, 0.8), (0.93, 0.8), (0.93, 0)]
@@ -275,11 +268,11 @@ def plot_high_level_interface(fig, ax, ypos=24):
 @click.command()
 @click.option("--draft", is_flag=True)
 def main(draft=True):
-    fig = plt.figure(figsize=FIGSIZE)
+    fig = plt.figure(figsize=FIGSIZE.inch)
 
     ax = fig.add_axes([0, 0, 1, 1])
-    ax.set_xlim(0, FIGSIZE_MM[0].value)
-    ax.set_ylim(0, FIGSIZE_MM[1].value)
+    ax.set_xlim(0, FIGSIZE.mm[0])
+    ax.set_ylim(0, FIGSIZE.mm[1])
 
     ax.tick_params(axis="both", direction="in", pad=-20)
     ax.xaxis.set_minor_locator(MultipleLocator(10))
