@@ -27,7 +27,7 @@ repos:
     rev: v1.16.0
     hooks:
       - id: codespell
-        exclude: ^code-examples/minted.tex
+        exclude: ^src/code-examples/minted.tex
         files: ".*\\.(?:tex|py)$"
   - repo: local
     hooks:
