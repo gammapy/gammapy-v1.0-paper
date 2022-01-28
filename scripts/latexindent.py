@@ -7,7 +7,7 @@ EXCLUDE_FILES = ["0-authors.tex"]
 log = logging.getLogger(__file__)
 logging.basicConfig(level=logging.DEBUG)
 
-BASE_PATH = Path(__file__).parent
+BASE_PATH = Path(__file__).parent.parent
 
 filenames = BASE_PATH.glob("src/text/*.tex")
 
