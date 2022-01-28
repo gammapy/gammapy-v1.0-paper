@@ -12,6 +12,7 @@ dependencies:
   - latexindent.pl
   - pre-commit
   - rust
+  - ruamel.yaml
   - pip:
       - matplotlib>=3.3.3
       - pygments

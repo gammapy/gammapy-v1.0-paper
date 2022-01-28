@@ -27,6 +27,6 @@ repos:
     hooks:
       - id: latexindent
         name: latexindent
-        entry: "python latexindent.py"
+        entry: "python scripts/latexindent.py"
         language: system
         pass_filenames: false
