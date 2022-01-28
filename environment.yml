@@ -6,13 +6,14 @@ channels:
 
 dependencies:
   - gammapy=0.19
-  - numpy>=1.20
+  - numpy=1.21.1
+  - matplotlib=3.5.1
   - pip>=20.3.3
   - python=3.9
+  - astropy=5.0
   - latexindent.pl
   - pre-commit
   - rust
   - ruamel.yaml
   - pip:
-      - matplotlib>=3.3.3
       - pygments

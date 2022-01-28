@@ -14,7 +14,6 @@ from gammapy.estimators import FluxPoints
 from gammapy.maps import Map
 import config
 
-u.imperial.enable()
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
