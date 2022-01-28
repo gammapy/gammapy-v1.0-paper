@@ -1,6 +1,6 @@
 """General configuration for mpl plotting scripts"""
 from pathlib import Path
-from astropy import untis as u
+from astropy import units as u
 from astropy.units import imperial
 
 BASE_PATH = Path(__file__).parent.parent

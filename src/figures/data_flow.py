@@ -9,8 +9,10 @@ from matplotlib.patches import Polygon, FancyArrow, PathPatch, FancyArrowPatch
 from matplotlib.text import TextPath
 from matplotlib.ticker import MultipleLocator
 from astropy import units as u
-from gammapy.estimators import LightCurve, FluxPoints
+from astropy.table import Table
+from gammapy.estimators import FluxPoints
 from gammapy.maps import Map
+import config
 
 u.imperial.enable()
 
@@ -18,10 +20,11 @@ logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 # Gammapy logo font
-matplotlib.rc("text", usetex=True)
-matplotlib.rc("font", **{"family": "sans-serif"})
-params = {"text.latex.preamble": [r"\usepackage{amsmath}"]}
-plt.rcParams.update(params)
+# matplotlib.rc("text", usetex=True)
+# matplotlib.rc("font", **{"family": "sans-serif"})
+# params = {"text.latex.preamble": [r"\usepackage{amsmath}"]}
+# plt.rcParams.update(params)
+plt.rcParams["mathtext.fontset"] = "cm"
 
 
 FIGSIZE_MM = [180, 131] * u.mm
@@ -77,7 +80,7 @@ def plot_sub_package_icon(
         color=GP_ORANGE,
     )
     ax.text(offset[0] + 6, offset[1] + 5.5, s="$\pi$", size=fontsize_gp, color=color)
-    ax.text(offset[0] + 1, offset[1] + 1.5, s=name, size=12, color=color)
+    ax.text(offset[0] + 1, offset[1] + 1.5, s=name, size=9.5, color=color)
 
     for idx, cls in enumerate(classes):
         ax.text(offset[0], offset[1] - 4 - 4.2 * idx, s=cls, size=8, color=color)
@@ -162,26 +165,27 @@ def plot_catalog(ax):
 
 
 def plot_lightcurve(ax):
-    filename = "data/light_curve.fits"
+    filename = config.BASE_PATH / "data/light_curve.fits"
     log.info(f"Reading: {filename}")
 
-    lc = LightCurve.read(filename)
-    lc.plot(ax=ax, marker="None", label="1 TeV")
+    lc = FluxPoints.read(filename, format="lightcurve")
+    lc.plot(ax=ax, sed_type="dnde", marker="None", label="1 TeV")
+    ax.set_yscale("linear")
     format_dl5_ax(ax=ax)
-    ax.set_ylim(3e-11, 4e-10)
-    ax.set_xlim(53945.85, 53946.09)
+    #ax.set_ylim(3e-11, 4e-10)
+    #ax.set_xlim(53945.85, 53946.09)
     ax.legend(fontsize=8, labelspacing=0.1)
 
 
 def plot_sed(ax):
-    filename = "data/flux_points.fits"
+    filename = config.BASE_PATH / "data/flux_points.fits"
     log.info(f"Reading: {filename}")
+
     flux_points = FluxPoints.read(filename, sed_type="likelihood")
-    flux_points.table["is_ul"] = flux_points.table["ts"] < 4
+    ax.yaxis.set_units(u.Unit("erg cm-2 s-1"))
     flux_points.plot(
         ax=ax,
-        energy_power=2,
-        flux_unit="erg-1 cm-2 s-1",
+        sed_type="e2dnde",
         color="darkorange",
         elinewidth=1,
         markeredgewidth=1,
@@ -189,15 +193,15 @@ def plot_sed(ax):
 
     flux_points.plot_ts_profiles(ax=ax, sed_type="e2dnde", add_cbar=False)
     format_dl5_ax(ax=ax)
-    ax.set_title("SEDs \& Lightcurves", color=GP_GRAY, pad=4)
+    ax.set_title("SEDs & Lightcurves", color=GP_GRAY, pad=4)
 
 
 def plot_image(ax):
-    filename = "data/flux_image.fits"
+    filename = config.BASE_PATH / "data/flux_image.fits"
     log.info(f"Reading: {filename}")
     m = Map.read(filename)
     m.plot(ax=ax, cmap="inferno", stretch="sqrt")
-    ax.set_title("Flux \& TS Maps", color=GP_GRAY, pad=4)
+    ax.set_title("Flux & TS Maps", color=GP_GRAY, pad=4)
     format_dl5_ax(ax=ax)
 
 
@@ -215,7 +219,7 @@ def plot_data_levels(ax, ypos=123):
     ax.text(160, ypos, "DL5/6", **kwargs)
 
     kwargs["size"] = 12
-    ax.text(15, ypos - 7, "$\gamma$-like events", **kwargs)
+    ax.text(15, ypos - 7, "$\mathsf{\gamma}$-like events", **kwargs)
     ax.text(80, ypos - 7, "Binned data", **kwargs)
     ax.text(160, ypos - 7, "Science products", **kwargs)
 
@@ -261,7 +265,8 @@ def plot_high_level_interface(fig, ax, ypos=24):
         va="center",
         ha="center",
         color=GRAY,
-        fontweight="black"
+        fontweight="black",
+        size=9.5
     )
 
     plot_arrow(ax=ax, offset=(offset[0] + size * 0.74 + 1, offset[1] + size / 2), fc=GRAY)
