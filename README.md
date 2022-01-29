@@ -28,8 +28,8 @@ We invite you to become a co-author if you either have [contributed to the
 Gammapy core package](https://github.com/gammapy/gammapy/graphs/contributors)
 or have an [official role](https://gammapy.org/team.html) in the Gammapy project.
 
-##Contribute
-###Getting Started
+## Contribute
+### Getting Started
 To get started with paper writing, make a fork of the repository and clone the
 forked repository to your local machine:
 
