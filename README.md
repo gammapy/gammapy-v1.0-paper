@@ -28,7 +28,8 @@ We invite you to become a co-author if you either have [contributed to the
 Gammapy core package](https://github.com/gammapy/gammapy/graphs/contributors)
 or have an [official role](https://gammapy.org/team.html) in the Gammapy project.
 
-## Getting Started
+##Contribute
+###Getting Started
 To get started with paper writing, make a fork of the repository and clone the
 forked repository to your local machine:
 
@@ -56,7 +57,9 @@ will be linked by the label provided in the figure environment see
 [showyourwork default figure generation](https://showyourwork.readthedocs.io/en/stable/custom/#default-figure-generation)
 for details.
 
-## Git pre-commit hooks
+When writing text please makes use of the shortcuts defined in [0-shortcuts.tex](https://github.com/gammapy/gammapy-v1.0-paper/blob/main/src/text/0-shortcuts.tex).
+
+### Git pre-commit hooks
 To ensure a consistent formatting of the `.tex` files and check for missing labels,
 typos etc. the repository defines pre-commit hooks. Right now the setting is very 
 strict such that commit is prevented if any pre-commit hook fails. If you find 
