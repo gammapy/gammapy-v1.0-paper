@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 BASE_PATH = Path(__file__).parent.parent
 
-filenames = BASE_PATH.glob("src/text/*.tex")
+filenames = (BASE_PATH / "src/text").glob("**/*.tex")
 
 for filename in filenames:
     if filename.name in EXCLUDE_FILES:
