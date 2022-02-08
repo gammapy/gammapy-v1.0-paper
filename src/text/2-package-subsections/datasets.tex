@@ -10,21 +10,22 @@ DL4 level data
 	\label{fig*:minted:gp_datasets}
 \end{figure}
 
-Reduced data, IRFs, and models are bundled together to create a Data Level 4 (DL4). This is provide in the Dataset class which computes a likelihood to interface with the Fit class to perform a fitting. Corresponding to the different analysis types, five types of datasets are supported in gammapy (\ref{table:datasets_types}). 3D data cubes (with two spatial and one energy) are represented by MapDatasets, whereas SpectrumDatastes contain binned energy information for a given on region. 2D images are a special case of MapDatasets, with only one bin in energy. The FluxPointsDataset is used to fit pre-computed flux points when no convolution with IRFs are needed.   
+Reduced data, IRFs, and models are bundled together to create a Data Level 4 (DL4). This is provide in the Dataset class which computes a likelihood to interface with the Fit class to perform a fitting. Corresponding to the different analysis types, five types of datasets are supported in gammapy (\ref{table:datasets_types}). 3D data cubes (with two spatial and one energy) are represented by MapDatasets, whereas SpectrumDatasets contain binned energy information for a given on region. 2D images are a special case of MapDatasets, with only one bin in energy. The FluxPointsDataset is used to fit pre-computed flux points when no convolution with IRFs are needed.   
 
-\begin{table}[!ht]
+\begin{table*}[!ht]
     \centering
     \begin{tabular}{|l|l|l|l|l|l|l|}
     \hline
         Dataset Type & Data Type & Reduced IRFs & Geometry & Additional Quantities & Fit Statistic & Purpose \\ \hline
-        MapDataset & counts & background, psf, edisp, exposure, & WcsGeom or RegionGeom & ~ & cash & A full 3D analysis with a field of view background \\ \hline
+        MapDataset & counts & background, psf, edisp, exposure, & WcsGeom or RegionGeom & -- & cash & A full 3D analysis with a field of view background \\ \hline
         MapDatasetOnOff & counts & psf, edisp, exposure & WcsGeom & acceptance, acceptance\_off, counts\_off & wstat & Sky Images with a Ring Background / Background estimation from off observations \\ \hline
-        SpectrumDataset & counts & background, edisp, exposure & RegionGeom & ~ & cash & 1D spectral extraction with the FoV background \\ \hline
+        SpectrumDataset & counts & background, edisp, exposure & RegionGeom & -- & cash & 1D spectral extraction with the FoV background \\ \hline
         SpectrumDatasetOnOff & counts & edisp, exposure & RegionGeom & acceptance, acceptance\_off, counts\_off & wstat & 1D spectral extractions using Reflected regions \\ \hline
-        FluxPointsDataset & flux & None & None & ~ & chi2 & Fitting of precomputed flux points \\ \hline
+        FluxPointsDataset & flux & None & None & -- & chi2 & Fitting of precomputed flux points \\ \hline
     \end{tabular}
-    \caption{table:datasets_types}
-\end{table}
+    \caption{Some caption.}
+    \label{table:datasets_types}
+\end{table*}
 
 
 Multiple datasets, or the same or different type, can be contained in a Datasets container. The Datasets class adds the likelihood from its constituent members to compute the full likelihood for a joint fitting.
