@@ -1,11 +1,32 @@
 \subsection{gammapy.makers}
 \label{ssec:gammapy-makers}
 \todo{Regis Terrier}
-Data reduction
+
+
+The data reduction contains all tasks required to process and prepare data at the DL3
+level for modeling and fitting. The \texttt{gammapy.makers} sub-package contains the various
+classes and functions required to do so.
+First, events are binned and IRFs are interpolated and
+projected onto the chosen analysis geometry. This produces counts, exposure, background, psf
+and energy dispersion maps. The \texttt{MapDatasetMaker} and \texttt{SpectrumDatasetMaker}
+are responsible for this task, see Fig~\ref{ig*:minted:gp_makers}.
+
+Because the background models suffer from strong uncertainties it is required to correct
+them from the data themselves. Several techniques are commonly used in gamma-ray astronomy
+such as field-of-view background normalization or background measurement in reflected regions 
+regions, see~\cite{Berge07}. Specific \texttt{Makers} such as the \texttt{FoVBackgroundMaker}
+or the \texttt{ReflectedRegionsBackgroundMaker} are in charge of this step.
+
+Finally, to limit other sources of systematic uncertainties, a data validity domain is
+determined by the \texttt{SafeMaskMaker}. It can be used to limit the extent of the field
+of view used or to limit the energy range to e.g. a domain where the energy reconstruction
+bias is below a given value.
+
+
 
 \begin{figure}
 	\import{code-examples/generated/}{gp_makers}
 
-	\caption{Using gammapy.data to access DL3 level data}
+	\caption{Using gammapy.makers to reduce DL3 level data into a \texttt{Dataset}.}
 	\label{ig*:minted:gp_makers}
 \end{figure}
