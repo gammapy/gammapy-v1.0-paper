@@ -10,17 +10,11 @@ The sub-package provides a uniform API for the FITS World Coordinate System (WCS
 % itemize because it helps me write, could also just be paragraphs...
 \begin{itemize}
 	\item \textbf{WCS: } The FITS WCS pixelization supports a different number of projections to represent celestial spherical coordinates in a regular rectangular grid.
-	\item \textbf{HEALPix: } This pixelization provides a subdivision of a sphere in which each pixel covers the same surface area as every other pixel. As a consequence, however, pixel shapes are no longer rectangular, or regular. Gammapy provides limited support to HEALPix-based maps, relying in some cases on projections to a WCS grid.
+	\item \textbf{HEALPix: } This pixelization provides a subdivision of a sphere in which each pixel covers the same surface area as every other pixel. As a consequence, however, pixel shapes are no longer rectangular, or regular. \gammapy provides limited support to HEALPix-based maps, relying in some cases on projections to a local WCS grid.
 	\item \textbf{Region geometries: } In this case, instead of a fine spatial grid on a given sky region, the spatial dimension is reduced to a single bin with an arbitrary shape, describing a region in the sky with that same shape. Typically they are is used together with a non-spatial dimension, for example an energy axis to represent how a quantity varies with energy on a given region of the sky.
 \end{itemize}
 
 
+\todo{Include example of a sky-map? Perhaps also a region map? Although maybe too much.}
 
-
-
-
-\begin{figure}
-	\import{code-examples/generated/}{gp_maps}
-	\caption{Using gammapy.data to access DL3 level data with a DataStore}
-	\label{codeexample:data}
-\end{figure}
+\todo{Code examples of what? Making a geom and filling a map? Transforming coordinates? 3D maps? Would be good to have the code example and the plot be related}
