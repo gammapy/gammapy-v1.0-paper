@@ -1,12 +1,23 @@
 \subsection{gammapy.maps}
 \label{ssec:gammapy-maps}
 \todo{Laura Olivera-Nieto}
-The \verb|gammapy.maps| sub-package provides classes for representing pixelized
-data structures with at least two spatial dimensions representing a set of
-coordinates or a region on a sphere. In addition it allows to handle and
-arbitrary number of non-spatial data axes, such as time or energy.
+The \verb|gammapy.maps| sub-package provides classes for representing data structures associated with a set of coordinates or a region on a sphere. In addition it allows to handle an arbitrary number of non-spatial data dimensions, such as time or energy. It is organized around three types of structures: geometries, sky-maps and map axes, which inherit from the base classes Geom, Map and MapAxis respectively. 
 
-It provides a uniform API for WCS, HEALPix and region based data structures.
+The geometry defines the pixelization scheme and map boundaries. It also provides methods to transform between sky and pixel coordinates. Maps consist of a geometry instance together with a data array containing the corresponding map values. Map axes contain a sequence of ordered values which define bins on a given dimension, spatial or not. Map axes can have physical units attached to them, as well as non-linear step sizes.
+
+The sub-package provides a uniform API for the FITS World Coordinate System (WCS)~\citep{Calabretta2002}, the HEALPix pixelization~\citep{Gorski2005} and region-based data structures:
+
+% itemize because it helps me write, could also just be paragraphs...
+\begin{itemize}
+	\item \textbf{WCS: } The FITS WCS pixelization supports a different number of projections to represent celestial spherical coordinates in a regular rectangular grid.
+	\item \textbf{HEALPix: } This pixelization provides a subdivision of a sphere in which each pixel covers the same surface area as every other pixel. As a consequence, however, pixel shapes are no longer rectangular, or regular. Gammapy provides limited support to HEALPix-based maps, relying in some cases on projections to a WCS grid.
+	\item \textbf{Region geometries: } In this case, instead of a fine spatial grid on a given sky region, the spatial dimension is reduced to a single bin with an arbitrary shape, describing a region in the sky with that same shape. Typically they are is used together with a non-spatial dimension, for example an energy axis to represent how a quantity varies with energy on a given region of the sky.
+\end{itemize}
+
+
+
+
+
 
 \begin{figure}
 	\import{code-examples/generated/}{gp_maps}
