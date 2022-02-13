@@ -9,7 +9,9 @@ dependencies:
         - src/code-examples/generated/gp_maps.tex
         - src/code-examples/generated/gp_models.tex
         - src/code-examples/generated/gp_estimators.tex
-
+    src/text/3.1-cta.tex:
+        - src/data/cta-galactic-center/datasets.yaml
+        - src/data/cta-galactic-center/stacked-counts.fits
     src/figures/fermi_ts_map.py:
         - src/data/fermi-ts-map/fermi-ts-maps.fits
         - src/data/fermi-ts-map/fermi-ts-maps.fits_model.yaml
