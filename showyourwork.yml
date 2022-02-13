@@ -8,7 +8,6 @@ dependencies:
         - src/code-examples/generated/gp_makers.tex
         - src/code-examples/generated/gp_maps.tex
         - src/code-examples/generated/gp_models.tex
-        - src/code-examples/generated/gp_estimators.tex
     src/text/3.1-cta.tex:
         - src/data/cta-galactic-center/datasets.yaml
         - src/data/cta-galactic-center/stacked-counts.fits

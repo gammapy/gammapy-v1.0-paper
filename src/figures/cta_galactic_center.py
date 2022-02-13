@@ -141,7 +141,7 @@ def fit_model(datasets):
 
 def plot_spectrum_and_image():
     counts = Map.read("../data/cta-galactic-center/stacked-counts.fits")
-    datasets = Datasets.read("../data/cta-galactic-center/datasets.yaml")
+    datasets = Datasets.read("../data/cta-galactic-center/datasets/datasets.yaml")
 
     figsize = config.FigureSizeAA(aspect_ratio=2.8, width_aa="two-column")
     fig = plt.figure(figsize=figsize.inch)
@@ -176,7 +176,7 @@ if __name__ == "__main__":
     log.info(f"Writing {filename}")
     counts.write(filename, overwrite=True)
 
-    filename = path / "datasets.yaml"
+    filename = path / "datasets/datasets.yaml"
     observations = get_observations()
     datasets = make_datasets_spectral(observations)
     log.info(f"Writing {filename}")
@@ -185,7 +185,7 @@ if __name__ == "__main__":
     filename = path / "best-fit-model.yaml"
     models = fit_model(datasets)
     log.info(f"Writing {filename}")
-    models.write(filename, overwrite=True)
+    models.write(filename, overwrite=True, write_covariance=False)
 
     filename = path / "flux-points.fits"
     fp = make_flux_points(datasets)
