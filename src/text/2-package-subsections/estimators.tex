@@ -1,4 +1,32 @@
 \subsection{gammapy.estimators}
 \label{ssec:gammapy-estimators}
 \todo{Axel Donath}
-Estimators
+The \verb|gammapy.estimators| sub-module features methods to compute
+flux points, light curves, flux maps, flux profiles from data.
+
+The initial fine binning of \verb|MapDataset| is grouped into larger bins.
+
+Internal representation with a reference spectral model and an array of
+normalisation values given in energy, time and spatial bins.
+
+No unfolding.
+
+\begin{itemize}
+	\item Regrouping of dataset bins in time, energy etc.
+	\item Reference spectral model scaled in energy bin
+	\item "Forward folding" / "Backward folding": but there is no difference between the two, backwards folding is forward folding with one bin
+	\item Likelihood profiles
+	\item Uniform N-dimensional data structure
+	\item Uniform API for plotting etc.
+	\item \verb|FluxMaps| and \verb|FluxPoints|
+	\item Serialisation to multiple formats, Astropy's \verb|Table| and \verb|BinnedTimeSeries|
+	\item Additional quantities for debugging, such as predicted counts, fit convergence, sum of fit statistics
+	\item
+\end{itemize}
+
+\begin{figure}
+	\import{code-examples/generated/}{gp_estimators}
+	\caption{Using the TSMapEstimator from gammapy.estimators to compute a sqrt(TS) map.}
+	\label{fig*:minted:gp_estimators}
+\end{figure}
+

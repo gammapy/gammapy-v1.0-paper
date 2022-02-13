@@ -1,15 +1,8 @@
-# Don't track anything...
-*
-
 # ... except the following...
-!figures
-!static
-!text
-!code-examples
-!code-examples/snippets/*.py
-!.gitignore
-!*.tex
-!*.bib
+*.aux
+*.log
+*.out
+code-examples/generated
 
 # ... but never these:
 .showyourwork*
