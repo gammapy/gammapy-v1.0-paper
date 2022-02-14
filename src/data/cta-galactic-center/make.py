@@ -1,34 +1,29 @@
 #!/usr/bin/env python
 import logging
 from pathlib import Path
-import matplotlib.pyplot as plt
 import numpy as np
 import astropy.units as u
 from astropy.coordinates import SkyCoord
-from astropy.convolution import Gaussian2DKernel
-from astropy.visualization import simple_norm
 from regions import CircleSkyRegion
 from gammapy.modeling import Fit
 from gammapy.data import DataStore
 from gammapy.datasets import (
     Datasets,
-    FluxPointsDataset,
     SpectrumDataset,
     MapDataset,
 )
 from gammapy.modeling.models import (
     PowerLawSpectralModel,
     SkyModel,
-    GaussianSpatialModel,
 )
-from gammapy.maps import MapAxis, WcsNDMap, WcsGeom, RegionGeom, Map
+from gammapy.maps import MapAxis, WcsGeom, RegionGeom
 from gammapy.makers import (
     MapDatasetMaker,
     SafeMaskMaker,
     SpectrumDatasetMaker,
     ReflectedRegionsBackgroundMaker,
 )
-from gammapy.estimators import FluxPointsEstimator, FluxPoints
+from gammapy.estimators import FluxPointsEstimator
 
 
 logging.basicConfig()

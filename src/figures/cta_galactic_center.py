@@ -1,58 +1,21 @@
-#!/usr/bin/env python
-# coding: utf-8
+import logging
 from pathlib import Path
 import matplotlib.pyplot as plt
-import numpy as np
-import astropy.units as u
-from astropy.coordinates import SkyCoord
-from astropy.convolution import Gaussian2DKernel
 from astropy.visualization import simple_norm
-from regions import CircleSkyRegion
-from gammapy.modeling import Fit
-from gammapy.data import DataStore
-from gammapy.datasets import (
-    Datasets,
-    FluxPointsDataset,
-    SpectrumDataset,
-    MapDataset,
-)
-from gammapy.modeling.models import (
-    PowerLawSpectralModel,
-    SkyModel,
-    GaussianSpatialModel,
-)
-from gammapy.maps import MapAxis, WcsNDMap, WcsGeom, RegionGeom, Map
-from gammapy.makers import (
-    MapDatasetMaker,
-    SafeMaskMaker,
-    SpectrumDatasetMaker,
-    ReflectedRegionsBackgroundMaker,
-)
-from gammapy.estimators import TSMapEstimator, FluxPointsEstimator, FluxPoints
-from gammapy.estimators.utils import find_peaks
+from gammapy.datasets import Datasets
+from gammapy.maps import Map
+from gammapy.estimators import FluxPoints
 from gammapy.visualization import plot_spectrum_datasets_off_regions
 import config
 
-# Configure the logger, so that the spectral analysis
-# isn't so chatty about what it's doing.
-import logging
-
-logging.basicConfig()
+logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
-log.setLevel(logging.INFO)
-
-ENERGY_AXIS = MapAxis.from_edges(
-    np.logspace(-1.0, 1.0, 10), unit="TeV", name="energy", interp="log"
-)
-
-GEOM = WcsGeom.create(
-    skydir=(0, 0), npix=(500, 400), binsz=0.02, frame="galactic", axes=[ENERGY_AXIS.squash()]
-)
 
 
 def plot_spectrum_and_image():
-    counts = Map.read("../data/cta-galactic-center/stacked-counts.fits")
-    datasets = Datasets.read("../data/cta-galactic-center/datasets/datasets.yaml")
+    path = Path("../data/cta-galactic-center/")
+    counts = Map.read(path / "stacked-counts.fits")
+    datasets = Datasets.read(path / "datasets/datasets.yaml")
 
     figsize = config.FigureSizeAA(aspect_ratio=2.8, width_aa="two-column")
     fig = plt.figure(figsize=figsize.inch)
