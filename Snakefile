@@ -28,3 +28,9 @@ rule minted:
     shell:
         "cd src/code-examples && python minted.py"
 
+# Custom rule to download Fermi dataset
+rule download_fermi:
+    output:
+        "src/data/fermi-ts-map"
+    shell:
+        "cd scripts && python download.py"
