@@ -8,8 +8,12 @@ dependencies:
         - src/code-examples/generated/gp_makers.tex
         - src/code-examples/generated/gp_maps.tex
         - src/code-examples/generated/gp_models.tex
-    src/text/3.1-cta.tex:
-        - src/data/cta-galactic-center/datasets.yaml
+    src/figures/cta_galactic_center.py:
+        - src/data/cta-galactic-center/datasets/datasets.yaml
+        - src/data/cta-galactic-center/datasets/pha_obsobs-110380.fits
+        - src/data/cta-galactic-center/datasets/pha_obsobs-111140.fits
+        - src/data/cta-galactic-center/datasets/pha_obsobs-111159.fits
+        - src/data/cta-galactic-center/flux-points.fits
         - src/data/cta-galactic-center/stacked-counts.fits
     src/figures/fermi_ts_map.py:
         - src/data/fermi-ts-map/fermi-ts-maps.fits
