@@ -23,6 +23,8 @@ rule minted:
         "src/code-examples/generated/gp_makers.tex",
         "src/code-examples/generated/gp_maps.tex",
         "src/code-examples/generated/gp_models.tex",
+        "src/code-examples/generated/gp_estimators.tex",
+        "src/code-examples/generated"
     conda:
         "environment.yml"
     shell:
@@ -31,6 +33,10 @@ rule minted:
 # Custom rule to download Fermi dataset
 rule download_fermi:
     output:
-        "src/data/fermi-ts-map"
+        "src/data/fermi-ts-map/input/fermi-3fhl-gc-counts-cube.fits.gz",
+        "src/data/fermi-ts-map/input/fermi-3fhl-gc-background-cube.fits.gz",
+        "src/data/fermi-ts-map/input/fermi-3fhl-gc-exposure-cube.fits.gz",
+        "src/data/fermi-ts-map/input/fermi-3fhl-gc-psf-cube.fits.gz",
+        "src/data/fermi-ts-map/input"
     shell:
         "cd scripts && python download.py"
