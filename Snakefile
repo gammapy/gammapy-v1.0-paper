@@ -36,6 +36,8 @@ rule download_fermi:
         "src/data/fermi-ts-map/input/fermi-3fhl-gc-background-cube.fits.gz",
         "src/data/fermi-ts-map/input/fermi-3fhl-gc-exposure-cube.fits.gz",
         "src/data/fermi-ts-map/input/fermi-3fhl-gc-psf-cube.fits.gz",
+    conda:
+        "environment.yml"
     shell:
         "cd scripts && python download.py fermi-gc"
 
@@ -49,5 +51,7 @@ rule prepare_fermi:
     output:
         "src/data/fermi-ts-map/fermi-ts-maps.fits",
         "src/data/fermi-ts-map/fermi-ts-maps.fits_model.yaml",
+    conda:
+        "environment.yml"
     shell:
         "cd src/data/fermi-ts-map && python make.py"
