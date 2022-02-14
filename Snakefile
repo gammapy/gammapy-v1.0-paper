@@ -55,3 +55,39 @@ rule prepare_fermi:
         "environment.yml"
     shell:
         "cd src/data/fermi-ts-map && python make.py"
+
+# Custom rule to download Fermi dataset
+rule download_cta:
+    output:
+        "src/data/cta-galactic-center/input/index/gps/hdu-index.fits.gz",
+        "src/data/cta-galactic-center/input/index/gps/obs-index.fits.gz",
+        "src/data/cta-galactic-center/input/data/baseline/gps/gps_baseline_110380.fits",
+        "src/data/cta-galactic-center/input/data/baseline/gps/gps_baseline_111140.fits",
+        "src/data/cta-galactic-center/input/data/baseline/gps/gps_baseline_111159.fits",
+        "src/data/cta-galactic-center/input/caldb/data/cta/1dc/bcf/South_z20_50h/irf_file.fits",
+    conda:
+        "environment.yml"
+    shell:
+        "cd scripts && python download.py cta-1dc"
+
+
+# Custom rule to prepare Fermi dataset
+rule prepare_cta:
+    input:
+        "src/data/cta-galactic-center/input/index/gps/hdu-index.fits.gz",
+        "src/data/cta-galactic-center/input/index/gps/obs-index.fits.gz",
+        "src/data/cta-galactic-center/input/data/baseline/gps/gps_baseline_110380.fits",
+        "src/data/cta-galactic-center/input/data/baseline/gps/gps_baseline_111140.fits",
+        "src/data/cta-galactic-center/input/data/baseline/gps/gps_baseline_111159.fits",
+        "src/data/cta-galactic-center/input/caldb/data/cta/1dc/bcf/South_z20_50h/irf_file.fits",
+    output:
+        "src/data/cta-galactic-center/datasets/datasets.yaml",
+        "src/data/cta-galactic-center/datasets/pha_obsobs-110380.fits",
+        "src/data/cta-galactic-center/datasets/pha_obsobs-111140.fits",
+        "src/data/cta-galactic-center/datasets/pha_obsobs-111159.fits",
+        "src/data/cta-galactic-center/flux-points.fits",
+        "src/data/cta-galactic-center/stacked-counts.fits",
+    conda:
+        "environment.yml"
+    shell:
+        "cd src/data/cta-galactic-center && python make.py"
