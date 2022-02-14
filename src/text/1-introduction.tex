@@ -9,13 +9,26 @@ The gamma-ray sky is either observed by ground based instruments, driven by
 experiments with proprietary software often based on ROOT, because of the
 particle physics background. Such as HESS, Veritas or Magic.
 
-The Cherenkov Telescope Array will be operated as an open observatory for the
+The Cherenkov Telescope Array (CTA) will be operated as an open observatory for the
 first time. Thus there is a need for open analysis software as well.
 
-Once the primary photons are reconstructed the format of the data of all
-Gamma-ray instrumets can be brought into a common format. An effort is the
-gamma-astro data formats~\cite{gadf-zenodo}. The data format is based on FITS
-\citep{fits}.
+Moreover, the operation of CTA as an observatory introduces the necessity of sharing
+its data publicly. The data-reduction workflow of different IACTs of the current
+generation is remarkably similar, resulting in a ``high'' data level that can be
+finally used to derive scientific results (e.g. spectra, sky maps, light curves).
+The information in this high data level is independent on the data reduction,
+and eventually of the detection technique. This implies, for example, that data
+from IACT and WCD can be represented within the same model.
+The efforts to prototype the future CTA data model and to convert current IACT
+data in a format usable with the newly-available science tools converged in the 
+so-called ``Data Format for Gamma-ray Astronomy'' initiative
+\citep{gadf_proc, gadf_universe}, abbreviated in \texttt{gamma-astro-data-format}
+(GADF). The latter proposes prototypical specifications to produce files based
+on the flexible image transport system (FITS) format \citep{fits} encapsulating
+this high-level information. This is realized by storing a list of gamma-like
+events with their measured quantites (energy, direction, arrival time) and a
+parametrisation of the response of the system (see Sec.~\ref{ssec:gammapy-data}
+and Sec.~\ref{ssec:gammapy-irf} for more information).
 
 In recent years Python \footnote{\PythonUrl} has established as one of the
 standard programming  languages for astronomy \footnote{Citation missing} as
