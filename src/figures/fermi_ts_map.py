@@ -21,7 +21,7 @@ log = logging.getLogger(__name__)
 
 
 def read_dataset():
-    path = Path("$GAMMAPY_DATA/fermi-3fhl-gc")
+    path = Path(__file__).parent.parent / "data/fermi-ts-map/input"
     counts = Map.read(path / "fermi-3fhl-gc-counts-cube.fits.gz")
     background = Map.read(path / "fermi-3fhl-gc-background-cube.fits.gz")
     exposure = Map.read(path / "fermi-3fhl-gc-exposure-cube.fits.gz")
