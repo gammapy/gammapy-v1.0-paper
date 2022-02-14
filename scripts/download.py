@@ -1,6 +1,10 @@
+import logging
 import click
 from pathlib import Path
 from gammapy.scripts.download import progress_download
+
+log = logging.getLogger(__name__)
+logging.basicConfig(level=logging.DEBUG)
 
 BASE_URL = "https://github.com/gammapy/gammapy-data/raw/master/"
 PATH = Path(__file__).parent.parent
@@ -22,6 +26,7 @@ def download_fermi_data():
     for filename in FILENAMES:
         destination = fermi_path / filename
         source = BASE_URL + "fermi-3fhl-gc/" + filename
+        log.info(f"Downloading {source}")
         progress_download(source, destination)
 
 
