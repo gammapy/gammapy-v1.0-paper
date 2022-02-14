@@ -15,5 +15,7 @@ dependencies:
   - pre-commit
   - rust
   - ruamel.yaml
+  - tqdm
+  - requests
   - pip:
       - pygments
