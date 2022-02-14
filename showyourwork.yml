@@ -11,7 +11,5 @@ dependencies:
         - src/code-examples/generated/gp_estimators.tex
 
     src/figures/fermi_ts_map.py:
-        - src/data/fermi-ts-map/input/fermi-3fhl-gc-counts-cube.fits.gz
-        - src/data/fermi-ts-map/input/fermi-3fhl-gc-background-cube.fits.gz
-        - src/data/fermi-ts-map/input/fermi-3fhl-gc-exposure-cube.fits.gz
-        - src/data/fermi-ts-map/input/fermi-3fhl-gc-psf-cube.fits.gz
+        - src/data/fermi-ts-map/fermi-ts-maps.fits
+        - src/data/fermi-ts-map/fermi-ts-maps.fits_model.yaml
