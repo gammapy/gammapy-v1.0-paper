@@ -1,8 +1,34 @@
 \subsection{gammapy.data}
 \label{ssec:gammapy-data}
 \todo{Cosimo Nigro}
-The \verb|gammapy.data| sub-package provides access to DL3 level data and
-observation handling.
+
+As illustrated in Fig.~\ref{fig:data_flow}, the \verb|gammapy.data| sub-package
+implements the lowest data level, providing the input interface to gamma-ray data.
+The \gammapy data model follows the \gadf specifications (Sec.~\ref{sec:introduction}),
+therefore gamma-ray data compliant with those can be directly read with the package. 
+Version X.X of the \gadf specification is supported in this release version.
+As both the \gadf data model and \gammapy were initially conceived for \iact
+data analysis, input data are typically grouped in \texttt{Observations}, corresponding
+to stable periods of data aquisitions (typically $20 - 30\,{\rm min}$).
+A \texttt{DataStore} object, gathering a collection of observations, can be created
+porviding ancillary files containing information about the telescope observation
+mode and the content of the data unit of each file. The \texttt{DataStore} allows
+for selecting a list of observations based on specific filters.
+As an illustrative example, Fig.~\ref{fig*:minted:gp_data} shows
+how to create a \texttt{datastore} and how to obtain the observations corresponding
+to given identification numbers (IDs).
+
+The so-called DL3 files represented by the \texttt{Observation} class consist of
+two types of elements: a list of gamma-ray events with relevant physical quantities
+for the successive analysis (estimated energy, direction and arrival times) that
+is handled by the \texttt{EventList} class and an instrument response function (IRF),
+providing the response of the system, typically factorised in independent components
+(see the description in Sec.~\ref{ssec:gammapy-irf}).
+The separate handling of event lists and IRFs additionally allows for data from
+other gamma-ray instruments to be read. For example, to read \fermi data, the
+user can read separately their event list (already compliant with the \gadf
+specifications) and then find the appropriate IRF class representing the response
+functions provided by \fermi, see Sec.~\ref{ssec:fermi}.
 
 \begin{figure}
 
