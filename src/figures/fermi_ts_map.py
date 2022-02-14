@@ -1,20 +1,9 @@
 from pathlib import Path
 import logging
 import matplotlib.pyplot as plt
-import matplotlib.cm as cm
-from gammapy.maps import Map
-from gammapy.estimators import TSMapEstimator, FluxMaps
-from gammapy.datasets import MapDataset
-from gammapy.modeling.models import (
-    SkyModel,
-    PowerLawSpectralModel,
-    PointSpatialModel,
-)
-from gammapy.irf import PSFMap, EDispKernelMap
-from astropy.coordinates import SkyCoord
+from gammapy.estimators import FluxMaps
 import astropy.units as u
 from astropy.io import fits
-import numpy as np
 import config
 
 logging.basicConfig(level=logging.INFO)
@@ -70,7 +59,9 @@ def plot_sqrt_ts_maps(maps):
 
 
 if __name__ == "__main__":
-    hdulist = fits.open("../data/fermi-ts-map/fermi-ts-maps.fits")
+    filename = Path("../data/fermi-ts-map/") / "fermi-ts-maps.fits"
+    log.info(f"Reading {filename}")
+    hdulist = fits.open(filename)
     hdulist[0].header["MODEL"] = "../data/fermi-ts-map/fermi-ts-maps.fits_model.yaml"
     maps = FluxMaps.from_hdulist(hdulist=hdulist)
     plot_sqrt_ts_maps(maps=maps)
