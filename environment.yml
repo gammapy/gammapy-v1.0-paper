@@ -4,6 +4,9 @@ channels:
   - defaults
   - conda-forge
 
+variables:
+  PYTHONNOUSERSITE: "1"
+
 dependencies:
   - gammapy=0.19
   - iminuit=2.8.4
