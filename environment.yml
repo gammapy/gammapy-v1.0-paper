@@ -3,6 +3,7 @@ name: gammapy-v1.0-paper
 channels:
   - defaults
   - conda-forge
+  - bioconda
 
 variables:
   PYTHONNOUSERSITE: "1"
@@ -16,6 +17,8 @@ dependencies:
   - python=3.9
   - astropy=5.0
   - markupsafe==2.0.1
+  - snakemake
+  - jinja
   - latexindent.pl
   - pre-commit
   - rust
