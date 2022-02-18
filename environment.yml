@@ -16,7 +16,7 @@ dependencies:
   - pip>=20.3.3
   - python=3.9
   - astropy=5.0
-  - markupsafe==2.0.1
+  - markupsafe=2.0.1
   - snakemake
   - jinja2
   - latexindent.pl
