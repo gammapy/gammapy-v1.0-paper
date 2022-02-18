@@ -157,7 +157,7 @@ def plot_catalog(ax):
 
 
 def plot_lightcurve(ax):
-    filename = config.BASE_PATH / "data/light_curve.fits"
+    filename = config.BASE_PATH / "data/data-flow/light_curve.fits"
     log.info(f"Reading: {filename}")
 
     lc = FluxPoints.read(filename, format="lightcurve")
@@ -170,7 +170,7 @@ def plot_lightcurve(ax):
 
 
 def plot_sed(ax):
-    filename = config.BASE_PATH / "data/flux_points.fits"
+    filename = config.BASE_PATH / "data/data-flow/flux_points.fits"
     log.info(f"Reading: {filename}")
 
     flux_points = FluxPoints.read(filename, sed_type="likelihood")
@@ -189,7 +189,7 @@ def plot_sed(ax):
 
 
 def plot_image(ax):
-    filename = config.BASE_PATH / "data/flux_image.fits"
+    filename = config.BASE_PATH / "data/data-flow/flux_image.fits"
     log.info(f"Reading: {filename}")
     m = Map.read(filename)
     m.plot(ax=ax, cmap="inferno", stretch="sqrt")
