@@ -9,3 +9,6 @@ ms.pdf
 dag.pdf
 
 .idea
+
+# Mac OSX
+.DS_Store
