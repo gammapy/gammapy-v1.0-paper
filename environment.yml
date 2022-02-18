@@ -17,8 +17,8 @@ dependencies:
   - python=3.9
   - astropy=5.0
   - markupsafe=2.0.1
-  - snakemake
-  - jinja2
+  - snakemake-minimal==6.12.3
+  - jinja2=2.11.3
   - latexindent.pl
   - pre-commit
   - rust
