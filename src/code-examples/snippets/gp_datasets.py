@@ -1,10 +1,11 @@
-from gammapy.datasets import MapDataset
-from gammapy.modeling.models import SkyModel, PowerLawSpectralModel, PointSpatialModel
-from gammapy.modeling import Fit
-dataset = MapDataset.read("$GAMMAPY_DATA/cta-1dc-gc/cta-1dc-gc.fits.gz", name="cta_dataset")
-pwl = PowerLawSpectralModel()
-point = PointSpatialModel()
-model = SkyModel( spectral_model=pwl,spatial_model=point,name=”my-model”)
-fit = Fit()
-result = fit.run(datasets=[datasets])
+from gammapy.datasets import MapDataset, FluxPointsDataset, Datasets
 
+dataset1 = MapDataset.read(
+    "$GAMMAPY_DATA/cta-1dc-gc/cta-1dc-gc.fits.gz", name="map_dataset"
+)
+dataset2 = FluxPointsDataset.read(
+    "$GAMMAPY_DATA/tests/spectrum/flux_points/diff_flux_points.fits",
+    name="fluxpoints_dataset",
+)
+datasets = Datasets([dataset1, dataset2])
+print(datasets)
