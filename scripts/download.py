@@ -27,6 +27,26 @@ FILENAMES_CTA = [
     "caldb/data/cta/1dc/bcf/South_z20_50h/irf_file.fits",
 ]
 
+OBS_IDS_PKS2155 = [
+    "33787",
+    "33788",
+    "33789",
+    "33790",
+    "33791",
+    "33792",
+    "33793",
+    "33794",
+    "33795",
+    "33796",
+    "33797",
+    "33798",
+    "33799",
+    "33800",
+    "33801",
+]
+
+FILENAMES_PKS2155 = ["obs-index.fits.gz", "hdu-index.fits.gz"]
+
 
 def download_cta_data():
     cta_path = PATH_DATA / f"cta-galactic-center/input"
@@ -51,9 +71,26 @@ def download_fermi_data():
         progress_download(source, destination)
 
 
+def download_hess_pks2155_data():
+    pks_path = PATH_DATA / f"lightcurve/input"
+    pks_path.mkdir(exist_ok=True, parents=True)
+
+    for obs_id in OBS_IDS_PKS2155:
+        filename = "data/hess_dl3_dr1_obs_id_0" + obs_id + ".fits.gz"
+        FILENAMES_PKS2155.append(filename)
+
+    for filename in FILENAMES_PKS2155:
+        destination = pks_path / filename
+        destination.parent.mkdir(exist_ok=True, parents=True)
+        source = BASE_URL + "hess-dl3-dr1/" + filename
+        log.info(f"Downloading {source}")
+        progress_download(source, destination)
+
+
 DATASETS_REGISTRY = {
     "fermi-gc": download_fermi_data,
     "cta-1dc": download_cta_data,
+    "pks-flare": download_hess_pks2155_data,
 }
 
 
