@@ -45,6 +45,8 @@ OBS_IDS_PKS2155 = [
     "33801",
 ]
 
+FILENAMES_PKS2155 = ["obs-index.fits.gz", "hdu-index.fits.gz"]
+
 
 def download_cta_data():
     cta_path = PATH_DATA / f"cta-galactic-center/input"
@@ -73,7 +75,6 @@ def download_hess_pks2155_data():
     pks_path = PATH_DATA / f"lightcurve/input"
     pks_path.mkdir(exist_ok=True, parents=True)
 
-    FILENAMES_PKS2155 = ["obs-index.fits.gz", "hdu-index.fits.gz"]
     for obs_id in OBS_IDS_PKS2155:
         filename = "data/hess_dl3_dr1_obs_id_0" + obs_id + ".fits.gz"
         FILENAMES_PKS2155.append(filename)
@@ -89,7 +90,7 @@ def download_hess_pks2155_data():
 DATASETS_REGISTRY = {
     "fermi-gc": download_fermi_data,
     "cta-1dc": download_cta_data,
-    "pks-flare": download_hess_pks2155_data(),
+    "pks-flare": download_hess_pks2155_data,
 }
 
 

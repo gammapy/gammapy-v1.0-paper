@@ -91,3 +91,57 @@ rule prepare_cta:
         "environment.yml"
     shell:
         "cd src/data/cta-galactic-center && python make.py"
+
+
+# Custom rule to download Fermi dataset
+rule download_hess:
+    output:
+        "src/data/lightcurve/input/hdu-index.fits.gz",
+        "src/data/lightcurve/input/obs-index.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033787.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033788.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033789.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033790.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033791.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033792.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033793.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033794.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033795.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033796.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033797.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033798.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033799.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033800.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033801.fits.gz",
+    conda:
+        "environment.yml"
+    shell:
+        "cd scripts && python download.py pks-flare"
+
+
+# Custom rule to prepare Fermi dataset
+rule prepare_hess:
+    input:
+        "src/data/lightcurve/input/hdu-index.fits.gz",
+        "src/data/lightcurve/input/obs-index.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033787.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033788.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033789.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033790.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033791.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033792.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033793.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033794.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033795.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033796.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033797.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033798.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033799.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033800.fits.gz",
+        "src/data/lightcurve/input/data/hess_dl3_dr1_obs_id_033801.fits.gz",
+    output:
+        "src/data/lightcurve/pks2155_flare_lc.fits.gz",
+    conda:
+        "environment.yml"
+    shell:
+        "cd src/data/lightcurve && python make.py"

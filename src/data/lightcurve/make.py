@@ -1,3 +1,5 @@
+import logging
+from pathlib import Path
 import astropy.units as u
 import numpy as np
 from astropy.coordinates import SkyCoord
@@ -17,13 +19,15 @@ from gammapy.makers import (
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
+
 def get_observations():
-    data_store = DataStore.from_dir("data/")
+    data_store = DataStore.from_dir("input/")
     obs_table = data_store.obs_table
-    obs_table_seclected = obs_table[obs_table["TARGET_TAG"]=="pks2155_flare"]
+    obs_table_seclected = obs_table[obs_table["TARGET_TAG"] == "pks2155_flare"]
     obs_ids = obs_table_seclected["OBS_ID"]
     observations = data_store.get_observations(obs_ids)
     return observations
+
 
 def split_observations(observations):
     t0 = Time("2006-07-29T20:30")
@@ -69,6 +73,7 @@ def data_reduction(short_observations):
         dataset_on_off = safe_mask_masker.run(dataset_on_off, obs)
         datasets.append(dataset_on_off)
     return datasets
+
 
 def light_curve(datasets, time_intervals):
     spectral_model = PowerLawSpectralModel(

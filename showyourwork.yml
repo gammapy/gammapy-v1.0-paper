@@ -18,3 +18,5 @@ dependencies:
     src/figures/fermi_ts_map.py:
         - src/data/fermi-ts-map/fermi-ts-maps.fits
         - src/data/fermi-ts-map/fermi-ts-maps.fits_model.yaml
+    src/figures/hess_lightcurve_pks.py:
+        - src/data/lightcurve/pks2155_flare_lc.fits.gz
