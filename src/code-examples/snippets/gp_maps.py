@@ -3,7 +3,8 @@ from astropy.coordinates import SkyCoord
 from astropy import units as u
 
 skydir = SkyCoord("0d", "5d", frame="galactic")
-energy_axis = MapAxis.from_bounds(lo_bnd=0.1, hi_bnd=100, nbin=5, unit='TeV', interp='log', name='energy')
+energy_axis = MapAxis.from_bounds(lo_bnd=0.1, hi_bnd=100, 
+              nbin=5, unit='TeV', interp='log', name='energy')
 
 # Create a WCS Map
 m_wcs = Map.create(
@@ -14,7 +15,7 @@ m_wcs = Map.create(
     axes = [energy_axis])
 
 
-# Create a HPX Map
+# Create a HEALPix Map
 m_hpx = Map.create(
     binsz=0.1,
     map_type="hpx",
