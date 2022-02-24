@@ -36,15 +36,6 @@ Most of the analytic models  commonly used in gamma-ray astronomy are built-in. 
 
 The Fit class provides methods to fit, i.e. optimise parameters and estimate parameter errors and correlations. It interfaces with a Datasets object, which in turn is connected to a Models object containing the model parameters in its Parameters object.  Models can be unique for a given dataset, or contribute to multiple datasets and thus provide links, allowing e.g. to do a joint fit to multiple IACT datasets, or to a joint IACT and \textit{Fermi}-LAT dataset. Many examples are given in the tutorials.
 
-The fit class provides a uniform interface to multiple fitting backends: “minuit” \citep{iminuit}, “scipy”, \citep{2020SciPy-NMeth}, and “sherpa” \citep{sherpa-2005,sherpa-2011}, .
-Note that, for now, covaraince matrix and errors are computed only for the fitting with MINUIT. However depending on the problem other optimizers can better perform, so sometimes it can be useful to run a pre-fit with alternative optimization methods.
-
-For the “minuit” backend see https://iminuit.readthedocs.io/en/latest/reference.html for a detailed description of the available options.
-For the “scipy” backend the available options are described in detail here:
-\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html}
-For the “sherpa” backend you can choose the optimization algorithm between “simplex”, “levmar”, “moncar”, “gridsearch”.
-Those methods are described and compared on \url{http://cxc.cfa.harvard.edu/sherpa/methods/index.html}. The available options of the optimization methods are further described on the following page\url{https://cxc.cfa.harvard.edu/sherpa/methods/opt_methods.html}.
-
-In future we plan to extend the supported Fit backend including for example MCMC solutions.  \footnote{a prototype is available in gammapy-recipes, \url(https://gammapy.github.io/gammapy-recipes/_build/html/notebooks/mcmc-sampling-emcee/mcmc_sampling.html)}
-%the sampling code should be moved to the recipe (for now it is imported) because it have been removed from the core package.
-
+The Fit class provides a uniform interface to multiple fitting backends: “minuit” \citep{iminuit}, “scipy”, \citep{2020SciPy-NMeth}, and “sherpa” \citep{sherpa-2005,sherpa-2011}.
+Note that, for now, covariance matrix and errors are computed only for the fitting with MINUIT. However depending on the problem other optimizers can better perform, so sometimes it can be useful to run a pre-fit with alternative optimization methods.
+In future we plan to extend the supported Fit backend, including for example MCMC solutions.  \footnote{a prototype is available in gammapy-recipes, \url(https://gammapy.github.io/gammapy-recipes/_build/html/notebooks/mcmc-sampling-emcee/mcmc_sampling.html)}
