@@ -21,3 +21,6 @@ ms.fls
 .flake8
 .isort.cfg
 .markdownlint.yaml
+
+# Generated table
+src/text/tables/codestats.tex
