@@ -6,6 +6,7 @@ OPTIONS ?= -c1
 export OPTIONS
 .PHONY: Makefile
 SHOWYOURWORK := $(shell test -f showyourwork/LICENSE && echo 1 || echo 0)
+GAMMAPY := $(shell test -f gammapy/LICENSE.rst && echo 1 || echo 0)
 
 
 # Default target: generate the article
@@ -21,7 +22,14 @@ showyourwork_setup:
 		git submodule update;\
 	fi
 
+# Ensure we've cloned the gammapy submodule
+gammapy_setup:
+	@if [ "$(GAMMAPY)" = "0" ]; then \
+		echo "Setting up the gammapy submodule...";\
+		git submodule init;\
+		git submodule update;\
+	fi
 
 # Route all targets to showyourwork/Makefile
-%: Makefile showyourwork_setup
+%: Makefile showyourwork_setup gammapy_setup
 	@$(MAKE) -C showyourwork $@
