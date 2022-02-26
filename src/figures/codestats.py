@@ -2,14 +2,20 @@
 """Provide code stats for Gammapy project"""
 import argparse
 import logging
+import pathlib
 import subprocess
 from string import Template
-
+from collections import defaultdict
 import matplotlib.pyplot as plt
 import pandas as pd
 
+import config
+
 logging.basicConfig(level=logging.INFO)
 
+CODEBASE = "../../gammapy" 
+TEMPFILE = "results.csv"
+TEXFILE = "../text/tables/codestats.tex"
 LATEX_TEMPLATE = r"""\begin{tabular}{ccccccc}
 \hline
 $labels
@@ -17,14 +23,10 @@ $labels
 $cells\hline
 $summary
 \end{tabular}
-
 """
-
 CSV_TEMPLATE = r"""$labels
 $cells$summary"""
 
-
-# TODO: use pygount here? cloc is not easily installable via conda...
 def run_cloc(args):
     result = subprocess.run(["cloc", args.src], capture_output=True)
     return result.stdout
@@ -61,31 +63,49 @@ def make_files(stats):
     latex = latex.substitute(content_lat)
     csv = csv.substitute(content_csv)
 
-    logging.info("LaTeX OUTPUT TABLE BELOW:\n\n")
-    print(latex)
-    with open("results.csv", "w") as file_csv:
-        file_csv.write(csv)
+    with open(TEXFILE, "w") as file_tex:
+        file_tex.write(latex)
+    logging.info(f"LaTeX output file {TEXFILE} created.")
 
+    with open(TEMPFILE, "w") as file_csv:
+        file_csv.write(csv)
+    logging.info(f"CSV temporary file {TEMPFILE} created.")    
 
 def make_pie():
-    file_data = pd.read_csv("results.csv", sep=", ", engine="python")
 
+    figsize = config.FigureSizeAA()
+    plt.figure(figsize=figsize.inch)
+
+    file_data = pd.read_csv(TEMPFILE, sep=", ", engine="python")
     df = file_data[:-1]
     df = df.set_index("Language")
+
+    # code
     df = df.sort_values(by=["code"])[::-1]
-    df.plot.pie(y="code", figsize=(7, 7), autopct=fix_autopct, labels=None)
+    sdf = shorthen_df(df)
+    sdf.plot.pie(y="code", autopct=fix_autopct, labels=None)
     plt.ylabel("")
     plt.savefig("codestats.pdf")
-    logging.info("PIECHART FILE piecode.png CREATED")
+    logging.info("Piecharf file codestats.pdf created.")
 
-    # df = file_data[:-1]
-    # df = df.set_index("Language")
-    # df = df.sort_values(by=["files"])[::-1]
-    # df.plot.pie(y="files", figsize=(7, 7), autopct=fix_autopct, labels=None)
-    # plt.ylabel("")
-    # plt.savefig("piefiles.png")
-    # logging.info("PIECHART FILE piefiles.png CREATED")
+    # files
+    sdf = sdf.sort_values(by=["files"])[::-1]
+    sdf = shorthen_df(df)
+    sdf.plot.pie(y="files", autopct=fix_autopct, labels=None)
+    plt.ylabel("")
+    plt.savefig("filestats.pdf")
+    logging.info("Piecharf file filestats.pdf created.")
 
+def shorthen_df(df):
+    # group others
+    others = defaultdict(int)
+    for i in range(4, len(df)):
+        others["files"] += df["files"][i]
+        others["blank"] += df["blank"][i]
+        others["comment"] += df["comment"][i]
+        others["code"] += df["code"][i]
+    odf = pd.DataFrame(data=others, index=["Others"])
+    return pd.concat([df.head(4), odf], axis=0)
 
 def fix_autopct(pct):
     return ("%.2f" % pct) if pct > 3 else ""
@@ -96,11 +116,15 @@ def main():
     parser.add_argument("--src", help="Path to Gammapy project")
     args = parser.parse_args()
     if not args.src:
-        raise Exception("Please provide --src path to Gammapy project")
+        # raise Exception("Please provide --src path to Gammapy project")
+        args.src = CODEBASE
 
     result = run_cloc(args)
     make_files(result)
     make_pie()
+
+    # remove not needed intermediate file
+    pathlib.Path(TEMPFILE).unlink()
 
 
 if __name__ == "__main__":
