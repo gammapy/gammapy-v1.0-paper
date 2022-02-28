@@ -1,32 +1,12 @@
 \subsection{gammapy.datasets}
 \label{ssec:gammapy-datasets}
 \todo{Atreyee Sinha}
-DL4 level data
+
+The end product of the data reduction process described in Section \ref{ssec:gammapy-makers} are a set of binned counts, background and IRF maps, at the DL4 level. The gammapy.datasets subpackage contains classes to bundle together binned data along with associated models and the likelihood, which provides an interface to the Fit class (Sec \ref{ssec:gammapy-modeling}) for modeling and fitting purposes. Depending upon the type of analysis and the associated statistics, different types of Datasets are supported. MapDataset is used for 3D (spectral and morphological) fitting, and a 1D spectral fitting is done using SpectrumDatastet. While the default statistics for both of these is Cash, their corresponding OnOff versions are adapted for the case where the background is measured from real off counts, and support wstat statistics. The predicted counts are computed by convolution of the models with the associate IRFs. Fitting of precomputed flux points is enabled through FluxPointsDatasets, using chi2 statistics. Multiple datasets of same or different types can be  bundled together in Datasets (e.g.: Figure \ref{fig*:minted:gp_datasets}), where the likelihood from each constituent member is added, thus facilitating joint fitting across different observations, and even different instruments across different wavelengths. Datasets also provide functionalities for manipulating reduced data, eg: stacking, sub-grouping, plotting, etc. Users can also create their customized datasets for implementing modified likelihood methods. 
 
 \begin{figure}
-
 	\import{code-examples/generated/}{gp_datasets}
-	\caption{Using gammapy.data to access DL3 level data with a DataStore}
+	\caption{A Datasets container with FluxPointsDataset and MapDataset}
 	\label{fig*:minted:gp_datasets}
 \end{figure}
 
-Reduced data, IRFs, and models are bundled together to create a Data Level 4 (DL4). This is provide in the Dataset class which computes a likelihood to interface with the Fit class to perform a fitting. Corresponding to the different analysis types, five types of datasets are supported in gammapy (\ref{table:datasets_types}). 3D data cubes (with two spatial and one energy) are represented by MapDatasets, whereas SpectrumDatasets contain binned energy information for a given on region. 2D images are a special case of MapDatasets, with only one bin in energy. The FluxPointsDataset is used to fit pre-computed flux points when no convolution with IRFs are needed.
-
-\begin{table*}[!ht]
-	\centering
-	\begin{tabular}{|l|l|l|l|l|l|l|}
-		\hline
-		Dataset Type         & Data Type & Reduced IRFs                      & Geometry              & Additional Quantities                    & Fit Statistic & Purpose                                                                         \\ \hline
-		MapDataset           & counts    & background, psf, edisp, exposure, & WcsGeom or RegionGeom & --                                       & cash          & A full 3D analysis with a field of view background                              \\ \hline
-		MapDatasetOnOff      & counts    & psf, edisp, exposure              & WcsGeom               & acceptance, acceptance\_off, counts\_off & wstat         & Sky Images with a Ring Background / Background estimation from off observations \\ \hline
-		SpectrumDataset      & counts    & background, edisp, exposure       & RegionGeom            & --                                       & cash          & 1D spectral extraction with the FoV background                                  \\ \hline
-		SpectrumDatasetOnOff & counts    & edisp, exposure                   & RegionGeom            & acceptance, acceptance\_off, counts\_off & wstat         & 1D spectral extractions using Reflected regions                                 \\ \hline
-		FluxPointsDataset    & flux      & None                              & None                  & --                                       & chi2          & Fitting of precomputed flux points                                              \\ \hline
-	\end{tabular}
-	\caption{Some caption.}
-	\label{table:datasets_types}
-\end{table*}
-
-Multiple datasets, or the same or different type, can be contained in a Datasets container. The Datasets class adds the likelihood from its constituent members to compute the full likelihood for a joint fitting.
-
-The total number of predicted counts for a dataset are computed as the sum of the predicted counts from all source components, plus the expected counts from the residual hadronic background. In case of normal datasets, the predicted counts from the hadronic background are computed directly from the model in reconstructed energy and spatial coordinates, whereas for OnOff datasets, the background is estimated from real off counts. The predicted counts from a source are obtained by forward folding with the IRFs, assuming that the IRFs are independent of one another.
