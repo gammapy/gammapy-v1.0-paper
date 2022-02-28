@@ -3,6 +3,7 @@
 *.log
 *.out
 code-examples/generated
+tables/generated
 
 # ... but never these:
 .showyourwork*

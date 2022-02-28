@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO)
 
 CODEBASE = "../../gammapy" 
 TEMPFILE = "results.csv"
-TEXFILE = "../text/tables/codestats.tex"
+TEXFILE = "../tables/generated/codestats.tex"
 LATEX_TEMPLATE = r"""\begin{tabular}{ccccccc}
 \hline
 $labels
