@@ -8,6 +8,7 @@ dependencies:
         - src/code-examples/generated/gp_makers.tex
         - src/code-examples/generated/gp_maps.tex
         - src/code-examples/generated/gp_models.tex
+        - src/tables/generated/codestats.tex
     src/figures/cta_galactic_center.py:
         - src/data/cta-galactic-center/datasets/datasets.yaml
         - src/data/cta-galactic-center/datasets/pha_obsobs-110380.fits

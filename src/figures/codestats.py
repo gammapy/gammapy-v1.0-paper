@@ -45,7 +45,7 @@ def make_files(stats):
         decoded = decoded.replace("Jupyter Notebook", "Notebook")
         decoded = decoded.replace("DOS Batch", "Batch")
         decoded = decoded.replace("Bourne Shell", "Shell")
-        decoded = decoded.replace("SUM:", "SUM")
+        decoded = decoded.replace("SUM:", "Total")
 
         latex_converted = "\t& ".join(decoded.split()) + " \\\\"
         csv_converted = ", ".join(decoded.split())
