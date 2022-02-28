@@ -2,14 +2,20 @@
 """Provide code stats for Gammapy project"""
 import argparse
 import logging
+from pathlib import Path
 import subprocess
 from string import Template
-
+from collections import defaultdict
 import matplotlib.pyplot as plt
 import pandas as pd
 
+import config
+
 logging.basicConfig(level=logging.INFO)
 
+CODEBASE = "../../gammapy" 
+TEMPFILE = "results.csv"
+TEXFILE = "../tables/generated/codestats.tex"
 LATEX_TEMPLATE = r"""\begin{tabular}{ccccccc}
 \hline
 $labels
@@ -17,17 +23,39 @@ $labels
 $cells\hline
 $summary
 \end{tabular}
-
 """
-
 CSV_TEMPLATE = r"""$labels
 $cells$summary"""
 
-
-# TODO: use pygount here? cloc is not easily installable via conda...
 def run_cloc(args):
-    result = subprocess.run(["cloc", args.src], capture_output=True)
-    return result.stdout
+
+    result_api = subprocess.run(["cloc", "--not-match-d=test", args.src], capture_output=True).stdout
+    result_test = subprocess.run(["cloc", "--match-d=test", args.src], capture_output=True).stdout
+
+    for line in result_api.splitlines():
+        decoded = line.decode("utf-8")
+        if decoded.startswith("Python"):
+            python_api_row = decoded
+            (_, files_api, blank_api, comment_api, code_api) = python_api_row.split()
+    for line in result_test.splitlines():
+        decoded = line.decode("utf-8")
+        if decoded.startswith("Python"):
+            python_test_row = decoded
+            (_, files_test, blank_test, comment_test, code_test) = python_test_row.split()
+
+    PythonAPI  = f"PythonAPI                      {files_api}          {blank_api}          {comment_api}          {code_api}"
+    PythonTests = f"PythonTests                    {files_test}           {blank_test}           {comment_test}          {code_test}"
+    DocStrings = f"DocStrings                     {files_api}              0              0          {comment_api}"
+
+    result_list = []
+    for line in result_api.splitlines():
+        decoded = line.decode("utf-8")
+        if decoded.startswith("Python"):
+            result_list.extend((PythonAPI, PythonTests, DocStrings))
+        else:
+            result_list.append(decoded)
+
+    return "\n".join(result_list)
 
 
 def make_files(stats):
@@ -39,53 +67,76 @@ def make_files(stats):
     content_csv = {"labels": "", "cells": "", "summary": ""}
 
     for idx, line in enumerate(stats.splitlines()):
-        decoded = line.decode("utf-8")
-        decoded = decoded.replace("Jupyter Notebook", "Notebook")
-        decoded = decoded.replace("DOS Batch", "Batch")
-        decoded = decoded.replace("Bourne Shell", "Shell")
-        decoded = decoded.replace("SUM:", "SUM")
+        line = line.replace("PythonAPI", "Python~API")
+        line = line.replace("PythonTests", "Python~Tests")
+        line = line.replace("Jupyter Notebook", "Notebooks")
+        line = line.replace("DOS Batch", "Batch")
+        line = line.replace("Bourne Shell", "Shell")
+        line = line.replace("SUM:", "Total")
 
-        latex_converted = "\t& ".join(decoded.split()) + " \\\\"
-        csv_converted = ", ".join(decoded.split())
+        latex_converted = "\t& ".join(line.split()) + " \\\\"
+        csv_converted = ", ".join(line.split())
 
-        if decoded.startswith("Language"):
+        if line.startswith("Language"):
             content_lat["labels"] = latex_converted
             content_csv["labels"] = csv_converted
         elif idx == len(stats.splitlines()) - 2:
             content_lat["summary"] = latex_converted
             content_csv["summary"] = csv_converted
-        elif not decoded.startswith("---") and content_lat["labels"]:
+        elif not line.startswith("---") and content_lat["labels"]:
             content_lat["cells"] += latex_converted + "\n"
             content_csv["cells"] += csv_converted + "\n"
 
-    latex = latex.substitute(content_lat)
     csv = csv.substitute(content_csv)
+    csv = csv.replace("Python~API", "Python API")
+    csv = csv.replace("Python~Tests", "Python Tests")
 
-    logging.info("LaTeX OUTPUT TABLE BELOW:\n\n")
-    print(latex)
-    with open("results.csv", "w") as file_csv:
+    tex_name = Path(TEXFILE)
+    tex_name.parent.mkdir(parents=True, exist_ok=True)
+    latex = latex.substitute(content_lat)
+    with open(TEXFILE, "w") as file_tex:
+        file_tex.write(latex)
+    logging.info(f"LaTeX output file {TEXFILE} created.")
+
+    with open(TEMPFILE, "w") as file_csv:
         file_csv.write(csv)
-
+    logging.info(f"CSV temporary file {TEMPFILE} created.")    
 
 def make_pie():
-    file_data = pd.read_csv("results.csv", sep=", ", engine="python")
 
+    figsize = config.FigureSizeAA()
+    plt.figure(figsize=figsize.inch)
+
+    file_data = pd.read_csv(TEMPFILE, sep=", ", engine="python")
     df = file_data[:-1]
     df = df.set_index("Language")
+
+    # code
     df = df.sort_values(by=["code"])[::-1]
-    df.plot.pie(y="code", figsize=(7, 7), autopct=fix_autopct, labels=None)
+    sdf = shorthen_df(df)
+    sdf.plot(kind="pie", y="code", autopct=fix_autopct, legend=False)
     plt.ylabel("")
     plt.savefig("codestats.pdf")
-    logging.info("PIECHART FILE piecode.png CREATED")
+    logging.info("Piecharf file codestats.pdf created.")
 
-    # df = file_data[:-1]
-    # df = df.set_index("Language")
-    # df = df.sort_values(by=["files"])[::-1]
-    # df.plot.pie(y="files", figsize=(7, 7), autopct=fix_autopct, labels=None)
+    # files
+    # sdf = sdf.sort_values(by=["files"])[::-1]
+    # sdf = shorthen_df(df)
+    # sdf.plot.pie(y="files", autopct=fix_autopct, labels=None)
     # plt.ylabel("")
-    # plt.savefig("piefiles.png")
-    # logging.info("PIECHART FILE piefiles.png CREATED")
+    # plt.savefig("filestats.pdf")
+    # logging.info("Piecharf file filestats.pdf created.")
 
+def shorthen_df(df):
+    # group others
+    others = defaultdict(int)
+    for i in range(5, len(df)):
+        others["files"] += df["files"][i]
+        others["blank"] += df["blank"][i]
+        others["comment"] += df["comment"][i]
+        others["code"] += df["code"][i]
+    odf = pd.DataFrame(data=others, index=["Others"])
+    return pd.concat([df.head(5), odf], axis=0)
 
 def fix_autopct(pct):
     return ("%.2f" % pct) if pct > 3 else ""
@@ -96,11 +147,15 @@ def main():
     parser.add_argument("--src", help="Path to Gammapy project")
     args = parser.parse_args()
     if not args.src:
-        raise Exception("Please provide --src path to Gammapy project")
+        # raise Exception("Please provide --src path to Gammapy project")
+        args.src = CODEBASE
 
     result = run_cloc(args)
     make_files(result)
     make_pie()
+
+    # remove not needed intermediate file
+    Path(TEMPFILE).unlink()
 
 
 if __name__ == "__main__":

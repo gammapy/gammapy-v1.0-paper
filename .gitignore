@@ -15,3 +15,9 @@ ms.fls
 
 # Mac OSX
 .DS_Store
+
+# Linting
+.trunk
+.flake8
+.isort.cfg
+.markdownlint.yaml
