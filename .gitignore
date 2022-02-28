@@ -17,3 +17,9 @@ ms.fls
 .DS_Store
 
 showyourwork
+
+# Linting
+.trunk
+.flake8
+.isort.cfg
+.markdownlint.yaml

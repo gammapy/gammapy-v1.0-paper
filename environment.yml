@@ -20,6 +20,7 @@ dependencies:
   - snakemake-minimal==6.12.3
   - jinja2=2.11.3
   - latexindent.pl
+  - pandas
   - pre-commit
   - rust
   - ruamel.yaml

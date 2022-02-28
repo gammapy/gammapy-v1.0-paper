@@ -1,12 +1,11 @@
-from astropy.coordinates import SkyCoord
-from gammapy.maps import WcsGeom
-from gammapy.datasets import MapDataset
+from gammapy.datasets import MapDataset, FluxPointsDataset, Datasets
 
-skydir = SkyCoord("0d", "0d")
-geom = WcsGeom.create(
-	skydir=skydir, width="5 deg", binsz="0.2 deg"
+dataset1 = MapDataset.read(
+    "$GAMMAPY_DATA/cta-1dc-gc/cta-1dc-gc.fits.gz", name="map_dataset"
 )
-
-dataset = MapDataset.create(
-	geom=geom, name="my-dataset"
+dataset2 = FluxPointsDataset.read(
+    "$GAMMAPY_DATA/tests/spectrum/flux_points/diff_flux_points.fits",
+    name="fluxpoints_dataset",
 )
+datasets = Datasets([dataset1, dataset2])
+print(datasets)

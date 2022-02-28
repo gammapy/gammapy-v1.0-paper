@@ -145,3 +145,13 @@ rule prepare_hess:
         "environment.yml"
     shell:
         "cd src/data/lightcurve && python make.py"
+
+rule codestats:
+    input:
+        "src/figures/codestats.py"
+    output:
+        "src/tables/generated/codestats.tex",
+    conda:
+        "environment.yml"
+    shell:
+        "cd src/figures/ && python codestats.py"
