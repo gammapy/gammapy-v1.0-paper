@@ -2,7 +2,7 @@
 """Provide code stats for Gammapy project"""
 import argparse
 import logging
-import pathlib
+from pathlib import Path
 import subprocess
 from string import Template
 from collections import defaultdict
@@ -63,6 +63,8 @@ def make_files(stats):
     latex = latex.substitute(content_lat)
     csv = csv.substitute(content_csv)
 
+    tex_name = Path(TEXFILE)
+    tex_name.parent.mkdir(parents=True, exist_ok=True)
     with open(TEXFILE, "w") as file_tex:
         file_tex.write(latex)
     logging.info(f"LaTeX output file {TEXFILE} created.")
@@ -124,7 +126,7 @@ def main():
     make_pie()
 
     # remove not needed intermediate file
-    pathlib.Path(TEMPFILE).unlink()
+    Path(TEMPFILE).unlink()
 
 
 if __name__ == "__main__":
