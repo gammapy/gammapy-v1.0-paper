@@ -13,7 +13,7 @@ import config
 
 logging.basicConfig(level=logging.INFO)
 
-CODEBASE = "../../gammapy" 
+CODEBASE = "../../gammapy"
 TEMPFILE = "results.csv"
 TEXFILE = "../tables/generated/codestats.tex"
 LATEX_TEMPLATE = r"""\begin{tabular}{ccccccc}
@@ -100,7 +100,7 @@ def make_files(stats):
 
     with open(TEMPFILE, "w") as file_csv:
         file_csv.write(csv)
-    logging.info(f"CSV temporary file {TEMPFILE} created.")    
+    logging.info(f"CSV temporary file {TEMPFILE} created.")
 
 def make_pie():
 

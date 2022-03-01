@@ -3,7 +3,7 @@ from astropy.coordinates import SkyCoord
 from astropy import units as u
 
 skydir = SkyCoord("0d", "5d", frame="galactic")
-energy_axis = MapAxis.from_bounds(lo_bnd=0.1, hi_bnd=100, 
+energy_axis = MapAxis.from_bounds(lo_bnd=0.1, hi_bnd=100,
               nbin=5, unit='TeV', interp='log', name='energy')
 
 # Create a WCS Map
