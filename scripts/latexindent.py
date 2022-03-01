@@ -17,7 +17,7 @@ for filename in filenames:
 
     command = ["latexindent.pl"]
     command += [f"{filename}"]
-    command += ["-s", "-m", "-l", ".latexindent.yaml"]
+    command += ["-s", "-m", "-l", ".latex-indent-config.yaml"]
     command += ["-o", f"{filename}"]
 
     log.info(f"Reformatting {filename}")

@@ -2,11 +2,30 @@
 \label{ssec:gammapy-datasets}
 \todo{Atreyee Sinha}
 
-The end product of the data reduction process described in Section \ref{ssec:gammapy-makers} are a set of binned counts, background and IRF maps, at the DL4 level. The gammapy.datasets subpackage contains classes to bundle together binned data along with associated models and the likelihood, which provides an interface to the Fit class (Sec \ref{ssec:gammapy-modeling}) for modeling and fitting purposes. Depending upon the type of analysis and the associated statistics, different types of Datasets are supported. MapDataset is used for 3D (spectral and morphological) fitting, and a 1D spectral fitting is done using SpectrumDatastet. While the default statistics for both of these is Cash, their corresponding OnOff versions are adapted for the case where the background is measured from real off counts, and support wstat statistics. The predicted counts are computed by convolution of the models with the associate IRFs. Fitting of precomputed flux points is enabled through FluxPointsDatasets, using chi2 statistics. Multiple datasets of same or different types can be  bundled together in Datasets (e.g.: Figure \ref{fig*:minted:gp_datasets}), where the likelihood from each constituent member is added, thus facilitating joint fitting across different observations, and even different instruments across different wavelengths. Datasets also provide functionalities for manipulating reduced data, eg: stacking, sub-grouping, plotting, etc. Users can also create their customized datasets for implementing modified likelihood methods.
+The end product of the data reduction process described in Section
+\ref{ssec:gammapy-makers} are a set of binned counts, background and IRF maps,
+at the DL4 level. The gammapy.datasets subpackage contains classes to bundle
+together binned data along with associated models and the likelihood, which
+provides an interface to the Fit class (Sec \ref{ssec:gammapy-modeling}) for
+modeling and fitting purposes. Depending upon the type of analysis and the
+associated statistics, different types of Datasets are supported. MapDataset is
+used for 3D (spectral and morphological) fitting, and a 1D spectral fitting is
+done using SpectrumDatastet. While the default statistics for both of these is
+Cash, their corresponding OnOff versions are adapted for the case where the
+background is measured from real off counts, and support wstat statistics. The
+predicted counts are computed by convolution of the models with the associate
+IRFs. Fitting of precomputed flux points is enabled through FluxPointsDatasets,
+using chi2 statistics. Multiple datasets of same or different types can be
+bundled together in Datasets (e.g.: Figure \ref{fig*:minted:gp_datasets}),
+where the likelihood from each constituent member is added, thus facilitating
+joint fitting across different observations, and even different instruments
+across different wavelengths. Datasets also provide functionalities for
+manipulating reduced data, eg: stacking, sub-grouping, plotting, etc. Users can
+also create their customized datasets for implementing modified likelihood
+methods.
 
 \begin{figure}
 	\import{code-examples/generated/}{gp_datasets}
 	\caption{A Datasets container with FluxPointsDataset and MapDataset}
 	\label{fig*:minted:gp_datasets}
 \end{figure}
-
