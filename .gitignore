@@ -16,8 +16,6 @@ ms.fls
 # Mac OSX
 .DS_Store
 
-showyourwork
-
 # Linting
 .trunk
 .flake8
