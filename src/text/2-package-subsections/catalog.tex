@@ -3,8 +3,10 @@
 \todo{Atreyee}
 Gamma-ray catalog access
 
+Comprehensive source catalogs are increasingly being provided by many high energy astrophysics experiments. gammapy.catalog provides a convenient access to some common gamma-ray catalogs. A global catalog table is provided, along with source models flux points and light curves (if available) for individual objects, which are internally created from the supplied FITS tables. This module works independently from the rest of the package, and the required catalogs are supplied in GAMMAPY\_DATA. Presently, catalogs from Fermi-LAT (standard \citep{3FGL, 4FGL} and high energy \citep{2FHL, 3FHL}), H.E.S.S. galactic plane survey \citep{HGPS}, HAWC \citep{2HWC, 3HWC} and gamma-cat (\citep{gamma-cat}; an open source gamma ray catalog combining information from multiple catalogs) are supported. 
+
 \begin{figure}
 	\import{code-examples/generated/}{gp_catalogs}
-	\caption{Using gammapy.catalogs}
+	\caption{Using gammapy.catalogs: Accessing underlying model, flux points and lightcurve from the Fermi-LAT 4FGL catalog for the blazar PKS 2155-304}
 	\label{codeexample:data}
 \end{figure}
