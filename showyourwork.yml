@@ -21,3 +21,5 @@ dependencies:
         - src/data/fermi-ts-map/fermi-ts-maps.fits_model.yaml
     src/figures/hess_lightcurve_pks.py:
         - src/data/lightcurve/pks2155_flare_lc.fits.gz
+    src/figures/multi_instrument_analysis.py:
+        - src/data/multi-instrument/datasets/pha_obs_5029747.fits
