@@ -160,6 +160,28 @@ rule download_multi_instrument_magic:
         "cd scripts && python download.py multi-instrument-magic"
 
 
+# Custom rule to prepare the multi-instrument data, MAGIC
+rule prepare_multi_instrument_magic:
+    input:
+        "src/data/multi-instrument/input/data/magic/hdu-index.fits.gz",
+        "src/data/multi-instrument/input/data/magic/obs-index.fits.gz",
+        "src/data/multi-instrument/input/data/magic/20131004_05029747_DL3_CrabNebula-W0.40+035.fits",
+        "src/data/multi-instrument/input/data/magic/20131004_05029748_DL3_CrabNebula-W0.40+215.fits",
+    output:
+        "src/data/multi-instrument/datasets/pha_obs_5029747.fits",
+        "src/data/multi-instrument/datasets/pha_obs_5029747_bkg.fits",
+        "src/data/multi-instrument/datasets/pha_obs_5029747_arf.fits",
+        "src/data/multi-instrument/datasets/pha_obs_5029747_rmf.fits",
+        "src/data/multi-instrument/datasets/pha_obs_5029748.fits",
+        "src/data/multi-instrument/datasets/pha_obs_5029748_bkg.fits",
+        "src/data/multi-instrument/datasets/pha_obs_5029748_arf.fits",
+        "src/data/multi-instrument/datasets/pha_obs_5029748_rmf.fits",
+    conda:
+        "environment.yml"
+    shell:
+        "cd src/data/multi-instrument && make_magic.py"
+
+
 # Custom rule for the codestats
 rule codestats:
     input:
