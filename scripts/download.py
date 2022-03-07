@@ -18,6 +18,13 @@ FILENAMES_FERMI = [
     "fermi-3fhl-gc-psf-cube.fits.gz",
 ]
 
+FILENAMES_MAGIC = [
+    "hdu-index.fits.gz",
+    "obs-index.fits.gz",
+    "20131004_05029747_DL3_CrabNebula-W0.40+035.fits",
+    "20131004_05029748_DL3_CrabNebula-W0.40+215.fits",
+]
+
 FILENAMES_CTA = [
     "index/gps/hdu-index.fits.gz",
     "index/gps/obs-index.fits.gz",
@@ -71,6 +78,18 @@ def download_fermi_data():
         progress_download(source, destination)
 
 
+def download_magic_data():
+    magic_path = PATH_DATA / f"multi-instrument/input/data/magic"
+    magic_path.mkdir(exist_ok=True, parents=True)
+
+    for filename in FILENAMES_MAGIC:
+        destination = magic_path / filename
+        destination.parent.mkdir(exist_ok=True, parents=True)
+        source = BASE_URL + "magic/rad_max/data" + filename
+        log.info(f"Downloading {source}")
+        progress_download(source, destination)
+
+
 def download_hess_pks2155_data():
     pks_path = PATH_DATA / f"lightcurve/input"
     pks_path.mkdir(exist_ok=True, parents=True)
@@ -91,6 +110,7 @@ DATASETS_REGISTRY = {
     "fermi-gc": download_fermi_data,
     "cta-1dc": download_cta_data,
     "pks-flare": download_hess_pks2155_data,
+    "multi-instrument-magic": download_magic_data,
 }
 
 

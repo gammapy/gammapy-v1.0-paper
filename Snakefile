@@ -56,7 +56,7 @@ rule prepare_fermi:
     shell:
         "cd src/data/fermi-ts-map && python make.py"
 
-# Custom rule to download Fermi dataset
+# Custom rule to download CTA dataset
 rule download_cta:
     output:
         "src/data/cta-galactic-center/input/index/gps/hdu-index.fits.gz",
@@ -71,7 +71,7 @@ rule download_cta:
         "cd scripts && python download.py cta-1dc"
 
 
-# Custom rule to prepare Fermi dataset
+# Custom rule to prepare CTA dataset
 rule prepare_cta:
     input:
         "src/data/cta-galactic-center/input/index/gps/hdu-index.fits.gz",
@@ -93,7 +93,7 @@ rule prepare_cta:
         "cd src/data/cta-galactic-center && python make.py"
 
 
-# Custom rule to download Fermi dataset
+# Custom rule to download H.E.S.S. dataset
 rule download_hess:
     output:
         "src/data/lightcurve/input/hdu-index.fits.gz",
@@ -119,7 +119,7 @@ rule download_hess:
         "cd scripts && python download.py pks-flare"
 
 
-# Custom rule to prepare Fermi dataset
+# Custom rule to prepare H.E.S.S. dataset
 rule prepare_hess:
     input:
         "src/data/lightcurve/input/hdu-index.fits.gz",
@@ -146,6 +146,21 @@ rule prepare_hess:
     shell:
         "cd src/data/lightcurve && python make.py"
 
+
+# Custom rule to download multi-instrument data, MAGIC
+rule download_multi_instrument_magic:
+    output:
+        "src/data/multi-instrument/input/data/magic/hdu-index.fits.gz",
+        "src/data/multi-instrument/input/data/magic/obs-index.fits.gz",
+        "src/data/multi-instrument/input/data/magic/20131004_05029747_DL3_CrabNebula-W0.40+035.fits",
+        "src/data/multi-instrument/input/data/magic/20131004_05029748_DL3_CrabNebula-W0.40+215.fits",
+    conda:
+        "environment.yml"
+    shell:
+        "cd scripts && python download.py multi-instrument-magic"
+
+
+# Custom rule for the codestats
 rule codestats:
     input:
         "src/figures/codestats.py"
