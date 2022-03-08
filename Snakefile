@@ -147,39 +147,62 @@ rule prepare_hess:
         "cd src/data/lightcurve && python make.py"
 
 
+# Custom rule to download multi-instrument data, Fermi-LAT
+rule download_multi_instrument_fermi:
+    output:
+        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
+        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_iem.fits",
+        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_datasets.yaml",
+        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_models.yaml",
+    conda:
+        "environment.yml"
+    shell:
+        "cd scripts && python download.py multi-instrument-fermi"
+
+
 # Custom rule to download multi-instrument data, MAGIC
 rule download_multi_instrument_magic:
     output:
-        "src/data/multi-instrument/input/data/magic/hdu-index.fits.gz",
-        "src/data/multi-instrument/input/data/magic/obs-index.fits.gz",
-        "src/data/multi-instrument/input/data/magic/20131004_05029747_DL3_CrabNebula-W0.40+035.fits",
-        "src/data/multi-instrument/input/data/magic/20131004_05029748_DL3_CrabNebula-W0.40+215.fits",
+        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
+        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_iem.fits",
+        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_datasets.yaml",
+        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_models.yaml",
     conda:
         "environment.yml"
     shell:
         "cd scripts && python download.py multi-instrument-magic"
 
 
-# Custom rule to prepare the multi-instrument data, MAGIC
-rule prepare_multi_instrument_magic:
-    input:
-        "src/data/multi-instrument/input/data/magic/hdu-index.fits.gz",
-        "src/data/multi-instrument/input/data/magic/obs-index.fits.gz",
-        "src/data/multi-instrument/input/data/magic/20131004_05029747_DL3_CrabNebula-W0.40+035.fits",
-        "src/data/multi-instrument/input/data/magic/20131004_05029748_DL3_CrabNebula-W0.40+215.fits",
+# Custom rule to download multi-instrument data, HAWC
+rule download_multi_instrument_hawc:
     output:
-        "src/data/multi-instrument/datasets/pha_obs_5029747.fits",
-        "src/data/multi-instrument/datasets/pha_obs_5029747_bkg.fits",
-        "src/data/multi-instrument/datasets/pha_obs_5029747_arf.fits",
-        "src/data/multi-instrument/datasets/pha_obs_5029747_rmf.fits",
-        "src/data/multi-instrument/datasets/pha_obs_5029748.fits",
-        "src/data/multi-instrument/datasets/pha_obs_5029748_bkg.fits",
-        "src/data/multi-instrument/datasets/pha_obs_5029748_arf.fits",
-        "src/data/multi-instrument/datasets/pha_obs_5029748_rmf.fits",
+        "src/data/multi-instrument/input/data/hawc/HAWC19_flux_points.fits"
     conda:
         "environment.yml"
     shell:
-        "cd src/data/multi-instrument && make_magic.py"
+        "cd scripts && python download.py multi-instrument-hawc"
+
+
+# Custom rule to prepare multi-instrument datasets
+rule prepare_multi_instrument:
+    input:
+        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
+        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_iem.fits",
+        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_datasets.yaml",
+        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_models.yaml",
+        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
+        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_iem.fits",
+        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_datasets.yaml",
+        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_models.yaml",
+        "src/data/multi-instrument/input/data/hawc/HAWC19_flux_points.fits"
+    output:
+        "src/data/multi-instrument/datasets/flux_points/crab_magic_flux_points.fits"
+        "src/data/multi-instrument/datasets/flux_points/crab_fermi_flux_points.fits"
+        "src/data/multi-instrument/results/crab_multi_instrument_fit.yaml"
+    conda:
+        "environment.yml"
+    shell:
+        "cd src/data/multi-instrument && python make.py"
 
 
 # Custom rule for the codestats
