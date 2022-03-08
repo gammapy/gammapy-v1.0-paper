@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 sed_x_label = r"$E\,/\,{\rm TeV}$"
 sed_y_label = r"$E^2\,{\rm d}\phi/{\rm d}\phi\,/\,({\rm erg}\,{\rm cm}^{-2}\,{\rm s}^{-1})$"
 
-figsize = config.FigureSizeAA(aspect_ratio=1.618, width_aa="single-column")
-fig, ax = plt.figure(figsize=figsize.inch)
+#figsize = config.FigureSizeAA(aspect_ratio=1.618, width_aa="single-column")
+fig, ax = plt.subplots(1, 1, figsize=(8, 6))
 
 # load the flux points and plot them
 fermi_flux_points = FluxPoints.read("../data/multi-instrument/datasets/flux_points/crab_fermi_flux_points.fits")
