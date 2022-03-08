@@ -1,3 +1,4 @@
+from fileinput import filename
 import logging
 import click
 from pathlib import Path
@@ -16,6 +17,24 @@ FILENAMES_FERMI = [
     "fermi-3fhl-gc-background-cube.fits.gz",
     "fermi-3fhl-gc-exposure-cube.fits.gz",
     "fermi-3fhl-gc-psf-cube.fits.gz",
+]
+
+FILENAMES_FERMI_3FHL = [
+    "Fermi-LAT-3FHL_data_Fermi-LAT.fits",
+    "Fermi-LAT-3FHL_iem.fits",
+    "Fermi-LAT-3FHL_datasets.yaml",
+    "Fermi-LAT-3FHL_models.yaml",
+]
+
+FILENAMES_MAGIC = [
+    "hdu-index.fits.gz",
+    "obs-index.fits.gz",
+    "20131004_05029747_DL3_CrabNebula-W0.40+035.fits",
+    "20131004_05029748_DL3_CrabNebula-W0.40+215.fits",
+]
+
+FILENAMES_HAWC = [
+    "HAWC19_flux_points.fits",
 ]
 
 FILENAMES_CTA = [
@@ -71,6 +90,40 @@ def download_fermi_data():
         progress_download(source, destination)
 
 
+def download_fermi_crab_3fhl():
+    fermi_path = PATH_DATA / f"multi-instrument/input/fermi"
+    fermi_path.mkdir(exist_ok=True, parents=True)
+
+    for filename in FILENAMES_FERMI_3FHL:
+        destination = fermi_path / filename
+        source = BASE_URL + "fermi-3fhl-crab/" + filename
+        log.info(f"Downloading {source}")
+        progress_download(source, destination)
+
+
+def download_magic_data():
+    magic_path = PATH_DATA / f"multi-instrument/input/magic"
+    magic_path.mkdir(exist_ok=True, parents=True)
+
+    for filename in FILENAMES_MAGIC:
+        destination = magic_path / filename
+        destination.parent.mkdir(exist_ok=True, parents=True)
+        source = BASE_URL + "magic/rad_max/data/" + filename
+        log.info(f"Downloading {source}")
+        progress_download(source, destination)
+
+
+def download_hawc_data():
+    hawc_path = PATH_DATA / f"multi-instrument/input/hawc"
+    hawc_path.mkdir(exist_ok=True, parents=True)
+
+    for filename in FILENAMES_HAWC:
+        destination = hawc_path / filename
+        source = BASE_URL + "hawc_crab/" + filename
+        log.info(f"Downloading {source}")
+        progress_download(source, destination)
+
+
 def download_hess_pks2155_data():
     pks_path = PATH_DATA / f"lightcurve/input"
     pks_path.mkdir(exist_ok=True, parents=True)
@@ -87,10 +140,17 @@ def download_hess_pks2155_data():
         progress_download(source, destination)
 
 
+def download_multi_instrument():
+    download_fermi_crab_3fhl()
+    download_magic_data()
+    download_hawc_data()
+
+
 DATASETS_REGISTRY = {
     "fermi-gc": download_fermi_data,
     "cta-1dc": download_cta_data,
     "pks-flare": download_hess_pks2155_data,
+    "multi-instrument": download_multi_instrument,
 }
 
 

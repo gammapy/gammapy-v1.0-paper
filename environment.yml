@@ -9,7 +9,6 @@ variables:
   PYTHONNOUSERSITE: "1"
 
 dependencies:
-  - gammapy=0.19
   - iminuit=2.8.4
   - numpy=1.21.1
   - matplotlib=3.5.1
@@ -28,3 +27,4 @@ dependencies:
   - requests
   - pip:
       - pygments
+      - git+https://github.com/gammapy/gammapy.git

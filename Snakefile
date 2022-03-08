@@ -56,7 +56,7 @@ rule prepare_fermi:
     shell:
         "cd src/data/fermi-ts-map && python make.py"
 
-# Custom rule to download Fermi dataset
+# Custom rule to download CTA dataset
 rule download_cta:
     output:
         "src/data/cta-galactic-center/input/index/gps/hdu-index.fits.gz",
@@ -71,7 +71,7 @@ rule download_cta:
         "cd scripts && python download.py cta-1dc"
 
 
-# Custom rule to prepare Fermi dataset
+# Custom rule to prepare CTA dataset
 rule prepare_cta:
     input:
         "src/data/cta-galactic-center/input/index/gps/hdu-index.fits.gz",
@@ -93,7 +93,7 @@ rule prepare_cta:
         "cd src/data/cta-galactic-center && python make.py"
 
 
-# Custom rule to download Fermi dataset
+# Custom rule to download H.E.S.S. dataset
 rule download_hess:
     output:
         "src/data/lightcurve/input/hdu-index.fits.gz",
@@ -119,7 +119,7 @@ rule download_hess:
         "cd scripts && python download.py pks-flare"
 
 
-# Custom rule to prepare Fermi dataset
+# Custom rule to prepare H.E.S.S. dataset
 rule prepare_hess:
     input:
         "src/data/lightcurve/input/hdu-index.fits.gz",
@@ -146,6 +146,48 @@ rule prepare_hess:
     shell:
         "cd src/data/lightcurve && python make.py"
 
+
+# Custom rule to download multi-instrument data, Fermi-LAT
+rule download_multi_instrument:
+    output:
+        "src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
+        "src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_iem.fits",
+        "src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_datasets.yaml",
+        "src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_models.yaml",
+        "src/data/multi-instrument/input/magic/hdu-index.fits.gz",
+        "src/data/multi-instrument/input/magic/obs-index.fits.gz",
+        "src/data/multi-instrument/input/magic/20131004_05029747_DL3_CrabNebula-W0.40+035.fits",
+        "src/data/multi-instrument/input/magic/20131004_05029748_DL3_CrabNebula-W0.40+215.fits",
+        "src/data/multi-instrument/input/hawc/HAWC19_flux_points.fits",
+    conda:
+        "environment.yml"
+    shell:
+        "cd scripts && python download.py multi-instrument"
+
+
+# Custom rule to prepare multi-instrument datasets
+rule prepare_multi_instrument:
+    input:
+        "src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
+        "src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_iem.fits",
+        "src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_datasets.yaml",
+        "src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_models.yaml",
+        "src/data/multi-instrument/input/magic/hdu-index.fits.gz",
+        "src/data/multi-instrument/input/magic/obs-index.fits.gz",
+        "src/data/multi-instrument/input/magic/20131004_05029747_DL3_CrabNebula-W0.40+035.fits",
+        "src/data/multi-instrument/input/magic/20131004_05029748_DL3_CrabNebula-W0.40+215.fits",
+        "src/data/multi-instrument/input/hawc/HAWC19_flux_points.fits",
+    output:
+        "src/data/multi-instrument/datasets/flux_points/crab_magic_flux_points.fits",
+        "src/data/multi-instrument/datasets/flux_points/crab_fermi_flux_points.fits",
+        "src/data/multi-instrument/results/crab_multi_instrument_fit.yaml",
+    conda:
+        "environment.yml"
+    shell:
+        "cd src/data/multi-instrument && python make.py"
+
+
+# Custom rule for the codestats
 rule codestats:
     input:
         "src/figures/codestats.py"
