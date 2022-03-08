@@ -1,5 +1,6 @@
 # reduce the MAGIC data to OGIP files for the 1D analysis
 import logging
+import astropy.units as u
 from pathlib import Path
 from astropy.coordinates import SkyCoord
 from regions import PointSkyRegion
@@ -12,7 +13,7 @@ from gammapy.makers import (
     SpectrumDatasetMaker,
     WobbleRegionsFinder,
     ReflectedRegionsBackgroundMaker,
-    SafeMaskMaker,
+    SafeMaskMaker
 )
 from gammapy.estimators import FluxPoints, FluxPointsEstimator
 from gammapy.datasets import Datasets, SpectrumDataset, FluxPointsDataset
@@ -56,8 +57,9 @@ def reduce_magic_data():
     # background and safe mask makers
     region_finder = WobbleRegionsFinder(n_off_regions=1)
     bkg_maker = ReflectedRegionsBackgroundMaker(region_finder=region_finder)
-    safe_mask_maker = SafeMaskMaker(methods=["aeff-default"])
-
+    # use the energy threshold specified in the DL3 files
+    safe_mask_masker = SafeMaskMaker(methods=["aeff-default"])
+    
     datasets = Datasets()
 
     for obs in observations:
@@ -65,9 +67,9 @@ def reduce_magic_data():
         # fill the ON counts
         dataset = dataset_maker.run(dataset_empty.copy(name=f"{obs.obs_id}"), obs)
 
-        # fill the OFF counts and set threshold
+        # fill the OFF counts and set energy threshold
         dataset_on_off = bkg_maker.run(dataset, obs)
-        dataset_on_off = safe_mask_maker.run(dataset_on_off, obs)
+        dataset_on_off = safe_mask_masker.run(dataset_on_off, obs)
 
         datasets.append(dataset_on_off)
 
@@ -90,6 +92,7 @@ def compute_flux_points(datasets, energy_edges, filename):
     flux_points = FluxPointsEstimator(
         energy_edges=energy_edges,
         source="Crab Nebula",
+        selection_optional=["ul"]
     ).run([datasets])
 
     Path(filename).parent.mkdir(exist_ok=True, parents=True)
@@ -137,7 +140,7 @@ if __name__ == "__main__":
     # stack the MAGIC dataset and add the model before feeding it to the FluxPointsEstimator
     magic_datasets_to_fp = magic_datasets.stack_reduce()
     magic_datasets_to_fp.models = models
-    energy_edges_magic = MapAxis.from_energy_bounds("80 GeV", "10 TeV", nbin=10).edges
+    energy_edges_magic = MapAxis.from_energy_bounds("80 GeV", "20 TeV", nbin=10).edges
     compute_flux_points(
         magic_datasets_to_fp,
         energy_edges_magic,
