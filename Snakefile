@@ -148,57 +148,39 @@ rule prepare_hess:
 
 
 # Custom rule to download multi-instrument data, Fermi-LAT
-rule download_multi_instrument_fermi:
+rule download_multi_instrument:
     output:
-        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
-        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_iem.fits",
-        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_datasets.yaml",
-        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_models.yaml",
+        "src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
+        "src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_iem.fits",
+        "src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_datasets.yaml",
+        "src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_models.yaml",
+        "src/data/multi-instrument/input/magic/hdu-index.fits.gz",
+        "src/data/multi-instrument/input/magic/obs-index.fits.gz",
+        "src/data/multi-instrument/input/magic/20131004_05029747_DL3_CrabNebula-W0.40+035.fits",
+        "src/data/multi-instrument/input/magic/20131004_05029748_DL3_CrabNebula-W0.40+215.fits",
+        "src/data/multi-instrument/input/hawc/HAWC19_flux_points.fits",
     conda:
         "environment.yml"
     shell:
-        "cd scripts && python download.py multi-instrument-fermi"
-
-
-# Custom rule to download multi-instrument data, MAGIC
-rule download_multi_instrument_magic:
-    output:
-        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
-        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_iem.fits",
-        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_datasets.yaml",
-        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_models.yaml",
-    conda:
-        "environment.yml"
-    shell:
-        "cd scripts && python download.py multi-instrument-magic"
-
-
-# Custom rule to download multi-instrument data, HAWC
-rule download_multi_instrument_hawc:
-    output:
-        "src/data/multi-instrument/input/data/hawc/HAWC19_flux_points.fits"
-    conda:
-        "environment.yml"
-    shell:
-        "cd scripts && python download.py multi-instrument-hawc"
+        "cd scripts && python download.py multi-instrument"
 
 
 # Custom rule to prepare multi-instrument datasets
 rule prepare_multi_instrument:
     input:
-        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
-        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_iem.fits",
-        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_datasets.yaml",
-        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_models.yaml",
-        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
-        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_iem.fits",
-        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_datasets.yaml",
-        "src/data/multi-instrument/input/data/fermi/Fermi-LAT-3FHL_models.yaml",
-        "src/data/multi-instrument/input/data/hawc/HAWC19_flux_points.fits"
+        "src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
+        "src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_iem.fits",
+        "src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_datasets.yaml",
+        "src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_models.yaml",
+        "src/data/multi-instrument/input/magic/hdu-index.fits.gz",
+        "src/data/multi-instrument/input/magic/obs-index.fits.gz",
+        "src/data/multi-instrument/input/magic/20131004_05029747_DL3_CrabNebula-W0.40+035.fits",
+        "src/data/multi-instrument/input/magic/20131004_05029748_DL3_CrabNebula-W0.40+215.fits",
+        "src/data/multi-instrument/input/hawc/HAWC19_flux_points.fits",
     output:
-        "src/data/multi-instrument/datasets/flux_points/crab_magic_flux_points.fits"
-        "src/data/multi-instrument/datasets/flux_points/crab_fermi_flux_points.fits"
-        "src/data/multi-instrument/results/crab_multi_instrument_fit.yaml"
+        "src/data/multi-instrument/datasets/flux_points/crab_magic_flux_points.fits",
+        "src/data/multi-instrument/datasets/flux_points/crab_fermi_flux_points.fits",
+        "src/data/multi-instrument/results/crab_multi_instrument_fit.yaml",
     conda:
         "environment.yml"
     shell:

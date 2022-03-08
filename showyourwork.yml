@@ -24,5 +24,5 @@ dependencies:
     src/figures/multi_instrument_analysis.py:
         - src/data/multi-instrument/datasets/flux_points/crab_fermi_flux_points.fits
         - src/data/multi-instrument/datasets/flux_points/crab_magic_flux_points.fits
-        - src/data/multi-instrument/input/data/hawc/HAWC19_flux_points.fits
+        - src/data/multi-instrument/input/hawc/HAWC19_flux_points.fits
         - src/data/multi-instrument/results/crab_multi_instrument_fit.yaml

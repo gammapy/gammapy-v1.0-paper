@@ -27,12 +27,12 @@ log = logging.getLogger(__name__)
 
 def load_fermi_datasets():
     """Load the `MapDataset` already prepared for the Fermi-LAT data"""
-    return Datasets.read("input/data/fermi/Fermi-LAT-3FHL_datasets.yaml")
+    return Datasets.read("input/fermi/Fermi-LAT-3FHL_datasets.yaml")
 
 
 def reduce_magic_data():
     """Reduce the MAGIC DL3 files to `SpectrumDatasetOnOff`"""
-    data_store = DataStore.from_dir("input/data/magic")
+    data_store = DataStore.from_dir("input/magic")
     observations = data_store.get_observations(required_irf=["aeff", "edisp"])
 
     # adopt the same energy axes used for flute and DL3 production
@@ -59,7 +59,7 @@ def reduce_magic_data():
     bkg_maker = ReflectedRegionsBackgroundMaker(region_finder=region_finder)
     # use the energy threshold specified in the DL3 files
     safe_mask_masker = SafeMaskMaker(methods=["aeff-default"])
-    
+
     datasets = Datasets()
 
     for obs in observations:
@@ -79,7 +79,7 @@ def reduce_magic_data():
 def load_hawc_flux_points():
     """Load the HAWC flux points in a FluxPointsDataset"""
     flux_points_hawc = FluxPoints.read(
-        "input/data/hawc/HAWC19_flux_points.fits",
+        "input/hawc/HAWC19_flux_points.fits",
         reference_model=create_crab_spectral_model("meyer"),
     )
     dataset_hawc = FluxPointsDataset(data=flux_points_hawc, name="HAWC")
@@ -115,17 +115,18 @@ def fit_joint_dataset(datasets, models, filename):
 
 if __name__ == "__main__":
     # load the three instruments datasets
-    fermi_datasets = load_fermi_datasets()
+    fermi_dataset = load_fermi_datasets()
     magic_datasets = reduce_magic_data()
-    hawc_datasets = load_hawc_flux_points()
+    hawc_dataset = load_hawc_flux_points()
 
     # join them in a single Datasets
-    datasets = Datasets(
-        [*fermi_datasets._datasets, *magic_datasets._datasets, hawc_datasets]
-    )
+    datasets = Datasets()
+    datasets.append(hawc_dataset)
+    datasets.extend(fermi_dataset)
+    datasets.extend(magic_datasets)
 
     # load the model
-    models = Models.read("input/data/fermi/Fermi-LAT-3FHL_models.yaml")
+    models = Models.read("input/fermi/Fermi-LAT-3FHL_models.yaml")
 
     fit_joint_dataset(datasets, models, "results/crab_multi_instrument_fit.yaml")
 

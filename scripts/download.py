@@ -91,7 +91,7 @@ def download_fermi_data():
 
 
 def download_fermi_crab_3fhl():
-    fermi_path = PATH_DATA / f"multi-instrument/input/data/fermi"
+    fermi_path = PATH_DATA / f"multi-instrument/input/fermi"
     fermi_path.mkdir(exist_ok=True, parents=True)
 
     for filename in FILENAMES_FERMI_3FHL:
@@ -102,7 +102,7 @@ def download_fermi_crab_3fhl():
 
 
 def download_magic_data():
-    magic_path = PATH_DATA / f"multi-instrument/input/data/magic"
+    magic_path = PATH_DATA / f"multi-instrument/input/magic"
     magic_path.mkdir(exist_ok=True, parents=True)
 
     for filename in FILENAMES_MAGIC:
@@ -114,12 +114,11 @@ def download_magic_data():
 
 
 def download_hawc_data():
-    hawc_path = PATH_DATA / f"multi-instrument/input/data/hawc"
+    hawc_path = PATH_DATA / f"multi-instrument/input/hawc"
     hawc_path.mkdir(exist_ok=True, parents=True)
 
     for filename in FILENAMES_HAWC:
         destination = hawc_path / filename
-        destination.parent.mkdir(exist_ok=True, parents=True)
         source = BASE_URL + "hawc_crab/" + filename
         log.info(f"Downloading {source}")
         progress_download(source, destination)
@@ -141,13 +140,17 @@ def download_hess_pks2155_data():
         progress_download(source, destination)
 
 
+def download_multi_instrument():
+    download_fermi_crab_3fhl()
+    download_magic_data()
+    download_hawc_data()
+
+
 DATASETS_REGISTRY = {
     "fermi-gc": download_fermi_data,
     "cta-1dc": download_cta_data,
     "pks-flare": download_hess_pks2155_data,
-    "multi-instrument-fermi": download_fermi_crab_3fhl,
-    "multi-instrument-magic": download_magic_data,
-    "multi-instrument-hawc": download_hawc_data
+    "multi-instrument": download_multi_instrument,
 }
 
 
