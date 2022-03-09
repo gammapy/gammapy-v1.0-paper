@@ -2,54 +2,13 @@
 \label{sec:applications}
 
 Gammapy can be used for a variety of science cases by different IACT experiments. (Refer to publications)
-In this section, we show a non-exhaustive list of some typical analysis that be performed.
+In this section, we show a non-exhaustive list of some typical analysis that can be performed.
+In general from the \gammapy side there is not limitation on which kind of analysis can be
+done with wich instrument, however in practice it is limited by the availability of public data.
 
-\subsection{Classical spectral analysis}
-\label{ssec:1D-analysis}
-\input{3-applications-subsections/3.1-1D-analysis}
-\todo{Axel}
-A classical spectral analysis using Reflected Regions. Showing flux points, reflected regions on the CTA galactic center data
-
-\subsection{A 3D likelihood analysis}
-\label{ssec:3D-analysis}
-\input{3-applications-subsections/3.2-3D-analysis}
-\todo{Laura}
-
-Simulation of overlapping sources, 3D fitting, npred map, TS maps
-
-
-\todo{What to do with } Figure~\ref{fig:fermi_ts_map} ?
-Ref:~\citep{Stewart2009}
-\begin{figure*}[t]
-        \centering
-        \includegraphics[width=1.\textwidth]{figures/fermi_ts_map.pdf}
-        \caption{Fermi-LAT TS map in two energy bands} \label{fig:fermi_ts_map}
-\end{figure*}
-
-\subsection{Temporal analysis}
-\label{ssec:temporal-analysis}
-\input{3-applications-subsections/3.3-temporal-analysis}
-\todo{Atreyee}
-lightcurves and temporal models using the HESS PKS2155
-
-\subsection{Multi instrument analysis}
-\label{ssec:multi-instrument-analysis}
-\input{3-applications-subsections/3.4-multi-instrument-analysis}
-\todo{Cosimo Nigro}
-\begin{figure}[t]
-	\centering
-	\includegraphics[width=1.\textwidth]{figures/multi_instrument_analysis.pdf}
-	\caption{A multi-instrument analysis of the Crab Nebula}
-	\label{fig:multi_instrument_analysis} 
-\end{figure*}
-
-\subsection{Fitting using physical models}
-\label{ssec:naima-analysis}
-\input{3-applications-subsections/3.5-naima-analysis}
-\todo{Cosimo}
-
-Figure \ref{fig:multi_instrument_analysis}. Add explanation text.
-
-\subsection{Population studies}
-\label{ssec:population-studies}
-\todo{Quentin Remy}
+\input{text/3-applications-subsections/1D-analysis}
+\input{text/3-applications-subsections/3D-analysis}
+\input{text/3-applications-subsections/temporal-analysis}
+\input{text/3-applications-subsections/multi-instrument-analysis}
+\input{text/3-applications-subsections/sed-modelling-analysis}
+\input{text/3-applications-subsections/population-studies}
