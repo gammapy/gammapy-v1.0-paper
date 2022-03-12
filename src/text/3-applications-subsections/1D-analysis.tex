@@ -1,13 +1,43 @@
 \subsection{1D Analysis}
 \label{ssec:1d-analysis}
 \todo{Axel}
-A classical spectral analysis using Reflected Regions. Showing flux points,
-reflected regions on the CTA galactic center data
+One of the most common analysis cases in gamma-ray astronomy is measuring the
+spectrum of a source in a given region defined on the sky, in conventional
+astronomy also called aperture photometry.
+The spectrum is typically measured in two steps: first a parametric
+spectral model is fitted to the data and secondly flux points are computed
+in a pre-defined set of energy bins.
+The result of such an analysis performed on three simulated CTA observations
+is shown in Fig.~\ref{fig:cta_galactic_center}.
+In this case the spectrum was measured in a circular aperture centered
+on the Galactic Center, in \gammaray~astronomy often called "on region".
+For such analysis the users first chooses a region of interest
+and energy binning, both defined by a `RegionGeom`.
+In a second step the events and instrument response are binned into
+maps of this geometry, by the `SpectrumDatasetMaker`.
+All the data and reduced instrument response are bundled into a
+`SpectrumDataset`.
+To estimate the expected background in the on region a "reflected regions"
+background method was used~\cite{Berge07}, represented in \gammapy
+by the `ReflectedRegionsBackgroundMaker` class.
+The resulting reflected regions are illustrated for all three observations
+on top of the map of counts.
+After reduction of the data it was modelled using a forward-folding
+method and a power-law spectral shape, using the `PowerLawSpectralModel`
+and `Fit` class.
+Based on this best fit model the final flux points and
+corresponding log-likleihood profiles are computed using
+the `FluxPointsEstimator`.
 
 \begin{figure*}[t]
 	\centering
 	\includegraphics[width=1.\textwidth]{figures/cta_galactic_center.pdf}
-	\caption{CTA Galactic Center example}
+	\caption{
+        Example spectral analysis of the Galactic Center for three simulated CTA observations.
+        The left image shows the maps of counts with the measurement region and background
+        regions overlaid in different colors. The right image shows the resulting spectral
+        points and their corresponding log-likelihood profiles.
+    }
 	\label{fig:cta_galactic_center}
 \end{figure*}
 
