@@ -6,7 +6,7 @@ gammapy.modeling contains all the functionality related to modeling and fitting
 data. This includes spectral, spatial and temporal model classes, as well as
 the fit and parameter API.
 
-\subsection{Models}
+\subsubsection{Models}
 \label{ssec:models}
 
 The models are grouped into the following categories:
@@ -53,13 +53,13 @@ gammapy~\citep[see section3.5 of ][]{2021arXiv211214573N} .
 	\label{fig*:minted:gp_models}
 \end{figure}
 
-\subsection{Fit}
+\subsubsection{Fit}
 \label{ssec:fit}
 
 The Fit class provides methods to fit i.e., optimise parameters and estimate
 parameter errors and correlations. It interfaces with a Datasets object, which
 in turn is connected to a Models object containing the model parameters in its
-Parameters object.  Models can be unique for a given dataset, or contribute to
+Parameters object. Models can be unique for a given dataset, or contribute to
 multiple datasets and thus provide links, allowing e.g., to do a joint fit to
 multiple IACT datasets, or to a joint IACT and \textit{Fermi}-LAT dataset. Many
 examples are given in the tutorials.
