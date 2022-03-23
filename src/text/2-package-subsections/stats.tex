@@ -18,3 +18,9 @@ is WStat. It is a profile log-likelihood statistic where background counts are
 marginalized parameters. It is used by datasets containing off counts measurements
 such as the SpectrumDatasetOnOff, used for classical spectral analysis.
 
+To perform simple statistical estimations on counts measurements, CountsStatistic classes
+encapsulate the aforementioned statistic functions to measure excess counts and estimate the
+associated statistical significance, errors and upper limits. They perform maximum likelihood
+ratio tests to estimate significance (the square root of the statistic difference) and compute
+likelihood profiles to measure errors and upper limits. The following example allows to compute
+the Li \& Ma significance~\citep{LiMa} of a set of measurements:
