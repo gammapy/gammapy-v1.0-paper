@@ -2,6 +2,27 @@
 \label{sec:analysis-workflow-overview}
 \todo{Regis and Fabio F.}
 
+\subsection{Data access and selection (DL3)}
+
+The analysis of gamma-ray data with Gammapy starts at the Data Level 3 where the data consists
+in lists of gamma-like events and their corresponding instrument response functions (IRFs).
+The latter include effective area, point spread function (PSF), energy dispersion and
+residual hadronic background. In addition there is associated meta data including information
+on the observation such as pointing direction, observation time and observation conditions.
+
+\subsection{Data reduction (DL3 to DL4)}
+
+In the next stage of the analysis the user selects a coordinates system, region or
+energy binning and events are binned into multidimensional data structures (maps)
+with the selected geometry. The instrument response is projected onto the
+same geometry as well. At this stage users can select additional background
+estimation methods, such as ring background or reflected regions and
+exclude parts of the data with high associated IRF systematics by defining
+a "safe" data range. The counts data and the reduced IRFs are bundled into
+datasets. Those datasets can be optionally grouped and stacked and are
+typically written to disk to allow users to read them back at any time later
+for modeling and fitting.
+
 \section{Gammapy package}
 \label{sec:gammapy-package}
 
