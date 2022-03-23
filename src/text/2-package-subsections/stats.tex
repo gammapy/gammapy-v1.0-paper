@@ -1,9 +1,17 @@
 \subsection{gammapy.stats}
 \label{ssec:gammapy-stats}
 \todo{Regis Terrier}
-Statistics methods
 
-In Gammapy, the fit statistics are log-likelihood functions normalized like chi-squares,
-i.e. they follow the expression $2 \times log L$, where $L$ is the likelihood function used.
-To account for the event nature of gamma-ray data, the likelihood functions implemented
-in Gammapy for Poisson distribution the Cash
+
+The gammapy.stats subpackage contains the fit statistics and associated statistical estimators
+that are commonly used in gamma-ray astronomy.
+In general, gamma-ray observations count Poisson-distributed events at various sky positions,
+and contain both signal and background events. Estimation of the number of signal events is done
+through likelihood maximization. In Gammapy, the fit statistics are Poisson log-likelihood functions
+normalized like chi-squares, i.e. they follow the expression $2 \times log L$, where $L$ is the
+likelihood function used.
+
+The statistic function used when the expected number of background events is known
+is \emph{Cash}. It used When the number of background events is unknown, one has to
+use a background estimate :math:`n_{bkg}` taken from an off measurement where only background events
+are expected. In this case, the statistic function is ``WStat`` (see :ref:`wstat`).
