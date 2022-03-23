@@ -23,6 +23,27 @@ datasets. Those datasets can be optionally grouped and stacked and are
 typically written to disk to allow users to read them back at any time later
 for modeling and fitting.
 
+\subsection{Datasets (DL4)}
+
+The datasets classes bundle reduced data in form of maps, reduced IRFs, models and
+fit statistics. Different sub-classes support different analysis methods
+and fit statistics (e.g. Poisson statistics with known background or
+with OFF background measurements). The datasets are used to perform joint-likelihood
+fitting allowing to combine different measurements, e.g. from different observations
+but also from different instruments or event classes. They can also be used for binned
+simulation as well as event sampling to simulate DL3 events data.
+
+\subsection{Modeling and Fitting (DL4 to DL5)}
+
+The next step is then typically to model and fit the datasets, either
+individually, or in a joint likelihood analysis. For this purpose Gammapy
+provides a uniform interface to multiple fitting backends. It also provides
+a variety of :ref:`built in models <model-gallery>`. This includes spectral,
+spatial and temporal model classes to describe the gamma-ray emission in the sky.
+Independently or subsequently to the global modelling, the data can be
+re-grouped to compute flux points, light curves and flux as well as significance
+maps in energy bands.
+
 \section{Gammapy package}
 \label{sec:gammapy-package}
 
