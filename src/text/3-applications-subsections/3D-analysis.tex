@@ -1,7 +1,7 @@
 \subsection{3D Analysis}
 \label{ssec:3d-analysis}
 \todo{Laura}
-The 1D analysis approach is a powerful tool to measure the spectrum of an isolated source. However, more complicated situations, such as field of views containing several overlapping sources, can no longer be treated this way. Since it is based on integration over a region, the 1D approach can't disentangle the contribution of each source to the total flux in the selected region. Similarly, sources with extended or complex morphology can result in the measured flux being underestimated, and heavily dependent on the choice of extraction region.
+The 1D analysis approach is a powerful tool to measure the spectrum of an isolated source. However, more complicated situations, such as field of views containing several overlapping sources, require a more careful treatment. Because it is based on integration over a region, the 1D approach can't disentangle the contribution of each source to the total flux in the selected region. Similarly, sources with extended or complex morphology can result in the measured flux being underestimated, and heavily dependent on the choice of extraction region.
 
 For such situations a more complex approach is needed, the so-called 3D analysis. The three relevant dimensions are the two spatial angular coordinates and an energy axis. In this framework, a combined spatial and spectral model (that is, a SkyModel, see Section~\ref{ssec:gammapy-modeling}) is fitted to the sky-maps that were previously derived from the data and bundled into a MapDataset (see Sections~\ref{ssec:gammapy-makers,ssec:gammapy-datasets}).
 
@@ -15,7 +15,7 @@ The position and sizes of the sources have been selected so that their contribut
 
 We can now fit the same model shapes to the simulated data and retrieve the best-fit parameters, which are in all cases well within 1$\sigma$ of the simulated parameters. We can now compute the residual significance map after removing the contribution from each model. This is done again via the ExcessMapEstimator. As can be seen in Figure \todo{X}, there are no regions above or below 5$\sigma$.
 
-As the example above shows, the 3D analysis allows to characterize the morphology of the emission and fit it together with the spectral properties of the source.  Among the advantages that this provides is the fact that this allows to disentangle the contribution from overlapping sources to the same spatial region. To highlight this, we define a circular RegionGeom of radius 0.5\textdegree centered around the position of the point source. We can now compare the measured excess counts integrated in that region to the relative contribution from each of the three source models. This can be seen in Figure~\todo{X}.
+As the example above shows, the 3D analysis allows to characterize the morphology of the emission and fit it together with the spectral properties of the source.  Among the advantages that this provides is the ability to disentangle the contribution from overlapping sources to the same spatial region. To highlight this, we define a circular RegionGeom of radius 0.5\textdegree centered around the position of the point source. We can now compare the measured excess counts integrated in that region to the expected relative contribution from each of the three source models. This can be seen in Figure~\todo{X}.
 
 
 %
