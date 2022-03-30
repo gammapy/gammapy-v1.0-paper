@@ -1,16 +1,57 @@
 \section{Gammapy project}
 \label{sec:gammapy-project}
 
-Open development, roadmap, communities, science tool aspect Infrastructure etc.
+\todo{Jose Enrique}
 
-community driven vs. institutional driven
+In this section, we provide an overview of the organization of the Gammapy project. We briefly describe the main roles and responsibilities in the Gammapy team, as well as the technical infrastructure designed to facilitate the development and maintenance of Gammapy as a high quality open source software. We also describe how we tackle with the software distribution, our solution for a versioned thoroughly tested documentation in the form user-friendly playable recipes, and the tools we use to foster the Gammapy community and to provide user support. This section concludes with an outlook on the roadmap for future directions.
 
-Validation and benchmarks? Validation as online appendix...
+\subsection{Gammapy Team}
+\label{ssec:gammapy-team}
 
-\subsection{Development, testing}
-\label{ssec:development-testing}
-\todo{Jose Enrique writes this...}
--Github, pytest, CI, PIGs?
+\begin{itemize}
+	\item open development
+	\item community driven vs. institutional driven
+	\item communities
+\end{itemize}
+
+\begin{itemize}
+	\item coordination committee
+	\item project manager
+	\item lead developers
+	\item contributors
+\end{itemize}
+
+\subsection{Technical infrastructure}
+\label{ssec:technical-infrastructure}
+
+\begin{itemize}
+	\item Github repositories 
+	\begin{itemize}
+		\item gammapy (describe gammapy codebase)
+		\item docs
+		\item web
+		\item data
+		\item benchmarks
+		\item recipes
+		\item extra
+		\item meetings
+		\item conferences contributions
+		\item catalogs? (i.e. gamma-cat)
+		\item paper
+	\end{itemize}
+	\item github actions and automated tasks 
+	\begin{itemize}
+		\item ci
+		\item docs
+		\item benchmarks-slack
+		\item codemeta.json and zenodo
+		\item release-web
+	\end{itemize}	
+	\item pytest and code coverage in ci
+	\item tests on docstrings and on code in rst files
+	\item code quality services (codecov, lgtm, codacy)
+	\item validation and benchmarks -validation as online appendix...?
+\end{itemize}
 
 \begin{table}
 	\import{tables/generated/}{codestats}
@@ -22,26 +63,59 @@ Validation and benchmarks? Validation as online appendix...
 	\centering
 	\includegraphics[width=0.5\textwidth]{figures/codestats.pdf}
 	\caption{
-		Percentage of lines of code in Gammapy project } \label{fig:codestats:lang}
+		Percentage of lines of code in Gammapy project} \label{fig:codestats:lang}
 \end{figure}
+
+\subsection{Software distribution}
+\label{ssec:software-distribution}
+
+\begin{itemize}
+	\item pip, conda, versions
+	\item gammapy download
+	\item automated release process with Zenodo publishing linking
+	\item escape 2020 software platform
+	\item ascl
+\end{itemize}
 
 \subsection{Documentation}
 \label{ssec:documentation}
 
-- Notebooks
+\begin{itemize}
+	\item rst, sphinx, api
+	\item versioned notebooks building and testing
+	\item versioned binder
+\end{itemize}
 
-\subsection{Software distribution and user support}
-\label{ssec:software-distribution-and-user-support}
-- Pip, conda, versions, gammapy download
-
-\subsection{Community}
-\label{ssec:community}
-TODO: Figure: Screenshot of Jupyter notebook or docs with notebook, could show
-the interactive maps view
+Figure: Screenshot of Jupyter notebook or docs with notebook, could show the interactive maps view
 \begin{verbatim}
 m = Map.read(“diffuse.fits”)
 m.plot_interactive()
 \end{verbatim}
 
-\subsection{PIGs}
-\label{ssec:pigs}
+
+\subsection{Community and user-support}
+\label{ssec:community-and-user-support}
+
+\begin{itemize}
+	\item weekly developers calls
+	\item coding sprints 
+	\item slack
+	\item github discussions
+	\item gammapy recipes repo
+	\item mailing lists 
+		\begin{verbatim}
+		gammapy-coordination-l@in2p3.fr 
+		gammapy@googlegroups.com 
+		gammapy-cta-l@in2p3.fr
+		\end{verbatim}
+	\item twitter
+\end{itemize}
+
+\subsection{Roadmap}
+\label{ssec:roadmap}
+\todo{Axel, Regis}
+
+\begin{itemize}
+	\item pigs
+	\item roadmap
+\end{itemize}
