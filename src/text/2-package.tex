@@ -1,39 +1,58 @@
 \section{Analysis Workflow Overview}
 \label{sec:analysis-workflow-overview}
-\todo{Regis and Fabio F.}
 
-\subsection{Data access and selection (DL3)}
+% This might not be the bast place compared to introduction
+The data processing workflow in Gamma-ray astronomy is usually split in two sequences.
+The first one deals with the data processing from camera measurement, calibration, event
+reconstruction and selection to yield a list of reconstructed gamma-ray event candidates.
+This sequence, sometimes referred to as low-level analysis, is usually very specific to
+a given observation technique if not a given instrument.
 
-The analysis of gamma-ray data with Gammapy starts at the Data Level 3 where the data consists
-in lists of gamma-like events and their corresponding instrument response functions (IRFs).
-The latter include effective area, point spread function (PSF), energy dispersion and
-residual hadronic background. In addition there is associated meta data including information
-on the observation such as pointing direction, observation time and observation conditions.
+The other sequence, referred to as high-level analysis, deals with the extraction of physical
+quantities related to gamma-ray sources and the production of high-level products such as spectra,
+lightcurves and catalogs. The methods and tools applied here are more generic and are broadly
+shared across the field. They also frequently imply joint analysis of multi-instrument data.
 
-\subsection{Data reduction (DL3 to DL4)}
+Gamma-ray data at the Data Level 3 consists in lists of gamma-like events and their
+corresponding instrument response functions (IRFs). The latter include effective area,
+point spread function (PSF), energy dispersion and residual hadronic background.
+The handling of DL3 data is performed by classes and methods
+in the gammapy.data  (see \ref{ssec:gammapy-data}) and the gammapy.irf
+(see \ref{ssec:gammapy-irf}) subpackages.
 
-In the next stage of the analysis the user selects a coordinates system, region or
-energy binning and events are binned into multidimensional data structures (maps)
-with the selected geometry. The instrument response is projected onto the
-same geometry as well. At this stage users can select additional background
-estimation methods, such as ring background or reflected regions and
-exclude parts of the data with high associated IRF systematics by defining
-a "safe" data range. The counts data and the reduced IRFs are bundled into
-datasets. Those datasets can be optionally grouped and stacked and are
-typically written to disk to allow users to read them back at any time later
+The first step in the analysis is the selection and extraction of observations
+based of their meta data including information such as pointing direction, observation
+time and observation conditions.
+
+The next step of the analysis is the data reduction on a user-defined geometry.
+A typical geometry consists in a spectral representation with a measured
+energy axis, and in a spatial representation, either a coordinates system  with a projection
+(for 3-dimensional or cube analysis) or a region on the sky (for regular spectral analysis).
+The gammapy.maps subpackage provides general multidimensional geometry objects
+(Geom) and the associated data structures (Maps), see \ref{ssec:gammapy-maps}.
+
+All observation events and instrument responses are projected onto the
+target geometry. Because residual hadronic background models can be subject
+to significant uncertainties background correction must be applied,
+such as the ring or the fied-of-view background techniques or
+background measurements must be performed within, e.g. reflected regions~\citep{Berge07}.
+Parts of the data with high associated IRF systematics must also be excluded by defining
+a "safe" data range. These data reduction steps are performed by classes and functions
+implemented in the gammapy.makers subpackage (see \ref{ssec:gammapy-makers}).
+
+The counts data and the reduced IRFs in the form of maps are bundled into dataset objects
+that represent the data level 4 (DL4). They can be written to
+disk, in a format specific to Gammapy to allow users to read them back at any time later
 for modeling and fitting.
 
-\subsection{Datasets (DL4)}
-
-The datasets classes bundle reduced data in form of maps, reduced IRFs, models and
+This latter step 
+ datasets classes bundle reduced data in form of maps, reduced IRFs, models and
 fit statistics. Different sub-classes support different analysis methods
 and fit statistics (e.g. Poisson statistics with known background or
 with OFF background measurements). The datasets are used to perform joint-likelihood
 fitting allowing to combine different measurements, e.g. from different observations
 but also from different instruments or event classes. They can also be used for binned
 simulation as well as event sampling to simulate DL3 events data.
-
-\subsection{Modeling and Fitting (DL4 to DL5)}
 
 The next step is then typically to model and fit the datasets, either
 individually, or in a joint likelihood analysis. For this purpose Gammapy
