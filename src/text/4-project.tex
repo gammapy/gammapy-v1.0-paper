@@ -1,7 +1,7 @@
 \section{Gammapy project}
 \label{sec:gammapy-project}
 
-In this section, we provide an overview of the organization of the Gammapy project. We briefly describe the main roles and responsibilities within the team, as well as the technical infrastructure designed to facilitate the development and maintenance of Gammapy as a high quality software. We use common tools and services for software development of Python open-source projects, code review, testing, package distribution and user support, with a customized solution for a versioned thoroughly tested documentation in the form of user-friendly playable recipes. This section concludes with an outlook on the roadmap for future directions.
+In this section, we provide an overview of the organization of the Gammapy project. We briefly describe the main roles and responsibilities within the team, as well as the technical infrastructure designed to facilitate the development and maintenance of Gammapy as a high quality software. We use common tools and services for software development of Python open-source projects, code review, testing, package distribution and user support, with a customized solution for a versioned thoroughly tested documentation in the form of user-friendly playable tutorials. This section concludes with an outlook on the roadmap for future directions.
 
 \subsection{Organizational structure}
 \label{ssec:organizational-structure}
@@ -35,13 +35,9 @@ This small ecosystem of interconnected up-to-date repositories, automatized task
 \subsection{Software distribution}
 \label{ssec:software-distribution}
 
-\begin{itemize}
-	\item pip, conda, versions
-	\item gammapy download
-	\item automated release process with Zenodo publishing linking
-	\item escape 2020 software platform
-	\item ascl
-\end{itemize}
+Gammapy is distributed and installed in the usual way for Python packages. Each stable release is uploaded to the Python package index \footnote{\url{https://pypi.org}} and as a binary package to the \textit{conda-forge} and \textit{astropy} Anaconda repository \footnote{\url{https://anaconda.org/anaconda/repo}} channels. At this time, Gammapy is also available as a Debian Linux package \footnote{\url{https://packages.debian.org/sid/python3-gammapy}}. We recommend installing the software using the \textit{conda} installation process with an environment definition file that we provide, so to work within a virtual isolated environment with additional useful packages and ensure reproducibility. Once installed users may download datasets and playable executable tutorials in the form of Jupyter notebooks using the \textit{gammapy download} command.
+
+Gammapy is indexed in Astronomy Source Code Library \footnote{\url{https://ascl.net/1711.014}} and Zenodo \footnote{\url{https://zenodo.org/record/5721467o}} digital libraries for software. The Zenodo record is synchronised with the codebase GitHub repository so that every release triggers the update of the versioned record. In addition, the next release of Gammapy will be added to the Open-source scientific Software and Service Repository \footnote{\url{https://projectescape.eu/ossr}} and indexed in the European Open Science Cloud catalog \footnote{\url{https://eosc-portal.eu}}.
 
 \subsection{Documentation}
 \label{ssec:documentation}
