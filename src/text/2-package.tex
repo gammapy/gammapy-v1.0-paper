@@ -12,10 +12,48 @@ The other sequence, referred to as high-level analysis, deals with the extractio
 quantities related to gamma-ray sources and the production of high-level products such as spectra,
 lightcurves and catalogs. The methods and tools applied here are more generic and are broadly
 shared across the field. They also frequently imply joint analysis of multi-instrument data.
+To extract physically relevant information, the measured data are usually compared to a
+model of the expected gamma-ray emitters in the instrument field-of-view using statistical
+techniques such as maximum likelihood.
 
-Gamma-ray data at the Data Level 3 consists in lists of gamma-like events and their
-corresponding instrument response functions (IRFs). The latter include effective area,
-point spread function (PSF), energy dispersion and residual hadronic background.
+We can write the expected number of detected events at measured position $p$ and energy $E$:
+\begin{align}
+   N(p, E) {\rm d}p {\rm d}E = &t_{\rm obs} \int_{E_{\rm true}} \int_{p_{\rm true}}  R(p, E|p_{\rm true}, E_{\rm true})\\
+   &\times \Phi(p_{\rm true}, E_{\rm true}) {\rm d}E_{\rm true} {\rm d}p_{\rm true}
+\end{align}
+where
+\begin{itemize}
+\item $R(p, E| p_{\rm true}, E_{\rm true})$ is the instrument response
+\item $\Phi(p_{\rm true}, E_{\rm true})$ is the sky flux model
+\item $t_{\rm obs}$ is the observation time
+\end{itemize}
+
+A common assumption is that the instrument response can be simplified as the product
+of three independent functions:
+
+\begin{align}
+   R(p, E|p_{\rm true}, E_{\rm true}) = &A_{\rm eff}(p_{\rm true}, E_{\rm true}) \times\\
+    &PSF(p|p_{\rm true}, E_{\rm true}) \times\\
+    &E_{\rm disp}(E|p_{\rm true}, E_{\rm true})
+\end{align}
+where:
+\begin{itemize}
+\item $A_{\rm eff}(p_{\rm true}, E_{\rm true})$ is the effective collection area of the detector. It is the product
+  of the detector collection area times its detection efficiency at true energy $E_{\rm true}$ and position $p_{\rm true}$.
+\item $PSF(p|p_{\rm true}, E_{\rm true})$ is the point spread function. It gives the probability of
+  measuring a direction $p$ when the true direction is $p_{\rm true}$ and the true energy is $E_{\rm true}$.
+  Gamma-ray instruments consider the probability density of the angular separation between true and reconstructed directions
+  $\delta p = p_{\rm true} - p$, i.e. $PSF(\delta p|p_{\rm true}, E_{\rm true})$.
+\item $E_{\rm disp}(E|p_{\rm true}, E_{\rm true})$ is the energy dispersion. It gives the probability to
+  reconstruct the photon at energy $E$ when the true energy is $E_{\rm true}$ and the true position :$p_{\rm true}$.
+  Gamma-ray instruments consider the probability density of the migration $\mu=\frac{E}{E_{\rm true}}$,
+  i.e. $E_{\rm disp}(\mu|p_{\rm true}, E_{\rm true})$.
+\end{itemize}
+
+
+Gamma-ray data at the Data Level 3 therefore consists in lists of gamma-like events and their
+corresponding instrument response functions (IRFs). The latter include the aforementioned
+effective area, point spread function (PSF), energy dispersion and residual hadronic background.
 The handling of DL3 data is performed by classes and methods
 in the gammapy.data  (see \ref{ssec:gammapy-data}) and the gammapy.irf
 (see \ref{ssec:gammapy-irf}) subpackages.
@@ -45,7 +83,7 @@ that represent the data level 4 (DL4). They can be written to
 disk, in a format specific to Gammapy to allow users to read them back at any time later
 for modeling and fitting.
 
-This latter step 
+This latter step
  datasets classes bundle reduced data in form of maps, reduced IRFs, models and
 fit statistics. Different sub-classes support different analysis methods
 and fit statistics (e.g. Poisson statistics with known background or
