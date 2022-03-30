@@ -35,18 +35,17 @@ This small ecosystem of interconnected up-to-date repositories, automatized task
 \subsection{Software distribution}
 \label{ssec:software-distribution}
 
-Gammapy is distributed and installed in the usual way for Python packages. Each stable release is uploaded to the Python package index \footnote{\url{https://pypi.org}} and as a binary package to the \textit{conda-forge} and \textit{astropy} Anaconda repository \footnote{\url{https://anaconda.org/anaconda/repo}} channels. At this time, Gammapy is also available as a Debian Linux package \footnote{\url{https://packages.debian.org/sid/python3-gammapy}}. We recommend installing the software using the \textit{conda} installation process with an environment definition file that we provide, so to work within a virtual isolated environment with additional useful packages and ensure reproducibility. Once installed users may download datasets and playable executable tutorials in the form of Jupyter notebooks using the \textit{gammapy download} command.
+Gammapy is distributed for Linux, Windows and Mac environments, and installed in the usual way for Python packages. Each stable release is uploaded to the Python package index \footnote{\url{https://pypi.org}} and as a binary package to the \textit{conda-forge} and \textit{astropy} Anaconda repository \footnote{\url{https://anaconda.org/anaconda/repo}} channels. At this time, Gammapy is also available as a Debian Linux package \footnote{\url{https://packages.debian.org/sid/python3-gammapy}}. We recommend installing the software using the \textit{conda} installation process with an environment definition file that we provide, so to work within a virtual isolated environment with additional useful packages and ensure reproducibility. 
 
 Gammapy is indexed in Astronomy Source Code Library \footnote{\url{https://ascl.net/1711.014}} and Zenodo \footnote{\url{https://zenodo.org/record/5721467o}} digital libraries for software. The Zenodo record is synchronised with the codebase GitHub repository so that every release triggers the update of the versioned record. In addition, the next release of Gammapy will be added to the Open-source scientific Software and Service Repository \footnote{\url{https://projectescape.eu/ossr}} and indexed in the European Open Science Cloud catalog \footnote{\url{https://eosc-portal.eu}}.
 
 \subsection{Documentation}
 \label{ssec:documentation}
+Gammapy provides its user community with a tested and versioned up-to-date on-line documentation \footnote{\url{https://docs.gammapy.org}}~\citep{2019ASPC..523..357B} built with Sphinx \footnote{\url{https://www.sphinx-doc.org}} scanning the codebase Python scripts, as well as a set of RST files and Jupyter notebooks. The documentation includes a handwritten user guide, a set of executable tutorials, and a reference to the API automatically extracted from the code and docstrings. The Gammapy code snippets present in the documentation are tested in different environments using our continuous integration (CI) workflow based on GitHub actions.
 
-\begin{itemize}
-	\item rst, sphinx, api
-	\item versioned notebooks building and testing
-	\item versioned binder
-\end{itemize}
+The Jupyter notebooks tutorials are stored stripped of their output cells, which greatly helps in identifying differences in the contribution review. During the CI these are executed, the output cells parsed and, in case an error is found in one of the output cells then validation fails. Code formatting of the input cells is also done, parsing their content and using a particular syntax to provide links to the API documentation pages. The resulting web published tutorials also provide links to playground spaces in myBinder~\citep{project_jupyter-proc-scipy-2018}, where they may be executed on-line in versioned virtual environments hosted in the myBinder infrastructure.
+
+Users may also play with the tutorials locally in their laptops. They can download a specific version of the tutorials together with the associated datasets needed and the specific conda computing environment, using the \textit{gammapy download} command.
 
 \subsection{Community and user-support}
 \label{ssec:community-and-user-support}
