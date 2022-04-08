@@ -109,8 +109,6 @@ def fit_models(stacked):
     spectral_model_fit_3.amplitude.min = 0
 
     spatial_model_fit_3 = ShellSpatialModel(lon_0 = "0.06 deg", lat_0 = "0.6 deg", radius=0.5*u.deg,width=0.2*u.deg,frame='galactic')
-    #spatial_model_fit_3.lon_0.frozen = True
-    #spatial_model_fit_3.lat_0.frozen = True
     model_fit_3 = SkyModel(spectral_model_fit_3, spatial_model_fit_3, name='source 3 fit')
 
     stacked.models = [model_fit_1, model_fit_2, model_fit_3]
