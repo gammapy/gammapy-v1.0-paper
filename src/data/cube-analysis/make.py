@@ -83,7 +83,7 @@ def simulate_counts(stacked):
 
     stacked.models = [model_1, model_2, model_3]
 
-    stacked.fake()
+    stacked.fake(0)
 
     return stacked
 
@@ -123,7 +123,7 @@ def make_residual_map(stacked, models):
     return result['sqrt_ts']
 
 def make_contribution_to_region(stacked, models, region):
-    spec = stacked.to_spectrum_dataset(stacked, containment_correction=True)
+    spec = stacked.to_spectrum_dataset(region, containment_correction=True)
 
     so1 = SkyModel(models[0].spectral_model)
     spec.models = [so1]
@@ -162,7 +162,7 @@ if __name__ == "__main__":
     models.write(filename, overwrite=True, write_covariance=False)
 
     filename = path / "residual_map.fits"
-    residual_map = make_significance_map(stacked, models)
+    residual_map = make_residual_map(stacked, models)
     log.info(f"Writing {filename}")
     residual_map.write(filename, overwrite=True)
 
@@ -170,16 +170,16 @@ if __name__ == "__main__":
 
     filename_excess = path / "excess_counts.fits"
     log.info(f"Writing {filename_excess}")
-    excess.write(filename_excess, overwrite=True)
+    excess.write(filename_excess, format="ogip", overwrite=True)
 
     filename_source1 = path / "npred_1.fits"
     log.info(f"Writing {filename_source1}")
-    npred_1.write(filename_source1, overwrite=True)
+    npred_1.write(filename_source1, format="ogip", overwrite=True)
 
     filename_source2 = path / "npred_2.fits"
     log.info(f"Writing {filename_source2}")
-    npred_2.write(filename_source2, overwrite=True)
+    npred_2.write(filename_source2, format="ogip", overwrite=True)
 
     filename_source3 = path / "npred_3.fits"
     log.info(f"Writing {filename_source3}")
-    npred_3.write(filename_source3, overwrite=True)
+    npred_3.write(filename_source3, format="ogip", overwrite=True)
