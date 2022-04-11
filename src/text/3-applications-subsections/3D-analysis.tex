@@ -3,9 +3,11 @@
 \todo{Laura}
 The 1D analysis approach is a powerful tool to measure the spectrum of an isolated source. However, more complicated situations, such as field of views containing several overlapping sources, require a more careful treatment. Because it is based on integration over a region, the 1D approach can't disentangle the contribution of each source to the total flux in the selected region. Similarly, sources with extended or complex morphology can result in the measured flux being underestimated, and heavily dependent on the choice of extraction region.
 
+\cite{Mohrmann2019}
+
 For such situations a more complex approach is needed, the so-called 3D analysis. The three relevant dimensions are the two spatial angular coordinates and an energy axis. In this framework, a combined spatial and spectral model (that is, a SkyModel, see Section~\ref{ssec:gammapy-modeling}) is fitted to the sky-maps that were previously derived from the data and bundled into a MapDataset (see Sections~\ref{ssec:gammapy-makers,ssec:gammapy-datasets}).
 
-Starting from the \irfs corresponding to the same three simulated \cta observations used in Section~\ref{ssec:1d-analysis}, we can create a MapDataset via the MapDatasetMaker. However, we will not use the simulated event lists provided by \cta but instead, use the method MapDataset.fake() to simulate measured counts from the combination of several SkyModel instances. In particular we simulate:
+Starting from the \irfs corresponding to the same three simulated \cta observations used in Section~\ref{ssec:1d-analysis}, we can create a MapDataset via the MapDatasetMaker. However, we will not use the simulated event lists provided by \cta but instead, use the method MapDataset.fake() to simulate measured counts from the combination of several SkyModel instances. In this way, a DL4 dataset can directly be simulated. In particular we simulate:
 \begin{enumerate}
 	\item A point source located at (l=0\textdegree, b=0\textdegree) with a power-law spectral shape.
 	\item An extended source with Gaussian morphology located at (l=0.4\textdegree, b=0.15\textdegree) with $\sigma$=0.2\textdegree and a log-parabola spectral shape.
@@ -13,7 +15,7 @@ Starting from the \irfs corresponding to the same three simulated \cta observati
 \end{enumerate}
 The position and sizes of the sources have been selected so that their contributions overlap. This can be clearly seen in the significance map shown in the left panel of Figure~\ref{fig:cube_analysis}. This map was produced with the ExcessMapEstimator (see Section~\ref{ssec:gammapy-estimators}) with a correlation radius of 0.1\textdegree.
 
-We can now fit the same model shapes to the simulated data and retrieve the best-fit parameters, which are in all cases well within 1$\sigma$ of the simulated parameters. We can now compute the residual significance map after removing the contribution from each model. This is done again via the ExcessMapEstimator. As can be seen in the middle panel of Figure~\ref{fig:cube_analysis}, there are no regions above or below 5$\sigma$.
+We can now fit the same model shapes to the simulated data and retrieve the best-fit parameters. To check the model agreement, we compute the residual significance map after removing the contribution from each model. This is done again via the ExcessMapEstimator. As can be seen in the middle panel of Figure~\ref{fig:cube_analysis}, there are no regions above or below 5$\sigma$, meaning that the models describe the data sufficiently well.
 
 As the example above shows, the 3D analysis allows to characterize the morphology of the emission and fit it together with the spectral properties of the source.  Among the advantages that this provides is the ability to disentangle the contribution from overlapping sources to the same spatial region. To highlight this, we define a circular RegionGeom of radius 0.5\textdegree centered around the position of the point source, which is drawn in the left panel of Figure~\ref{fig:cube_analysis}. We can now compare the measured excess counts integrated in that region to the expected relative contribution from each of the three source models. This can be seen in the left panel of Figure~\ref{fig:cube_analysis}.
 
