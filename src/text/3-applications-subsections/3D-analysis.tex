@@ -1,11 +1,11 @@
 \subsection{3D Analysis}
 \label{ssec:3d-analysis}
 \todo{Laura}
-The 1D analysis approach is a powerful tool to measure the spectrum of an isolated source. However, more complicated situations, such as field of views containing several overlapping sources, require a more careful treatment. Because it is based on integration over a region, the 1D approach can't disentangle the contribution of each source to the total flux in the selected region. Similarly, sources with extended or complex morphology can result in the measured flux being underestimated, and heavily dependent on the choice of extraction region.
-
-\cite{Mohrmann2019}
+The 1D analysis approach is a powerful tool to measure the spectrum of an isolated source. However, more complicated situations require a more careful treatment. In fields of view containing several overlapping sources, the 1D approach can't disentangle the contribution of each source to the total flux in the selected region. Sources with extended or complex morphology can result in the measured flux being underestimated, and heavily dependent on the choice of extraction region. Additionally, the 1D approach neglects the energy-dependence of the PSF.
 
 For such situations a more complex approach is needed, the so-called 3D analysis. The three relevant dimensions are the two spatial angular coordinates and an energy axis. In this framework, a combined spatial and spectral model (that is, a SkyModel, see Section~\ref{ssec:gammapy-modeling}) is fitted to the sky-maps that were previously derived from the data and bundled into a MapDataset (see Sections~\ref{ssec:gammapy-makers,ssec:gammapy-datasets}).
+
+A thorough description of the 3D analysis approach and multiple examples that use \gammapy can be found in~\cite{Mohrmann2019}. Here we present a short example to highlight some of its advantages.
 
 Starting from the \irfs corresponding to the same three simulated \cta observations used in Section~\ref{ssec:1d-analysis}, we can create a MapDataset via the MapDatasetMaker. However, we will not use the simulated event lists provided by \cta but instead, use the method MapDataset.fake() to simulate measured counts from the combination of several SkyModel instances. In this way, a DL4 dataset can directly be simulated. In particular we simulate:
 \begin{enumerate}
@@ -27,6 +27,7 @@ As the example above shows, the 3D analysis allows to characterize the morpholog
 	\label{fig:cube_analysis}
 \end{figure*}
 
+Note that all the models fitted also have a spectral component, from which flux points can be derived in a similar way as described in~\ref{ssec:1d-analysis}.
 %
 %\todo{What to do with } Figure~\ref{fig:fermi_ts_map} ?
 %Ref:~\citep{Stewart2009} \begin{figure*}[t] \centering
