@@ -9,6 +9,7 @@ from astropy.coordinates import Angle
 from gammapy.data import DataStore
 from gammapy.datasets import SpectrumDataset, Datasets
 from gammapy.modeling.models import PowerLawSpectralModel, SkyModel
+from gammapy.modeling import Fit
 from gammapy.maps import MapAxis, RegionGeom
 from gammapy.estimators import LightCurveEstimator
 from gammapy.makers import (
@@ -75,7 +76,7 @@ def data_reduction(short_observations):
     return datasets
 
 
-def light_curve(datasets, time_intervals):
+def fit_stacked(datasets):
     spectral_model = PowerLawSpectralModel(
         index=3.4, amplitude=2e-11 * u.Unit("1 / (cm2 s TeV)"), reference=1 * u.TeV
     )
@@ -84,6 +85,15 @@ def light_curve(datasets, time_intervals):
     sky_model = SkyModel(
         spatial_model=None, spectral_model=spectral_model, name="pks2155"
     )
+
+    stacked = datasets.stack_reduce()
+    stacked.models = sky_model
+    fit = Fit(optimize_opts={"print_level": 0})
+    fit.run([stacked])
+    return sky_model
+
+
+def light_curve(datasets, time_intervals, sky_model):
     datasets.models = sky_model
     lc_maker_1d = LightCurveEstimator(
         energy_edges=[0.5, 1.5, 20] * u.TeV,
@@ -102,7 +112,8 @@ if __name__ == "__main__":
     observations = get_observations()
     time_intervals, short_observations = split_observations(observations)
     datasets = data_reduction(short_observations)
-    lc = light_curve(datasets, time_intervals)
+    sky_model = fit_stacked(datasets)
+    lc = light_curve(datasets, time_intervals, sky_model)
     log.info(f"Writing {filename}")
     lc.write(filename, format="lightcurve", overwrite=True)
 
