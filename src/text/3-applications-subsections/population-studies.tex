@@ -1,15 +1,55 @@
 \subsection{Surveys, catalogs, and population studies}
 \label{ssec:population-studies}
 
-Sky surveys have a large potential for new source detections, and new phenomena discovery. They also offer less selection bias to perform source population studies over a large set of coherently detected and modelled objects.
-Early versions of \textit{gammapy} were developed in parallel of the preparation of the HESS Galactic plane survey catalog \citep[HGPS][]{2018A&A...612A...1H} and the associated PWN and SNR populations studies \citep{2018A&A...612A...2H, 2018A&A...612A...3H}.
+Sky surveys have a large potential for new source detections, and new phenomena
+discovery. They also offer less selection bias to perform source population
+studies over a large set of coherently detected and modelled objects. Early
+versions of \textit{gammapy} were developed in parallel of the preparation of
+the HESS Galactic plane survey catalog \citep[HGPS][]{2018A&A...612A...1H} and
+the associated PWN and SNR populations studies \citep{2018A&A...612A...2H,
+	2018A&A...612A...3H}.
 
-The increase in sensitivity  and resolution provided by new generation of instruments scale up the number of sources detectable and the complexity of the models needed to represent them accurately. As an example If we compare the results of the HGPS to the expectations from the CTA Galactic Plane survey simulations we jump from 78 sources detected by HESS to about 500 detectable by CTA  \citep{2021arXiv210903729R}.
+The increase in sensitivity  and resolution provided by new generation of
+instruments scale up the number of sources detectable and the complexity of the
+models needed to represent them accurately. As an example If we compare the
+results of the HGPS to the expectations from the CTA Galactic Plane survey
+simulations we jump from 78 sources detected by HESS to about 500 detectable by
+CTA  \citep{2021arXiv210903729R}.
 
-Studies performed on simulations not only offer a first glimpse on what could be the sky seen by CTA (according to our current knowledge on source populations), but also give us the opportunity to test the software on complex use cases\footnote{Note that the CTA-GPS simulations were performed with the \textit{ctools} package \citep{2016A&A...593A...1K} and analysed with both \textit{ctools} and \textit{gammapy} packages in order to cross-validate them.}. So we can  improve performances, optimize our analyses strategies, and identify the needs in term of parallelisation to process the large datasets provided by the surveys.
+Studies performed on simulations not only offer a first glimpse on what could
+be the sky seen by CTA (according to our current knowledge on source
+populations), but also give us the opportunity to test the software on complex
+use cases\footnote{Note that the CTA-GPS simulations were performed with the
+	\textit{ctools} package \citep{2016A&A...593A...1K} and analysed with both
+	\textit{ctools} and \textit{gammapy} packages in order to cross-validate
+	them.}. So we can  improve performances, optimize our analyses strategies, and
+identify the needs in term of parallelisation to process the large datasets
+provided by the surveys.
 
-In short the production of catalogs from gamma-ray surveys can be divided in four main steps : data-reduction; object detection; model fitting and model selection; associations and classification.
-The IACTs data-reduction step is done in the same way than described in the previous sections but scale-up to few thousand of observations. The object detection step consists a minima in finding local maxima in the significance, or TS maps,  given by the ExcessMapEstimator, or TSMapEstimator, respectively.  Further refinements can include for example  filtering  and detection on these maps with techniques from scikit-image package  \citep{scikit-image}, and outlier detection from scikit-learn package \citep{scikit-learn}. Tests on simulations shown that it reduces the spurious detections at this stage and then speed up the next step as less objects will have to be fitted simultaneously.
-During the modelling step each object is alternatively fitted with different models in order to determine their optimal parameters, and the best-candidate model. The subpackage gammapy.modeling.models offers a large variety of choice, and the possibility to add custom models.  Several spatial models (point-source, disk, gaussian...), and spectral models (power-law, log-parabola...) may be tested for each object, so the complexity of the problem increases rapidly in regions crowded with multiple extended sources. Finally an object is discarded if its best-fit model is not significantly preferred over the null hypothesis (no source) comparing the difference in log-Likelihood between these two hypotheses.
-For the association and classification step, that is tightly connected to the population studies, we can a minima compare the fitted models to the set of gammapy-ray catalogs available in gammapy.catalog. However further multi-wavelength cross-matches are usually required to characterize the sources.
+In short the production of catalogs from gamma-ray surveys can be divided in
+four main steps : data-reduction; object detection; model fitting and model
+selection; associations and classification. The IACTs data-reduction step is
+done in the same way than described in the previous sections but scale-up to
+few thousand of observations. The object detection step consists a minima in
+finding local maxima in the significance, or TS maps,  given by the
+ExcessMapEstimator, or TSMapEstimator, respectively.  Further refinements can
+include for example  filtering				and detection on these
+maps with techniques from scikit-image package	\citep{scikit-image}, and
+outlier detection from scikit-learn package \citep{scikit-learn}. Tests on
+simulations shown that it reduces the spurious detections at this stage and
+then speed up the next step as less objects will have to be fitted
+simultaneously. During the modelling step each object is alternatively fitted
+with different models in order to determine their optimal parameters, and the
+best-candidate model. The subpackage gammapy.modeling.models offers a large
+variety of choice, and the possibility to add custom models.  Several spatial
+models (point-source, disk, gaussian...), and spectral models (power-law,
+log-parabola...) may be tested for each object, so the complexity of the
+problem increases rapidly in regions crowded with multiple extended sources.
+Finally an object is discarded if its best-fit model is not significantly
+preferred over the null hypothesis (no source) comparing the difference in
+log-Likelihood between these two hypotheses. For the association and
+classification step, that is tightly connected to the population studies, we
+can a minima compare the fitted models to the set of gammapy-ray catalogs
+available in gammapy.catalog. However further multi-wavelength cross-matches
+are usually required to characterize the sources.
 

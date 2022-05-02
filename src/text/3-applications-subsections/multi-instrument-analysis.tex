@@ -12,37 +12,39 @@
 %% DL3, multi-instrument analysis and so forth...
 %% cite Laura's DL3 HAWC paper with the updated version of the joint-crab spectrum?
 
-In this multi-instrument analysis example we showcase the capabilities of \gammapy
-to perform a simultaneous likelihood fit incorporating data from different instruments
-and at different levels of reduction.
-We estimate the spectrum of the Crab Nebula combining data from \fermi, \magic and \hawc.
-Maps of \fermi data are prepared selecting a region of $X^{\circ}$ around the
+In this multi-instrument analysis example we showcase the capabilities of
+\gammapy to perform a simultaneous likelihood fit incorporating data from
+different instruments and at different levels of reduction. We estimate the
+spectrum of the Crab Nebula combining data from \fermi, \magic and \hawc. Maps
+of \fermi data are prepared selecting a region of $X^{\circ}$ around the
 position of the Crab Nebula applying the same selection criteria of the 3FHL
-catalog (7 years of data with energy from $10\,{\rm GeV}$ to $2\,{\rm TeV}$, \citealt{3FHL}).
-%% shall we explain exactly which type of Map is created?
-The \magic data are two observations of $20\,{\rm min}$ each, chosen from the
-dataset used to estimate the performance of the upgraded stereo system \citep{magic_performance}
-and already included in \cite{joint_crab}. The observations were taken at small
-zenith angles ($<30^{\circ}$) in wobble mode \citep{fomin_1994}, with the source
-sitting at an offset of $0.4^{\circ}$ from the FoV center. Their energy range spans
-$80\,{\rm GeV} -- 20\,{\rm TeV}$. They are reduced to ON/OFF dataset before being fitted.
-\hawc flux points data are estimated in \cite{hawc_crab_2019} with $2.5\,{\rm years}$
-of data and span an energy range $300\,{\rm GeV} -- 300\,{\rm TeV}$, and directly read with \gammapy.
+catalog (7 years of data with energy from $10\,{\rm GeV}$ to $2\,{\rm TeV}$,
+\citealt{3FHL}).  The \magic data are two%% shall we explain exactly which type of Map is created?
+observations of $20\,{\rm min}$ each, chosen from the dataset used to estimate
+the performance of the upgraded stereo system \citep{magic_performance} and
+already included in \cite{joint_crab}. The observations were taken at small
+zenith angles ($<30^{\circ}$) in wobble mode \citep{fomin_1994}, with the
+source sitting at an offset of $0.4^{\circ}$ from the FoV center. Their energy
+range spans $80\,{\rm GeV} -- 20\,{\rm TeV}$. They are reduced to ON/OFF
+dataset before being fitted. \hawc flux points data are estimated in
+\cite{hawc_crab_2019} with $2.5\,{\rm years}$ of data and span an energy range
+$300\,{\rm GeV} -- 300\,{\rm TeV}$, and directly read with \gammapy.
 
-\gammapy automatically generates a likelihood including three different types of
-terms. Two poissonian likelihoods: one for the \fermi map and one for the ON/OFF
-counts, and a $\chi^2$ accounting for the flux points. For \fermi, a
-a three-dimensional forward folding of the sky model with the IRF is performed,
+\gammapy automatically generates a likelihood including three different types
+of terms. Two poissonian likelihoods: one for the \fermi map and one for the
+ON/OFF counts, and a $\chi^2$ accounting for the flux points. For \fermi, a a
+three-dimensional forward folding of the sky model with the IRF is performed,
 in order to compute the predicted counts in each sky-coordinate and energy bin.
-For \magic, a one-dimensional forward folding of the spectral model with the IRF
-is performed to predict the counts in each estimated energy bin.
-A log parabola is fitted to the almost fived decades in energy $10\,{\rm GeV} -- 300\,{\rm TeV}$.
-%% is the LP formula specified elsewhere?
+For \magic, a one-dimensional forward folding of the spectral model with the
+IRF is performed to predict the counts in each estimated energy bin. A log
+parabola is fitted to the almost fived decades in energy $10\,{\rm GeV} --
+	300\,{\rm TeV}$. %% is the LP formula specified elsewhere?
 
-The result of the joint fit is displayed in Fig.~\ref{fig:multi_instrument_analysis}.
-We remark that the objective of this exercise is illustrative, we display the
-flexibility of \gammapy in simultaneously fitting multi-isntrument data even at
-different levels of reduction, we do not aim to provide a new measurement of the
-Crab Nebula spectrum.
+The result of the joint fit is displayed in
+Fig.~\ref{fig:multi_instrument_analysis}. We remark that the objective of this
+exercise is illustrative, we display the flexibility of \gammapy in
+simultaneously fitting multi-isntrument data even at different levels of
+reduction, we do not aim to provide a new measurement of the Crab Nebula
+spectrum.
 
 %% eventual part for physical modelling with naima
