@@ -1,5 +1,19 @@
-\section{Gammapy project}
-\label{sec:gammapy-project}
+# Custom rule to prepare multi-instrument datasets
+rule prepare_multi_instrument: input:
+"src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
+"src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_iem.fits",
+"src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_datasets.yaml",
+"src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_models.yaml",
+"src/data/multi-instrument/input/magic/hdu-index.fits.gz",
+"src/data/multi-instrument/input/magic/obs-index.fits.gz",
+"src/data/multi-instrument/input/magic/20131004_05029747_DL3_CrabNebula-W0.40+035.fits",
+"src/data/multi-instrument/input/magic/20131004_05029748_DL3_CrabNebula-W0.40+215.fits",
+"src/data/multi-instrument/input/hawc/HAWC19_flux_points.fits", output:
+"src/data/multi-instrument/datasets/flux_points/crab_magic_flux_points.fits",
+"src/data/multi-instrument/datasets/flux_points/crab_fermi_flux_points.fits",
+"src/data/multi-instrument/results/crab_multi_instrument_fit.yaml", conda:
+"environment.yml" shell: "cd src/data/multi-instrument && python make.py"
+\section{Gammapy project} \label{sec:gammapy-project}
 
 In this section, we provide an overview of the organization of the Gammapy
 project. We briefly describe the main roles and responsibilities within the
@@ -52,7 +66,7 @@ use of the pull request system to discuss and review code contributions.
 		Percentage of lines of code in Gammapy project} \label{fig:codestats:lang}
 \end{figure}
 
-Several automatized tasks are set as GitHub
+Several automated tasks are set as GitHub
 actions\footnote{\url{https://github.com/features/actions}}, blocking the
 processes and alerting developers when fails occur. This is the case of the
 content integration workflow, which monitors the execution of the test coverage
@@ -61,18 +75,17 @@ suite\footnote{\url{https://pytest.org}} using datasets from the
 code snippets present in docstrings of the scripts and in the RST documentation
 files, as well as in the tutorials provided in the form of Jupyter notebooks.
 
-Other automatized tasks, executing in the \textit{gammapy-benchmarks}
-repository, are responsible for numerical validation tests and benchmarks
-monitoring. Also tasks related with the release process are partially
-automatized, and every contribution to the codebase repository triggers the
-documentation building and publishing workflow within the \textit{gammapy-docs}
-repository (see Sec. ~\ref{ssec:software-distribution} and Sec.
-~\ref{ssec:documentation}).
+Other automated tasks, executing in the \textit{gammapy-benchmarks} repository,
+are responsible for numerical validation tests and benchmarks monitoring. Also
+tasks related with the release process are partially automated, and every
+contribution to the codebase repository triggers the documentation building and
+publishing workflow within the \textit{gammapy-docs} repository (see Sec.
+~\ref{ssec:software-distribution} and Sec. ~\ref{ssec:documentation}).
 
-This small ecosystem of interconnected up-to-date repositories, automatized
-tasks and alerts, is just a part of a bigger set of GitHub repositories, where
-most of them are related with the project but not necessary for the development
-of the software (i.e. project webpage, complementary high-energy astrophysics
+This small ecosystem of interconnected up-to-date repositories, automated tasks
+and alerts, is just a part of a bigger set of GitHub repositories, where most
+of them are related with the project but not necessary for the development of
+the software (i.e., project webpage, complementary high-energy astrophysics
 object catalogs, coding sprints and weekly developer calls minutes,
 contributions to conferences, other digital assets, etc.) Finally, third-party
 services for code quality metrics are also set and may be found as status
@@ -148,6 +161,7 @@ regular public coding sprint meetings, hands-on session within collaborations,
 weekly development meetings, etc.
 
 \subsection{Roadmap}
+\label{ssec:roadmap}
 \todo{Axel, Regis}
 
 \begin{itemize}

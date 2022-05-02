@@ -8,15 +8,16 @@ general, gamma-ray observations count Poisson-distributed events at various sky
 positions, and contain both signal and background events. Estimation of the
 number of signal events is done through likelihood maximization. In Gammapy,
 the fit statistics are Poisson log-likelihood functions normalized like
-chi-squares, i.e. they follow the expression $2 \times log L$, where $L$ is the
-likelihood function used. The statistic function used when the expected number
-of background events is known is the \emph{Cash} statistic ~\citep{Cash}. It is
-used by datasets using background templates such as the MapDataset. When the
-number of background events is unknown and an off measurement where only
-background events are expected is used, the statistic function is WStat. It is
-a profile log-likelihood statistic where background counts are marginalized
-parameters. It is used by datasets containing off counts measurements such as
-the SpectrumDatasetOnOff, used for classical spectral analysis.
+chi-squares, i.e., they follow the expression $2 \times log L$, where $L$ is
+the likelihood function used. The statistic function used when the expected
+number of background events is known is the \emph{Cash} statistic
+~\citep{Cash}. It is used by datasets using background templates such as the
+MapDataset. When the number of background events is unknown and an off
+measurement where only background events are expected is used, the statistic
+function is WStat. It is a profile log-likelihood statistic where background
+counts are marginalized parameters. It is used by datasets containing off
+counts measurements such as the SpectrumDatasetOnOff, used for classical
+spectral analysis.
 
 To perform simple statistical estimations on counts measurements,
 CountsStatistic classes encapsulate the aforementioned statistic functions to
