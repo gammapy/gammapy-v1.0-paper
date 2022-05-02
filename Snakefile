@@ -102,18 +102,17 @@ rule prepare_cube:
         "src/data/cta-galactic-center/input/data/baseline/gps/gps_baseline_111159.fits",
         "src/data/cta-galactic-center/input/caldb/data/cta/1dc/bcf/South_z20_50h/irf_file.fits",
     output:
-        "src/data/cube_analysis/significance_map.fits",
-        "src/data/cube_analysis/best-fit-model.yaml",
-        "src/data/cube_analysis/residual_map.fits",
-        "src/data/cube_analysis/excess_counts.fits",
-        "src/data/cube_analysis/npred_1.fits",
-        "src/data/cube_analysis/npred_2.fits",
-        "src/data/cube_analysis/npred_3.fits",
-
+        "src/data/cube-analysis/significance_map.fits",
+        "src/data/cube-analysis/best-fit-model.yaml",
+        "src/data/cube-analysis/residual_map.fits",
+        "src/data/cube-analysis/excess_counts.fits",
+        "src/data/cube-analysis/npred_1.fits",
+        "src/data/cube-analysis/npred_2.fits",
+        "src/data/cube-analysis/npred_3.fits",
     conda:
         "environment.yml"
     shell:
-        "cd src/data/cube_analysis && python make.py"
+        "cd src/data/cube-analysis && python make.py"
 
 
 # Custom rule to download H.E.S.S. dataset

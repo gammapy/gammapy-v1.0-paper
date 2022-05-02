@@ -47,6 +47,7 @@ GEOM = WcsGeom.create(
 
 REGION = CircleSkyRegion(center = SkyCoord(0,0,frame='galactic', unit='deg'), radius= 0.5*u.deg)
 
+
 def get_observations():
     # Select observations
     data_store = DataStore.from_dir("../cta-galactic-center/input/index/gps")
@@ -55,7 +56,7 @@ def get_observations():
 
 
 def make_map_dataset(observations):
-    stacked = MapDataset.create(geom=GEOM,energy_axis_true=ENERGY_AXIS_TRUE)
+    stacked = MapDataset.create(geom=GEOM, energy_axis_true=ENERGY_AXIS_TRUE)
     dataset_maker = MapDatasetMaker(selection=["background", "exposure", "psf", "edisp"])
     safe_mask_masker = SafeMaskMaker(methods=["offset-max", "aeff-default"], offset_max=2.5 * u.deg)
 
@@ -66,6 +67,7 @@ def make_map_dataset(observations):
         stacked.stack(dataset)
 
     return stacked
+
 
 def simulate_counts(stacked):
 
@@ -87,11 +89,13 @@ def simulate_counts(stacked):
 
     return stacked
 
+
 def make_significance_map(stacked):
     stacked.models = []
     e = ExcessMapEstimator("0.1deg")
     result = e.run(stacked)
     return result['sqrt_ts']
+
 
 def fit_models(stacked):
     spectral_model_fit_1 = PowerLawSpectralModel(index = 2, amplitude="0.5e-12 cm-2 s-1 TeV-1", reference="1 TeV")
@@ -116,11 +120,13 @@ def fit_models(stacked):
     result = fit.run(stacked)
     return stacked.models
 
+
 def make_residual_map(stacked, models):
     stacked.models = models
     e = ExcessMapEstimator("0.1deg")
     result = e.run(stacked)
     return result['sqrt_ts']
+
 
 def make_contribution_to_region(stacked, models, region):
     spec = stacked.to_spectrum_dataset(region, containment_correction=True)
