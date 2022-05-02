@@ -92,6 +92,29 @@ rule prepare_cta:
     shell:
         "cd src/data/cta-galactic-center && python make.py"
 
+# Custom rule to prepare cube analysis
+rule prepare_cube:
+    input:
+        "src/data/cta-galactic-center/input/index/gps/hdu-index.fits.gz",
+        "src/data/cta-galactic-center/input/index/gps/obs-index.fits.gz",
+        "src/data/cta-galactic-center/input/data/baseline/gps/gps_baseline_110380.fits",
+        "src/data/cta-galactic-center/input/data/baseline/gps/gps_baseline_111140.fits",
+        "src/data/cta-galactic-center/input/data/baseline/gps/gps_baseline_111159.fits",
+        "src/data/cta-galactic-center/input/caldb/data/cta/1dc/bcf/South_z20_50h/irf_file.fits",
+    output:
+        "src/data/cube_analysis/significance_map.fits",
+        "src/data/cube_analysis/best-fit-model.yaml",
+        "src/data/cube_analysis/residual_map.fits",
+        "src/data/cube_analysis/excess_counts.fits",
+        "src/data/cube_analysis/npred_1.fits",
+        "src/data/cube_analysis/npred_2.fits",
+        "src/data/cube_analysis/npred_3.fits",
+
+    conda:
+        "environment.yml"
+    shell:
+        "cd src/data/cube_analysis && python make.py"
+
 
 # Custom rule to download H.E.S.S. dataset
 rule download_hess:

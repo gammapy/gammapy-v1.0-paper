@@ -26,3 +26,15 @@ dependencies:
         - src/data/multi-instrument/datasets/flux_points/crab_magic_flux_points.fits
         - src/data/multi-instrument/input/hawc/HAWC19_flux_points.fits
         - src/data/multi-instrument/results/crab_multi_instrument_fit.yaml
+    src/figures/cube_analysis.py:
+        - src/data/cube-analysis/significance_map.fits
+        - src/data/cube-analysis/residual_map.fits
+        - src/data/cube-analysis/excess_counts.fits
+        - src/data/cube-analysis/npred_1.fits
+        - src/data/cube-analysis/npred_2.fits
+        - src/data/cube-analysis/npred_3.fits
+
+
+
+
+
