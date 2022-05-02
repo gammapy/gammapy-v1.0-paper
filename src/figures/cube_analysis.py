@@ -58,7 +58,7 @@ models[2].spatial_model.to_region().to_pixel(wcs).plot(ax=ax, fill=False, lw=1, 
 rect = (0.72, 0.23, 0.26, 0.7)
 ax = fig.add_axes(rect=rect)
 ax.tick_params(labelsize=fontsize_ticks, pad=1, length=2)
-excess.plot(ax=ax, color='blue', label='excess counts')
+excess.plot(ax=ax, color='blue', label='excess counts',markersize=2)
 npred_1.plot_hist(ax=ax, label='source 1', lw=1, color='C0')
 npred_2.plot_hist(ax=ax, label='source 2', lw=1, color='C1')
 npred_3.plot_hist(ax=ax, label='source 3', lw=1, color='C2')
