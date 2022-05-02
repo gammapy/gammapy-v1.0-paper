@@ -1,13 +1,48 @@
 \subsection{gammapy.estimators}
 \label{ssec:gammapy-estimators}
 \todo{Axel Donath}
-The \verb|gammapy.estimators| sub-module features methods to compute flux
-points, light curves, flux maps, flux profiles from data.
+The \verb|gammapy.estimators| sub-module contains methods to compute flux
+points, light curves, flux profiles, flux maps and  from data.
+
+The light curve and flux profile estimation are based on the
+flux points estimation.
+
+The spectral energy distribution (SED)...
+
+There are four common quantities used for the representation of
+\gammaray spectra and flux points.
+
+\begin{table*}
+    \begin{center}
+        \begin{tabular}{lll}
+         \hline
+         Type & Description & Unit Equivalency \\
+         \hline
+         dnde & Differential flux at a given energy & $\mathrm{TeV^{-1}~cm^{2}~s^{-1}}$ \\
+         e2dnde & Differential flux at a given energy  & $\mathrm{TeV~cm^{2}~s^{-1}}$ \\
+         flux & Integrated flux in agiven energy range & $\mathrm{cm^{2}~s^{-1}}$ \\
+         eflux & Integrated energy flux in agiven energy range & $\mathrm{erg~cm^{2}~s^{-1}}$
+        \end{tabular}
+    \end{center}
+    \label{tab:sed_types}
+    \caption{Definition of sed types.}
+\end{table*}
+
+
+
+The main data structure for the result of is the `FluxMaps` class.
+The internal representation is based on a reference spectral model
+and an array of normalisation values given in energy, time and spatial bins,
+the so called "norm".
+The actual flux values are obtained by mutiplication of the norm with the
+reference flux.
+This models allows for a representation of flux values, wich are idependent
+of the SED type.
+
 
 The initial fine binning of \verb|MapDataset| is grouped into larger bins.
 
-Internal representation with a reference spectral model and an array of
-normalisation values given in energy, time and spatial bins.
+
 
 No unfolding.
 
