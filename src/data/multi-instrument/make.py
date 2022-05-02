@@ -33,7 +33,7 @@ def load_fermi_datasets():
 def reduce_magic_data():
     """Reduce the MAGIC DL3 files to `SpectrumDatasetOnOff`"""
     data_store = DataStore.from_dir("input/magic")
-    observations = data_store.get_observations(required_irf=["aeff", "edisp", "rad-max"])
+    observations = data_store.get_observations(required_irf=["aeff", "edisp", "rad_max"])
 
     # adopt the same energy axes used for flute and DL3 production
     energy_axis = MapAxis.from_energy_bounds(
