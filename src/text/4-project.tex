@@ -1,18 +1,3 @@
-# Custom rule to prepare multi-instrument datasets
-rule prepare_multi_instrument: input:
-"src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
-"src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_iem.fits",
-"src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_datasets.yaml",
-"src/data/multi-instrument/input/fermi/Fermi-LAT-3FHL_models.yaml",
-"src/data/multi-instrument/input/magic/hdu-index.fits.gz",
-"src/data/multi-instrument/input/magic/obs-index.fits.gz",
-"src/data/multi-instrument/input/magic/20131004_05029747_DL3_CrabNebula-W0.40+035.fits",
-"src/data/multi-instrument/input/magic/20131004_05029748_DL3_CrabNebula-W0.40+215.fits",
-"src/data/multi-instrument/input/hawc/HAWC19_flux_points.fits", output:
-"src/data/multi-instrument/datasets/flux_points/crab_magic_flux_points.fits",
-"src/data/multi-instrument/datasets/flux_points/crab_fermi_flux_points.fits",
-"src/data/multi-instrument/results/crab_multi_instrument_fit.yaml", conda:
-"environment.yml" shell: "cd src/data/multi-instrument && python make.py"
 \section{Gammapy project} \label{sec:gammapy-project}
 
 In this section, we provide an overview of the organization of the Gammapy
