@@ -13,12 +13,11 @@ from gammapy.makers import (
     SpectrumDatasetMaker,
     WobbleRegionsFinder,
     ReflectedRegionsBackgroundMaker,
-    SafeMaskMaker
 )
 from gammapy.estimators import FluxPoints, FluxPointsEstimator
 from gammapy.datasets import Datasets, SpectrumDataset, FluxPointsDataset
 from gammapy.modeling import Fit
-from gammapy.modeling.models import Models, create_crab_spectral_model
+from gammapy.modeling.models import Models, SkyModel, LogParabolaSpectralModel, create_crab_spectral_model
 
 
 logging.basicConfig(level=logging.INFO)
@@ -32,8 +31,11 @@ def load_fermi_datasets():
 
 def reduce_magic_data():
     """Reduce the MAGIC DL3 files to `SpectrumDatasetOnOff`"""
+    e_min = 80 * u.GeV
+    e_max = 20 * u.TeV
+
     data_store = DataStore.from_dir("input/magic")
-    observations = data_store.get_observations(required_irf=["aeff", "edisp"])
+    observations = data_store.get_observations(required_irf=["rad_max", "aeff", "edisp"])
 
     # adopt the same energy axes used for flute and DL3 production
     energy_axis = MapAxis.from_energy_bounds(
@@ -57,8 +59,6 @@ def reduce_magic_data():
     # background and safe mask makers
     region_finder = WobbleRegionsFinder(n_off_regions=1)
     bkg_maker = ReflectedRegionsBackgroundMaker(region_finder=region_finder)
-    # use the energy threshold specified in the DL3 files
-    safe_mask_masker = SafeMaskMaker(methods=["aeff-default"])
 
     datasets = Datasets()
 
@@ -66,10 +66,9 @@ def reduce_magic_data():
 
         # fill the ON counts
         dataset = dataset_maker.run(dataset_empty.copy(name=f"{obs.obs_id}"), obs)
-
-        # fill the OFF counts and set energy threshold
+        # fill the OFF counts and set the energy range appropiate for the fit
         dataset_on_off = bkg_maker.run(dataset, obs)
-        dataset_on_off = safe_mask_masker.run(dataset_on_off, obs)
+        dataset_on_off.mask_fit = dataset.counts.geom.energy_mask(e_min, e_max)
 
         datasets.append(dataset_on_off)
 
@@ -105,8 +104,20 @@ def fit_joint_dataset(datasets, models, filename):
     datasets.models = models
 
     fit = Fit()
-    fit.run(datasets=datasets)
+    fit.optimize_opts = {"tol": 0.001, "strategy": 2}
+    result = fit.run(datasets=datasets)
 
+    print(result)
+    print(datasets.models.parameters.to_table())
+    print(fit.minuit)
+
+    import IPython; IPython.embed()
+    import matplotlib.pyplot as plt; plt.show()
+    datasets[0].plot_fit()
+    plt.show()
+    datasets[1].plot_fit()
+    plt.show()
+    quit()
     # write the best fit result
     Path(filename).parent.mkdir(exist_ok=True, parents=True)
     log.info(f"Writing {filename}")
@@ -121,15 +132,26 @@ if __name__ == "__main__":
 
     # join them in a single Datasets
     datasets = Datasets()
-    datasets.append(hawc_dataset)
-    datasets.extend(fermi_dataset)
+    #datasets.append(hawc_dataset)
+    #datasets.extend(fermi_dataset)
     datasets.extend(magic_datasets)
 
     # load the model
     models = Models.read("input/fermi/Fermi-LAT-3FHL_models.yaml")
-
+    """
+    # re-define the models
+    spectral_model = LogParabolaSpectralModel(
+        amplitude=1e-12 * u.Unit("cm-2 s-1 TeV-1"),
+        alpha=2,
+        beta=0.1,
+        reference=1 * u.TeV,
+    )
+    model = SkyModel(spectral_model=spectral_model, name="crab")
+    models = [model]
+    """
     fit_joint_dataset(datasets, models, "results/crab_multi_instrument_fit.yaml")
 
+    """
     # now compute and store the Fermi-LAT and MAGIC flux points
     energy_edges_fermi =  MapAxis.from_energy_bounds("10 GeV", "2 TeV", nbin=5).edges
     compute_flux_points(
@@ -137,7 +159,7 @@ if __name__ == "__main__":
         energy_edges_fermi,
         "datasets/flux_points/crab_fermi_flux_points.fits"
     )
-
+    """
     # stack the MAGIC dataset and add the model before feeding it to the FluxPointsEstimator
     magic_datasets_to_fp = magic_datasets.stack_reduce()
     magic_datasets_to_fp.models = models
