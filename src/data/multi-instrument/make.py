@@ -35,7 +35,7 @@ def reduce_magic_data():
     e_max = 20 * u.TeV
 
     data_store = DataStore.from_dir("input/magic")
-    observations = data_store.get_observations(required_irf=["rad_max", "aeff", "edisp"])
+    observations = data_store.get_observations(required_irf=["aeff", "edisp", "rad_max"])
 
     # adopt the same energy axes used for flute and DL3 production
     energy_axis = MapAxis.from_energy_bounds(
