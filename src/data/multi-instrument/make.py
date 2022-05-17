@@ -18,6 +18,7 @@ from gammapy.estimators import FluxPoints, FluxPointsEstimator
 from gammapy.datasets import Datasets, SpectrumDataset, FluxPointsDataset
 from gammapy.modeling import Fit
 from gammapy.modeling.models import Models, SkyModel, LogParabolaSpectralModel, create_crab_spectral_model
+import matplotlib.pyplot as plt
 
 
 logging.basicConfig(level=logging.INFO)
@@ -72,6 +73,9 @@ def reduce_magic_data():
 
         datasets.append(dataset_on_off)
 
+    # stack and write to disk
+    datasets.stack_reduce(name="MAGIC").write(f"magic_rad_max_stacked_ogip.fits", overwrite=True)
+
     return datasets
 
 
@@ -111,13 +115,13 @@ def fit_joint_dataset(datasets, models, filename):
     print(datasets.models.parameters.to_table())
     print(fit.minuit)
 
-    import IPython; IPython.embed()
-    import matplotlib.pyplot as plt; plt.show()
-    datasets[0].plot_fit()
-    plt.show()
-    datasets[1].plot_fit()
-    plt.show()
-    quit()
+    for dataset in datasets:
+        try:
+            dataset.plot_fit()
+            plt.show()
+        except AttributeError:
+            continue
+
     # write the best fit result
     Path(filename).parent.mkdir(exist_ok=True, parents=True)
     log.info(f"Writing {filename}")
@@ -132,8 +136,8 @@ if __name__ == "__main__":
 
     # join them in a single Datasets
     datasets = Datasets()
-    #datasets.append(hawc_dataset)
-    #datasets.extend(fermi_dataset)
+    datasets.append(hawc_dataset)
+    datasets.extend(fermi_dataset)
     datasets.extend(magic_datasets)
 
     # load the model
@@ -146,12 +150,10 @@ if __name__ == "__main__":
         beta=0.1,
         reference=1 * u.TeV,
     )
-    model = SkyModel(spectral_model=spectral_model, name="crab")
-    models = [model]
+    models[0] = SkyModel(spectral_model=spectral_model, name="crab")
     """
     fit_joint_dataset(datasets, models, "results/crab_multi_instrument_fit.yaml")
 
-    """
     # now compute and store the Fermi-LAT and MAGIC flux points
     energy_edges_fermi =  MapAxis.from_energy_bounds("10 GeV", "2 TeV", nbin=5).edges
     compute_flux_points(
@@ -159,7 +161,7 @@ if __name__ == "__main__":
         energy_edges_fermi,
         "datasets/flux_points/crab_fermi_flux_points.fits"
     )
-    """
+
     # stack the MAGIC dataset and add the model before feeding it to the FluxPointsEstimator
     magic_datasets_to_fp = magic_datasets.stack_reduce()
     magic_datasets_to_fp.models = models
