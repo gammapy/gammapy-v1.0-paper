@@ -17,7 +17,12 @@ from gammapy.makers import (
 from gammapy.estimators import FluxPoints, FluxPointsEstimator
 from gammapy.datasets import Datasets, SpectrumDataset, FluxPointsDataset
 from gammapy.modeling import Fit
-from gammapy.modeling.models import Models, SkyModel, LogParabolaSpectralModel, create_crab_spectral_model
+from gammapy.modeling.models import (
+    Models,
+    SkyModel,
+    LogParabolaSpectralModel,
+    create_crab_spectral_model,
+)
 import matplotlib.pyplot as plt
 
 
@@ -36,7 +41,9 @@ def reduce_magic_data():
     e_max = 20 * u.TeV
 
     data_store = DataStore.from_dir("input/magic")
-    observations = data_store.get_observations(required_irf=["aeff", "edisp", "rad_max"])
+    observations = data_store.get_observations(
+        required_irf=["aeff", "edisp", "rad_max"]
+    )
 
     # adopt the same energy axes used for flute and DL3 production
     energy_axis = MapAxis.from_energy_bounds(
@@ -73,9 +80,6 @@ def reduce_magic_data():
 
         datasets.append(dataset_on_off)
 
-    # stack and write to disk
-    datasets.stack_reduce(name="MAGIC").write(f"magic_rad_max_stacked_ogip.fits", overwrite=True)
-
     return datasets
 
 
@@ -90,12 +94,10 @@ def load_hawc_flux_points():
     return dataset_hawc
 
 
-def compute_flux_points(datasets, energy_edges, filename):
+def compute_flux_points(datasets, energy_edges, filename, source):
     """Compute and save the flux points for a given dataset"""
     flux_points = FluxPointsEstimator(
-        energy_edges=energy_edges,
-        source="Crab Nebula",
-        selection_optional=["ul"]
+        energy_edges=energy_edges, source=source, selection_optional=["ul"]
     ).run([datasets])
 
     Path(filename).parent.mkdir(exist_ok=True, parents=True)
@@ -108,19 +110,10 @@ def fit_joint_dataset(datasets, models, filename):
     datasets.models = models
 
     fit = Fit()
-    fit.optimize_opts = {"tol": 0.001, "strategy": 2}
     result = fit.run(datasets=datasets)
 
     print(result)
     print(datasets.models.parameters.to_table())
-    print(fit.minuit)
-
-    for dataset in datasets:
-        try:
-            dataset.plot_fit()
-            plt.show()
-        except AttributeError:
-            continue
 
     # write the best fit result
     Path(filename).parent.mkdir(exist_ok=True, parents=True)
@@ -142,32 +135,45 @@ if __name__ == "__main__":
 
     # load the model
     models = Models.read("input/fermi/Fermi-LAT-3FHL_models.yaml")
-    """
-    # re-define the models
-    spectral_model = LogParabolaSpectralModel(
-        amplitude=1e-12 * u.Unit("cm-2 s-1 TeV-1"),
-        alpha=2,
-        beta=0.1,
-        reference=1 * u.TeV,
+    models[0].spectral_model.amplitude.value = 1e-11
+    models[0].spectral_model.reference.value = 500
+    models[0].spectral_model.reference.unit = u.GeV
+    models[0].spectral_model.alpha.min = 1.0
+    models[0].spectral_model.alpha.max = 4.0
+    models[0].spectral_model.beta.min = 0.0
+    models[0].spectral_model.beta.max = 1.0
+
+    # create a model only with the Log Parabola to be applied to the MAGIC data
+    model_magic = SkyModel(
+        spectral_model=models[0].spectral_model,
+        name="crab-nebula-spectrum-only",
+        datasets_names=["5029747", "5029748"],
     )
-    models[0] = SkyModel(spectral_model=spectral_model, name="crab")
-    """
+    # add it to the list of models
+    models.append(model_magic)
+    # the first SkyModel, with the source definition is meant only for HAWC and Fermi-LAT data
+    models[0].datasets_names = ["Fermi-LAT", "HAWC"]
+
     fit_joint_dataset(datasets, models, "results/crab_multi_instrument_fit.yaml")
 
     # now compute and store the Fermi-LAT and MAGIC flux points
-    energy_edges_fermi =  MapAxis.from_energy_bounds("10 GeV", "2 TeV", nbin=5).edges
+    energy_edges_fermi = MapAxis.from_energy_bounds("10 GeV", "2 TeV", nbin=5).edges
     compute_flux_points(
         datasets["Fermi-LAT"],
         energy_edges_fermi,
-        "datasets/flux_points/crab_fermi_flux_points.fits"
+        "datasets/flux_points/crab_fermi_flux_points.fits",
+        "Crab Nebula",
     )
 
     # stack the MAGIC dataset and add the model before feeding it to the FluxPointsEstimator
-    magic_datasets_to_fp = magic_datasets.stack_reduce()
-    magic_datasets_to_fp.models = models
-    energy_edges_magic = MapAxis.from_energy_bounds("80 GeV", "20 TeV", nbin=10).edges
+    magic_datasets_to_fp = magic_datasets.stack_reduce(name="magic_stacked")
+    # the previous magic_model is set to work only with runs 5029747 and 5029748
+    model_magic.datasets_names = "magic_stacked"
+    magic_datasets_to_fp.models = [model_magic]
+    energy_edges_magic = MapAxis.from_energy_bounds("80 GeV", "20 TeV", nbin=6).edges
     compute_flux_points(
         magic_datasets_to_fp,
         energy_edges_magic,
-        "datasets/flux_points/crab_magic_flux_points.fits"
+        "datasets/flux_points/crab_magic_flux_points.fits",
+        "crab-nebula-spectrum-only",
     )
