@@ -1,19 +1,92 @@
 \subsection{gammapy.estimators}
 \label{ssec:gammapy-estimators}
 \todo{Axel Donath}
+By fitting parametric models to the data, the total integrated
+flux and overall temporal, spectral and morphological shape of the
+\gammaray emission can be constrained. In many cases it useful
+to make a more detailed follow-up analysis by measuring the
+flux in smaller spectral, temporal or spatial bins. This
+possibly reveals more detailed emission features, which
+are relevant for studying correlation with counterpart emissions.
+
 The \verb|gammapy.estimators| sub-module features methods to compute flux
 points, light curves, flux maps, flux profiles from data.
+The basic method for all these measurements is equivalent.
+The initial fine bins of \verb|MapDataset| are grouped into
+larger bins. The norm of the best fit "reference" spectral
+model is fitted ("scaled") in the  restricted data range only.
 
-The initial fine binning of \verb|MapDataset| is grouped into larger bins.
+The base class of all algorithms is the `Estimator`  class.
 
-Internal representation with a reference spectral model and an array of
-normalisation values given in energy, time and spatial bins.
+Signifiance is estimated based on hypothesis \
+testing against the background only model. This allows
+to assign a significance to the given flux bin.
+In addition to the best fit flux norm all estimators compute
+quantities corresponding to this flux. This includes
+the predicted number of total, signal and background
+counts per flux bin. The total fit statistics
+of the best fit model, the fit statistics of the
+null hypothesis and the difference between both,
+the so-called TS value.
+From the TS value the significance of the
+significance of the measured signal and associated flux
+can be derived.
 
-No unfolding.
+Optionally it can also compute more advanced quantities
+such as assymmetric flux errors, flux upper limits
+and one dimensional profiles of the fit statistic,
+which show how the likelihood functions varies with
+the flux norm parameter around the fit minimum.
+This information is useful for inspecting the quality
+of the fit, where assumptoticcally a parabolic
+shape of the profile is expected at the best fit
+values (\todo{Reference to modeling / fitting section?}).
+
+The result of the flux point estimation are either stored in a
+\verb|FluxMaps| or \verb|FluxPoints| object. Both objects
+are based on an internal representation of the flux which is
+independent of the SED type. The flux is represented by a
+the reference spectral model and an array of
+normalisation values given in energy, time and spatial bins,
+which factorise the deviation of the flux in the given
+bin form the reference spectral model. This allows
+user to conveniently transform between different
+SED types. See Table \ref{tab:sed_types}.
+The actual flux values are obtained by mutiplication of the norm with the
+reference flux.
+
+\begin{table*}
+    \begin{center}
+        \begin{tabular}{lll}
+         \hline
+         Type & Description & Unit Equivalency \\
+         \hline
+         dnde & Differential flux at a given energy & $\mathrm{TeV^{-1}~cm^{2}~s^{-1}}$ \\
+         e2dnde & Differential flux at a given energy  & $\mathrm{TeV~cm^{2}~s^{-1}}$ \\
+         flux & Integrated flux in agiven energy range & $\mathrm{cm^{2}~s^{-1}}$ \\
+         eflux & Integrated energy flux in agiven energy range & $\mathrm{erg~cm^{2}~s^{-1}}$
+        \end{tabular}
+    \end{center}
+    \label{tab:sed_types}
+    \caption{Definition of sed types.}
+\end{table*}
+
+
+Both result objects support the possibility to serialise
+the data into multiple formats. This includes the
+GADF SED (reference?) format, FITS based ND sky-maps
+and formats compatible with Astropy's \verb|Table| and
+\verb|BinnedTimeSeries| data structures. This allows
+users to directly further analyse the results, e.g.
+standard algorithms for time analysis such as
+computing Lomb-Scargle periodograms or Bayesian
+blocks for time series.
+
+So far \gammapy does not support "unfolding" of \gammaray spectra.
+Methods for this will be implemented in future version of \gammapy.
 
 \begin{itemize}
 	\item Regrouping of dataset bins in time, energy etc.
-	\item Reference spectral model scaled in energy bin
 	\item "Forward folding" / "Backward folding": but there is no
 	      difference between the two, backwards folding is forward folding with one bin
 	\item Likelihood profiles \item Uniform N-dimensional data structure \item
@@ -22,6 +95,11 @@ No unfolding.
 	      \verb|BinnedTimeSeries|
 	\item Additional quantities for debugging, such as predicted counts, fit convergence,
 	      sum of fit statistics \item \end{itemize}
+
+Code example ~\ref{fig*:minted:gp_estimators} shows how to use
+the \verb|TSMapEstimator| with a given input `MapDataset`.
+In addition to the model it allows to specify the energy
+bisn of the resulting flux and TS maps.
 
 \begin{figure}
 	\import{code-examples/generated/}{gp_estimators}
