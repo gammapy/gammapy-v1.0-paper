@@ -19,25 +19,28 @@ model is fitted ("scaled") in the  restricted data range only.
 The base class of all algorithms is the `Estimator`  class.
 
 Signifiance is estimated based on hypothesis \
-testing agains the background only model. This allows
+testing against the background only model. This allows
 to assign a significance to the given flux bin.
 In addition to the best fit flux norm all estimators compute
 quantities corresponding to this flux. This includes
 the predicted number of total, signal and background
 counts per flux bin. The total fit statistics
 of the best fit model, the fit statistics of the
-null hypothesis and the difference between both.
-From the difference in test statistics the significance
-of the flux can be derived.
+null hypothesis and the difference between both,
+the so-called TS value.
+From the TS value the significance of the
+significance of the measured signal and associated flux
+can be derived.
 
-Optionally it can also compute more advanced qunatities
+Optionally it can also compute more advanced quantities
 such as assymmetric flux errors, flux upper limits
 and one dimensional profiles of the fit statistic,
-which show how the likelihood surface varies with
+which show how the likelihood functions varies with
 the flux norm parameter around the fit minimum.
-This information is useful  for inspecting the quality
-of the fit, where for  sane fir a parabolic
-shape of the profile is expected (see modeling / fitting section).
+This information is useful for inspecting the quality
+of the fit, where assumptoticcally a parabolic
+shape of the profile is expected at the best fit
+values (\todo{Reference to modeling / fitting section?}).
 
 The result of the flux point estimation are either stored in a
 \verb|FluxMaps| or \verb|FluxPoints| object. Both objects
@@ -80,7 +83,7 @@ computing Lomb-Scargle periodograms or Bayesian
 blocks for time series.
 
 So far \gammapy does not support "unfolding" of \gammaray spectra.
-Methods for this will be implement in future version of \gammapy.
+Methods for this will be implemented in future version of \gammapy.
 
 \begin{itemize}
 	\item Regrouping of dataset bins in time, energy etc.
