@@ -1,14 +1,45 @@
 \section{Summary and Outlook}
 \label{sec:summary-and-outlook}
-
 \todo{Axel and Regis write this...}
 
-Summary what we have in v0.9 and presented in this paper.
+In this manuscript we presented the first long term support  version of \gammapy.
+\gammapy is a Python package for \gammaray astronomy, which is build on the
+scientific Python ecosystem, including Numpy, Scipy and Astropy as
+main dependencies. It supports high-level analysis of astronomical \gammaray
+data from intermediate level data formats, such as the FITS based
+\gadf. Starting from lists of \gammaray events and corresponding description
+of the instrument response users can reduce and project the data
+to WCS, HEALPix and region based data structures. The reduced data is bundled
+into datasets, which serve as a basis for Poisson maximum likelihood
+modelling of the data. For this purpose \gammapy provides a wide selection
+of built-in, spectral, spatial and temporal models as well as unified
+fitting interface with connection to multiple optimization backends.
 
-Roadmap to v1.0, about half a page.
+Around the core Python package a large diverse community of
+users and contributors has developed. With regular developer meetings,
+coding sprints and in-person user tutorials at relevant conferences
+and collaboration meetings, the community has constantly grown.
+So far \gammapy has seen O(100) contributors from ~10 different countries.
+With typically ~10 regular contributors at any given time of the
+project, the code base has constantly improved its range of features
+and code quality. With \gammapy being selected as the base library
+for the future science tools for CTA, we expect the community to grow
+even further, providing a stable perspective for further usage,
+development and maintenance of the project.
 
-Short conclusion: Gammapy has potential to be the Python package for gamma-ray
-astronomy.
+Besides the future use by the CTA community \gammapy has already
+been used for analysis of data from the \hess and \magic instruments
+With the availability of more \gammaray data from existing Cherenkov
+telescopes, \gammaray
 
-Prospects for HAWC / SWGO? Or speak in general about water Cherenkov
-observatories...
+While \gammapy was mainly developed for the science community around
+IACT instruments, the data model and software design is general
+enough to be applied to other \gammaray instruments as well.
+The use of \gammapy for the analysis of data from the High Altitude
+Water Cherenkov Observatory (HAWC) has been successfully
+demonstrated by \todo{Olivera et al.}. This makes \gammapy
+a viable choice for the base library for the science tools
+of the future Southern Widefield Gamma Ray Observatory
+(SWGO) as well. \gammapy has the potential to further unify the community
+of \gammaray astronomers, by sharing common tools and
+a common vision of open and reproducible science for the future.
