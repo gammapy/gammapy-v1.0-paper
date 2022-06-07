@@ -6,7 +6,7 @@ The data processing workflow in Gamma-ray astronomy is usually split in two sequ
 The first one deals with the data processing from camera measurement, calibration, event
 reconstruction and selection to yield a list of reconstructed gamma-ray event candidates.
 This sequence, sometimes referred to as low-level analysis, is usually very specific to
-a given observation technique if not a given instrument.
+a given observation technique and even to a given instrument.
 
 The other sequence, referred to as high-level analysis, deals with the extraction of physical
 quantities related to gamma-ray sources and the production of high-level products such as spectra,
@@ -62,17 +62,17 @@ The first step in the analysis is the selection and extraction of observations
 based of their meta data including information such as pointing direction, observation
 time and observation conditions.
 
-The next step of the analysis is the data reduction on a user-defined geometry.
-A typical geometry consists in a spectral representation with a measured
+The next step of the analysis is the data reduction where all observation events and instrument
+responses are projected onto a user-defined geometry.A typical geometry consists in a spectral representation with a measured
 energy axis, and in a spatial representation, either a coordinates system  with a projection
 (for 3-dimensional or cube analysis) or a region on the sky (for regular spectral analysis).
 The gammapy.maps subpackage provides general multidimensional geometry objects
 (Geom) and the associated data structures (Maps), see \ref{ssec:gammapy-maps}.
 
 All observation events and instrument responses are projected onto the
-target geometry. Because residual hadronic background models can be subject
-to significant uncertainties background correction must be applied,
-such as the ring or the fied-of-view background techniques or
+user defined geometry. Because residual hadronic background models can be subject
+to significant uncertainties, background correction must be applied,
+such as the ring or the field-of-view background techniques or
 background measurements must be performed within, e.g. reflected regions~\citep{Berge07}.
 Parts of the data with high associated IRF systematics must also be excluded by defining
 a "safe" data range. These data reduction steps are performed by classes and functions
@@ -97,6 +97,8 @@ individually, or in a joint likelihood analysis. For this purpose Gammapy
 provides a uniform interface to multiple fitting backends. It also provides
 a variety of :ref:`built in models <model-gallery>`. This includes spectral,
 spatial and temporal model classes to describe the gamma-ray emission in the sky.
+Where spectral models can be simple analytical models or more complex ones from radiation
+mechanisms of accelerated particle populations (e.g. inverse Compton or $\pi^{o}$ decay).
 Independently or subsequently to the global modelling, the data can be
 re-grouped to compute flux points, light curves and flux as well as significance
 maps in energy bands.
