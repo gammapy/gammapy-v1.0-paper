@@ -1,6 +1,107 @@
 \section{Analysis Workflow Overview}
 \label{sec:analysis-workflow-overview}
-\todo{Regis and Fabio F.}
+
+% This might not be the bast place compared to introduction
+The data processing workflow in Gamma-ray astronomy is usually split in two sequences.
+The first one deals with the data processing from camera measurement, calibration, event
+reconstruction and selection to yield a list of reconstructed gamma-ray event candidates.
+This sequence, sometimes referred to as low-level analysis, is usually very specific to
+a given observation technique and even to a given instrument.
+
+The other sequence, referred to as high-level analysis, deals with the extraction of physical
+quantities related to gamma-ray sources and the production of high-level products such as spectra,
+lightcurves and catalogs. The methods and tools applied here are more generic and are broadly
+shared across the field. They also frequently imply joint analysis of multi-instrument data.
+To extract physically relevant information, the measured data are usually compared to a
+model of the expected gamma-ray emitters in the instrument field-of-view using statistical
+techniques such as maximum likelihood.
+
+We can write the expected number of detected events at measured position $p$ and energy $E$:
+\begin{align}
+   N(p, E) {\rm d}p {\rm d}E = &t_{\rm obs} \int_{E_{\rm true}} \int_{p_{\rm true}}  R(p, E|p_{\rm true}, E_{\rm true})\\
+   &\times \Phi(p_{\rm true}, E_{\rm true}) {\rm d}E_{\rm true} {\rm d}p_{\rm true}
+\end{align}
+where
+\begin{itemize}
+\item $R(p, E| p_{\rm true}, E_{\rm true})$ is the instrument response
+\item $\Phi(p_{\rm true}, E_{\rm true})$ is the sky flux model
+\item $t_{\rm obs}$ is the observation time
+\end{itemize}
+
+A common assumption is that the instrument response can be simplified as the product
+of three independent functions:
+
+\begin{align}
+   R(p, E|p_{\rm true}, E_{\rm true}) = &A_{\rm eff}(p_{\rm true}, E_{\rm true}) \times\\
+    &PSF(p|p_{\rm true}, E_{\rm true}) \times\\
+    &E_{\rm disp}(E|p_{\rm true}, E_{\rm true})
+\end{align}
+where:
+\begin{itemize}
+\item $A_{\rm eff}(p_{\rm true}, E_{\rm true})$ is the effective collection area of the detector. It is the product
+  of the detector collection area times its detection efficiency at true energy $E_{\rm true}$ and position $p_{\rm true}$.
+\item $PSF(p|p_{\rm true}, E_{\rm true})$ is the point spread function. It gives the probability of
+  measuring a direction $p$ when the true direction is $p_{\rm true}$ and the true energy is $E_{\rm true}$.
+  Gamma-ray instruments consider the probability density of the angular separation between true and reconstructed directions
+  $\delta p = p_{\rm true} - p$, i.e. $PSF(\delta p|p_{\rm true}, E_{\rm true})$.
+\item $E_{\rm disp}(E|p_{\rm true}, E_{\rm true})$ is the energy dispersion. It gives the probability to
+  reconstruct the photon at energy $E$ when the true energy is $E_{\rm true}$ and the true position :$p_{\rm true}$.
+  Gamma-ray instruments consider the probability density of the migration $\mu=\frac{E}{E_{\rm true}}$,
+  i.e. $E_{\rm disp}(\mu|p_{\rm true}, E_{\rm true})$.
+\end{itemize}
+
+
+Gamma-ray data at the Data Level 3 therefore consists in lists of gamma-like events and their
+corresponding instrument response functions (IRFs). The latter include the aforementioned
+effective area, point spread function (PSF), energy dispersion and residual hadronic background.
+The handling of DL3 data is performed by classes and methods
+in the gammapy.data  (see \ref{ssec:gammapy-data}) and the gammapy.irf
+(see \ref{ssec:gammapy-irf}) subpackages.
+
+The first step in the analysis is the selection and extraction of observations
+based of their meta data including information such as pointing direction, observation
+time and observation conditions.
+
+The next step of the analysis is the data reduction where all observation events and instrument
+responses are projected onto a user-defined geometry.A typical geometry consists in a spectral representation with a measured
+energy axis, and in a spatial representation, either a coordinates system  with a projection
+(for 3-dimensional or cube analysis) or a region on the sky (for regular spectral analysis).
+The gammapy.maps subpackage provides general multidimensional geometry objects
+(Geom) and the associated data structures (Maps), see \ref{ssec:gammapy-maps}.
+
+All observation events and instrument responses are projected onto the
+user defined geometry. Because residual hadronic background models can be subject
+to significant uncertainties, background correction must be applied,
+such as the ring or the field-of-view background techniques or
+background measurements must be performed within, e.g. reflected regions~\citep{Berge07}.
+Parts of the data with high associated IRF systematics must also be excluded by defining
+a "safe" data range. These data reduction steps are performed by classes and functions
+implemented in the gammapy.makers subpackage (see \ref{ssec:gammapy-makers}).
+
+The counts data and the reduced IRFs in the form of maps are bundled into dataset objects
+that represent the data level 4 (DL4). They can be written to
+disk, in a format specific to Gammapy to allow users to read them back at any time later
+for modeling and fitting.
+
+This latter step
+ datasets classes bundle reduced data in form of maps, reduced IRFs, models and
+fit statistics. Different sub-classes support different analysis methods
+and fit statistics (e.g. Poisson statistics with known background or
+with OFF background measurements). The datasets are used to perform joint-likelihood
+fitting allowing to combine different measurements, e.g. from different observations
+but also from different instruments or event classes. They can also be used for binned
+simulation as well as event sampling to simulate DL3 events data.
+
+The next step is then typically to model and fit the datasets, either
+individually, or in a joint likelihood analysis. For this purpose Gammapy
+provides a uniform interface to multiple fitting backends. It also provides
+a variety of :ref:`built in models <model-gallery>`. This includes spectral,
+spatial and temporal model classes to describe the gamma-ray emission in the sky.
+Where spectral models can be simple analytical models or more complex ones from radiation
+mechanisms of accelerated particle populations (e.g. inverse Compton or $\pi^{o}$ decay).
+Independently or subsequently to the global modelling, the data can be
+re-grouped to compute flux points, light curves and flux as well as significance
+maps in energy bands.
 
 \section{Gammapy package}
 \label{sec:gammapy-package}
