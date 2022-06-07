@@ -3,7 +3,7 @@
 \todo{Laura}
 The 1D analysis approach is a powerful tool to measure the spectrum of an
 isolated source. However, more complicated situations require a more careful
-treatment. In fields of view containing several overlapping sources, the 1D
+treatment. In a field of view containing several overlapping sources, the 1D
 approach can't disentangle the contribution of each source to the total flux in
 the selected region. Sources with extended or complex morphology can result in
 the measured flux being underestimated, and heavily dependent on the choice of
@@ -15,7 +15,7 @@ analysis. The three relevant dimensions are the two spatial angular coordinates
 and an energy axis. In this framework, a combined spatial and spectral model
 (that is, a SkyModel, see Section~\ref{ssec:gammapy-modeling}) is fitted to the
 sky-maps that were previously derived from the data and bundled into a
-MapDataset (see Sections~\ref{ssec:gammapy-makers,ssec:gammapy-datasets}).
+MapDataset (see Sections~\ref{ssec:gammapy-makers} and~\ref{ssec:gammapy-datasets}).
 
 A thorough description of the 3D analysis approach and multiple examples that
 use \gammapy can be found in~\cite{Mohrmann2019}. Here we present a short
@@ -51,10 +51,10 @@ morphology of the emission and fit it together with the spectral properties of
 the source.  Among the advantages that this provides is the ability to
 disentangle the contribution from overlapping sources to the same spatial
 region. To highlight this, we define a circular RegionGeom of radius
-0.5\textdegree centered around the position of the point source, which is drawn
+0.5\textdegree~ centered around the position of the point source, which is drawn
 in the left panel of Figure~\ref{fig:cube_analysis}. We can now compare the
 measured excess counts integrated in that region to the expected relative
-contribution from each of the three source models. This can be seen in the left
+contribution from each of the three source models. The result can be seen in the left
 panel of Figure~\ref{fig:cube_analysis}.
 
 \begin{figure*}[t]
