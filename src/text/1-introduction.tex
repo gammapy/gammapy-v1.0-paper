@@ -1,13 +1,28 @@
 \section{Introduction}
 \label{sec:introduction}
 
-\todo{Axel and Regis write this...}
 
-Gamma-ray astronomy is a rather young field of research. By detecting and
-reconstructing arrival direction, time and energy of primary cosmic gamma-rays
-The gamma-ray sky is either observed by ground based instruments, driven by
-experiments with proprietary software often based on ROOT, because of the
-particle physics background. Such as HESS, Veritas or Magic.
+
+Very high energy cosmic gamma-ray reaching Earth interact in the atmosphere and
+create a large shower of secondary particles that can be observed from the ground.
+Ground-based gamma-ray astronomy relies on this phenomenon to detect the
+primary gamma-ray photons and measure their direction and energy.
+It covers the energy range from fews tens of GeV up to the PeV.
+Two main instrument categories exist. Imaging Atmospheric Cherenkov
+Telescopes (IACT) make images of atmospheric showers by detecting the Cherenkov radiation
+emitted by the cascading charged particles and use these images to reconstruct
+the properties of the incident particle.
+
+Particle samplers detect directly particles from the tail of the shower when it reaches
+the ground. These instruments have very large field-of-view, large duty-cycle but higher
+energy threshold and usually have lower signal to noise ratios compared to IACTs.
+
+Ground based gamma-ray astronomy has been historically structured
+by experiments run by independent collaborations relying
+on their own proprietary data and analysis software developed as part of the
+instrument. While this model has been very successful so far, it does not
+permit easy combination of data from several instruments and is therefore
+a limitation for interoperability of existing facilities.
 
 The Cherenkov Telescope Array (CTA) will be operated as an open observatory for
 the first time. Thus there is a need for open analysis software as well.
@@ -85,13 +100,4 @@ Python for Solar Physics. An implementation for local correlation tracking *
 
 \end{figure}
 
-\begin{figure}[t]
-	\centering
-	\includegraphics[width=0.5\textwidth]{static/gammapy-dependencies}
-	\caption{
-		The Gammapy stack. Required dependencies Numpy and Astropy are illustrated with
-		solid arrows, optional dependencies (the rest) with dashed arrows. }
-	\label{fig:dependencies}
-
-\end{figure}
 
