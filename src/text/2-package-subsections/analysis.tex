@@ -2,7 +2,7 @@
 \label{ssec:gammapy-analysis}
 \todo{Quentin, Axel...}
 
-The gammapy.analysis sub-module provides a  high-level interface for the most
+The \code{gammapy.analysis} sub-module provides a  high-level interface for the most
 common use cases identified in gamma-ray analyses. The classes and methods
 included can be used in Python scripts, notebooks or as commands within IPython
 sessions. The high-level user interface can also be used to automatise
@@ -10,12 +10,12 @@ workflows driven by parameters declared in a configuration file in YAML format.
 This way a full analysis can be executed via a single command line taking the
 configuration file as input.
 
-The Analysis class has the responsibility of orchestrating of the workflow
-defined in the configuration (AnalysisConfig) and triggering the execution of
-the AnalysisStep classes that defines the common use cases identified. These
+The \code{Analysis} class has the responsibility of orchestrating of the workflow
+defined in the configuration \code{AnalysisConfig} objects and triggering the execution of
+the \code{AnalysisStep} classes that defines the common use cases identified. These
 steps include the following: observations selection from the DataStore,  data
 reduction, excess map computation, model fitting, flux-points estimation, and
-light-curves production. The structure of the Analysis class allows to define
-custom AnalysisStep,  so ones could design and configure arbitrarily complex
-wokflows.
+light-curves production. The structure of the \code{Analysis} class allows to define
+custom AnalysisStep, so ones could design and configure arbitrarily complex
+wokflows. \todo{the latter is not true for v1.0...}
 

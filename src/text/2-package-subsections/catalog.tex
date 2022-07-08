@@ -9,14 +9,34 @@ to some common gamma-ray catalogs. A global catalog table is provided, along
 with source models flux points and light curves (if available) for individual
 objects, which are internally created from the supplied FITS tables. This
 module works independently from the rest of the package, and the required
-catalogs are supplied in GAMMAPY\_DATA. Presently, catalogs from Fermi-LAT
-(standard~\citep{3FGL, 4FGL} and high energy~\citep{2FHL, 3FHL}), H.E.S.S.
-galactic plane survey~\citep{HGPS}, HAWC~\citep{2HWC, 3HWC} and gamma-cat
-~\citep{gamma-cat}; an open source gamma ray catalog combining information from
-multiple catalogs) are supported.
+catalogs are supplied in GAMMAPY\_DATA. The overview of currenly supported
+catalogs and the correponding \gammapy classes is shown in Table~\ref{tab:catalogs}.
+Newly released relevant catalogs will be added in future.
+
+\begin{table*}
+    \begin{center}
+        \begin{tabular}{llll}
+         \hline
+         Class & Shortcut & Description & Reference\\
+         \hline
+         \code{SourceCatalog3FGL} & \code{"3fgl"} & Third catalog of \fermi sources & \cite{3FGL} \\
+         \code{SourceCatalog4FGL} & \code{"4fgl"} & Fourth catalog of \fermi  sources & \cite{4FGL} \\
+         \code{SourceCatalog2FHL} & \code{"2fhl"} & Second catalog high energy \fermi  sources & \cite{2FHL} \\
+         \code{SourceCatalog3FHL} & \code{"3fhl"} & Third catalog high energy \fermi  sources & \cite{3FHL} \\
+         \code{SourceCatalog2HWC} & \code{"2hwc"} & Second catalog of \hawc sources & \cite{2HWC} \\
+         \code{SourceCatalog3HWC} & \code{"3hwc"} & Third catalog of \hawc sources & \cite{3HWC} \\
+         \code{SourceCatalogHGPS} & \code{"hgps"} & \hess Galactic Plane Survey catalog & \cite{HGPS} \\
+         \code{SourceCatalogGammaCat} & \code{"gammacat"} & Open source data collection & \citep{gamma-cat} \\
+         \hline
+         \end{tabular}
+    \end{center}
+    \label{tab:catalogs}
+    \caption{Built-in catalogs.}
+\end{table*}
 
 \begin{figure}
 	\import{code-examples/generated/}{gp_catalogs}
 	\caption{Using gammapy.catalogs: Accessing underlying model, flux points and
 		lightcurve from the Fermi-LAT 4FGL catalog for the blazar PKS 2155-304}
-	\label{codeexample:data} \end{figure}
+	\label{codeexample:data}
+\end{figure}

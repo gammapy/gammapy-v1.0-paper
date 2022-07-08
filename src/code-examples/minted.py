@@ -11,7 +11,7 @@ SNIPPETS = PATH / "snippets"
 GENERATED = PATH / "generated"
 
 # for example 'frame=single' to frame the code
-OPTIONS = 'frame=lines,style=friendly,linenos=1'
+OPTIONS = 'frame=lines,style=friendly,linenos=0'
 
 if __name__ == '__main__':
     GENERATED.mkdir(exist_ok=True)

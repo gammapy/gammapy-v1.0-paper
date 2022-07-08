@@ -2,27 +2,40 @@
 \label{ssec:gammapy-data}
 \todo{Cosimo Nigro}
 
-As illustrated in Fig.~\ref{fig:data_flow}, the \verb|gammapy.data| sub-package
-implements the lowest data level, providing the input interface to gamma-ray
+\begin{figure}
+
+	\import{code-examples/generated/}{gp_data}
+
+	\caption{Using \code{gammapy.data} to access DL3 level data with a \code{DataStore} object.
+    Individual observations can be accessed by their unique integer observation id number.
+    The actual events and instrument response functions can be accessed
+    as attributes on the \code{Observation} object, such as \code{.events}
+    or \code{.aeff} for the effective area information.
+    }
+	\label{fig*:minted:gp_data}
+\end{figure}
+
+As illustrated in Fig.~\ref{fig:data_flow}, the \code{gammapy.data} sub-package
+implements the interface to the lowest data level, providing the input interface to gamma-ray
 data. The \gammapy data model follows the \gadf specifications
 (Sec.~\ref{sec:introduction}), therefore gamma-ray data compliant with those
 can be directly read with the package. Version X.X of the \gadf specification
 is supported in this release version. As both the \gadf data model and \gammapy
 were initially conceived for \iact data analysis, input data are typically
-grouped in \texttt{Observations}, corresponding to stable periods of data
-aquisitions (typically $20 - 30\,{\rm min}$). A \texttt{DataStore} object,
-gathering a collection of observations, can be created porviding ancillary
+grouped in \code{Observations}, corresponding to stable periods of data
+aquisitions (typically $20 - 30\,{\rm min}$). A \code{DataStore} object,
+gathering a collection of observations, can be created providing ancillary
 files containing information about the telescope observation mode and the
-content of the data unit of each file. The \texttt{DataStore} allows for
+content of the data unit of each file. The \code{DataStore} allows for
 selecting a list of observations based on specific filters. As an illustrative
 example, Fig.~\ref{fig*:minted:gp_data} shows how to create a
-\texttt{datastore} and how to obtain the observations corresponding to given
+\code{DataStore} and how to obtain the observations corresponding to given
 identification numbers (IDs).
 
-The so-called DL3 files represented by the \texttt{Observation} class consist
+The so-called DL3 files represented by the \code{Observation} class consist
 of two types of elements: a list of gamma-ray events with relevant physical
 quantities for the successive analysis (estimated energy, direction and arrival
-times) that is handled by the \texttt{EventList} class and an instrument
+times) that is handled by the \code{EventList} class and an instrument
 response function (IRF), providing the response of the system, typically
 factorised in independent components (see the description in
 Sec.~\ref{ssec:gammapy-irf}). The separate handling of event lists and IRFs
@@ -31,11 +44,3 @@ example, to read \fermi data, the user can read separately their event list
 (already compliant with the \gadf specifications) and then find the appropriate
 IRF class representing the response functions provided by \fermi, see
 Sec.~\ref{ssec:fermi}.
-
-\begin{figure}
-
-	\import{code-examples/generated/}{gp_data}
-
-	\caption{Using gammapy.data to access DL3 level data with a DataStore}
-	\label{fig*:minted:gp_data}
-\end{figure}

@@ -11,17 +11,17 @@ shown in Fig.~\ref{fig:cta_galactic_center}. In this case the spectrum was
 measured in a circular aperture centered on the Galactic Center, in
 \gammaray~astronomy often called "on region". For such analysis the users first
 chooses a region of interest and energy binning, both defined by a
-`RegionGeom`. In a second step the events and instrument response are binned
-into maps of this geometry, by the `SpectrumDatasetMaker`. All the data and
-reduced instrument response are bundled into a `SpectrumDataset`. To estimate
+\code{RegionGeom}. In a second step the events and instrument response are binned
+into maps of this geometry, by the \code{SpectrumDatasetMaker}. All the data and
+reduced instrument response are bundled into a \code{SpectrumDataset}. To estimate
 the expected background in the on region a "reflected regions" background
 method was used~\cite{Berge07}, represented in \gammapy by the
-`ReflectedRegionsBackgroundMaker` class. The resulting reflected regions are
+\code{ReflectedRegionsBackgroundMaker} class. The resulting reflected regions are
 illustrated for all three observations on top of the map of counts. After
 reduction of the data it was modelled using a forward-folding method and a
-power-law spectral shape, using the `PowerLawSpectralModel` and `Fit` class.
+power-law spectral shape, using the \code{PowerLawSpectralModel} and \code{Fit} class.
 Based on this best fit model the final flux points and corresponding
-log-likleihood profiles are computed using the `FluxPointsEstimator`.
+log-likelihood profiles are computed using the \code{FluxPointsEstimator}.
 
 \begin{figure*}[t]
 	\centering
@@ -31,5 +31,5 @@ log-likleihood profiles are computed using the `FluxPointsEstimator`.
 		observations. The left image shows the maps of counts with the measurement
 		region and background regions overlaid in different colors. The right image
 		shows the resulting spectral points and their corresponding log-likelihood
-		profiles. } \label{fig:cta_galactic_center} \end{figure*}
+		profiles.} \label{fig:cta_galactic_center} \end{figure*}
 

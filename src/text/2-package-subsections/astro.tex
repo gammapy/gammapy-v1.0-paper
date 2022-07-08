@@ -2,5 +2,24 @@
 \label{ssec:gammapy-astro}
 \todo{Atreyee}
 
-The gammapy.astro sub-package contains utility functions for studying physical scenarios in high energy astrophysics.
-The dark matter module computes the so called J-factors and the gamma-ray spectra expected from annihilation of dark matter in different channels according to the recipe described in \cite{2011JCAP...03..051C}. In the source sub-module, dedicated classes exist for modeling galactic sources according to some come physical models, eg: SNR evolution models \citep{1950RSPSA.201..159T, 1999ApJS..120..299T}, evolution of PWN during the free expansion phase \citep{2006ARA&A..44...17G} or computation of physical parameters in a pulsar assumed to be a simple dipole. There are also dedicated tools for simulating synthetic populations based on physical models derived from observational or theoretical considerations for different classes of Galactic VHE gamma-ray emitters: PWNe, SNRs \cite{1998ApJ...504..761C}, pulsars \cite{2006ApJ...643..332F, 2006MNRAS.372..777L, 2004A&A...422..545Y} and gamma-ray binaries. While the present list of use cases is rather preliminary, this can be enriched with time with by users and/or developers according to future needs.
+The \code{gammapy.astro} sub-package contains utility functions for studying physical
+scenarios in high energy astrophysics. The \code{gammapy.astro.darkmatter} module
+computes the so  called J-factors and the associated gamma-ray spectra expected
+from annihilation of dark matter in different channels according to the recipe
+described in \cite{2011JCAP...03..051C}.
+
+In the \code{gammapy.astro.source} sub-module, dedicated classes exist for modeling
+galactic \gammaray sources according to simplified physical models, eg: SNR evolution
+models \citep{1950RSPSA.201..159T, 1999ApJS..120..299T}, evolution of PWN during the
+free expansion phase \citep{2006ARA&A..44...17G} or computation
+of physical parameters in a pulsar assumed to be a simple dipole.
+
+In the \code{gammapy.astro.population} sub-module there are dedicated tools
+for simulating synthetic populations based on physical models derived from
+observational or theoretical considerations for different classes of Galactic
+VHE gamma-ray emitters: PWNe, SNRs \cite{1998ApJ...504..761C},
+pulsars \cite{2006ApJ...643..332F, 2006MNRAS.372..777L, 2004A&A...422..545Y}
+and gamma-ray binaries.
+
+While the present list of use cases is rather preliminary, this can be enriched
+with time with by users and/or developers according to future needs.
