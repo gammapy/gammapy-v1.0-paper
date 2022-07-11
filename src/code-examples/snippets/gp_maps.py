@@ -22,7 +22,6 @@ m_hpx = Map.create(
     binsz=0.1,
     map_type="hpx",
     skydir=skydir,
-    width=10.0 * u.deg,
     axes=[energy_axis]
 )
 
@@ -33,3 +32,5 @@ m_region = Map.create(
     map_type="region",
     axes=[energy_axis]
 )
+
+print(m_wcs, m_hpx, m_region)

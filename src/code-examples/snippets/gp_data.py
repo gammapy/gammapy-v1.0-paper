@@ -10,5 +10,5 @@ observations = data_store.get_observations(obs_ids)
 
 for obs in observations:
     print(f"Observation id: {obs.obs_id}")
-    print(f"Number of events: {len(obs.events)}")
+    print(f"Number of events: {len(obs.events.table)}")
     print(f"Max. area: {obs.aeff.quantity.max()}")
