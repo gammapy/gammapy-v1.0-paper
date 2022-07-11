@@ -3,19 +3,37 @@ from gammapy.makers import (
     FoVBackgroundMaker,
     SafeMaskMaker,
 )
-from gammapy.data import Observation
+from gammapy.data import DataStore
+from gammapy.maps import MapAxis, WcsGeom
+from gammapy.datasets import MapDataset
+from regions import CircleSkyRegion
+import astropy.units as u
 
-observation = Observation.read()
+data_store = DataStore.from_dir("$GAMMAPY_DATA/hess-dl3-dr1")
 
-maker = MapDatasetMaker()
+obs = data_store.obs(23523)
 
-bkg_maker = FoVBackgroundMaker()
-
-mask_maker = SafeMaskMaker(
-    method=["offset-max"], max_offset="2.5 deg"
+energy_axis = MapAxis.from_energy_bounds(1.0, 10.0, 6, unit="TeV")
+geom = WcsGeom.create(
+    skydir=(83.633, 22.014),
+    width=(2, 2),
+    axes=[energy_axis],
 )
 
-dataset = maker.run(dataset, observation)
-dataset = mask_maker.run(dataset, observation)
-dataset = bkg_maker.run(dataset, observation)
+circle = CircleSkyRegion(
+    center=geom.center_skydir, radius=0.2 * u.deg
+)
+exclusion_mask = ~geom.region_mask(regions=[circle],
+                                   inside=False)
+
+empty = MapDataset.create(geom=geom)
+
+maker = MapDatasetMaker()
+mask_maker = SafeMaskMaker(methods=["offset-max", "aeff-default"],
+                           offset_max="2.3 deg")
+bkg_maker = FoVBackgroundMaker(method="scale",
+                               exclusion_mask=exclusion_mask)
+
+dataset = maker.run(empty, obs)
+dataset = mask_maker.run(dataset, obs)
 print(dataset)

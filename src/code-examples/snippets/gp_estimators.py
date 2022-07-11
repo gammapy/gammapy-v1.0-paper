@@ -10,7 +10,7 @@ estimator = TSMapEstimator(
     energy_edges=[0.1, 1, 10] * u.TeV,
     n_sigma=1,
     n_sigma_ul=2,
-    selection_optional=["ul"]
 )
 
 maps = estimator.run(dataset)
+maps["sqrt_ts"].plot_grid()

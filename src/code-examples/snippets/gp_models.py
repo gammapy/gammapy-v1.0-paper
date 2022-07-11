@@ -27,3 +27,4 @@ model = SkyModel(
     temporal_model=constant,
     name="my-model",
 )
+print(model)
