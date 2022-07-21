@@ -24,19 +24,15 @@ instrument. While this model has been very successful so far, it does not
 permit easy combination of data from several instruments and is therefore
 a limitation for interoperability of existing facilities.
 
-The Cherenkov Telescope Array (CTA) will be the first instrument to be operated
-as an open observatory in the domain. Its data will be shared
-Thus there is a need for open analysis software as well.
-
-Moreover, the operation of CTA as an observatory introduces the necessity of
-sharing its data publicly. The data-reduction workflow of different IACTs of
-the current generation is remarkably similar, resulting in a \textit{high} data
-level that can be finally used to derive scientific results (, spectra, sky
-maps, light curves). The information in this high data level is independent on
+Yet, the data-reduction workflow of different IACTs of the current generation is
+remarkably similar. After data calibration, shower events are reconstructed and
+gamma/hadron separation is applied to build lists of gamma-ray like events.
+The latter are then used to derive scientific results, such as spectra, sky maps
+or light curves, taking into account the Instrument Response Functions (IRF).
+The information in this high data level is independent on
 the data reduction, and eventually of the detection technique. This implies,
 for example, that data from IACT and WCD can be represented within the same
-model. The efforts to prototype the future CTA data model and to convert
-current IACT data in a format usable with the newly-available science tools
+model. The efforts to prototype a format usable by various instruments
 converged in the so-called \textit{Data Format for Gamma-ray Astronomy}
 initiative~\citep{gadf_proc, gadf_universe}, abbreviated in
 \texttt{gamma-astro-data-format} (GADF). The latter proposes prototypical
@@ -44,8 +40,14 @@ specifications to produce files based on the flexible image transport system
 (FITS) format~\citep{fits} encapsulating this high-level information. This is
 realized by storing a list of gamma-like events with their measured quantites
 (energy, direction, arrival time) and a parametrisation of the response of the
-system (see Sec.~\ref{ssec:gammapy-data} and Sec.~\ref{ssec:gammapy-irf} for
+system. (see Sec.~\ref{ssec:gammapy-data} and Sec.~\ref{ssec:gammapy-irf} for
 more information).
+
+The Cherenkov Telescope Array (CTA) will be the first instrument to be operated
+as an open observatory in the domain. Its high level data will be shared publicly after
+some proprietary period and the software required to analyze it will be distributed
+as well.
+
 
 Python has become extremely popular as a scientific programming language
 in particular in the field of data sciences. The success is
@@ -68,6 +70,10 @@ Python package for gamma-ray astronomy.
 % TODO: describe Context
 
 % TODO: describe goals
+The H.E.S.S. collaboration released a limited test dataset (about 50 hours of
+observations taken between 2004 and 2008) based  on the GADF DL3 format \citep{HESS_DR1}.
+This data release served as a basis for analysis tools validation \cite[see e.g.]{Mohrmann2019}.
+% TODO : discuss joint crab paper?
 
 TODO: Figure 1: Data -> Gammapy -> Spectra etc with some details
 
@@ -75,21 +81,6 @@ Basic idea: build on Numpy and Astropy, use Python stack
 
 TODO: Figure 2: Gammapy software stack
 
-Here's a list of references I'd like to cite ... to be incorporated into the
-main text somewhere:
-
-\begin{itemize}
-	\item Gammapy webpage\footnote{\GammapyUrl}
-	\item Naima\footnote{\NaimaUrl}~\citep{Naima}
-	\item Gammapy use in science publications:~\citep{Owen2015}, SNR shell, HGPS
-\end{itemize}
-
-* Gammapy – A Python package for gamma-ray astronomy
-* Gammapy – A prototype for the CTA science tools
-* Astropy: A community Python package for astronomy
-* THE ASTROPY PROJECT: BUILDING AN INCLUSIVE, OPEN-SCIENCE PROJECT AND STATUS
-OF THE V2.0 CORE PACKAGE * GammaLib and ctools * Fermipy proceedings * SunPy:
-Python for Solar Physics. An implementation for local correlation tracking *
 
 \begin{figure}[t]
 	\centering
