@@ -2,7 +2,7 @@
 \label{sec:introduction}
 
 
-
+%% Gamma-ray astronomy
 Very high energy cosmic gamma-ray reaching Earth interact in the atmosphere and
 create a large shower of secondary particles that can be observed from the ground.
 Ground-based gamma-ray astronomy relies on this phenomenon to detect the
@@ -17,6 +17,7 @@ Particle samplers detect directly particles from the tail of the shower when it 
 the ground. These instruments have very large field-of-view, large duty-cycle but higher
 energy threshold and usually have lower signal to noise ratios compared to IACTs.
 
+%% Context
 Ground based gamma-ray astronomy has been historically structured
 by experiments run by independent collaborations relying
 on their own proprietary data and analysis software developed as part of the
@@ -24,15 +25,24 @@ instrument. While this model has been very successful so far, it does not
 permit easy combination of data from several instruments and is therefore
 a limitation for interoperability of existing facilities.
 
-Yet, the data-reduction workflow of different IACTs of the current generation is
-remarkably similar. After data calibration, shower events are reconstructed and
+%TODO: better transition into context
+The Cherenkov Telescope Array (CTA) will be the first instrument to be operated
+as an open observatory in the domain. Its high level data will be shared publicly after
+some proprietary period and the software required to analyze it will be distributed
+as well. To allow the re-usability of existing instruments and their interoperability
+requires open data formats and open tools that can support the various analysis methods
+commonly used in the field.
+
+%% Context : formats
+In practice, the data-reduction workflow of IACTs is remarkably similar.
+After data calibration, shower events are reconstructed and
 gamma/hadron separation is applied to build lists of gamma-ray like events.
 The latter are then used to derive scientific results, such as spectra, sky maps
 or light curves, taking into account the Instrument Response Functions (IRF).
 The information in this high data level is independent on
 the data reduction, and eventually of the detection technique. This implies,
-for example, that data from IACT and WCD can be represented within the same
-model. The efforts to prototype a format usable by various instruments
+for example, that data from IACT and particle samplers can be represented
+within the same model. The efforts to prototype a format usable by various instruments
 converged in the so-called \textit{Data Format for Gamma-ray Astronomy}
 initiative~\citep{gadf_proc, gadf_universe}, abbreviated in
 \texttt{gamma-astro-data-format} (GADF). The latter proposes prototypical
@@ -43,43 +53,46 @@ realized by storing a list of gamma-like events with their measured quantites
 system. (see Sec.~\ref{ssec:gammapy-data} and Sec.~\ref{ssec:gammapy-irf} for
 more information).
 
-The Cherenkov Telescope Array (CTA) will be the first instrument to be operated
-as an open observatory in the domain. Its high level data will be shared publicly after
-some proprietary period and the software required to analyze it will be distributed
-as well.
-
-
+%% Context: develoment of open software
 Python has become extremely popular as a scientific programming language
 in particular in the field of data sciences. The success is
 mostly attributed to the simple and easy to learn syntax, the ability to act as
-a "glue" language between different programming languages, the rich eco-system
-of packages and the open and supportive community.
+a "glue" language between different programming languages and last but not least
+the rich eco-system of packages and its open and supportive community, from
+core numerical analysis packages such as numpy \citep{numpy} and
+scipy \citep{2020SciPy-NMeth}, visualization libraries,e.g. matplotlib \citep{matplotlib},
+or optimization packages such as iminuit \citep{iminuit}.
 
- one of the
-standard programming  languages for astronomy \footnote{Citation missing} as
-well as data sciences in  general \footnote{Citation missing}.
+The \astropy~\citep{astropy} was created in 2012 to build a community-developed
+ python package for astronomical reasearch. Among other things, the it offers functionality for
+transforming and representing astronomical coordinates, manipulating physical quantities
+and their units as well as reading and writing FITS files.
 
-Astronomical data analysis software written in Python existed since 2000. e.g.,
-sherpa~\citep{sherpa-2011, sherpa-2009}, or for gamma-ray even PyFACT
-~\citep{pyfact}.
+%% Gammapy: concept and goals
+%%% Question: starting date? Is is relevant, what is the real start?
+The Gammapy project started in 2015 with the objective of building a flexible and
+efficient software library for very high energy gamma-ray data analysis \citep{gammapy_2015}.
+This is possible thanks to the definition of a common data format such as GADF, and thanks to
+an open development with a broad community of contributors.
 
-The short-term success of Python lead to a prolifaration of packages, until
-\astropy~\citep{astropy} was created in 2012. Astropy is and Gammapy is a
-Python package for gamma-ray astronomy.
+%Gammapy is built on the scientific Python stack and makes use of Astropy.
 
-% TODO: describe Context
 
-% TODO: describe goals
+%% Gammapy: from first developments to validation and selection
 The H.E.S.S. collaboration released a limited test dataset (about 50 hours of
 observations taken between 2004 and 2008) based  on the GADF DL3 format \citep{HESS_DR1}.
 This data release served as a basis for analysis tools validation \cite[see e.g.]{Mohrmann2019}.
-% TODO : discuss joint crab paper?
 
 TODO: Figure 1: Data -> Gammapy -> Spectra etc with some details
 
-Basic idea: build on Numpy and Astropy, use Python stack
-
-TODO: Figure 2: Gammapy software stack
+%% Paper outline
+In this article, we describe the general structure of the Gammapy package and
+its main concepts. In Section \ref{sec:analysis-workflow-overview}, we present
+the data analysis workflow in very high energy gamma-ray astronomy. Then we
+show how this workflow is reflected in the structure of the Gammapy package and
+describe the various subpackages it contains. Section \ref{sec:applications}
+presents a number of applications, while Section \ref{sec:gammapy-project}
+discusses the project organization.
 
 
 \begin{figure}[t]
@@ -89,8 +102,9 @@ TODO: Figure 2: Gammapy software stack
 		for high-level gamma-ray data analysis. Using event lists, exposures and point
 		spread functions as input you can use it to generate science results such as
 		images, spectra, light curves or source catalogs. So far it has been used to
-		simulate and analyse H.E.S.S., CTA and \textit{Fermi}-LAT data, hopefully it
-		will also be applied to e.g., VERITAS, MAGIC or HAWC data in the future. }
+		simulate and analyse H.E.S.S., CTA,  and \textit{Fermi}-LAT data. As demonstrated
+		by several studies, it will also be applied to e.g., VERITAS, MAGIC or HAWC data
+		in the future. }
 	\label{fig:big-picture}
 
 \end{figure}
