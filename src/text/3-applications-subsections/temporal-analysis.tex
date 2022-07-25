@@ -1,7 +1,5 @@
 \subsection{Temporal analysis}
 \label{ssec:temporal-analysis}
-\todo{Atreyee}
-
 A common use case in most astrophysical scenarios is to study the temporal
 variability of the source. The most basic way to do this is to construct a
 lightcurve, i.e., the flux of the source in each given time bin. In \gammapy, this
@@ -19,15 +17,15 @@ around the source. A \code{PowerLawSpectralModel} is fit to all the datasets, le
 to a reconstructed index of $3.54 \pm 0.02$. With this assumed spectral model
 the \code{LightCurveEstimator} runs directly for two energy bands, 0.5 - 1.5
 TeV, and 1.5 - 20 TeV, respectively.
-
+%
 \begin{figure*}[t]
 	\centering
-	\includegraphics[width=1.\textwidth]{figures/hess_lightcurve_pks.pdf}
+	\includegraphics[width=0.6666\textwidth]{figures/hess_lightcurve_pks.pdf}
 	\caption{10 min binned lightcurve for PKS~2155-304 in two energy bands, (500
 		GeV - 1.5 TeV, and 1.5 TeV to 20 TeV) as observed by the H.E.S.S. telescopes in
 		2006.} \label{fig:hess_lightcurve_pks}
 \end{figure*}
-
+%
 The obtained flux points can be analytically modelled using the available, or
 user-implemented temporal models. Alternatively, instead of  extracting a
 lightcurve, it is also possible to directly fit temporal models to the reduced
