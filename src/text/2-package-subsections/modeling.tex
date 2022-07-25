@@ -1,22 +1,37 @@
 \subsection{gammapy.modeling}
 \label{ssec:gammapy-modeling}
-\todo{Quentin Remy}
-
+%
 \code{gammapy.modeling} contains all the functionality related to modeling and fitting
 data. This includes spectral, spatial and temporal model classes, as well as
 the fit and parameter API.
 
 \subsubsection{Models}
 \label{sssec:models}
+Source models in \gammapy are four dimensional models which support two
+spatial dimensions $\ell, b$, and energy dimension $E$ as well as
+the time dimension $t$. To simplify the the definition of the
+models, \gammapy uses a factorised representation of the total source
+model:
 
-The models are grouped into the following categories:
+\begin{equation}
+    f(l, b, E, t) = F(E)  \cdot G(l, b, E) \cdot  H(t, E)
+\end{equation}
+
+Where the spectral model $F$ implicitly carries the total flux
+norm of the model. The spatial model $G$ optionally depends
+on energy and allows to support e.g. energy dependent
+morphology models. The temporal model component $H$
+optionally also supports an energy variable to
+allow for spectral variations of the model with time.
+
+Following the factorisation The models objects are grouped
+into the following categories:
 
 \begin{itemize}
 	\item \code{SpectralModel}: models to describe spectral shapes of sources
 	\item \code{SpatialModel}: models to describe spatial shapes (morphologies) of sources
 	\item \code{TemporalModel}: models to describe temporal flux evolution of sources, such as
 	      light and phase curves
-
 \end{itemize}
 
 The models follow a naming scheme which contains the category as a suffix to
@@ -69,7 +84,7 @@ multiple datasets and thus provide links, allowing e.g., to do a joint fit to
 multiple IACT datasets, or to a joint IACT and \fermi dataset. Many
 examples are given in the tutorials.
 
-\todo{Add fit code example...}
+\todo{Add fit code example...?}
 
 The Fit class provides a uniform interface to multiple fitting backends:
 “minuit”~\citep{iminuit}, “scipy”,~\citep{2020SciPy-NMeth}, and
@@ -77,7 +92,7 @@ The Fit class provides a uniform interface to multiple fitting backends:
 and errors are computed only for the fitting with MINUIT. However depending on
 the problem other optimizers can better perform, so sometimes it can be useful
 to run a pre-fit with alternative optimization methods. In future we plan to
-extend the supported Fit backend, including for example MCMC solutions.
+extend the supported fitting backends, including for example MCMC solutions.
 \footnote{a prototype is available in gammapy-recipes,
 	\url{https://gammapy.github.io/gammapy-recipes/_build/html/notebooks/mcmc-sampling-emcee/mcmc_sampling.html}
 }
