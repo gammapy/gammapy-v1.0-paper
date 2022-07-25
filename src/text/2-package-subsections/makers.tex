@@ -1,17 +1,19 @@
 \subsection{gammapy.makers}
 \label{ssec:gammapy-makers}
-\todo{Regis Terrier}
-
+%
 \begin{figure}
 	\import{code-examples/generated/}{gp_makers}
 
-	\caption{Using gammapy.makers to reduce DL3 level data into a
-		\code{MapDataset}.}
+	\caption{
+        Using \code{gammapy.makers} to reduce DL3 level data into a
+		\code{MapDataset}. All \code{Maker} classes take
+        the configuration on initialisation of the class.
+    }
 	\label{ig*:minted:gp_makers}
 \end{figure}
-
-The data reduction contains all tasks required to process and prepare data at
-the DL3 level for modeling and fitting. The \code{gammapy.makers} sub-package
+%
+The data reduction step includes all tasks required to process and prepare
+\gammaray data from the DL3 level to modeling and fitting. The \code{gammapy.makers} sub-package
 contains the various classes and functions required to do so. First, events are
 binned and IRFs are interpolated and projected onto the chosen analysis
 geometry. This produces counts, exposure, background, psf and energy dispersion
