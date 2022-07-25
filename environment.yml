@@ -9,7 +9,7 @@ variables:
   PYTHONNOUSERSITE: "1"
 
 dependencies:
-  - numpy=1.21.1
+  - numpy=1.22
   - iminuit=2.8.4
   - scipy=1.7.3
   - matplotlib=3.5.1

@@ -11,7 +11,7 @@ sed_y_label = (
 
 figsize = config.FigureSizeAA(aspect_ratio=1.618, width_aa="intermediate")
 fig = plt.figure(figsize=figsize.inch)
-ax = fig.add_axes([0.1, 0.1, 0.9, 0.9])
+ax = fig.add_axes([0.15, 0.15, 0.84, 0.84])
 
 # load the flux points and plot them
 fermi_flux_points = FluxPoints.read(
@@ -45,6 +45,5 @@ hawc_flux_points.plot(ax=ax, sed_type="e2dnde", color="goldenrod", label="HAWC")
 ax.set_xlim(plot_kwargs["energy_bounds"])
 ax.set_xlabel(sed_x_label)
 ax.set_ylabel(sed_y_label)
-ax.legend()
+ax.legend(loc="lower left")
 fig.savefig("multi_instrument_analysis.pdf")
-fig.savefig("multi_instrument_analysis.png")

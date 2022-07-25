@@ -27,8 +27,8 @@ $summary
 CSV_TEMPLATE = r"""$labels
 $cells$summary"""
 
-def run_cloc(args):
 
+def run_cloc(args):
     result_api = subprocess.run(["cloc", "--not-match-d=test", args.src], capture_output=True).stdout
     result_test = subprocess.run(["cloc", "--match-d=test", args.src], capture_output=True).stdout
 
@@ -59,7 +59,6 @@ def run_cloc(args):
 
 
 def make_files(stats):
-
     latex = Template(LATEX_TEMPLATE)
     csv = Template(CSV_TEMPLATE)
 
@@ -102,10 +101,12 @@ def make_files(stats):
         file_csv.write(csv)
     logging.info(f"CSV temporary file {TEMPFILE} created.")
 
-def make_pie():
 
+def make_pie():
     figsize = config.FigureSizeAA()
-    plt.figure(figsize=figsize.inch)
+    fig = plt.figure(figsize=figsize.inch)
+
+    ax = fig.add_axes([0, 0, 0.95, 0.95])
 
     file_data = pd.read_csv(TEMPFILE, sep=", ", engine="python")
     df = file_data[:-1]
@@ -114,7 +115,7 @@ def make_pie():
     # code
     df = df.sort_values(by=["code"])[::-1]
     sdf = shorthen_df(df)
-    sdf.plot(kind="pie", y="code", autopct=fix_autopct, legend=False)
+    sdf.plot(ax=ax, kind="pie", y="code", autopct=fix_autopct, legend=False, fontsize=8)
     plt.ylabel("")
     plt.savefig("codestats.pdf")
     logging.info("Piecharf file codestats.pdf created.")
@@ -127,6 +128,7 @@ def make_pie():
     # plt.savefig("filestats.pdf")
     # logging.info("Piecharf file filestats.pdf created.")
 
+
 def shorthen_df(df):
     # group others
     others = defaultdict(int)
@@ -138,8 +140,9 @@ def shorthen_df(df):
     odf = pd.DataFrame(data=others, index=["Others"])
     return pd.concat([df.head(5), odf], axis=0)
 
+
 def fix_autopct(pct):
-    return ("%.2f" % pct) if pct > 3 else ""
+    return "{pct:.0f} %".format(pct=pct)
 
 
 def main():

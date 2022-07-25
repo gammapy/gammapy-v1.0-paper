@@ -40,7 +40,16 @@ use of the pull request system to discuss and review code contributions.
 
 \begin{table}
 	\import{tables/generated/}{codestats}
-	\caption{Coding languages statistics in Gammapy project}
+	\caption{
+        Overview of used programming languages and distribution of code across the different file
+        categories in the \gammapy code base. The most right column list the total number of lines
+        in a file. The \textit{comment} column lists the number of comments in the files
+        (including method and class docstrings), the \textit{blank} column lists the
+        number of blank lines in the file. The uppermost rows distinguish between
+        code that implements actual functionality and code the implements tests.
+        All documentataion in \gammapy is implemented as dosctrings, \text{reStructuredText} (RST)
+        files or notebooks.
+    }
 	\label{table:codestats:data}
 \end{table}
 
@@ -48,7 +57,9 @@ use of the pull request system to discuss and review code contributions.
 	\centering
 	\includegraphics[width=0.5\textwidth]{figures/codestats.pdf}
 	\caption{
-		Percentage of lines of code in Gammapy project} \label{fig:codestats:lang}
+		Overview of used programming languages and distribution of code across the different file
+        categories in the \gammapy code base.
+    } \label{fig:codestats:lang}
 \end{figure}
 
 Several automated tasks are set as GitHub
@@ -147,7 +158,6 @@ weekly development meetings, etc.
 
 \subsection{Proposals for improving \gammapy}
 \label{ssec:pigs}
-\todo{Axel, Regis}
 An important part of \gammapy's development organisation is the support
 for "Proposals for improving Gammapy" (PIG). This system is very much
 inspired by Python's PEP\footnote{\url{https://peps.python.org/pep-0001/}}
