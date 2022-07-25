@@ -1,6 +1,5 @@
 \subsection{gammapy.estimators}
 \label{ssec:gammapy-estimators}
-\todo{Axel Donath}
 By fitting parametric models to the data, the total integrated
 flux and overall temporal, spectral and morphological shape of the
 \gammaray emission can be constrained. In many cases it useful
@@ -51,9 +50,10 @@ normalisation values given in energy, time and spatial bins,
 which factorise the deviation of the flux in the given
 bin form the reference spectral model. This allows
 user to conveniently transform between different
-SED types. See Table \ref{tab:sed_types}.
-The actual flux values are obtained by mutiplication of the norm with the
-reference flux.
+SED types. Table~\ref{tab:sed_types} shows an
+overview and definitions of the supported SED types.
+The actual flux values for each SED type are obtained
+by mutiplication of the norm with the  reference flux.
 
 \begin{table*}
     \begin{center}
@@ -64,7 +64,8 @@ reference flux.
          dnde & Differential flux at a given energy & $\mathrm{TeV^{-1}~cm^{2}~s^{-1}}$ \\
          e2dnde & Differential flux at a given energy  & $\mathrm{TeV~cm^{2}~s^{-1}}$ \\
          flux & Integrated flux in agiven energy range & $\mathrm{cm^{2}~s^{-1}}$ \\
-         eflux & Integrated energy flux in agiven energy range & $\mathrm{erg~cm^{2}~s^{-1}}$
+         eflux & Integrated energy flux in agiven energy range & $\mathrm{erg~cm^{2}~s^{-1}}$\\
+         \hline
         \end{tabular}
     \end{center}
     \label{tab:sed_types}
