@@ -1,27 +1,25 @@
 \subsection{gammapy.irf}
 \label{ssec:gammapy-irf}
-\todo{Fabio Pintore}
-
-\begin{figure}
-	%	\import{code-examples/generated/}{gp_makers}
-
-	\caption{In Fig.~\ref{ig*:minted:irf_examples}, we show some example of Aeff,
-		PSF, Edisp and BKG read and plotted from a typical \irf.}
-	\label{ig*:minted:irf_examples}
-\end{figure}
-
-
+%
+%\begin{figure}
+%	%	\import{code-examples/generated/}{gp_makers}
+%
+%	\caption{In Fig.~\ref{ig*:minted:irf_examples}, we show some example of Aeff,
+%		PSF, Edisp and BKG read and plotted from a typical \irf.}
+%	\label{ig*:minted:irf_examples}
+%\end{figure}
+%
 The \code{gammapy.irf} sub-package contains all classes and functionality
 to handle IRFs in a variety of formats.
-Usually, \irfs store instrument properties in the form of multi-dimension
+Usually, \irfs store instrument properties in the form of multi-dimensional
 tables, with quantities expressed in terms of energy (true or reconstructed),
-off-axis angles, detector coordinates and so on. The main information stored in
+off-axis angles or cartesian detector coordinates. The main information stored in
 the common \gammaray \irfs are the effective area (Aeff), energy dispersion
-(Edisp), point spread function (PSF) and background (BKG). The \code{gammapy.irf}
+(Edisp), point spread function (PSF) and background rate (BKG). The \code{gammapy.irf}
 sub-package can open and access specific \irf extensions,
 interpolate and evaluate the quantities of interest on both energy and spatial
 axes, convert their format or units in different kinds, plot or write them into
-output files. In the following, we list the main sub-classes of the
+output files. In the following, we list the main classes of the
 sub-package:
 
 \paragraph{Effective area:}
