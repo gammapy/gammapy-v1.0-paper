@@ -1,10 +1,10 @@
-\section{Analysis Workflow Overview}
-\label{sec:analysis-workflow-overview}
+\section{Gamma-ray Data Analysis}
+\label{sec:gamma-ray-data-analysis}
 
 % This might not be the bast place compared to introduction
-The data processing workflow in Gamma-ray astronomy is usually split in two sequences.
+The data reduction process in \gammaray astronomy is usually split into two parts.
 The first one deals with the data processing from camera measurement, calibration, event
-reconstruction and selection to yield a list of reconstructed gamma-ray event candidates.
+reconstruction and selection to yield a list of reconstructed \gammaray event candidates.
 This sequence, sometimes referred to as low-level analysis, is usually very specific to
 a given observation technique and even to a given instrument.
 
@@ -103,12 +103,26 @@ Independently or subsequently to the global modelling, the data can be
 re-grouped to compute flux points, light curves and flux as well as significance
 maps in energy bands.
 
-\section{Gammapy package}
+\section{Gammapy Package}
 \label{sec:gammapy-package}
-
-
 \subsection{Overview}
 \label{ssec:overview}
+%
+\begin{figure*}[ht!]
+	\centering
+	\includegraphics[width=1.\textwidth]{figures/data_flow.pdf}
+	\caption{
+		Gammapy sub-package structure and data analysis workflow. The top row
+        defines the groups for the different data levels and reduction steps
+        from raw gamma-like events on the left, to high level science products
+        on the right. The direction of the data flow is illustrated with the
+        grey arrows. The gray folder icons represent the different sub-packages
+        in \gammapy and their names. Below each icon there is a list of the most
+        important objects defined in the sub-package.
+    }
+	\label{fig:data_flow}
+\end{figure*}
+%
 The \gammapy package is structured into multiple sub-packages. The definition
 of the content of the different sub-packages follows mostly the stages in the
 data reduction workflow described in the previous section. Sub-packages
@@ -120,26 +134,20 @@ Figure~\ref{fig:data_flow} shows an overview of the different sub-packages and
 their relation to each other. The \code{gammapy.data} and \code{gammapy.irf}
 sub-packages define data objects to represent DL3 data, such as
 event lists and instrument response functions as well as functionality
-to the DL3 data from disk into memory.
+to the DL3 data from disk into memory. The \code{gammapy.makers} sub-package
+contains the functionality to reduce the DL3 data to binned maps.
+Binned maps and datasets, which represent a collection of binned
+maps are defined in the \code{gammapy.maps} and \code{gammapy.datasets}
+sub-packages respectively. Parametric models, which are defined in
+\code{gammapy.modeling}, are used to jointly model a combination
+of datasets for example to create source catalogs. Estimator classes,
+which are contained in \code{gammapy.estinators} are used to
+compute higher level science products such as flux and signficance maps,
+light curves or flux points. Finally there is a \code{gammapy.analysis}
+sub-package which provides a high level interface for executing analyses
+defined from configuration files. In the following sections we will
+introduce all sub-packages and their functionality in more detail.
 
-The \code{gammapy.makers} sub-package contains the functionality to reduce
-the data to binned maps.
-
-
-
-\begin{figure*}[t]
-	\centering
-	\includegraphics[width=1.\textwidth]{figures/data_flow.pdf}
-	\caption{
-		Gammapy sub-package structure and data analysis workflow. The top row
-        defines the groups for the different data levels and reduction steps
-        from raw gamma-like events on the left, to high level science products
-        on the right. The direction of the data flow is illustrated with the
-        grey circles. The gray folder icons represent the different sub-packages
-        in Gammapy and their names. Below each icon there is an overview of the most
-        important objects defined in the sub-package.
-    }
-	\label{fig:data_flow} \end{figure*}
 
 \input{text/2-package-subsections/data}
 \input{text/2-package-subsections/irf}
