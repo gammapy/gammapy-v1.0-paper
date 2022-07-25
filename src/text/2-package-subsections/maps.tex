@@ -1,17 +1,5 @@
 \subsection{gammapy.maps}
 \label{ssec:gammapy-maps}
-\todo{Laura Olivera-Nieto}
-
-\begin{figure}
-	\import{code-examples/generated/}{gp_maps}
-
-	\caption{Using \code{gammapy.maps} to create a WCS, a HEALPix and a region
-		based data structures. The initialisation parameters include
-        consistently the positions of the center of the map, the pixel
-        size, the extend of the map as well as the energy axis definition.
-        } \label{ig*:minted:gp_maps}
-\end{figure}
-
 The \code{gammapy.maps} sub-package provides classes that represent data
 structures associated with a set of coordinates or a region on a sphere. In
 addition it allows to handle an arbitrary number of non-spatial data
@@ -29,6 +17,22 @@ them, as well as define non-linear spaced bins.
 The sub-package provides a uniform API for the FITS World Coordinate System
 (WCS)~\citep{Calabretta2002}, the HEALPix pixelization~\citep{Gorski2005} and
 region-based data structure (see Figure~\ref{ig*:minted:gp_maps}).
+
+\begin{figure}
+	\import{code-examples/generated/}{gp_maps}
+
+	\caption{
+        Using \code{gammapy.maps} to create a WCS, a HEALPix and a region
+		based data structures. The initialisation parameters include
+        consistently the positions of the center of the map, the pixel
+        size, the extend of the map as well as the energy axis definition.
+        The energy minimum and maximum values for the creation of the
+        \code{MapAxis} object can be defined as strings also specifying the
+        unit. Region definitions can be passed as strings following
+        the DS9 region specifications \url{http://ds9.si.edu/doc/ref/region.html}.
+        }
+    \label{ig*:minted:gp_maps}
+\end{figure}
 
 % itemize because it helps me write, could also just be paragraphs...
 \paragraph{WCS:}
