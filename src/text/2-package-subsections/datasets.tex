@@ -1,13 +1,19 @@
 \subsection{gammapy.datasets}
 \label{ssec:gammapy-datasets}
-\todo{Atreyee Sinha}
-
+%
 \begin{figure}
 	\import{code-examples/generated/}{gp_datasets}
-	\caption{A Datasets container with a \code{FluxPointsDataset} and \code{MapDataset}}
+	\caption{
+        Using \code{gammapy.datasets} to read existing reduced binned datasets.
+        After the different datasets are read from disk they are collected into a
+        common \code{Datasets} container. All dataset types have an associated
+        name attribute to allow access by name later in the code. The
+        environment variable \code{\$GAMMAPY\_DATA} is automtically resolved
+        by \gammapy.
+    }
 	\label{fig*:minted:gp_datasets}
 \end{figure}
-
+%
 The end product of the data reduction process described in Section
 \ref{ssec:gammapy-makers} are a set of binned counts, background and IRF maps,
 at the DL4 level. The \code{gammapy.datasets} subpackage contains classes to bundle
