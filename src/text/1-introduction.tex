@@ -3,19 +3,28 @@
 
 
 %% Gamma-ray astronomy
-Very high energy cosmic gamma-ray reaching Earth interact in the atmosphere and
+Gamma-ray astronomy is a rather young field of research. The \gammaray~
+range of the electromagnetic spectrum provides us with insight to the
+most energetic process in the universe such as surroundings of
+black holes and remnants of supernova explosions. As in other
+branches of astronomy \gammarays can be observed by both
+satellite as well as ground based instruments.
+Very high energy cosmic gamma-rays reaching Earth interact in the atmosphere and
 create a large shower of secondary particles that can be observed from the ground.
 Ground-based gamma-ray astronomy relies on this phenomenon to detect the
 primary gamma-ray photons and measure their direction and energy.
 It covers the energy range from fews tens of GeV up to the PeV.
-Two main instrument categories exist \citep{2015CRPhy..16..610D}.
+There are two main categories of instrument \citep{2015CRPhy..16..610D}.
 Imaging Atmospheric Cherenkov Telescopes (IACT) make images of atmospheric showers
 by detecting the Cherenkov radiation emitted by the cascading charged particles and
 use these images to reconstruct the properties of the incident particle.
+Those instruments have a limited field of view (FoV) and duty cycle, but
+good energy and angular resolution.
 
-Particle samplers detect directly particles from the tail of the shower when it reaches
-the ground. These instruments have very large field-of-view, large duty-cycle but higher
-energy threshold and usually have lower signal to noise ratios compared to IACTs.
+Water Cherenkov observatories detect directly particles from the tail of the
+shower when it reaches the ground. These instruments have very
+large field-of-view, large duty-cycle but higher energy threshold and
+usually have lower signal to noise ratios compared to IACTs.
 
 %% Context
 Ground based gamma-ray astronomy has been historically structured
@@ -23,7 +32,9 @@ by experiments run by independent collaborations relying
 on their own proprietary data and analysis software developed as part of the
 instrument. While this model has been very successful so far, it does not
 permit easy combination of data from several instruments and is therefore
-a limitation for interoperability of existing facilities.
+a limitation for interoperability of existing facilities. Especially
+because the different detection techniques have complementary
+properties.
 
 %TODO: better transition into context
 The Cherenkov Telescope Array (CTA) will be the first instrument to be operated
@@ -34,11 +45,12 @@ requires open data formats and open tools that can support the various analysis 
 commonly used in the field.
 
 %% Context : formats
-In practice, the data-reduction workflow of IACTs is remarkably similar.
+In practice, the data-reduction workflow of all gamma-ray observatories
+is remarkably similar.
 After data calibration, shower events are reconstructed and
 gamma/hadron separation is applied to build lists of gamma-ray like events.
 The latter are then used to derive scientific results, such as spectra, sky maps
-or light curves, taking into account the Instrument Response Functions (IRF).
+or light curves, taking into account the specific instrument response functions (IRF).
 The information in this high data level is independent on
 the data reduction, and eventually of the detection technique. This implies,
 for example, that data from IACT and particle samplers can be represented
@@ -64,7 +76,7 @@ scipy \citep{2020SciPy-NMeth}, visualization libraries,e.g. matplotlib \citep{ma
 or optimization packages such as iminuit \citep{iminuit}.
 
 The \astropy~\citep{astropy} was created in 2012 to build a community-developed
- python package for astronomical reasearch. Among other things, the it offers functionality for
+python package for astronomical reasearch. Among other things, the it offers functionality for
 transforming and representing astronomical coordinates, manipulating physical quantities
 and their units as well as reading and writing FITS files.
 
