@@ -1,6 +1,20 @@
 \section{Gamma-ray Data Analysis}
 \label{sec:gammaray-data-analysis}
-
+%
+\begin{figure*}[ht!]
+	\centering
+	\includegraphics[width=1.\textwidth]{figures/irfs.pdf}
+	\caption{
+		Example instrument response functions of some experiments and
+        observatories for which \gammapy can analyse data. The \cta IRFs
+        are from the prod5 production. The \hess IRFs are from the DL3 DR1,
+        using observation ID 033787. The point spread function shows the 65\&
+        containment radius of the PSF. The \fermi IRFs are from \textit{pass8}.
+        \todo{Add more instruments? HAWC? MAGIC?}
+    }
+	\label{fig:irfs}
+\end{figure*}
+%
 % This might not be the bast place compared to introduction
 The data reduction process in \gammaray astronomy is usually split into two parts.
 The first one deals with the data processing from camera measurement, calibration, event
@@ -49,7 +63,6 @@ where:
   \gammaray instruments consider the probability density of the migration $\mu=\frac{E}{E_{\rm true}}$,
   i.e. $E_{\rm disp}(\mu|p_{\rm true}, E_{\rm true})$.
 \end{itemize}
-
 
 \gammaray data at the Data Level 3 therefore consists in lists of gamma-like events and their
 corresponding instrument response functions (IRFs). The latter include the aforementioned

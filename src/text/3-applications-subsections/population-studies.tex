@@ -4,7 +4,7 @@
 Sky surveys have a large potential for new source detections, and new phenomena
 discovery. They also offer less selection bias to perform source population
 studies over a large set of coherently detected and modelled objects. Early
-versions of \textit{gammapy} were developed in parallel of the preparation of
+versions of \gammapy were developed in parallel of the preparation of
 the \hess Galactic plane survey catalog~\citep[HGPS][]{2018A&A...612A...1H} and
 the associated PWN and SNR populations studies~\citep{2018A&A...612A...2H,
 	2018A&A...612A...3H}.
@@ -32,7 +32,7 @@ selection; associations and classification. The IACTs data-reduction step is
 done in the same way than described in the previous sections but scale-up to
 few thousand of observations. The object detection step consists a minima in
 finding local maxima in the significance, or TS maps,  given by the
-ExcessMapEstimator, or TSMapEstimator, respectively.  Further refinements can
+\code{ExcessMapEstimator}, or \code{TSMapEstimator}, respectively.  Further refinements can
 include for example  filtering and detection on these maps with techniques from
 scikit-image package~\citep{scikit-image}, and outlier detection from
 scikit-learn package~\citep{scikit-learn}. Tests on simulations shown that it
