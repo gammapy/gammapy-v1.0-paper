@@ -80,7 +80,7 @@ implemented in the gammapy.makers subpackage (see \ref{ssec:gammapy-makers}).
 
 The counts data and the reduced IRFs in the form of maps are bundled into dataset objects
 that represent the data level 4 (DL4). They can be written to
-disk, in a format specific to Gammapy to allow users to read them back at any time later
+disk, in a format specific to \gammapy to allow users to read them back at any time later
 for modeling and fitting.
 
 This latter step
@@ -93,7 +93,7 @@ but also from different instruments or event classes. They can also be used for 
 simulation as well as event sampling to simulate DL3 events data.
 
 The next step is then typically to model and fit the datasets, either
-individually, or in a joint likelihood analysis. For this purpose Gammapy
+individually, or in a joint likelihood analysis. For this purpose \gammapy
 provides a uniform interface to multiple fitting backends. It also provides
 a variety of :ref:`built in models <model-gallery>`. This includes spectral,
 spatial and temporal model classes to describe the \gammaray emission in the sky.
@@ -103,7 +103,7 @@ Independently or subsequently to the global modelling, the data can be
 re-grouped to compute flux points, light curves and flux as well as significance
 maps in energy bands.
 
-\section{Gammapy Package}
+\section{\gammapy Package}
 \label{sec:gammapy-package}
 \subsection{Overview}
 \label{ssec:overview}
@@ -112,7 +112,7 @@ maps in energy bands.
 	\centering
 	\includegraphics[width=1.\textwidth]{figures/data_flow.pdf}
 	\caption{
-		Gammapy sub-package structure and data analysis workflow. The top row
+		\gammapy sub-package structure and data analysis workflow. The top row
         defines the groups for the different data levels and reduction steps
         from raw gamma-like events on the left, to high level science products
         on the right. The direction of the data flow is illustrated with the
