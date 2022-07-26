@@ -35,12 +35,12 @@ plot_kwargs = {
     "xunits": u.TeV,
 }
 
-crab_lp.plot(ax=ax, ls="-", lw=1.5, color="crimson", label="joint fit", **plot_kwargs)
-crab_lp.plot_error(ax=ax, facecolor="crimson", alpha=0.4, **plot_kwargs)
+fermi_flux_points.plot(ax=ax, sed_type="e2dnde", label="Fermi-LAT")
+magic_flux_points.plot(ax=ax, sed_type="e2dnde", label="MAGIC", marker="v")
+hawc_flux_points.plot(ax=ax, sed_type="e2dnde", label="HAWC", marker="s")
 
-fermi_flux_points.plot(ax=ax, sed_type="e2dnde", color="k", label="Fermi-LAT")
-magic_flux_points.plot(ax=ax, sed_type="e2dnde", color="dodgerblue", label="MAGIC")
-hawc_flux_points.plot(ax=ax, sed_type="e2dnde", color="goldenrod", label="HAWC")
+crab_lp.plot(ax=ax, ls="-", lw=1.5, color="k", label="joint fit", **plot_kwargs)
+crab_lp.plot_error(ax=ax, facecolor="k", alpha=0.4, **plot_kwargs)
 
 ax.set_xlim(plot_kwargs["energy_bounds"])
 ax.set_xlabel(sed_x_label)

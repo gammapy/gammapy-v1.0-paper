@@ -115,7 +115,9 @@ def make_pie():
     # code
     df = df.sort_values(by=["code"])[::-1]
     sdf = shorthen_df(df)
-    sdf.plot(ax=ax, kind="pie", y="code", autopct=fix_autopct, legend=False, fontsize=8)
+    sdf.plot(
+        ax=ax, kind="pie", y="code", autopct=fix_autopct, legend=False, fontsize=8
+    )
     plt.ylabel("")
     plt.savefig("codestats.pdf")
     logging.info("Piecharf file codestats.pdf created.")
