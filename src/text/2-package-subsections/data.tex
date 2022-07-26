@@ -19,13 +19,13 @@ content of the data unit of each file. The \code{DataStore} allows for
 selecting a list of observations based on specific filters.
 
 The so-called DL3 files represented by the \code{Observation} class consist
-of two types of elements: a list of gamma-ray events with relevant physical
+of two types of elements: a list of \gammaray events with relevant physical
 quantities for the successive analysis (estimated energy, direction and arrival
 times) that is handled by the \code{EventList} class and an instrument
 response function (IRF), providing the response of the system, typically
 factorised in independent components (see the description in
 Sec.~\ref{ssec:gammapy-irf}). The separate handling of event lists and IRFs
-additionally allows for data from other gamma-ray instruments to be read. For
+additionally allows for data from other \gammaray instruments to be read. For
 example, to read \fermi data, the user can read separately their event list
 (already compliant with the \gadf specifications) and then find the appropriate
 IRF class representing the response functions provided by \fermi, see
