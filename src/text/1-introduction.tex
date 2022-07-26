@@ -21,6 +21,20 @@ use these images to reconstruct the properties of the incident particle.
 Those instruments have a limited field of view (FoV) and duty cycle, but
 good energy and angular resolution.
 
+\begin{figure*}[t]
+	\centering
+	\includegraphics[height=\textwidth, angle=270]{static/gammapy-big-picture}
+    \caption{ Gammapy is a Python package
+		for high-level gamma-ray data analysis. Using event lists, exposures and point
+		spread functions as input you can use it to generate science results such as
+		images, spectra, light curves or source catalogs. So far it has been used to
+		simulate and analyse H.E.S.S., CTA,  and \textit{Fermi}-LAT data. As demonstrated
+		by several studies, it will also be applied to e.g., VERITAS, MAGIC or HAWC data
+		in the future. }
+	\label{fig:big-picture}
+
+\end{figure*}
+
 Water Cherenkov observatories detect directly particles from the tail of the
 shower when it reaches the ground. These instruments have very
 large field-of-view, large duty-cycle but higher energy threshold and
@@ -43,6 +57,7 @@ some proprietary period and the software required to analyze it will be distribu
 as well. To allow the re-usability of existing instruments and their interoperability
 requires open data formats and open tools that can support the various analysis methods
 commonly used in the field.
+
 
 %% Context : formats
 In practice, the data-reduction workflow of all gamma-ray observatories
@@ -105,20 +120,5 @@ show how this workflow is reflected in the structure of the Gammapy package and
 describe the various subpackages it contains. Section \ref{sec:applications}
 presents a number of applications, while Section \ref{sec:gammapy-project}
 discusses the project organization.
-
-
-\begin{figure}[t]
-	\centering
-	\includegraphics[height=0.5\textwidth,
-		angle=270]{static/gammapy-big-picture} \caption{ Gammapy is a Python package
-		for high-level gamma-ray data analysis. Using event lists, exposures and point
-		spread functions as input you can use it to generate science results such as
-		images, spectra, light curves or source catalogs. So far it has been used to
-		simulate and analyse H.E.S.S., CTA,  and \textit{Fermi}-LAT data. As demonstrated
-		by several studies, it will also be applied to e.g., VERITAS, MAGIC or HAWC data
-		in the future. }
-	\label{fig:big-picture}
-
-\end{figure}
 
 
