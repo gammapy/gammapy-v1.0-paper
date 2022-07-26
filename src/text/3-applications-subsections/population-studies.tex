@@ -28,8 +28,8 @@ provided by the surveys.
 
 In short the production of catalogs from \gammaray surveys can be divided in
 four main steps : data-reduction; object detection; model fitting and model
-selection; associations and classification. The IACTs data-reduction step is
-done in the same way than described in the previous sections but scale-up to
+selection; associations and classification. The \iacts data-reduction step is
+done in the same way than described in the previous sections but scale up to
 few thousand of observations. The object detection step consists a minima in
 finding local maxima in the significance, or TS maps,  given by the
 \code{ExcessMapEstimator}, or \code{TSMapEstimator}, respectively.  Further refinements can
@@ -40,7 +40,7 @@ reduces the spurious detections at this stage and then speed up the next step
 as less objects will have to be fitted simultaneously. During the modelling
 step each object is alternatively fitted with different models in order to
 determine their optimal parameters, and the best-candidate model. The
-subpackage gammapy.modeling.models offers a large variety of choice, and the
+subpackage \code{gammapy.modeling.models} offers a large variety of choice, and the
 possibility to add custom models.  Several spatial models (point-source, disk,
 gaussian...), and spectral models (power-law, log-parabola...) may be tested
 for each object, so the complexity of the problem increases rapidly in regions
