@@ -187,7 +187,23 @@ follows the normal PIG guidelines. Typically roadmaps are written
 to outline and agree on a common vision for the next long term
 support release of \gammapy.
 
+
 \subsection{Release Cycle, Versioning, and Long-term Support}
-With the first long term support (LTS) releases v1.0, the \gammapy project
-enters a new development phase.
-\todo{To be written...summarise and reference PIG 24}
+With the first long term support (LTS) release v1.0, the \gammapy project
+enters a new development phase. The development will change from
+quick feature driven development to more stable maintenance
+and user support driven developement. After v1.0 we foresee
+a developement cycle with major, minor and bugfix releases.
+We basically followg the development cycle of the Astropy
+project. Thus we expect a major LTS release approximately
+every two years, minor releases are planned every 6~months,
+while bug-fix releases will happen as needed. While
+bug-fix releases will not introduce API breaking changes,
+we will work with a deprecation system for minor releases.
+API breaking changes will be announced to user by runtime
+warnings first and then implemented in the subsequent
+minor release. This approach we consider a fair
+compromise between the interests of users in a stable
+package and the interest of developers to improve
+and develop \gammapy in future. The developemnt cycle is described
+in more detail in PIG 24 \todo{reference}.
