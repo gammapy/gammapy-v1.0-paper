@@ -7,9 +7,10 @@
 range of the electromagnetic spectrum provides us with insight to the
 most energetic process in the universe such as surroundings of
 black holes and remnants of supernova explosions. As in other
-branches of astronomy \gammarays can be observed by both
+branches of astronomy, \gammarays can be observed by both
 satellite as well as ground based instruments.
-Very high energy cosmic \gammarays reaching Earth interact in the atmosphere and
+Ground based instrument use the Earth's atmosphere as a particle detector.
+Very high energy cosmic \gammarays interact in the atmosphere and
 create a large shower of secondary particles that can be observed from the ground.
 Ground-based \gammaray astronomy relies on this phenomenon to detect the
 primary \gammaray photons and measure their direction and energy.
@@ -23,15 +24,12 @@ good energy and angular resolution.
 
 \begin{figure*}[t]
 	\centering
-	\includegraphics[height=\textwidth, angle=270]{static/gammapy-big-picture}
-    \caption{ \gammapy is a Python package
-		for high-level \gammaray data analysis. Using event lists, exposures and point
-		spread functions as input you can use it to generate science results such as
-		images, spectra, light curves or source catalogs. So far it has been used to
-		simulate and analyse \hess, \cta,  and \fermi data. As demonstrated
-		by several studies, it will also be applied to e.g., \veritas, \magic or \hawc data
-		in the future. }
-	\label{fig:big-picture}
+	\includegraphics[width=\textwidth]{figures/big-picture.pdf}
+    \caption{
+        Relation of \gammapy to different \gammaray instruments and the data formats.
+        \gammapy provide access to the data stored in GADF format and the
+        high-level data analysis functionality.}
+	\label{fig:big_picture}
 
 \end{figure*}
 
@@ -61,8 +59,7 @@ commonly used in the field.
 
 %% Context : formats
 In practice, the data-reduction workflow of all \gammaray observatories
-is remarkably similar.
-After data calibration, shower events are reconstructed and
+is remarkably similar. After data calibration, shower events are reconstructed and
 gamma/hadron separation is applied to build lists of \gammaray like events.
 The latter are then used to derive scientific results, such as spectra, sky maps
 or light curves, taking into account the specific instrument response functions (IRF).
@@ -75,10 +72,9 @@ initiative~\citep{gadf_proc, gadf_universe}, abbreviated in
 \texttt{gamma-astro-data-format} (\gadf). The latter proposes prototypical
 specifications to produce files based on the flexible image transport system
 (FITS) format~\citep{fits} encapsulating this high-level information. This is
-realized by storing a list of gamma-like events with their measured quantites
+realized by storing a list of gamma-like events with their measured quantities
 (energy, direction, arrival time) and a parametrisation of the response of the
-system. (see Sec.~\ref{ssec:gammapy-data} and Sec.~\ref{ssec:gammapy-irf} for
-more information).
+system.
 
 %% Context: develoment of open software
 Python has become extremely popular as a scientific programming language
@@ -86,12 +82,12 @@ in particular in the field of data sciences. The success is
 mostly attributed to the simple and easy to learn syntax, the ability to act as
 a "glue" language between different programming languages and last but not least
 the rich eco-system of packages and its open and supportive community, from
-core numerical analysis packages such as numpy \citep{numpy} and
-scipy \citep{2020SciPy-NMeth}, visualization libraries,e.g. matplotlib \citep{matplotlib},
-or optimization packages such as iminuit \citep{iminuit}.
+core numerical analysis packages such as \numpy~\citep{numpy} and
+\scipy~\citep{2020SciPy-NMeth}, visualization libraries,e.g. Matplotlib \citep{matplotlib},
+or optimization packages such as Iminuit \citep{iminuit}.
 
 The \astropy~\citep{astropy} was created in 2012 to build a community-developed
-python package for astronomical reasearch. Among other things, the it offers functionality for
+Python package for astronomical reasearch. Among other things, the it offers functionality for
 transforming and representing astronomical coordinates, manipulating physical quantities
 and their units as well as reading and writing FITS files.
 
@@ -100,17 +96,15 @@ and their units as well as reading and writing FITS files.
 The \gammapy project started in 2015 with the objective of building a flexible and
 efficient software library for very high energy \gammaray data analysis \citep{gammapy_2015}.
 This is possible thanks to the definition of a common data format such as \gadf, and thanks to
-an open development with a broad community of contributors.
+an open development with a broad community of contributors. The relation of \gammapy to the
+different instruments the \gadf data format is illustarted in Figure~\ref{fig:big_picture}.
 
 %\gammapy is built on the scientific Python stack and makes use of Astropy.
-
 
 %% \gammapy: from first developments to validation and selection
 The \hess collaboration released a limited test dataset (about 50 hours of
 observations taken between 2004 and 2008) based  on the \gadf DL3 format \citep{HESS_DR1}.
 This data release served as a basis for analysis tools validation \cite[see e.g.]{Mohrmann2019}.
-
-TODO: Figure 1: Data -> \gammapy -> Spectra etc with some details
 
 %% Paper outline
 In this article, we describe the general structure of the \gammapy package and
