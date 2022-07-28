@@ -1,5 +1,7 @@
 # User configuration; see the docs for details!
 verbose: true
+ms:
+    src/ms-review.tex
 dependencies:
     src/ms.tex:
         - src/code-examples/generated/gp_data.tex
