@@ -31,5 +31,8 @@ if __name__ == "__main__":
     filenames = (PATH_TEXT / "3-applications-subsections").glob("*.tex")
     text = merge_text_files(text=text, filenames=filenames)
 
-    with (PATH_TEXT / "../ms.tex").open("w") as f:
+    path = PATH_TEXT / ".."
+    path.mkdir(exist_ok=True)
+
+    with (path / "ms-review.tex").open("w") as f:
         f.write(text)
