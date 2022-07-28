@@ -2,6 +2,9 @@
 from pathlib import Path
 from astropy import units as u
 from astropy.units import imperial
+import matplotlib.pyplot as plt
+
+plt.rcParams.update({'font.size': 8})
 
 BASE_PATH = Path(__file__).parent.parent
 

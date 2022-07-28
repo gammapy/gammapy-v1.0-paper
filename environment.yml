@@ -9,8 +9,9 @@ variables:
   PYTHONNOUSERSITE: "1"
 
 dependencies:
+  - numpy=1.22
   - iminuit=2.8.4
-  - numpy=1.21.1
+  - scipy=1.7.3
   - matplotlib=3.5.1
   - pip>=20.3.3
   - python=3.9

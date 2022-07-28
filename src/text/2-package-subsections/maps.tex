@@ -1,17 +1,5 @@
 \subsection{gammapy.maps}
 \label{ssec:gammapy-maps}
-\todo{Laura Olivera-Nieto}
-
-\begin{figure}
-	\import{code-examples/generated/}{gp_maps}
-
-	\caption{Using \code{gammapy.maps} to create a WCS, a HEALPix and a region
-		based data structures. The initialisation parameters include
-        consistently the positions of the center of the map, the pixel
-        size, the extend of the map as well as the energy axis definition.
-        } \label{ig*:minted:gp_maps}
-\end{figure}
-
 The \code{gammapy.maps} sub-package provides classes that represent data
 structures associated with a set of coordinates or a region on a sphere. In
 addition it allows to handle an arbitrary number of non-spatial data
@@ -24,32 +12,64 @@ provides methods to transform between sky and pixel coordinates. Maps consist
 of a geometry instance together with a Numpy data array containing the corresponding
 map values. Map axes contain a sequence of ordered values which define bins on
 a given dimension, spatial or not. Map axes can have physical units attached to
-them, as well as define non-linear spaced bins.
+them, as well as define non-linear spaced bins. All map classes support operations such
+as arithmetic operations with unit support, up- and downsampling along
+extra axes, interpolation, resampling of extra axes, interactive visualisation
+in notebooks and interpolation onto different geometries.
 
 The sub-package provides a uniform API for the FITS World Coordinate System
-(WCS)~\citep{Calabretta2002}, the HEALPix pixelization~\citep{Gorski2005} and
-region-based data structure (see Figure~\ref{ig*:minted:gp_maps}).
+(WCS), the HEALPix pixelization and region-based data structure
+(see Figure~\ref{ig*:minted:gp_maps}).
+
+\begin{figure}
+	\import{code-examples/generated/}{gp_maps}
+
+	\caption{
+        Using \code{gammapy.maps} to create a WCS, a HEALPix and a region
+		based data structures. The initialisation parameters include
+        consistently the positions of the center of the map, the pixel
+        size, the extend of the map as well as the energy axis definition.
+        The energy minimum and maximum values for the creation of the
+        \code{MapAxis} object can be defined as strings also specifying the
+        unit. Region definitions can be passed as strings following
+        the DS9 region specifications \url{http://ds9.si.edu/doc/ref/region.html}.
+        }
+    \label{ig*:minted:gp_maps}
+\end{figure}
 
 % itemize because it helps me write, could also just be paragraphs...
-\paragraph{WCS:}
-The FITS WCS pixelization supports a different
-number of projections to represent celestial spherical coordinates in a regular
-rectangular grid. Gammapy provides full support to data structures using this
-pixelization scheme.
+\subsubsection{WCS Maps}
+The FITS WCS pixelization supports a different number of projections to
+represent celestial spherical coordinates in a regular rectangular grid.
+\gammapy provides full support to data structures using this pixelization
+scheme. For details see ~\cite{Calabretta2002}. This pixelisation
+is typically used for smaller regions of interests, such as pointed
+observations.
 
-\paragraph{HEALPix:}
-This pixelization provides a
+
+\subsubsection{HEALPix Maps}
+This pixelization scheme ~\citep{Calabretta2002} provides a
 subdivision of a sphere in which each pixel covers the same surface area as
 every other pixel. As a consequence, however, pixel shapes are no longer
-rectangular, or regular. \gammapy provides limited support to HEALPix-based
-maps, relying in some cases on projections to a local WCS grid.
+rectangular, or regular.
+This pixelisation is typically used for all-sky data, such as data
+from the \hawc or \fermi observatory. \gammapy natively supports
+the multiscale definiton of the HEALPix pixelisation and thus
+allows for easy up and downsampling of the data. In addition to
+the all-sky map, \gammapy also supports a local HEALPix
+pixelisation where the size of the map is constrained to a given
+radius.
+For local nighbourhood operations, such as convolution \gammapy relies
+on projecting the HEALPix data to a local tangential WCS grid.
 
-\paragraph{Region:} In this case, instead of a fine spatial grid
+\subsubsection{Region Maps}
+In this case, instead of a fine spatial grid
 dividing a rectangular sky region, the spatial dimension is reduced to a single
 bin with an arbitrary shape, describing a region in the sky with that same
 shape. Typically they are is used together with a non-spatial dimension, for
 example an energy axis, to represent how a quantity varies in that dimension
-inside the corresponding region.
+inside the corresponding region. The region is represented on the local
+tangential projection see \cite{Astropy regions}.
 
 Additionally, the \code{MapAxis} class provides a uniform API for axes representing
 bins on any physical quantity, such as energy or angular offset. The special

@@ -22,19 +22,15 @@ plt.rcParams["mathtext.fontset"] = "cm"
 
 FIGSIZE = config.FigureSizeAA(aspect_ratio=1.3740, width_aa="two-column")
 
-FOLDER_ICON = np.array(
-    [(0, 0), (0, 0.8), (0.08, 1), (0.5, 1), (0.58, 0.8), (0.93, 0.8), (0.93, 0)]
-)
 
-DOC_ICON = np.array(
-    [(0, 0), (0, 0.85), (0.15, 1), (0.75, 1), (0.75, 0)]
-)
-
-GRAY = "gray"
+GRAY = (0.7, 0.7, 0.7)
 LIGHT_GRAY = "#ECECEC"
 GP_GRAY = "#3D3D3D"
 GP_ORANGE = "#FC3617"
 
+DOC_ICON = np.array(
+    [(0, 0), (0, 0.85), (0.15, 1), (0.75, 1), (0.75, 0)]
+)
 
 def axis_to_fig(axis):
     fig = axis.figure
@@ -53,50 +49,6 @@ def add_sub_axes(axis, rect):
     figwidth, figheight = trans([width, height]) - trans([0, 0])
     return fig.add_axes([figleft, figbottom, figwidth, figheight])
 
-
-def plot_sub_package_icon(
-    ax, offset=(0.5, 0.5), name=".makers", size=(22, 14), color=GP_GRAY, classes=[]
-):
-    p = Polygon(
-        offset + size * FOLDER_ICON, fc="None", ec=color, lw=1, transform=ax.transData
-    )
-    ax.add_artist(p)
-
-    fontsize_gp = 32
-    ax.text(
-        offset[0] + 1,
-        offset[1] + 5,
-        s="$\gamma$",
-        size=fontsize_gp,
-        va="bottom",
-        color=GP_ORANGE,
-    )
-    ax.text(offset[0] + 6, offset[1] + 5.5, s="$\pi$", size=fontsize_gp, color=color)
-    ax.text(
-        offset[0] + 1,
-        offset[1] + 5,
-        s="$\gamma$",
-        size=fontsize_gp,
-        va="bottom",
-        color=GP_ORANGE,
-    )
-    ax.text(offset[0] + 6, offset[1] + 5.5, s="$\pi$", size=fontsize_gp, color=color)
-    ax.text(offset[0] + 1, offset[1] + 1.5, s=name, size=9.5, color=color)
-
-    for idx, cls in enumerate(classes):
-        ax.text(offset[0], offset[1] - 4 - 4.2 * idx, s=cls, size=8, color=color)
-
-
-def plot_brace(ax, x, y, scale):
-    tp = TextPath((0, 0), "}", size=1)
-    trans = (
-        mtrans.Affine2D().scale(1, scale)
-        + mtrans.Affine2D().rotate(-90)
-        + mtrans.Affine2D().translate(x, y)
-        + ax.transData
-    )
-    pp = PathPatch(tp, lw=1, fc="k", transform=trans)
-    ax.add_artist(pp)
 
 
 def plot_arrow(ax, offset, dx=10, dy=0, **kwargs):
@@ -206,6 +158,30 @@ def plot_image(ax):
     format_dl5_ax(ax=ax)
 
 
+def plot_event_list(ax):
+    ax.set_title("Event list", color=GP_GRAY, pad=4)
+    cell_text = [
+        ["Lon", "Lat", "Energy"],
+        [0.1, 0.1, "1 TeV"],
+        [0.2, 0.2, "3 TeV"],
+        [0.3, 0.3, "5 TeV"],
+    ]
+
+    format_dl5_ax(ax=ax)
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.set_xticks([1/3, 2/3])
+    ax.set_yticks([0.25, 0.5, 0.75])
+    ax.grid(lw=1, color=GP_GRAY)
+    ax.axvspan(0, 1/3, fc="lightgray", ec="None")
+    ax.axhspan(0.75, 1, fc="lightgray", ec="None")
+    ax.tick_params(axis="both", direction="in", color=GP_GRAY)
+
+    for idx, xpos in enumerate([1/6, 3/6, 5/6]):
+        for jdx, ypos in enumerate([7/8, 5/8, 3/8, 1/8]):
+            plt.text(xpos, ypos, s=cell_text[jdx][idx], color=GP_GRAY, va="center", ha="center", size=8)
+
+
 def plot_data_levels(ax, ypos=123):
     # data levels
     kwargs = {}
@@ -215,62 +191,89 @@ def plot_data_levels(ax, ypos=123):
     kwargs["color"] = GP_GRAY
     kwargs["size"] = 24
 
-    ax.text(15, ypos, "DL3", **kwargs)
-    ax.text(80, ypos, "DL4", **kwargs)
+    #ax.text(20, ypos, "DL<3", **kwargs, alpha=0.3)
+    #ax.text(72, ypos, "DL3", **kwargs)
+    #ax.text(72, 12, "DL4", **kwargs)
     ax.text(160, ypos, "DL5/6", **kwargs)
 
     kwargs["size"] = 12
-    ax.text(15, ypos - 7, "$\mathsf{\gamma}$-like events", **kwargs)
-    ax.text(80, ypos - 7, "Binned data", **kwargs)
+    #ax.text(20, ypos - 7, "Inst. level data", **kwargs, alpha=0.3)
+    #ax.text(72, ypos - 7, "$\mathsf{\gamma}$-like events & IRFs", **kwargs)
+    #ax.text(72, 12 - 7, "Binned data", **kwargs)
     ax.text(160, ypos - 7, "Science products", **kwargs)
 
     # Arrows
-    plot_arrow(ax, offset=(27.5, ypos), dx=41.5, fc=GRAY)
-    plot_arrow(ax, offset=(92.5, ypos), dx=50, fc=GRAY)
+    #plot_arrow(ax, offset=(35.5, ypos), dx=15, fc=GRAY, alpha=0.3)
+    #plot_arrow(ax, offset=(72.5, ypos), dx=25, fc=GRAY)
+    #plot_arrow(ax, offset=(122.5, ypos), dx=20, fc=GRAY)
 
     kwargs["color"] = GRAY
-    ax.text(47.5, ypos - 20, "Data\nReduction", **kwargs)
-    ax.text(117.5, ypos - 20, "Modeling &\nFitting", **kwargs)
+    #ax.text(47.5, ypos - 15, "Data reduction", **kwargs)
+    #ax.text(123, ypos - 20, "Likelihood \n fitting", **kwargs)
 
 
-def plot_high_level_interface(fig, ax, ypos=24):
-    # from curly_brace import curlyBrace
-    # color = GRAY
-    # p2 = (5, ypos + 0.5)
-    # p1 = (135, ypos + 0.5)
-    # curlyBrace(
-    #     fig, ax, p1, p2, k_r=0.025, bool_auto=True, color=color, lw=2, int_line_num=1
-    # )
+def plot_gp_logo(ax, offset, fontsize=32, sub_title="", sub_title_shift=10):
+    scale = fontsize / 32.
+    ax.text(
+        offset[0] + scale,
+        offset[1],
+        s="$\gamma$",
+        size=fontsize,
+        va="bottom",
+        color=GP_ORANGE,
+    )
 
-    x, y = np.array([[5, 5, 135, 135], [ypos, ypos - 2, ypos - 2, ypos]])
-    line = mlines.Line2D(x, y, lw=3, color=GRAY)
-    ax.add_line(line)
+    ax.text(offset[0] + 6 * scale, offset[1], s="$\pi$", size=fontsize, color=GP_GRAY)
+    ax.text(offset[0] + 6 * scale - 10, offset[1] - sub_title_shift, s=sub_title, size=12, color=GP_GRAY)
 
-    x, y = np.array([[68, 68], [ypos - 4, ypos - 2]])
-    line = mlines.Line2D(x, y, lw=3, color=GRAY)
-    ax.add_line(line)
 
-    offset = (40, ypos - 21.5)
-    plot_sub_package_icon(ax, offset=(offset[0] + 22, ypos - 21.5), name=".analysis")
+def plot_instrument_logo(filename, fig, position, size=0.18):
+    logo = plt.imread(filename)
+    rect = [position[0], position[1], size, size]
+    ax = fig.add_axes(rect)
+    ax.axis("off")
+    ax.imshow(logo, zorder=0)
 
-    size = 14
+
+
+def plot_gadf_icon(ax, offset, size=14, text=""):
     p = Polygon(
-        offset + size * DOC_ICON, fc="None", ec=GRAY, lw=1, transform=ax.transData
+        offset + size * DOC_ICON, fc=LIGHT_GRAY, ec=GP_GRAY, lw=1.5, transform=ax.transData
     )
     ax.add_artist(p)
 
     ax.text(
         offset[0] + size * 0.75 / 2,
         offset[1] + size / 2,
-        "YAML",
+        s=text,
         va="center",
         ha="center",
-        color=GRAY,
+        color=GP_GRAY,
         fontweight="black",
-        size=9.5
+        size=12
     )
 
-    plot_arrow(ax=ax, offset=(offset[0] + size * 0.74 + 1, offset[1] + size / 2), fc=GRAY)
+
+def plot_dl3_block(ax):
+    xpos = 27
+    ymax = 0.84
+    ax.axvspan(xpos + 8, xpos + 28, fc=LIGHT_GRAY, ec="None", ymin=0.5, ymax=ymax)
+
+    kwargs = {}
+    kwargs["head_width"] = 10
+    kwargs["head_length"] = 3
+    plot_arrow(ax, offset=(xpos, 102), dx=11, width=13, fc=LIGHT_GRAY, **kwargs)
+    plot_arrow(ax, offset=(xpos, 76), dx=11, width=13, fc=LIGHT_GRAY, **kwargs)
+    #plot_arrow(ax, offset=(xpos, 89), dx=41, width=13, fc=LIGHT_GRAY, **kwargs)
+
+
+def plot_instrument_logos(fig):
+    left, offset = 0.01, 0
+    left_cta_hess = 0.01
+    plot_instrument_logo("logos/cta.png", fig=fig, position=(-0.03, offset + 0.73), size=0.3)
+    plot_instrument_logo("logos/hess.jpg", fig=fig, position=(left_cta_hess, offset + 0.6))
+    plot_instrument_logo("logos/fermi.png", fig=fig, position=(left + 0.01, offset + 0.28))
+    plot_instrument_logo("logos/hawc.png", fig=fig, position=(left, offset + 0.1))
 
 
 @click.command()
@@ -282,60 +285,88 @@ def main(draft=True):
     ax.set_xlim(0, FIGSIZE.mm[0])
     ax.set_ylim(0, FIGSIZE.mm[1])
 
+    plot_gp_logo(ax=ax, offset=(86, 28), fontsize=100, sub_title="Modeling & \nFitting")
+
     ax.tick_params(axis="both", direction="in", pad=-20)
     ax.xaxis.set_minor_locator(MultipleLocator(10))
     ax.yaxis.set_minor_locator(MultipleLocator(10))
 
     plot_data_levels(ax=ax)
-    plot_high_level_interface(fig=fig, ax=ax)
 
-    ymin = 0.2
-    ymax = 0.85
-    ax.axvspan(32, 62, fc=LIGHT_GRAY, ec="None", ymin=ymin, ymax=ymax)
-    ax.axvspan(100, 135, fc=LIGHT_GRAY, ec="None", ymin=ymin, ymax=ymax)
+    plot_instrument_logos(fig=fig)
+    #ax.text(s="Other IACTS")
+
+    plot_gadf_icon(ax=ax, offset=(63, 85), text="DL3\nGADF", size=24)
+    plot_gadf_icon(ax=ax, offset=(63, 20), text="DL4\nGADF", size=24)
+    plot_gp_logo(
+        ax=ax, offset=(59, 62), fontsize=48, sub_title="Data Reduction", sub_title_shift=4,
+    )
+
+    ymax = 0.76
+    ax.axvspan(130, 137, fc=LIGHT_GRAY, ec="None", ymin=0.09, ymax=ymax)
+    #
+    # ymax = 0.84
+    # ax.axvspan(65, 75, fc=LIGHT_GRAY, ec="None", ymin=0.08, ymax=ymax)
+    # ax.axvspan(65, 75, fc=LIGHT_GRAY, ec="None", ymin=0.08, ymax=ymax)
 
     kwargs = {}
-    kwargs["head_width"] = 13
+    kwargs["head_width"] = 7
     kwargs["head_length"] = 3
-    plot_arrow(ax, offset=(27.5, 56), dx=41, width=13, fc=LIGHT_GRAY, **kwargs)
-    plot_arrow(ax, offset=(93, 56), dx=21, width=13, fc=LIGHT_GRAY, **kwargs)
 
-    xpos = 120
-    plot_arrow(ax, offset=(xpos, 35), dx=23, width=13, fc=LIGHT_GRAY, **kwargs)
-    plot_arrow(ax, offset=(xpos, 64), dx=23, width=13, fc=LIGHT_GRAY, **kwargs)
-    plot_arrow(ax, offset=(xpos, 96), dx=23, width=13, fc=LIGHT_GRAY, **kwargs)
+    plot_arrow(ax, offset=(72, 83), dy=-9, dx=0, width=7, fc=LIGHT_GRAY, **kwargs)
+    plot_arrow(ax, offset=(72, 55), dy=-9, dx=0, width=7, fc=LIGHT_GRAY, **kwargs)
 
-    classes = ["DataStore", "Observations", "Observation", "GTI"]
-    plot_sub_package_icon(ax, offset=(5, 50), name=".data", classes=classes)
+    plot_arrow(ax, offset=(84, 35), dx=10, width=7, fc=LIGHT_GRAY, **kwargs)
+    plot_arrow(ax, offset=(37, 98), dx=24, width=14, fc=LIGHT_GRAY, head_width=14)
 
-    classes = ["PSF", "EnergyDispersion", "EffectiveArea"]
-    plot_sub_package_icon(ax, offset=(5, 90), name=".irf", classes=classes, color=GRAY)
+    xpos = 130
+    width = 7
+    plot_arrow(ax, offset=(xpos, 15), dx=14, width=width, fc=LIGHT_GRAY, **kwargs)
+    plot_arrow(ax, offset=(xpos - 5, 35), dx=19, width=width, fc=LIGHT_GRAY, **kwargs)
+    plot_arrow(ax, offset=(xpos, 64), dx=14, width=width, fc=LIGHT_GRAY, **kwargs)
+    plot_arrow(ax, offset=(xpos, 96), dx=14, width=width, fc=LIGHT_GRAY, **kwargs)
 
-    classes = [
-        "MapDatasetMaker",
-        "SafeMaskMaker",
-        "FoVBackgroundMaker",
-        "RingBackgroundMaker",
-        "etc.",
-    ]
-    plot_sub_package_icon(
-        ax, offset=(34, 50), name=".makers", color=GRAY, classes=classes
+    # thin arrows
+    kwargs["head_width"] = 5
+    kwargs["head_length"] = 3
+    plot_arrow(ax, offset=(37, 33), dx=24, width=5, fc=LIGHT_GRAY, **kwargs)
+    plot_arrow(ax, offset=(37, 39), dx=8, width=5, fc=LIGHT_GRAY, head_length=0)
+    plot_arrow(ax, offset=(46, 36.5), dx=0, dy=53.5, width=5, fc=LIGHT_GRAY, head_length=0)
+    plot_arrow(ax, offset=(45, 87.5), dx=16, width=5, fc=LIGHT_GRAY, **kwargs)
+
+
+    ax.text(
+        x=48,
+        y=98,
+        s="Events\n&\nIRFs",
+        va="center",
+        ha="center",
+        color=GRAY,
+        fontweight="black",
+        size=10
     )
 
-    classes = ["WcsNDMap", "HpxNDMap", "RegionNDMap", "etc."]
-    plot_sub_package_icon(ax, offset=(70, 90), name=".maps", classes=classes, color=GRAY,)
-
-    classes = ["Datasets", "MapDataset", "MapDatasetOnOff", "etc."]
-    plot_sub_package_icon(ax, offset=(70, 50), name=".datasets", classes=classes)
-
-    classes = ["FluxPointsEstimator", "FluxMapEstimator", "etc."]
-    plot_sub_package_icon(
-        ax, offset=(105, 40), name=".estimators", color=GRAY, classes=classes
+    ax.text(
+        x=46,
+        y=33,
+        s="IRFs",
+        va="center",
+        ha="center",
+        color=GRAY,
+        fontweight="black",
+        size=10
     )
 
-    classes = ["Fit, Models, SkyModel", "FoVBackgroundModel", "etc."]
-    plot_sub_package_icon(
-        ax, offset=(105, 80), name=".modeling", color=GRAY, classes=classes
+    ax.text(
+        x=46,
+        y=60,
+        s="Events",
+        va="center",
+        ha="center",
+        color=GRAY,
+        fontweight="black",
+        size=10,
+        rotation=90
     )
 
     if draft:
@@ -355,7 +386,7 @@ def main(draft=True):
     ax_cat = add_sub_axes(ax, [145, 86, 30, 20])
     plot_catalog(ax=ax_cat)
 
-    filename = "data_flow.pdf"
+    filename = "big-picture.pdf"
     log.info(f"Writing {filename}")
     plt.savefig(filename, dpi=300)
 

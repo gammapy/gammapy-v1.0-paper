@@ -1,19 +1,33 @@
-\section{Analysis Workflow Overview}
-\label{sec:analysis-workflow-overview}
-
+\section{Gamma-ray Data Analysis}
+\label{sec:gammaray-data-analysis}
+%
+\begin{figure*}[ht!]
+	\centering
+	\includegraphics[width=1.\textwidth]{figures/irfs.pdf}
+	\caption{
+		Example instrument response functions of some experiments and
+        observatories for which \gammapy can analyse data. The \cta IRFs
+        are from the prod5 production. The \hess IRFs are from the DL3 DR1,
+        using observation ID 033787. The point spread function shows the 65\&
+        containment radius of the PSF. The \fermi IRFs are from \textit{pass8}.
+        \todo{Add more instruments? HAWC? MAGIC?}
+    }
+	\label{fig:irfs}
+\end{figure*}
+%
 % This might not be the bast place compared to introduction
-The data processing workflow in Gamma-ray astronomy is usually split in two sequences.
+The data reduction process in \gammaray astronomy is usually split into two parts.
 The first one deals with the data processing from camera measurement, calibration, event
-reconstruction and selection to yield a list of reconstructed gamma-ray event candidates.
+reconstruction and selection to yield a list of reconstructed \gammaray event candidates.
 This sequence, sometimes referred to as low-level analysis, is usually very specific to
 a given observation technique and even to a given instrument.
 
 The other sequence, referred to as high-level analysis, deals with the extraction of physical
-quantities related to gamma-ray sources and the production of high-level products such as spectra,
+quantities related to \gammaray sources and the production of high-level products such as spectra,
 lightcurves and catalogs. The methods and tools applied here are more generic and are broadly
 shared across the field. They also frequently imply joint analysis of multi-instrument data.
 To extract physically relevant information, the measured data are usually compared to a
-model of the expected gamma-ray emitters in the instrument field-of-view using statistical
+model of the expected \gammaray emitters in the instrument field-of-view using statistical
 techniques such as maximum likelihood.
 
 We can write the expected number of detected events at measured position $p$ and energy $E$:
@@ -42,16 +56,15 @@ where:
   of the detector collection area times its detection efficiency at true energy $E_{\rm true}$ and position $p_{\rm true}$.
 \item $PSF(p|p_{\rm true}, E_{\rm true})$ is the point spread function. It gives the probability of
   measuring a direction $p$ when the true direction is $p_{\rm true}$ and the true energy is $E_{\rm true}$.
-  Gamma-ray instruments consider the probability density of the angular separation between true and reconstructed directions
+  \gammaray instruments consider the probability density of the angular separation between true and reconstructed directions
   $\delta p = p_{\rm true} - p$, i.e. $PSF(\delta p|p_{\rm true}, E_{\rm true})$.
 \item $E_{\rm disp}(E|p_{\rm true}, E_{\rm true})$ is the energy dispersion. It gives the probability to
   reconstruct the photon at energy $E$ when the true energy is $E_{\rm true}$ and the true position :$p_{\rm true}$.
-  Gamma-ray instruments consider the probability density of the migration $\mu=\frac{E}{E_{\rm true}}$,
+  \gammaray instruments consider the probability density of the migration $\mu=\frac{E}{E_{\rm true}}$,
   i.e. $E_{\rm disp}(\mu|p_{\rm true}, E_{\rm true})$.
 \end{itemize}
 
-
-Gamma-ray data at the Data Level 3 therefore consists in lists of gamma-like events and their
+\gammaray data at the Data Level 3 therefore consists in lists of gamma-like events and their
 corresponding instrument response functions (IRFs). The latter include the aforementioned
 effective area, point spread function (PSF), energy dispersion and residual hadronic background.
 The handling of DL3 data is performed by classes and methods
@@ -80,11 +93,10 @@ implemented in the gammapy.makers subpackage (see \ref{ssec:gammapy-makers}).
 
 The counts data and the reduced IRFs in the form of maps are bundled into dataset objects
 that represent the data level 4 (DL4). They can be written to
-disk, in a format specific to Gammapy to allow users to read them back at any time later
+disk, in a format specific to \gammapy to allow users to read them back at any time later
 for modeling and fitting.
 
-This latter step
- datasets classes bundle reduced data in form of maps, reduced IRFs, models and
+This latter step datasets classes bundle reduced data in form of maps, reduced IRFs, models and
 fit statistics. Different sub-classes support different analysis methods
 and fit statistics (e.g. Poisson statistics with known background or
 with OFF background measurements). The datasets are used to perform joint-likelihood
@@ -93,22 +105,36 @@ but also from different instruments or event classes. They can also be used for 
 simulation as well as event sampling to simulate DL3 events data.
 
 The next step is then typically to model and fit the datasets, either
-individually, or in a joint likelihood analysis. For this purpose Gammapy
+individually, or in a joint likelihood analysis. For this purpose \gammapy
 provides a uniform interface to multiple fitting backends. It also provides
 a variety of :ref:`built in models <model-gallery>`. This includes spectral,
-spatial and temporal model classes to describe the gamma-ray emission in the sky.
+spatial and temporal model classes to describe the \gammaray emission in the sky.
 Where spectral models can be simple analytical models or more complex ones from radiation
 mechanisms of accelerated particle populations (e.g. inverse Compton or $\pi^{o}$ decay).
 Independently or subsequently to the global modelling, the data can be
 re-grouped to compute flux points, light curves and flux as well as significance
 maps in energy bands.
 
-\section{Gammapy package}
+\section{\gammapy Package}
 \label{sec:gammapy-package}
-
-
 \subsection{Overview}
 \label{ssec:overview}
+%
+\begin{figure*}[ht!]
+	\centering
+	\includegraphics[width=1.\textwidth]{figures/data_flow.pdf}
+	\caption{
+		\gammapy sub-package structure and data analysis workflow. The top row
+        defines the groups for the different data levels and reduction steps
+        from raw gamma-like events on the left, to high level science products
+        on the right. The direction of the data flow is illustrated with the
+        grey arrows. The gray folder icons represent the different sub-packages
+        in \gammapy and their names. Below each icon there is a list of the most
+        important objects defined in the sub-package.
+    }
+	\label{fig:data_flow}
+\end{figure*}
+%
 The \gammapy package is structured into multiple sub-packages. The definition
 of the content of the different sub-packages follows mostly the stages in the
 data reduction workflow described in the previous section. Sub-packages
@@ -120,26 +146,20 @@ Figure~\ref{fig:data_flow} shows an overview of the different sub-packages and
 their relation to each other. The \code{gammapy.data} and \code{gammapy.irf}
 sub-packages define data objects to represent DL3 data, such as
 event lists and instrument response functions as well as functionality
-to the DL3 data from disk into memory.
+to the DL3 data from disk into memory. The \code{gammapy.makers} sub-package
+contains the functionality to reduce the DL3 data to binned maps.
+Binned maps and datasets, which represent a collection of binned
+maps are defined in the \code{gammapy.maps} and \code{gammapy.datasets}
+sub-packages respectively. Parametric models, which are defined in
+\code{gammapy.modeling}, are used to jointly model a combination
+of datasets for example to create source catalogs. Estimator classes,
+which are contained in \code{gammapy.estinators} are used to
+compute higher level science products such as flux and signficance maps,
+light curves or flux points. Finally there is a \code{gammapy.analysis}
+sub-package which provides a high level interface for executing analyses
+defined from configuration files. In the following sections we will
+introduce all sub-packages and their functionality in more detail.
 
-The \code{gammapy.makers} sub-package contains the functionality to reduce
-the data to binned maps.
-
-
-
-\begin{figure*}[t]
-	\centering
-	\includegraphics[width=1.\textwidth]{figures/data_flow.pdf}
-	\caption{
-		Gammapy sub-package structure and data analysis workflow. The top row
-        defines the groups for the different data levels and reduction steps
-        from raw gamma-like events on the left, to high level science products
-        on the right. The direction of the data flow is illustrated with the
-        grey circles. The gray folder icons represent the different sub-packages
-        in Gammapy and their names. Below each icon there is an overview of the most
-        important objects defined in the sub-package.
-    }
-	\label{fig:data_flow} \end{figure*}
 
 \input{text/2-package-subsections/data}
 \input{text/2-package-subsections/irf}

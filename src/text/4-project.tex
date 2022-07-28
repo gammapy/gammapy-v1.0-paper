@@ -1,19 +1,19 @@
-\section{Gammapy project} \label{sec:gammapy-project}
+\section{\gammapy Project} \label{sec:gammapy-project}
 
-In this section, we provide an overview of the organization of the Gammapy
+In this section, we provide an overview of the organization of the \gammapy
 project. We briefly describe the main roles and responsibilities within the
 team, as well as the technical infrastructure designed to facilitate the
-development and maintenance of Gammapy as a high quality software. We use
+development and maintenance of \gammapy as a high quality software. We use
 common tools and services for software development of Python open-source
 projects, code review, testing, package distribution and user support, with a
 customized solution for a versioned thoroughly tested documentation in the form
 of user-friendly playable tutorials. This section concludes with an outlook on
 the roadmap for future directions.
 
-\subsection{Organizational structure}
+\subsection{Organizational Structure}
 \label{ssec:organizational-structure}
 
-Gammapy is a well-organised international open-source project with a broad
+\gammapy is a well-organised international open-source project with a broad
 developer base and the presence of commitments from strong groups and
 institutes in the very high-energies astrophysics
 domain\footnote{\url{https://gammapy.org/team.html}}. The main development
@@ -27,12 +27,12 @@ of developers from the contributing laboratories is in charge of the regular
 development, which benefits from punctual contributions of the community at
 large.
 
-\subsection{Technical infrastructure}
+\subsection{Technical Infrastructure}
 \label{ssec:technical-infrastructure}
 
-Gammapy follows an open-source and open-contribution development model based on
-the cloud repository service GitHub. A GitHub organization
-\textit{gammapy}\footnote{\url{https://github.com/gammapy}} hosts different
+\gammapy follows an open-source and open-contribution development model based on
+the cloud repository service \github. A \github organization
+\textit{gammapy}\footnote{\url{https://\github.com/gammapy}} hosts different
 repositories related with the project. The software codebase may be found in
 the \textit{gammapy} repository (see Table~\ref{table:codestats:data} and
 Figure~\ref{fig:codestats:lang} for code lines statistics). We make extensive
@@ -40,7 +40,16 @@ use of the pull request system to discuss and review code contributions.
 
 \begin{table}
 	\import{tables/generated/}{codestats}
-	\caption{Coding languages statistics in Gammapy project}
+	\caption{
+        Overview of used programming languages and distribution of code across the different file
+        categories in the \gammapy code base. The most right column list the total number of lines
+        in a file. The \textit{comment} column lists the number of comments in the files
+        (including method and class docstrings), the \textit{blank} column lists the
+        number of blank lines in the file. The uppermost rows distinguish between
+        code that implements actual functionality and code the implements tests.
+        All documentataion in \gammapy is implemented as dosctrings, \text{reStructuredText} (RST)
+        files or notebooks.
+    }
 	\label{table:codestats:data}
 \end{table}
 
@@ -48,11 +57,13 @@ use of the pull request system to discuss and review code contributions.
 	\centering
 	\includegraphics[width=0.5\textwidth]{figures/codestats.pdf}
 	\caption{
-		Percentage of lines of code in Gammapy project} \label{fig:codestats:lang}
+		Overview of used programming languages and distribution of code across the different file
+        categories in the \gammapy code base.
+    } \label{fig:codestats:lang}
 \end{figure}
 
-Several automated tasks are set as GitHub
-actions\footnote{\url{https://github.com/features/actions}}, blocking the
+Several automated tasks are set as \github
+actions\footnote{\url{https://\github.com/features/actions}}, blocking the
 processes and alerting developers when fails occur. This is the case of the
 content integration workflow, which monitors the execution of the test coverage
 suite\footnote{\url{https://pytest.org}} using datasets from the
@@ -68,7 +79,7 @@ publishing workflow within the \textit{gammapy-docs} repository (see Sec.
 ~\ref{ssec:software-distribution} and Sec. ~\ref{ssec:documentation}).
 
 This small ecosystem of interconnected up-to-date repositories, automated tasks
-and alerts, is just a part of a bigger set of GitHub repositories, where most
+and alerts, is just a part of a bigger set of \github repositories, where most
 of them are related with the project but not necessary for the development of
 the software (i.e., project webpage, complementary high-energy astrophysics
 object catalogs, coding sprints and weekly developer calls minutes,
@@ -76,43 +87,43 @@ contributions to conferences, other digital assets, etc.) Finally, third-party
 services for code quality metrics are also set and may be found as status
 shields in the codebase repository.
 
-\subsection{Software distribution}
+\subsection{Software Distribution}
 \label{ssec:software-distribution}
 
-Gammapy is distributed for Linux, Windows and Mac environments, and installed
+\gammapy is distributed for Linux, Windows and Mac environments, and installed
 in the usual way for Python packages. Each stable release is uploaded to the
 Python package index\footnote{\url{https://pypi.org}} and as a binary package
 to the \textit{conda-forge} and \textit{astropy} Anaconda
 repository\footnote{\url{https://anaconda.org/anaconda/repo}} channels. At this
-time, Gammapy is also available as a Debian Linux
+time, \gammapy is also available as a Debian Linux
 package\footnote{\url{https://packages.debian.org/sid/python3-gammapy}}. We
 recommend installing the software using the \textit{conda} installation process
 with an environment definition file that we provide, so to work within a
 virtual isolated environment with additional useful packages and ensure
 reproducibility.
 
-Gammapy is indexed in Astronomy Source Code
+\gammapy is indexed in Astronomy Source Code
 Library\footnote{\url{https://ascl.net/1711.014}} and
 Zenodo\footnote{\url{https://zenodo.org/record/5721467o}} digital libraries for
-software. The Zenodo record is synchronised with the codebase GitHub repository
+software. The Zenodo record is synchronised with the codebase \github repository
 so that every release triggers the update of the versioned record. In addition,
-the next release of Gammapy will be added to the Open-source scientific
+the next release of \gammapy will be added to the Open-source scientific
 Software and Service Repository\footnote{\url{https://projectescape.eu/ossr}}
 and indexed in the European Open Science Cloud
 catalog\footnote{\url{https://eosc-portal.eu}}.
 
-\subsection{Documentation and user-support}
+\subsection{Documentation and User-support}
 \label{ssec:documentation-and-user-support}
-Gammapy provides its user community with a tested and versioned up-to-date
+\gammapy provides its user community with a tested and versioned up-to-date
 on-line
 documentation\footnote{\url{https://docs.gammapy.org}}~\citep{2019ASPC..523..357B}
 built with Sphinx\footnote{\url{https://www.sphinx-doc.org}} scanning the
 codebase Python scripts, as well as a set of RST files and Jupyter notebooks.
 The documentation includes a handwritten user guide, a set of executable
 tutorials, and a reference to the API automatically extracted from the code and
-docstrings. The Gammapy code snippets present in the documentation are tested
+docstrings. The \gammapy code snippets present in the documentation are tested
 in different environments using our continuous integration (CI) workflow based
-on GitHub actions.
+on \github actions.
 
 The Jupyter notebooks tutorials are stored stripped of their output cells,
 which greatly helps in identifying differences in the contribution review.
@@ -129,27 +140,26 @@ the associated datasets needed and the specific conda computing environment,
 using the \textit{gammapy download} command.
 
 We have also set up a solution for users to share recipes as Jupyter notebooks
-that do not fit in the Gammapy core documentation but which may be relevant as
+that do not fit in the \gammapy core documentation but which may be relevant as
 specific use cases. Contributions happen via pull requests to the
-\textit{gammapy-recipes} GitHub repository and merged after a short review. All
-notebooks in the repository are tested and published in the Gammapy recipes
-webpage\footnote{\url{https://gammapy.github.io/gammapy-recipes}} automatically
-using GitHub actions.
+\textit{gammapy-recipes} \github repository and merged after a short review. All
+notebooks in the repository are tested and published in the \gammapy recipes
+webpage\footnote{\url{https://gammapy.\github.io/gammapy-recipes}} automatically
+using \github actions.
 
 A growing community of users is gathering around the Slack
-messaging\footnote{\url{https://gammapy.slack.com}} and GitHub
-discussions\footnote{\url{https://github.com/gammapy/gammapy/discussions}}
-support forums, providing valuable feedback on the Gammapy functionalities,
+messaging\footnote{\url{https://gammapy.slack.com}} and \github
+discussions\footnote{\url{https://\github.com/gammapy/gammapy/discussions}}
+support forums, providing valuable feedback on the \gammapy functionalities,
 interface and documentation. Other communication channels have been set like
 mailing lists, a Twitter account\footnote{\url{https://twitter.com/gammapyST}},
 regular public coding sprint meetings, hands-on session within collaborations,
 weekly development meetings, etc.
 
-\subsection{Proposals for improving \gammapy}
+\subsection{Proposals for Improving \gammapy}
 \label{ssec:pigs}
-\todo{Axel, Regis}
 An important part of \gammapy's development organisation is the support
-for "Proposals for improving Gammapy" (PIG). This system is very much
+for "Proposals for improving \gammapy" (PIG). This system is very much
 inspired by Python's PEP\footnote{\url{https://peps.python.org/pep-0001/}}
 and Astropy's APE \citep{greenfield_perry_2013} system.
 PIG are self-contained documents which outline a set of larger
@@ -158,7 +168,7 @@ code and package restructuring and maintenance as well as changes related
 to the organisational structure of the \gammapy project. PIGs can be proposed
 by any person in or outside the project and by multiple authors. They
 are presented to the \gammapy developer community in a pull request
-on GitHub and the undergo a review phase in which changes and
+on \github and the undergo a review phase in which changes and
 improvements to the document are proposed and implemented. Once the PIG
 document is in a final state it is presented to the \gammapy
 coordination committee, which takes the final decision on the
@@ -176,3 +186,24 @@ project organisation are written up as an overview and presented to the
 follows the normal PIG guidelines. Typically roadmaps are written
 to outline and agree on a common vision for the next long term
 support release of \gammapy.
+
+\subsection{Release Cycle, Versioning, and Long-term Support}
+\label{ssec:release-cycle}
+With the first long term support (LTS) release v1.0, the \gammapy project
+enters a new development phase. The development will change from
+quick feature driven development to more stable maintenance
+and user support driven developement. After v1.0 we foresee
+a developement cycle with major, minor and bugfix releases.
+We basically followg the development cycle of the Astropy
+project. Thus we expect a major LTS release approximately
+every two years, minor releases are planned every 6~months,
+while bug-fix releases will happen as needed. While
+bug-fix releases will not introduce API breaking changes,
+we will work with a deprecation system for minor releases.
+API breaking changes will be announced to user by runtime
+warnings first and then implemented in the subsequent
+minor release. This approach we consider a fair
+compromise between the interests of users in a stable
+package and the interest of developers to improve
+and develop \gammapy in future. The developemnt cycle is described
+in more detail in PIG 24 \todo{reference}.

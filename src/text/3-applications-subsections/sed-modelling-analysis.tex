@@ -1,4 +1,16 @@
 \subsection{Broadband SED Modeling}
 \label{ssec:broadband-sed-modeling}
-\todo{Cosimo Nigro}
-Figure \ref{fig:multi_instrument_analysis}. Add explanation text.
+By combining \gammapy with astrophysical modelling codes users can also fit
+astrophysical spectral models to \gammaray data. In \gammaray
+astronomy what typically observes two radiation production
+mechanisms., the so called hadronic and leptonic scenarios.
+There are mutiple Python packages that are able to model
+the \gammaray emission, given a physical scenario. Among those
+packages are  \cite{agnpy}, \cite{naima}, \cite{jetset} or \cite{gamera}.
+Tyically those emission models predict broadband emission from
+radio waves up to the very high energy \gammaray range.
+By relying on the multiple dataset types in \gammapy those
+data can be combined to constrain such a broadband emission model.
+\gammapy provides a built-in \code{NaimaSpectralModel} which allows
+users to wrap a given astrophysical emission model from the
+Naima package and fit it directly to \gammaray data.
