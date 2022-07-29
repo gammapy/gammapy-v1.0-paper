@@ -3,7 +3,7 @@ verbose: true
 ms:
     src/ms-review.tex
 dependencies:
-    src/ms.tex:
+    src/ms-review.tex:
         - src/code-examples/generated/gp_data.tex
         - src/code-examples/generated/gp_catalogs.tex
         - src/code-examples/generated/gp_datasets.tex
