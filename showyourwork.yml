@@ -35,6 +35,14 @@ dependencies:
         - src/data/cube-analysis/npred_1.fits
         - src/data/cube-analysis/npred_2.fits
         - src/data/cube-analysis/npred_3.fits
+    src/figures/irfs.py:
+        - src/data/cta-galactic-center/input/index/gps/hdu-index.fits.gz
+        - src/data/cta-galactic-center/input/index/gps/obs-index.fits.gz
+        - src/data/lightcurve/input/hdu-index.fits.gz
+        - src/data/lightcurve/input/obs-index.fits.gz
+        - src/data/fermi-ts-map/input/fermi-3fhl-gc-exposure-cube.fits.gz
+        - src/data/fermi-ts-map/input/fermi-3fhl-gc-psf-cube.fits.gz
+
 
 
 
