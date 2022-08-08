@@ -1011,7 +1011,7 @@ configuration file as input.
 The \code{Analysis} class has the responsibility of orchestrating of the workflow
 defined in the configuration \code{AnalysisConfig} objects and triggering the execution of
 the \code{AnalysisStep} classes that defines the common use cases identified. These
-steps include the following: observations selection from the DataStore,  data
+steps include the following: observations selection with the \code{DataStore},  data
 reduction, excess map computation, model fitting, flux-points estimation, and
 light-curves production. The structure of the \code{Analysis} class allows to define
 custom AnalysisStep, so ones could design and configure arbitrarily complex
