@@ -260,7 +260,7 @@ black holes and remnants of supernova explosions. As in other
 branches of astronomy, \gammarays can be observed by both
 satellite as well as ground based instruments.
 Ground based instrument use the Earth's atmosphere as a particle detector.
-Very high energy cosmic \gammarays interact in the atmosphere and
+Very high-energy cosmic \gammarays interact in the atmosphere and
 create a large shower of secondary particles that can be observed from the ground.
 Ground-based \gammaray astronomy relies on this phenomenon to detect the
 primary \gammaray photons and measure their direction and energy.
@@ -308,7 +308,7 @@ commonly used in the field.
 
 
 %% Context : formats
-In practice, the data-reduction workflow of all \gammaray observatories
+In practice, the data reduction workflow of all \gammaray observatories
 is remarkably similar. After data calibration, shower events are reconstructed and
 gamma/hadron separation is applied to build lists of \gammaray like events.
 The latter are then used to derive scientific results, such as spectra, sky maps
@@ -330,7 +330,7 @@ system.
 Python has become extremely popular as a scientific programming language
 in particular in the field of data sciences. The success is
 mostly attributed to the simple and easy to learn syntax, the ability to act as
-a "glue" language between different programming languages and last but not least
+a 'glue' language between different programming languages and last but not least
 the rich eco-system of packages and its open and supportive community, from
 core numerical analysis packages such as \numpy~\citep{numpy} and
 \scipy~\citep{2020SciPy-NMeth}, visualization libraries, e.g. Matplotlib \citep{matplotlib},
@@ -344,7 +344,7 @@ and their units as well as reading and writing FITS files.
 %% \gammapy: concept and goals
 %%% Question: starting date? Is is relevant, what is the real start?
 The \gammapy project started in 2015 with the objective of building a flexible and
-efficient software library for very high energy \gammaray data analysis \citep{gammapy_2015}.
+efficient software library for very high-energy \gammaray data analysis \citep{gammapy_2015}.
 This is possible thanks to the definition of a common data format such as \gadf, and thanks to
 an open development with a broad community of contributors. The relation of \gammapy to the
 different instruments the \gadf data format is illustarted in Figure~\ref{fig:big_picture}.
@@ -359,7 +359,7 @@ This data release served as a basis for analysis tools validation \cite[see e.g.
 %% Paper outline
 In this article, we describe the general structure of the \gammapy package and
 its main concepts. In Section \ref{sec:analysis-workflow-overview}, we present
-the data analysis workflow in very high energy \gammaray astronomy. Then we
+the data analysis workflow in very high-energy \gammaray astronomy. Then we
 show how this workflow is reflected in the structure of the \gammapy package and
 describe the various subpackages it contains. Section \ref{sec:applications}
 presents a number of applications, while Section \ref{sec:gammapy-project}
@@ -457,7 +457,7 @@ to significant uncertainties, background correction must be applied,
 such as the ring or the field-of-view background techniques or
 background measurements must be performed within, e.g. reflected regions~\citep{Berge07}.
 Parts of the data with high associated IRF systematics must also be excluded by defining
-a "safe" data range. These data reduction steps are performed by classes and functions
+a 'safe' data range. These data reduction steps are performed by classes and functions
 implemented in the \code{gammapy.makers} subpackage (see \ref{ssec:gammapy-makers}).
 
 The counts data and the reduced IRFs in the form of maps are bundled into dataset objects
@@ -611,13 +611,13 @@ even plot the multi-dimensional Aeff table.
 
 \paragraph{Point spread function:}
 \gammapy allows user to treat different kinds of PSFs,
-in particular, parametric multi-dimensional gaussians (\code{EnergyDependentMultiGaussPSF})
+in particular, parametric multi-dimensional Gaussians (\code{EnergyDependentMultiGaussPSF})
 or King profile functions (\code{PSFKing})
 one. The \code{EnergyDependentMultiGaussPSF} class is able to handle up to three
-gaussians, defined in terms of amplitudes and sigma given for each true energy
+Gaussians, defined in terms of amplitudes and sigma given for each true energy
 and offset angle bin. Similarly, \code{PSFKing takes} into account the gamma and
 sigma parameters as defined here. The \code{ParametricPSF} allows to create a
-PSF with a representation different from gaussian(s) or King profile(s).
+PSF with a representation different from Gaussian(s) or King profile(s).
 Finally, the user can take advantage from the \code{PSFMap} class, which creates
 a multi-dimensional map of the PSF in WCS coordinates. At each position, a PSF
 kernel map (\code{PSFKernel}) provides a PSF as a function of the true energy.
@@ -628,7 +628,7 @@ sky-position, is also given to the user. The latter two can speed up analyses.
 for \iact, it is generally given in terms of the so-called
  migration parameter ($\mu$), which is defined as the ratio between the
 reconstructed energy and the true energy. This ratio should be as close as one
-and its dispersion can assume the shape of a gaussian (or even more complex
+and its dispersion can assume the shape of a Gaussian (or even more complex
 distributions). Migration parameter is given at each offset angle and
 reconstructed energy. The main sub-classes are \code{EnergyDispersion2D},
 designed to interpret Edisp, \code{EDispKernelMap}, which builds an Edisp kernel
@@ -651,7 +651,7 @@ The \code{gammapy.maps} sub-package provides classes that represent data
 structures associated with a set of coordinates or a region on a sphere. In
 addition it allows to handle an arbitrary number of non-spatial data
 dimensions, such as time or energy. It is organized around three types of
-structures: geometries, sky-maps and map axes, which inherit from the base
+structures: geometries, sky maps and map axes, which inherit from the base
 classes \code{Geom}, \code{Map} and \code{MapAxis} respectively.
 
 The geometry object defines the pixelization scheme and map boundaries. It also
@@ -706,7 +706,7 @@ allows for easy up and downsampling of the data. In addition to
 the all-sky map, \gammapy also supports a local HEALPix
 pixelisation where the size of the map is constrained to a given
 radius.
-For local nighbourhood operations, such as convolution \gammapy relies
+For local neighbourhood operations, such as convolution \gammapy relies
 on projecting the HEALPix data to a local tangential WCS grid.
 
 \subsubsection{Region Maps}
@@ -742,7 +742,7 @@ entries.
 \end{figure}
 %
 The end product of the data reduction process described in Section
-\ref{ssec:gammapy-makers} are a set of binned counts, background and IRF maps,
+\ref{sec:gammaray-data-analysis} (and in detail in \ref{ssec:gammapy-makers}) are a set of binned counts, background and IRF maps,
 at the DL4 level. The \code{gammapy.datasets} subpackage contains classes to bundle
 together binned data along with associated models and the likelihood, which
 provides an interface to the \code{Fit} class (Sec \ref{sssec:fit}) for
@@ -857,7 +857,7 @@ The model gallery provides a visual overview of the available models in
 built-in. We also offer a wrapper to radiative models implemented in the Naima
 package~\cite{naima}. The modeling framework can be easily extended with
 user-defined models. For example agnpy models that describe leptonic radiative
-processes in jetted Active Galactic Nuclei (AGN) can wrapped into
+processes in jetted Active Galactic Nuclei (AGN) can be wrapped into
 \gammapy~\citep[see Section 3.5 of ][]{2021arXiv211214573N} .
 
 \begin{figure}
@@ -875,9 +875,9 @@ processes in jetted Active Galactic Nuclei (AGN) can wrapped into
 \label{sssec:fit}
 
 The \code{Fit} class provides methods to fit i.e., optimise parameters and estimate
-parameter errors and correlations. It interfaces with a Datasets object, which
-in turn is connected to a Models object containing the model parameters in its
-Parameters object. Models can be unique for a given dataset, or contribute to
+parameter errors and correlations. It interfaces with a \code{Datasets} object, which
+in turn is connected to a \code{Models} object containing the model parameters in its
+\code{Parameters} object. Models can be unique for a given dataset, or contribute to
 multiple datasets and thus provide links, allowing e.g., to do a joint fit to
 multiple IACT datasets, or to a joint IACT and \fermi dataset. Many
 examples are given in the tutorials.
@@ -899,7 +899,7 @@ extend the supported fitting backends, including for example MCMC solutions.
 \label{ssec:gammapy-estimators}
 By fitting parametric models to the data, the total integrated
 flux and overall temporal, spectral and morphological shape of the
-\gammaray emission can be constrained. In many cases it useful
+\gammaray emission can be constrained. In many cases it is useful
 to make a more detailed follow-up analysis by measuring the
 flux in smaller spectral, temporal or spatial bins. This
 possibly reveals more detailed emission features, which
@@ -910,7 +910,7 @@ points, light curves, flux maps, flux profiles from data.
 The basic method for all these measurements is equivalent.
 The initial fine bins of \code{MapDataset} are grouped into
 larger bins. The norm of the best fit "reference" spectral
-model is fitted ("scaled") in the  restricted data range only.
+model is fitted (or 'scaled') in the  restricted data range only.
 
 The base class of all algorithms is the \code{Estimator}  class.
 
@@ -934,18 +934,18 @@ and one dimensional profiles of the fit statistic,
 which show how the likelihood functions varies with
 the flux norm parameter around the fit minimum.
 This information is useful for inspecting the quality
-of the fit, where assumptoticcally a parabolic
+of a fit, for which asymptomatically a parabolic
 shape of the profile is expected at the best fit
 values (\todo{Reference to modeling / fitting section?}).
 
 The result of the flux point estimation are either stored in a
 \code{FluxMaps} or \code{FluxPoints} object. Both objects
 are based on an internal representation of the flux which is
-independent of the SED type. The flux is represented by a
+independent of the Spectral Energy Distribution (SED) type. The flux is represented by a
 the reference spectral model and an array of
 normalisation values given in energy, time and spatial bins,
-which factorise the deviation of the flux in the given
-bin form the reference spectral model. This allows
+which factorises the deviation of the flux in a given
+bin from the reference spectral model. This allows
 user to conveniently transform between different
 SED types. Table~\ref{tab:sed_types} shows an
 overview and definitions of the supported SED types.
@@ -958,10 +958,10 @@ by mutiplication of the norm with the  reference flux.
          \hline
          Type & Description & Unit Equivalency \\
          \hline
-         dnde & Differential flux at a given energy & $\mathrm{TeV^{-1}~cm^{2}~s^{-1}}$ \\
-         e2dnde & Differential flux at a given energy  & $\mathrm{TeV~cm^{2}~s^{-1}}$ \\
-         flux & Integrated flux in agiven energy range & $\mathrm{cm^{2}~s^{-1}}$ \\
-         eflux & Integrated energy flux in agiven energy range & $\mathrm{erg~cm^{2}~s^{-1}}$\\
+         dnde & Differential flux at a given energy & $\mathrm{TeV^{-1}~cm^{-2}~s^{-1}}$ \\
+         e2dnde & Differential flux at a given energy  & $\mathrm{TeV~cm^{-2}~s^{-1}}$ \\
+         flux & Integrated flux in a given energy range & $\mathrm{cm^{-2}~s^{-1}}$ \\
+         eflux & Integrated energy flux in a given energy range & $\mathrm{erg~cm^{-2}~s^{-1}}$\\
          \hline
         \end{tabular}
     \end{center}
@@ -979,8 +979,8 @@ users to directly further analyse the results, e.g.
 standard algorithms for time analysis such as
 computing Lomb-Scargle periodograms or Bayesian
 blocks for time series. So far \gammapy does not
-support "unfolding" of \gammaray spectra.
-Methods for this will be implemented in future version of \gammapy.
+support 'unfolding' of \gammaray spectra.
+Methods for this will be implemented in a future version of \gammapy.
 
 Code example ~\ref{fig*:minted:gp_estimators} shows how to use
 the \code{TSMapEstimator} objects with a given input \code{MapDataset}.
@@ -1000,17 +1000,17 @@ bins of the resulting flux and TS maps.
 
 \subsection{gammapy.analysis}
 \label{ssec:gammapy-analysis}
-The \code{gammapy.analysis} sub-module provides a  high-level interface for the most
-common use cases identified in \gammaray analyses. The classes and methods
-included can be used in Python scripts, notebooks or as commands within IPython
-sessions. The high-level user interface can also be used to automatise
+The \code{gammapy.analysis} sub-module provides a high-level interface (HLI) for the most
+common use cases identified in \gammaray analyses. The included classes and methods
+ can be used in Python scripts, notebooks or as commands within IPython
+sessions. The HLI can also be used to automatise
 workflows driven by parameters declared in a configuration file in YAML format.
-This way a full analysis can be executed via a single command line taking the
+This way, a full analysis can be executed via a single command line taking the
 configuration file as input.
 
 The \code{Analysis} class has the responsibility of orchestrating of the workflow
 defined in the configuration \code{AnalysisConfig} objects and triggering the execution of
-the \code{AnalysisStep} classes that defines the common use cases identified. These
+the \code{AnalysisStep} classes that define the identified common use cases. These
 steps include the following: observations selection with the \code{DataStore},  data
 reduction, excess map computation, model fitting, flux points estimation, and
 light curves production. The structure of the \code{Analysis} class allows to define
@@ -1070,10 +1070,10 @@ multiple observations or plotting large parameter correlation matrices of
 wide field Galactic survey images across multiple panels to fit a standard
 paper size.
 
-The sub-package also provides matplotlib implementations of specific
+The sub-package also provides "matplotlib" implementations of specific
 colormaps for false color image representation. Those colormaps have
-been used historically larger collaborations in the very high energy
-domain (such as \milagro or \hess) as "trademark" colormaps.
+been used historically by larger collaborations in the very high-energy
+domain (such as \milagro or \hess) as 'trademark' colormaps.
 While we explicitly discourage the use of those colormaps for publication
 of new results, because they do not follow modern visualization
 standards, such as linear brightness gradients and accessibility
@@ -1083,21 +1083,21 @@ useful for reproducibility of past results.
 \subsection{gammapy.astro}
 \label{ssec:gammapy-astro}
 The \code{gammapy.astro} sub-package contains utility functions for studying physical
-scenarios in high energy astrophysics. The \code{gammapy.astro.darkmatter} module
-computes the so  called J-factors and the associated \gammaray spectra expected
+scenarios in high-energy astrophysics. The \code{gammapy.astro.darkmatter} module
+computes the so called J-factors and the associated \gammaray spectra expected
 from annihilation of dark matter in different channels according to the recipe
 described in \cite{2011JCAP...03..051C}.
 
 In the \code{gammapy.astro.source} sub-module, dedicated classes exist for modeling
-galactic \gammaray sources according to simplified physical models, eg: SNR evolution
-models \citep{1950RSPSA.201..159T, 1999ApJS..120..299T}, evolution of PWN during the
+galactic \gammaray sources according to simplified physical models, e.g. SuperNova Remnant (SNR) evolution
+models \citep{1950RSPSA.201..159T, 1999ApJS..120..299T}, evolution of Pulsar Wind Nebula (PWN) during the
 free expansion phase \citep{2006ARA&A..44...17G} or computation
 of physical parameters in a pulsar assumed to be a simple dipole.
 
 In the \code{gammapy.astro.population} sub-module there are dedicated tools
 for simulating synthetic populations based on physical models derived from
 observational or theoretical considerations for different classes of Galactic
-VHE \gammaray emitters: PWNe, SNRs \cite{1998ApJ...504..761C},
+very high-energy \gammaray emitters: PWNe, SNRs \cite{1998ApJ...504..761C},
 pulsars \cite{2006ApJ...643..332F, 2006MNRAS.372..777L, 2004A&A...422..545Y}
 and \gammaray binaries.
 
@@ -1106,8 +1106,8 @@ with time with by users and/or developers according to future needs.
 
 \subsection{gammapy.catalog}
 \label{ssec:gammapy-catalog}
-Comprehensive source catalogs are increasingly being provided by many high
-energy astrophysics experiments. The \code{gammapy.catalog} sub-packages
+Comprehensive source catalogs are increasingly being provided by many high-energy
+ astrophysics experiments. The \code{gammapy.catalog} sub-packages
 provides a convenient access to the most important \gammaray catalogs.
 Catalogs are represented by the \code{SourceCatalog} object, which
 contains the actual catalog as an Astropy \code{Table} object.
@@ -1117,8 +1117,8 @@ object or any association or alias name listed in the catalog.
 Sources are represented in \gammapy by the \code{SourceCatalogObject}
 class, which has the responsibility to translate the information
 contained in the catalog to other \gammapy objects. This includes
-the spatial and spectral model of the source, flux points and
-light curves (if available) for individual objects. This
+the spatial and spectral models of the source, flux points and
+light curves (if available) for each individual object. This
 module works independently from the rest of the package, and the required
 catalogs are supplied in \code{GAMMAPY\_DATA} repository.
 The overview of currenly supported catalogs, the corresponding
@@ -1133,8 +1133,8 @@ Newly released relevant catalogs will be added in future.
          \hline
          \code{SourceCatalog3FGL} & \code{"3fgl"} & 3\textsuperscript{rd} catalog of \fermi sources & \cite{3FGL} \\
          \code{SourceCatalog4FGL} & \code{"4fgl"} & 4\textsuperscript{th} catalog of \fermi  sources & \cite{4FGL} \\
-         \code{SourceCatalog2FHL} & \code{"2fhl"} & 2\textsuperscript{nd} catalog high energy \fermi  sources & \cite{2FHL} \\
-         \code{SourceCatalog3FHL} & \code{"3fhl"} & 3\textsuperscript{rd} catalog high energy \fermi  sources & \cite{3FHL} \\
+         \code{SourceCatalog2FHL} & \code{"2fhl"} & 2\textsuperscript{nd} catalog high-energy \fermi  sources & \cite{2FHL} \\
+         \code{SourceCatalog3FHL} & \code{"3fhl"} & 3\textsuperscript{rd} catalog high-energy \fermi  sources & \cite{3FHL} \\
          \code{SourceCatalog2HWC} & \code{"2hwc"} & 2\textsuperscript{nd} catalog of \hawc sources & \cite{2HWC} \\
          \code{SourceCatalog3HWC} & \code{"3hwc"} & 3\textsuperscript{rd} catalog of \hawc sources & \cite{3HWC} \\
          \code{SourceCatalogHGPS} & \code{"hgps"} & \hess Galactic Plane Survey catalog & \cite{HGPS} \\
@@ -1180,15 +1180,15 @@ shown in Fig.~\ref{fig:cta_galactic_center}. In this case the spectrum was
 measured in a circular aperture centered on the Galactic Center, in
 \gammaray~astronomy often called "on region". For such analysis the users first
 chooses a region of interest and energy binning, both defined by a
-\code{RegionGeom}. In a second step the events and instrument response are binned
+\code{RegionGeom}. In a second step the events and the IRFs are binned
 into maps of this geometry, by the \code{SpectrumDatasetMaker}. All the data and
-reduced instrument response are bundled into a \code{SpectrumDataset}. To estimate
-the expected background in the on region a "reflected regions" background
+reduced IRFs are bundled into a \code{SpectrumDataset}. To estimate
+the expected background in the ON region a 'reflected regions' background
 method was used~\cite{Berge07}, represented in \gammapy by the
 \code{ReflectedRegionsBackgroundMaker} class. The resulting reflected regions are
 illustrated for all three observations on top of the map of counts. After
 reduction of the data it was modelled using a forward-folding method and a
-power-law spectral shape, using the \code{PowerLawSpectralModel} and \code{Fit} class.
+power law spectral shape, using the \code{PowerLawSpectralModel} and \code{Fit} class.
 Based on this best fit model the final flux points and corresponding
 log-likelihood profiles are computed using the \code{FluxPointsEstimator}.
 
@@ -1196,7 +1196,7 @@ log-likelihood profiles are computed using the \code{FluxPointsEstimator}.
 	\centering
 	\includegraphics[width=1.\textwidth]{figures/cta_galactic_center.pdf}
 	\caption{
-		Example spectral analysis of the Galactic Center for three simulated CTA
+		Example of 1D spectral analysis of the Galactic Center for three simulated CTA
 		observations. The left image shows the maps of counts with the measurement
 		region and background regions overlaid in different colors. The right image
 		shows the resulting spectral points and their corresponding log-likelihood
@@ -1218,7 +1218,7 @@ For such situations a more complex approach is needed, the so-called 3D
 analysis. The three relevant dimensions are the two spatial angular coordinates
 and an energy axis. In this framework, a combined spatial and spectral model
 (that is, a \code{SkyModel}, see Section~\ref{ssec:gammapy-modeling}) is fitted to the
-sky-maps that were previously derived from the data and bundled into a
+sky maps that were previously derived from the data reduction step and bundled into a
 \code{MapDataset} (see Sections~\ref{ssec:gammapy-makers} and~\ref{ssec:gammapy-datasets}).
 
 A thorough description of the 3D analysis approach and multiple examples that
@@ -1228,19 +1228,19 @@ example to highlight some of its advantages.
 Starting from the \irfs corresponding to the same three simulated \cta
 observations used in Section~\ref{ssec:1d-analysis}, we can create a \code{MapDataset}
 via the \code{MapDatasetMaker}. However, we will not use the simulated event lists
-provided by \cta but instead, use the method MapDataset.fake() to simulate
-measured counts from the combination of several SkyModel instances. In this
+provided by \cta but instead, use the method \code{MapDataset.fake()} to simulate
+measured counts from the combination of several \code{SkyModel} instances. In this
 way, a DL4 dataset can directly be simulated. In particular we simulate:
 
 \begin{enumerate}
-    \item A point source located at (l=0\textdegree, b=0\textdegree) with a power-law
+    \item A point source located at (l=0\textdegree, b=0\textdegree) with a power law
 	      spectral shape.
     \item An extended source with Gaussian morphology located at (l=0.4\textdegree,
-	      b=0.15\textdegree) with $\sigma$=0.2\textdegree and a log-parabola spectral
+	      b=0.15\textdegree) with $\sigma$=0.2\textdegree and a log parabola spectral
 	      shape.
     \item A large shell-like structure centered around (l=0.06\textdegree,
 	      b=0.6\textdegree) with a radius and width of 0.6\textdegree and 0.3\textdegree
-	      respectively and a power-law spectral shape.
+	      respectively and a power law spectral shape.
 \end{enumerate}
 
 The position and sizes of the sources
@@ -1261,7 +1261,7 @@ As the example above shows, the 3D analysis allows to characterize the
 morphology of the emission and fit it together with the spectral properties of
 the source.  Among the advantages that this provides is the ability to
 disentangle the contribution from overlapping sources to the same spatial
-region. To highlight this, we define a circular RegionGeom of radius
+region. To highlight this, we define a circular \code{RegionGeom} of radius
 0.5\textdegree~ centered around the position of the point source, which is drawn
 in the left panel of Figure~\ref{fig:cube_analysis}. We can now compare the
 measured excess counts integrated in that region to the expected relative
@@ -1271,7 +1271,7 @@ panel of Figure~\ref{fig:cube_analysis}.
 \begin{figure*}[t]
 	\centering
 	\includegraphics[width=1.\textwidth]{figures/cube_analysis.pdf}
-	\caption{Example 3D analysis for simulated sources using the \cta \irfs. The
+	\caption{Example of a 3D analysis for simulated sources using the \cta \irfs. The
 		left image shows a significance map where the three simulated sources can be
 		seen. The middle figure shows another significance map, but this time after
 		subtracting the best-fit model for each of the sources, which are displayed in
@@ -1287,20 +1287,20 @@ points can be derived in a similar way as described in~\ref{ssec:1d-analysis}.
 \subsection{Temporal Analysis}
 \label{ssec:temporal-analysis}
 A common use case in most astrophysical scenarios is to study the temporal
-variability of the source. The most basic way to do this is to construct a
-lightcurve, i.e., the flux of the source in each given time bin. In \gammapy, this
-is done by using the \code{LightCurveEstimator} which fits the normalisation of the
+variability of a source. The most basic way to do this is to construct a
+light curve, i.e., the flux of a source in each given time bin. In \gammapy, this
+is done by using the \code{LightCurveEstimator} that fits the normalisation of a
 source in each energy band per observation, keeping other parameters constant.
 For custom time binning, an observation needs to be split into finer time bins using
 the \code{Observation.select\_time} method. Figure~\ref{fig:hess_lightcurve_pks}
-shows the lightcurve of the blazar PKS~2155-304 in different energy bands as
-observed by the H.E.S.S. telescope during an exceptional flare on the night of
-July 29 - 30, 2006~\cite{2009A&A...502..749A}. The data is available publicly
+shows the light curve of the blazar PKS~2155-304 in different energy bands as
+observed by the \hess telescope during an exceptional flare on the night of
+July 29 - 30, 2006~\cite{2009A&A...502..749A}. The data are publicly available 
 as a part of the HESS-DL3-DR1~\cite{HESS-DL3-DR1}, and shipped with
 \verb"GAMMAPY_DATA". Each observation is first split into 10 min smaller
-observations, and spectra extracted for each of these within a 0.11 deg radius
+observations, and spectra extracted for each of these within a 0.11\textdegree radius
 around the source. A \code{PowerLawSpectralModel} is fit to all the datasets, leading
-to a reconstructed index of $3.54 \pm 0.02$. With this assumed spectral model
+to a reconstructed index of $3.54 \pm 0.02$. With this adjusted spectral model
 the \code{LightCurveEstimator} runs directly for two energy bands, 0.5 - 1.5
 TeV, and 1.5 - 20 TeV, respectively.
 %
@@ -1308,9 +1308,9 @@ TeV, and 1.5 - 20 TeV, respectively.
     \sidecaption
 	\includegraphics[width=0.6666\textwidth]{figures/hess_lightcurve_pks.pdf}
 	\caption{
-        Binned light-curves in two different energy bands differ for the source
+        Binned light curves in two different energy bands for the source
         PKS~2155-304 in two energy bands, (500 GeV - 1.5 TeV, and 1.5 TeV to 20 TeV)
-        as observed by the H.E.S.S. telescopes in 2006. The colored markers
+        as observed by the \hess telescopes in 2006. The coloured markers
         show the flux points in the different energy bands. The horizontal
         error illustrates the width of the time bin of 10~min. The vertical
         error bars show the associated assymetrical flux errors. The marker
@@ -1319,15 +1319,15 @@ TeV, and 1.5 - 20 TeV, respectively.
     \label{fig:hess_lightcurve_pks}
 \end{figure*}
 %
-The obtained flux points can be analytically modelled using the available, or
+The obtained flux points can be analytically modelled using the available or
 user-implemented temporal models. Alternatively, instead of  extracting a
-lightcurve, it is also possible to directly fit temporal models to the reduced
+light curve, it is also possible to directly fit temporal models to the reduced
 datasets. By associating an appropriate \code{SkyModel}, consisting of both temporal
 and spectral components, or using custom temporal models with spectroscopic
-variability, to each dataset, a joint fitting across the datasets will directly
+variability, to each dataset, a joint fit across the datasets will directly
 return the best fit temporal and spectral parameters.
 
-\subsection{Multi Instrument Analysis}
+\subsection{Multi-instrument Analysis}
 \label{ssec:multi-instrument-analysis}
 %
 \begin{figure*}[t]
@@ -1338,12 +1338,12 @@ return the best fit temporal and spectral parameters.
         of the Crab Nebula. The  colored markers show the flux points computed from
         the data of the different listed instruments. The horizontal error bar
         illustrates the width of the chosen energy band $E_{Min}, E_{Max}$.
-        The marker is set to the log-center energy of the band, which is
+        The marker is set to the log-center energy of the band, that is
         defined by $\sqrt{E_{Min} \cdot E_{Max}}$. The vertical errors bars
         indicate the $1\sigma$ error of the measurement. The downward
         facing arrows indicate the value of $2\sigma$ upper flux limits
         for the given energy range. The red solid line shows the best
-        fit model and transparent error band.
+        fit model and the transparent band its $1\sigma$ error range.
     }
 	\label{fig:multi_instrument_analysis}
 \end{figure*}
@@ -1370,20 +1370,20 @@ in~\cite{hawc_crab_2019} with $2.5\,{\rm years}$ of data and span an energy
 range $300\,{\rm GeV} -- 300\,{\rm TeV}$, and directly read with \gammapy.
 
 \gammapy automatically generates a likelihood including three different types
-of terms. Two poissonian likelihoods: one for the \fermi map and one for the
-ON/OFF counts, and a $\chi^2$ accounting for the flux points. For \fermi, a a
+of terms, two Poissonian likelihoods for the \fermi map and the
+ON/OFF counts, and a $\chi^2$ accounting for the flux points. For \fermi, a 
 three-dimensional forward folding of the sky model with the IRF is performed,
 in order to compute the predicted counts in each sky-coordinate and energy bin.
-For \magic, a one-dimensional forward folding of the spectral model with the
-IRF is performed to predict the counts in each estimated energy bin. A log
-parabola is fitted to the almost fived decades in energy $10\,{\rm GeV} --
+For \magic, a one-dimensional forward-folding of the spectral model with the
+\irfs is performed to predict the counts in each estimated energy bin. A log
+parabola is fitted to the almost five decades in energy $10\,{\rm GeV} --
 	300\,{\rm TeV}$. %% is the LP formula specified elsewhere?
 
 The result of the joint fit is displayed in
 Fig.~\ref{fig:multi_instrument_analysis}. We remark that the objective of this
-exercise is illustrative, we display the flexibility of \gammapy in
+exercise is illustrative. We display the flexibility of \gammapy in
 simultaneously fitting multi-instrument data even at different levels of
-reduction, we do not aim to provide a new measurement of the Crab Nebula
+reduction, without aiming to provide a new measurement of the Crab Nebula
 spectrum.
 
 %% eventual part for physical modelling with naima
@@ -1392,18 +1392,18 @@ spectrum.
 \label{ssec:broadband-sed-modeling}
 By combining \gammapy with astrophysical modelling codes users can also fit
 astrophysical spectral models to \gammaray data. In \gammaray
-astronomy what typically observes two radiation production
-mechanisms., the so called hadronic and leptonic scenarios.
+astronomy one typically observes two radiation production
+mechanisms, the so-called hadronic and leptonic scenarios.
 There are mutiple Python packages that are able to model
 the \gammaray emission, given a physical scenario. Among those
 packages are  \cite{agnpy}, \cite{naima}, \cite{jetset} or \cite{gamera}.
 Tyically those emission models predict broadband emission from
-radio waves up to the very high energy \gammaray range.
+radio waves up to the very high-energy \gammaray range.
 By relying on the multiple dataset types in \gammapy those
 data can be combined to constrain such a broadband emission model.
-\gammapy provides a built-in \code{NaimaSpectralModel} which allows
+\gammapy provides a built-in \code{NaimaSpectralModel} that allows
 users to wrap a given astrophysical emission model from the
-Naima package and fit it directly to \gammaray data.
+"naima" package and fit it directly to \gammaray data.
 
 \subsection{Surveys, Catalogs, and Population Studies}
 \label{ssec:surveys-catalogs-and-population-studies}
@@ -1412,15 +1412,15 @@ Sky surveys have a large potential for new source detections, and new phenomena
 discovery. They also offer less selection bias to perform source population
 studies over a large set of coherently detected and modelled objects. Early
 versions of \gammapy were developed in parallel of the preparation of
-the \hess Galactic plane survey catalog~\citep[HGPS][]{2018A&A...612A...1H} and
+the \hess Galactic plane survey catalog~\citep[HGPS, ][]{2018A&A...612A...1H} and
 the associated PWN and SNR populations studies~\citep{2018A&A...612A...2H,
 	2018A&A...612A...3H}.
 
-The increase in sensitivity  and resolution provided by new generation of
-instruments scale up the number of sources detectable and the complexity of the
-models needed to represent them accurately. As an example If we compare the
+The increase in sensitivity  and resolution provided by the new generation of
+instruments scales up the number of detectable sources and the complexity of 
+models needed to represent them accurately. As an example, if we compare the
 results of the HGPS to the expectations from the \cta Galactic Plane survey
-simulations we jump from 78 sources detected by \hess to about 500 detectable by
+simulations, we jump from 78 sources detected by \hess to about 500 detectable by
 CTA~\citep{2021arXiv210903729R}.
 
 Studies performed on simulations not only offer a first glimpse on what could
@@ -1434,11 +1434,11 @@ identify the needs in term of parallelisation to process the large datasets
 provided by the surveys.
 
 In short the production of catalogs from \gammaray surveys can be divided in
-four main steps : data-reduction; object detection; model fitting and model
-selection; associations and classification. The \iacts data-reduction step is
+four main steps : data reduction; object detection; model fitting and model
+selection; associations and classification. The \iacts data reduction step is
 done in the same way than described in the previous sections but scale up to
-few thousand of observations. The object detection step consists a minima in
-finding local maxima in the significance, or TS maps,  given by the
+few thousands of observations. The object detection step consists a minima in
+finding local maxima in the significance (or TS) maps,  given by the
 \code{ExcessMapEstimator} (or \code{TSMapEstimator} respectively).  Further refinements can
 include for example  filtering and detection on these maps with techniques from
 scikit-image package~\citep{scikit-image}, and outlier detection from
@@ -1449,14 +1449,14 @@ step each object is alternatively fitted with different models in order to
 determine their optimal parameters, and the best-candidate model. The
 subpackage \code{gammapy.modeling.models} offers a large variety of choice, and the
 possibility to add custom models.  Several spatial models (point-source, disk,
-gaussian...), and spectral models (power-law, log-parabola...) may be tested
+Gaussian...), and spectral models (power law, log parabola...) may be tested
 for each object, so the complexity of the problem increases rapidly in regions
 crowded with multiple extended sources. Finally an object is discarded if its
 best-fit model is not significantly preferred over the null hypothesis (no
 source) comparing the difference in log likelihood between these two
 hypotheses. For the association and classification step, that is tightly
 connected to the population studies, we can a minima compare the fitted models
-to the set of gammapy-ray catalogs available in gammapy.catalog. However
+to the set of \gammaray catalogs available in \code{gammapy.catalog}. However
 further multi-wavelength cross-matches are usually required to characterize the
 sources.
 
