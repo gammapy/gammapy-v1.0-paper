@@ -1028,8 +1028,8 @@ number of signal events is done through likelihood maximization. In \gammapy,
 the fit statistics are Poisson log-likelihood functions normalized like
 chi-squares, i.e., they follow the expression $2 \time\cdot \log{\mathcal{L}}$,
 where $\mathcal{L}$ is
-the likelihood function used. The statistic function used when the expected
-number of background events is known is the \emph{Cash} statistic
+the likelihood function used. When the expected number of background events is known, the used statistic function 
+ is the \emph{Cash} statistic
 ~\citep{Cash}. It is used by datasets using background templates such as the
 \code{MapDataset}. When the number of background events is unknown and an off
 measurement where only background events are expected is used, the statistic
