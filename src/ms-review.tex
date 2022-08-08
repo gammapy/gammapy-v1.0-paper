@@ -522,7 +522,7 @@ maps are defined in the \code{gammapy.maps} and \code{gammapy.datasets}
 sub-packages respectively. Parametric models, which are defined in
 \code{gammapy.modeling}, are used to jointly model a combination
 of datasets for example to create source catalogs. Estimator classes,
-which are contained in \code{gammapy.estinators} are used to
+which are contained in \code{gammapy.estimators} are used to
 compute higher level science products such as flux and signficance maps,
 light curves or flux points. Finally there is a \code{gammapy.analysis}
 sub-package which provides a high level interface for executing analyses
@@ -619,7 +619,7 @@ and offset angle bin. Similarly, \code{PSFKing takes} into account the gamma and
 sigma parameters as defined here. The \code{ParametricPSF} allows to create a
 PSF with a representation different from Gaussian(s) or King profile(s).
 Finally, the user can take advantage from the \code{PSFMap} class, which creates
-a multi-dimensional map of the PSF in WCS coordinates. At each position, a PSF
+a multi-dimensional map of the PSF in sky coordinates. At each position, a PSF
 kernel map (\code{PSFKernel}) provides a PSF as a function of the true energy.
 The creation of PSF kernel maps, where the PSF is defined for each
 sky-position, is also given to the user. The latter two can speed up analyses.
@@ -822,7 +822,7 @@ morphology models. The temporal model component $H$
 optionally also supports an energy variable to
 allow for spectral variations of the model with time.
 
-Following the factorisation The models objects are grouped
+Following the factorisation the models objects are grouped
 into the following categories:
 
 \begin{itemize}
@@ -834,10 +834,9 @@ into the following categories:
 
 The models follow a naming scheme which contains the category as a suffix to
 the class name.
-
-The spectral models include a special class of normed models, which have a
-dimension-less normalisation. These spectral models feature a norm parameter
-instead of amplitude and are named using the NormSpectralModel suffix. They
+The spectral models include a special class of normed models, named using the NormSpectralModel suffix.
+normalisation. These spectral models feature a dimension-less norm parameter
+instead of a physical amplitude parameter. They
 must be used along with another spectral model, as a multiplicative correction
 factor according to their spectral shape. They can be typically used for
 adjusting template based models, or adding a EBL correction to some analytic
@@ -878,7 +877,7 @@ The \code{Fit} class provides methods to fit i.e., optimise parameters and estim
 parameter errors and correlations. It interfaces with a \code{Datasets} object, which
 in turn is connected to a \code{Models} object containing the model parameters in its
 \code{Parameters} object. Models can be unique for a given dataset, or contribute to
-multiple datasets and thus provide links, allowing e.g., to do a joint fit to
+multiple datasets, allowing e.g., to do a joint fit to
 multiple IACT datasets, or to a joint IACT and \fermi dataset. Many
 examples are given in the tutorials.
 
@@ -890,7 +889,7 @@ The Fit class provides a uniform interface to multiple fitting backends:
 and errors are computed only for the fitting with MINUIT. However depending on
 the problem other optimizers can better perform, so sometimes it can be useful
 to run a pre-fit with alternative optimization methods. In future we plan to
-extend the supported fitting backends, including for example MCMC solutions.
+extend the supported fitting backends, including for example solutions based on Markov chain Monte Carlo.
 \footnote{a prototype is available in gammapy-recipes,
 	\url{https://gammapy.github.io/gammapy-recipes/_build/html/notebooks/mcmc-sampling-emcee/mcmc_sampling.html}
 }
@@ -1138,7 +1137,7 @@ Newly released relevant catalogs will be added in future.
          \code{SourceCatalog2HWC} & \code{"2hwc"} & 2\textsuperscript{nd} catalog of \hawc sources & \cite{2HWC} \\
          \code{SourceCatalog3HWC} & \code{"3hwc"} & 3\textsuperscript{rd} catalog of \hawc sources & \cite{3HWC} \\
          \code{SourceCatalogHGPS} & \code{"hgps"} & \hess Galactic Plane Survey catalog & \cite{HGPS} \\
-         \code{SourceCatalogGammaCat} & \code{"gammacat"} & Open source data collection & \citep{gamma-cat} \\
+         \code{SourceCatalogGammaCat} & \code{"gammacat"} & Open source data collection & \cite{gamma-cat} \\
          \hline
          \end{tabular}
     \end{center}
@@ -1154,8 +1153,8 @@ Newly released relevant catalogs will be added in future.
 \end{figure}
 
 %\subsection{gammapy.utils}
-\label{ssec:gammapy-utils}
-Utility functions...
+%\label{ssec:gammapy-utils}
+%Utility functions...
 
 
 \section{Applications}
