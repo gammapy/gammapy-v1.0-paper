@@ -1,6 +1,8 @@
 # reduce the MAGIC data to OGIP files for the 1D analysis
 import logging
+import numpy as np
 import astropy.units as u
+from astropy.constants import c
 from pathlib import Path
 from astropy.coordinates import SkyCoord
 from regions import PointSkyRegion
@@ -20,14 +22,70 @@ from gammapy.modeling import Fit
 from gammapy.modeling.models import (
     Models,
     SkyModel,
-    LogParabolaSpectralModel,
     create_crab_spectral_model,
+    NaimaSpectralModel,
 )
-import matplotlib.pyplot as plt
+from gammapy.utils.scripts import read_yaml
+from naima.models import LogParabola
+from naima.radiative import Synchrotron, InverseCompton
 
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
+
+
+class CrabInverseComptonSpectralModel(NaimaSpectralModel):
+    """A `~gammapy.modeling.models.NaimaSpectralModel` wrapping
+    the inverse Compton radiative scenario defined for the Crab Nebula in the
+    naima docs https://naima.readthedocs.io/en/latest/examples.html#crabssc.
+
+    A LogParabola is assumed to describe the electron distribution.
+    """
+
+    def __init__(self, amplitude, e_0, alpha, beta):
+        particle_distribution = LogParabola(amplitude, e_0, alpha, beta)
+
+        synch = Synchrotron(
+            particle_distribution, B=125 * u.uG, Eemin=0.1 * u.GeV, Eemax=50 * u.PeV
+        )
+
+        # compute photon density spectrum from synchrotron emission assuming R=2.1 pc
+        Rpwn = 2.1 * u.pc
+        Esy = np.logspace(-7, 9, 100) * u.eV
+        Lsy = synch.flux(Esy, distance=0 * u.cm)  # use distance 0 to get luminosity
+        phn_sy = Lsy / (4 * np.pi * Rpwn ** 2 * c) * 2.24
+
+        radiative_model = InverseCompton(
+            particle_distribution,
+            seed_photon_fields=[
+                "CMB",
+                ["FIR", 70 * u.K, 0.5 * u.eV / u.cm ** 3],
+                ["NIR", 5000 * u.K, 1 * u.eV / u.cm ** 3],
+                ["SSC", Esy, phn_sy],
+            ],
+            Eemin=0.1 * u.GeV,
+            Eemax=50 * u.PeV,
+        )
+
+        super().__init__(radiative_model, distance=6.523 * u.lyr)
+
+    @classmethod
+    def from_yaml(cls, yaml_file):
+        """Read this spectral model from a `.yaml` file.
+        Cannot use `Models.read` not even after adding this class to the
+        `SPECTRAL_MODEL_REGISTRY`.
+        """
+        results = read_yaml(yaml_file)
+        amplitude = results["components"][0]["spectral"]["parameters"][0][
+            "value"
+        ] * u.Unit(results["components"][0]["spectral"]["parameters"][0]["unit"])
+        e_0 = results["components"][0]["spectral"]["parameters"][1]["value"] * u.Unit(
+            results["components"][0]["spectral"]["parameters"][1]["unit"]
+        )
+        alpha = results["components"][0]["spectral"]["parameters"][2]["value"]
+        beta = results["components"][0]["spectral"]["parameters"][3]["value"]
+
+        return cls(amplitude, e_0, alpha, beta)
 
 
 def load_fermi_datasets():
@@ -41,7 +99,9 @@ def reduce_magic_data():
     e_max = 20 * u.TeV
 
     data_store = DataStore.from_dir("input/magic")
-    observations = data_store.get_observations(required_irf=["aeff", "edisp", "rad_max"])
+    observations = data_store.get_observations(
+        required_irf=["aeff", "edisp", "rad_max"]
+    )
 
     # adopt the same energy axes used for flute and DL3 production
     energy_axis = MapAxis.from_energy_bounds(
@@ -152,7 +212,9 @@ if __name__ == "__main__":
     # the first SkyModel, with the source definition is meant only for HAWC and Fermi-LAT data
     models[0].datasets_names = ["Fermi-LAT", "HAWC"]
 
-    fit_joint_dataset(datasets, models, "results/crab_multi_instrument_fit.yaml")
+    fit_joint_dataset(
+        datasets, models, "results/crab_multi_instrument_fit_lp_model.yaml"
+    )
 
     # now compute and store the Fermi-LAT and MAGIC flux points
     energy_edges_fermi = MapAxis.from_energy_bounds("10 GeV", "2 TeV", nbin=5).edges
@@ -174,4 +236,18 @@ if __name__ == "__main__":
         energy_edges_magic,
         "datasets/flux_points/crab_magic_flux_points.fits",
         "crab-nebula-spectrum-only",
+    )
+
+    # fit with the naima IC model
+    naima_ic_spectral_model = CrabInverseComptonSpectralModel(
+        amplitude=1e32 / u.eV, alpha=2.1, e_0=100 * u.GeV, beta=0.1
+    )
+    naima_ic_spectral_model.parameters["e_0"].frozen = True
+
+    # change the spectral models
+    models[0].spectral_model = naima_ic_spectral_model
+    models[2].spectral_model = naima_ic_spectral_model
+
+    fit_joint_dataset(
+        datasets, models, "results/crab_multi_instrument_fit_naima_ic_model.yaml"
     )

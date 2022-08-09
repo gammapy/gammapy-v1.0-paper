@@ -1,12 +1,22 @@
 import config
+import numpy as np
 import astropy.units as u
+from astropy.constants import c
 from gammapy.estimators import FluxPoints
-from gammapy.modeling.models import Models
+from gammapy.modeling.models import Models, SPECTRAL_MODEL_REGISTRY
 import matplotlib.pyplot as plt
+
+# relative import "from ..data.multi-instrument" will not work because of the
+# "-" in "multi-instrument"... this is the easiest trick I found
+import sys
+
+sys.path.append("../data/multi-instrument")
+from make import CrabInverseComptonSpectralModel
+
 
 sed_x_label = r"$E\,/\,{\rm TeV}$"
 sed_y_label = (
-    r"$E^2\,{\rm d}\phi/{\rm d}\phi\,/\,({\rm erg}\,{\rm cm}^{-2}\,{\rm s}^{-1})$"
+    r"$E^2\,{\rm d}\phi/{\rm d}E\,/\,({\rm erg}\,{\rm cm}^{-2}\,{\rm s}^{-1})$"
 )
 
 figsize = config.FigureSizeAA(aspect_ratio=1.618, width_aa="intermediate")
@@ -24,10 +34,19 @@ hawc_flux_points = FluxPoints.read(
     "../data/multi-instrument/input/hawc/HAWC19_flux_points.fits"
 )
 
-# load the best-fit model
-models = Models.read("../data/multi-instrument/results/crab_multi_instrument_fit.yaml")
-crab_lp = models["Crab Nebula"].spectral_model
+# load the best-fit models
+#  - log parabola
+lp_models = Models.read(
+    "../data/multi-instrument/results/crab_multi_instrument_fit_lp_model.yaml"
+)
+crab_lp = lp_models["Crab Nebula"].spectral_model
 
+# - naima IC model
+crab_naima_ic = CrabInverseComptonSpectralModel.from_yaml(
+    "../data/multi-instrument/results/crab_multi_instrument_fit_naima_ic_model.yaml"
+)
+
+# make the plot
 plot_kwargs = {
     "energy_bounds": [0.01, 300] * u.TeV,
     "sed_type": "e2dnde",
@@ -39,8 +58,23 @@ fermi_flux_points.plot(ax=ax, sed_type="e2dnde", label="Fermi-LAT")
 magic_flux_points.plot(ax=ax, sed_type="e2dnde", label="MAGIC", marker="v")
 hawc_flux_points.plot(ax=ax, sed_type="e2dnde", label="HAWC", marker="s")
 
-crab_lp.plot(ax=ax, ls="-", lw=1.5, color="k", label="joint fit", **plot_kwargs)
+crab_lp.plot(
+    ax=ax,
+    ls="-",
+    lw=1.5,
+    color="k",
+    label="joint fit, log parabola model",
+    **plot_kwargs
+)
 crab_lp.plot_error(ax=ax, facecolor="k", alpha=0.4, **plot_kwargs)
+
+crab_naima_ic.plot(
+    ax=ax,
+    ls="--",
+    lw=1.5,
+    label="joint fit, naima inverse Compton model",
+    **plot_kwargs
+)
 
 ax.set_xlim(plot_kwargs["energy_bounds"])
 ax.set_xlabel(sed_x_label)
