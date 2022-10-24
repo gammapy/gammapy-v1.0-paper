@@ -50,6 +50,7 @@
 \newcommand{\hawc}{HAWC\xspace}
 \newcommand{\veritas}{VERITAS\xspace}
 \newcommand{\magic}{MAGIC\xspace}
+\newcommand{\astri}{ASTRI\xspace}
 \newcommand{\iact}{IACT\xspace}
 \newcommand{\iacts}{IACTs\xspace}
 \newcommand{\cta}{CTA\xspace}
@@ -201,7 +202,9 @@
 	present its general design and provide an
 	overview of the analysis methods and features it implements. Starting from
 	event lists and a description of the specific instrument response functions
-	(IRF) stored in open FITS based data formats, \gammapy implements . Thereby it
+	(IRF) stored in open FITS based data formats, \gammapy implements the reduction
+	of the input data and instrument response to binned WCS, HEALPix or region based
+	data structures. Thereby it
 	handles the dependency of the IRFs with time, energy as well as position on the
 	sky. It offers a variety of background estimation methods for spectral, spatial
 	and spectro-morphological analysis. Counts, background and IRFs data are
@@ -212,7 +215,7 @@
 	energy dependent morphology of \gammaray sources. Multiple datasets can be
 	combined in a joint-likelihood approach to either handle time dependent IRFs,
 	different classes of events or combination of data from multiple instruments.
-	Gammapy also implements methods to estimate flux points, including likelihood
+	Gammapy also implements methods to estimate flux points, likelihood
 	profiles per energy bin, light curves as well as flux and signficance maps in
 	energy bins.  We further describe the general
 	development approach and how \gammapy integrates into ecosystem of other
@@ -293,10 +296,12 @@ Ground based \gammaray astronomy has been historically structured
 by experiments run by independent collaborations relying
 on their own proprietary data and analysis software developed as part of the
 instrument. While this model has been very successful so far, it does not
-permit easy combination of data from several instruments and is therefore
-a limitation for interoperability of existing facilities. Especially
-because the different detection techniques have complementary
-properties.
+permit easy combination of data from several instruments and therefore
+limits the interoperability of existing facilities. This lack of
+interoperability currently limits the full explotation of the
+available \gammaray data, especially because the different detection
+techniques have complementary properties in terms of covered energy rage,
+dutu cycle and spatial resolution.
 
 %TODO: better transition into context
 The Cherenkov Telescope Array (CTA) will be the first instrument to be operated
@@ -311,10 +316,10 @@ commonly used in the field.
 In practice, the data reduction workflow of all \gammaray observatories
 is remarkably similar. After data calibration, shower events are reconstructed and
 gamma/hadron separation is applied to build lists of \gammaray like events.
-The latter are then used to derive scientific results, such as spectra, sky maps
-or light curves, taking into account the specific instrument response functions (IRF).
-The information in this high data level is independent on
-the data reduction, and eventually of the detection technique. This implies,
+The lists of \gammary events are then used to derive scientific results, such as spectra, sky maps
+or light curves, taking into account the observatory specific instrument response functions (IRF).
+One the data is present in the form of a list of events, the information is independent on
+the data reduction process, and eventually of the detection technique. This implies,
 for example, that data from IACT and particle samplers can be represented
 within the same model. The efforts to prototype a format usable by various instruments
 converged in the so-called \textit{Data Format for \gammaray Astronomy}
@@ -393,7 +398,7 @@ a given observation technique and even to a given instrument.
 
 The other sequence, referred to as high-level analysis, deals with the extraction of physical
 quantities related to \gammaray sources and the production of high-level products such as spectra,
-lightcurves and catalogs. The methods and tools applied here are more generic and are broadly
+light curves and catalogs. The methods and tools applied here are more generic and are broadly
 shared across the field. They also frequently imply joint analysis of multi-instrument data.
 To extract physically relevant information, the measured data are usually compared to a
 model of the expected \gammaray emitters in the instrument field-of-view using statistical
@@ -834,13 +839,19 @@ into the following categories:
 
 The models follow a naming scheme which contains the category as a suffix to
 the class name.
-The spectral models include a special class of normed models, named using the NormSpectralModel suffix.
-normalisation. These spectral models feature a dimension-less norm parameter
-instead of a physical amplitude parameter. They
+The spectral models include a special class of normed models, named using the \code{NormSpectralModel} suffix.
+These spectral models feature a dimension-less norm parameter
+instead of an amplitude parameter with physical units. They
 must be used along with another spectral model, as a multiplicative correction
 factor according to their spectral shape. They can be typically used for
-adjusting template based models, or adding a EBL correction to some analytic
-model. The analytic spatial models are all normalized such as they integrate to
+adjusting template based models, or adding taking into account
+the absorbtion effect on 
+\gammaray spectra caused by the extra-galactic background light (EBL) (\code{EBLAbsorptionNormSpectralModel})
+model. \gammapy supports a variety of EBL absorbtion models, such as
+
+\cite{Franceschini2008}, \cite{Finke2010} and \cite{Dominguez2011}.
+
+The analytic spatial models are all normalized such as they integrate to
 unity over the sky but the template spatial models may not, so in that special
 case they have to be combined with a \code{NormSpectralModel}.
 
@@ -1088,10 +1099,10 @@ from annihilation of dark matter in different channels according to the recipe
 described in \cite{2011JCAP...03..051C}.
 
 In the \code{gammapy.astro.source} sub-module, dedicated classes exist for modeling
-galactic \gammaray sources according to simplified physical models, e.g. SuperNova Remnant (SNR) evolution
+galactic \gammaray sources according to simplified physical models, e.g. Supernova Remnant (SNR) evolution
 models \citep{1950RSPSA.201..159T, 1999ApJS..120..299T}, evolution of Pulsar Wind Nebula (PWN) during the
 free expansion phase \citep{2006ARA&A..44...17G} or computation
-of physical parameters in a pulsar assumed to be a simple dipole.
+of physical parameters of a pulsar using a simplified dipole spin-down model.
 
 In the \code{gammapy.astro.population} sub-module there are dedicated tools
 for simulating synthetic populations based on physical models derived from
@@ -1289,7 +1300,7 @@ A common use case in most astrophysical scenarios is to study the temporal
 variability of a source. The most basic way to do this is to construct a
 light curve, i.e., the flux of a source in each given time bin. In \gammapy, this
 is done by using the \code{LightCurveEstimator} that fits the normalisation of a
-source in each energy band per observation, keeping other parameters constant.
+source in each time (and optionally energy) band per observation, keeping other parameters constant.
 For custom time binning, an observation needs to be split into finer time bins using
 the \code{Observation.select\_time} method. Figure~\ref{fig:hess_lightcurve_pks}
 shows the light curve of the blazar PKS~2155-304 in different energy bands as
@@ -1588,13 +1599,9 @@ docstrings. The \gammapy code snippets present in the documentation are tested
 in different environments using our continuous integration (CI) workflow based
 on \github actions.
 
-The Jupyter notebooks tutorials are stored stripped of their output cells,
-which greatly helps in identifying differences in the contribution review.
-During the CI these are executed, the output cells parsed and, in case an error
-is found in one of the output cells then validation fails. Code formatting of
-the input cells is also done, parsing their content and using a particular
-syntax to provide links to the API documentation pages. The resulting web
-published tutorials also provide links to playground spaces in
+The Jupyter notebooks tutorials are generated using the sphinx-gallery
+package \citep{sphinx-gallery}.
+The resulting web published tutorials also provide links to playground spaces in
 "myBinder"~\citep{project_jupyter-proc-scipy-2018}, where they may be executed
 on-line in versioned virtual environments hosted in the myBinder
 infrastructure. Users may also play with the tutorials locally in their
@@ -1739,7 +1746,8 @@ for the future science tools for CTA, we expect the community to grow
 even further, providing a stable perspective for further usage,
 development and maintenance of the project. Besides the future use
 by the CTA community \gammapy has already
-been used for analysis of data from the \hess and \magic instruments
+been used for analysis of data from the \hess, \magic
+\hawc, \astri and \veritas instruments.
 
 While \gammapy was mainly developed for the science community around
 IACT instruments, the internal data model and software design are general
