@@ -801,6 +801,49 @@ domain is determined by the \code{SafeMaskMaker}. It can be used to limit the
 extent of the field of view used or to limit the energy range to, e.g., a domain
 where the energy reconstruction bias is below a given value.
 
+
+\subsection{gammapy.stats}
+\label{ssec:gammapy-stats}
+The \code{gammapy.stats} subpackage contains the fit statistics and associated
+statistical estimators that are commonly used in \gammaray astronomy. In
+general, \gammaray observations count Poisson-distributed events at various sky
+positions, and contain both signal and background events. Estimation of the
+number of signal events is done through likelihood maximization. In \gammapy,
+the fit statistics are Poisson log-likelihood functions normalized like
+chi-squares, i.e., they follow the expression $2 \time\cdot \log{\mathcal{L}}$,
+where $\mathcal{L}$ is
+the likelihood function used. When the expected number of background events is known, the used statistic function 
+ is the \emph{Cash} statistic
+~\citep{Cash}. It is used by datasets using background templates such as the
+\code{MapDataset}. When the number of background events is unknown and an OFF
+measurement where only background events are expected is used, the statistic
+function is \emph{WStat}. It is a profile log-likelihood statistic where background
+counts are marginalized parameters. It is used by datasets containing off
+counts measurements such as the \code{SpectrumDatasetOnOff}, used for classical
+spectral analysis.
+
+To perform simple statistical estimations on counts measurements,
+\code{CountsStatistic} classes encapsulate the aforementioned statistic functions to
+measure excess counts and estimate the associated statistical significance,
+errors and upper limits. They perform maximum likelihood ratio tests to
+estimate significance (the square root of the statistic difference) and compute
+likelihood profiles to measure errors and upper limits. The code example
+\ref{codeexample:stats} shows how to compute the Li \& Ma
+significance~\citep{LiMa} of a set of measurements.
+
+\begin{figure}
+	\import{code-examples/generated/}{gp_stats}
+	\caption{
+        Using \code{gammapy.stats} to compute statistical quantities
+        such as excess, signficance and assymetric errors
+        from counts based data. The data is passed on initialisation
+        of the \code{WStatCountsStatistic} class. The quantities
+        are the computed ON excess of the corresponding class
+        attributes such as \code{stat.n\_sig} and \code{stat.sqrt\_ts}.
+    }
+	\label{codeexample:stats} \end{figure}
+
+
 \subsection{gammapy.modeling}
 \label{ssec:gammapy-modeling}
 %
@@ -1026,48 +1069,6 @@ reduction, excess map computation, model fitting, flux points estimation, and
 light curves production. The structure of the \code{Analysis} class allows to define
 custom AnalysisStep, so one could design and configure arbitrarily complex
 workflows. \todo{the latter is not true for v1.0..., include example YAML file?}
-
-
-\subsection{gammapy.stats}
-\label{ssec:gammapy-stats}
-The \code{gammapy.stats} subpackage contains the fit statistics and associated
-statistical estimators that are commonly used in \gammaray astronomy. In
-general, \gammaray observations count Poisson-distributed events at various sky
-positions, and contain both signal and background events. Estimation of the
-number of signal events is done through likelihood maximization. In \gammapy,
-the fit statistics are Poisson log-likelihood functions normalized like
-chi-squares, i.e., they follow the expression $2 \time\cdot \log{\mathcal{L}}$,
-where $\mathcal{L}$ is
-the likelihood function used. When the expected number of background events is known, the used statistic function 
- is the \emph{Cash} statistic
-~\citep{Cash}. It is used by datasets using background templates such as the
-\code{MapDataset}. When the number of background events is unknown and an OFF
-measurement where only background events are expected is used, the statistic
-function is \emph{WStat}. It is a profile log-likelihood statistic where background
-counts are marginalized parameters. It is used by datasets containing off
-counts measurements such as the \code{SpectrumDatasetOnOff}, used for classical
-spectral analysis.
-
-To perform simple statistical estimations on counts measurements,
-\code{CountsStatistic} classes encapsulate the aforementioned statistic functions to
-measure excess counts and estimate the associated statistical significance,
-errors and upper limits. They perform maximum likelihood ratio tests to
-estimate significance (the square root of the statistic difference) and compute
-likelihood profiles to measure errors and upper limits. The code example
-\ref{codeexample:stats} shows how to compute the Li \& Ma
-significance~\citep{LiMa} of a set of measurements.
-
-\begin{figure}
-	\import{code-examples/generated/}{gp_stats}
-	\caption{
-        Using \code{gammapy.stats} to compute statistical quantities
-        such as excess, signficance and assymetric errors
-        from counts based data. The data is passed on initialisation
-        of the \code{WStatCountsStatistic} class. The quantities
-        are the computed ON excess of the corresponding class
-        attributes such as \code{stat.n\_sig} and \code{stat.sqrt\_ts}.
-    }
-	\label{codeexample:stats} \end{figure}
 
 
 \subsection{gammapy.visualization}
@@ -1300,7 +1301,8 @@ A common use case in most astrophysical scenarios is to study the temporal
 variability of a source. The most basic way to do this is to construct a
 light curve, i.e., the flux of a source in each given time bin. In \gammapy, this
 is done by using the \code{LightCurveEstimator} that fits the normalisation of a
-source in each time (and optionally energy) band per observation, keeping other parameters constant.
+source in each time (and optionally energy) band per observation, keeping constant
+other parameters.
 For custom time binning, an observation needs to be split into finer time bins using
 the \code{Observation.select\_time} method. Figure~\ref{fig:hess_lightcurve_pks}
 shows the light curve of the blazar PKS~2155-304 in different energy bands as
