@@ -63,6 +63,7 @@
 \newcommand{\gadf}{GADF\xspace}
 \newcommand{\milagro}{MILAGRO\xspace}
 \newcommand{\github}{GitHub\xspace}
+\newcommand{\imimuit}{IMinuit}
 
 
 % Front matter
@@ -197,7 +198,7 @@
 	proprietary to the collaborations operating them. The next generation of \gammaray instruments, as the Cherenkov Telescope Array
 	(CTA) will be operated as open observatories, with public
 	data. This introduces the need to have a high-level analysis software available to the astronomical community. In
-	this article we present the first major of \gammapy, the Long-term Support (LTS) v1.0, a
+	this article we present the first major release of \gammapy, the Long-term Support (LTS) v1.0, a
 	community-developed open-source Python package for \gammaray astronomy. We
 	present its general design and provide an
 	overview of the analysis methods and features it implements. Starting from
@@ -211,7 +212,8 @@
 	bundled in datasets and can be serialised, rebinned and stacked. \gammapy
 	supports to model binned data using Poisson
 	maximum likelihood fitting. It comes with built-in spectral, spatial and
-	temporal models as well as support for custom user models, to model e.g.,
+	temporal models, support for particle radiation emission spectra as well as
+	support for custom user models, to model e.g.,
 	energy dependent morphology of \gammaray sources. Multiple datasets can be
 	combined in a joint-likelihood approach to either handle time dependent IRFs,
 	different classes of events or combination of data from multiple instruments.
@@ -268,12 +270,13 @@ create a large shower of secondary particles that can be observed from the groun
 Ground-based \gammaray astronomy relies on this phenomenon to detect the
 primary \gammaray photons and measure their direction and energy.
 It covers the energy range from fews tens of GeV up to the PeV.
-There are two main categories of instrument \citep{2015CRPhy..16..610D}.
-Imaging Atmospheric Cherenkov Telescopes (IACT) make images of atmospheric showers
+There are two main categories of ground based instruments: 
+Imaging Atmospheric Cherenkov Telescopes (IACT) and 
+Water Cherenkov observatories. IACTs make images of atmospheric showers
 by detecting the Cherenkov radiation emitted by the cascading charged particles and
 use these images to reconstruct the properties of the incident particle.
 Those instruments have a limited field of view (FoV) and duty cycle, but
-good energy and angular resolution.
+good energy and angular resolution \citep{2015CRPhy..16..610D}.
 
 \begin{figure*}[t]
 	\centering
@@ -339,7 +342,7 @@ a 'glue' language between different programming languages and last but not least
 the rich eco-system of packages and its open and supportive community, from
 core numerical analysis packages such as \numpy~\citep{numpy} and
 \scipy~\citep{2020SciPy-NMeth}, visualization libraries, e.g. Matplotlib \citep{matplotlib},
-or optimization packages such as Iminuit \citep{iminuit}.
+or optimization packages such as \iminuit \citep{iminuit}.
 
 The \astropy~\citep{astropy} was created in 2012 to build a community-developed
 Python package for astronomical reasearch. Among other things, it offers functionalities for
@@ -720,8 +723,8 @@ dividing a rectangular sky region, the spatial dimension is reduced to a single
 bin with an arbitrary shape, describing a region in the sky with that same
 shape. Typically they are is used together with a non-spatial dimension, for
 example an energy axis, to represent how a quantity varies in that dimension
-inside the corresponding region. The region is represented on the local
-tangential projection see \cite{Astropy regions}.
+inside the corresponding region. Technically the region is represented on the local
+tangential projection, as implement by \cite{AstropyRegions2022}.
 
 Additionally, the \code{MapAxis} class provides a uniform API for axes representing
 bins on any physical quantity, such as energy or angular offset. The special
@@ -938,9 +941,9 @@ examples are given in the tutorials.
 \todo{Add fit code example...?}
 
 The Fit class provides a uniform interface to multiple fitting backends:
-“minuit”~\citep{iminuit}, “scipy”,~\citep{2020SciPy-NMeth}, and
+\iminuit~\citep{iminuit}, “scipy”,~\citep{2020SciPy-NMeth}, and
 “sherpa”~\citep{sherpa-2005,sherpa-2011}. Note that, for now, covariance matrix
-and errors are computed only for the fitting with MINUIT. However depending on
+and errors are computed only for the fitting with \iminuit. However depending on
 the problem other optimizers can better perform, so sometimes it can be useful
 to run a pre-fit with alternative optimization methods. In future we plan to
 extend the supported fitting backends, including for example solutions based on Markov chain Monte Carlo.
@@ -1209,8 +1212,8 @@ log-likelihood profiles are computed using the \code{FluxPointsEstimator}.
 	\includegraphics[width=1.\textwidth]{figures/cta_galactic_center.pdf}
 	\caption{
 		Example of 1D spectral analysis of the Galactic Center for three simulated CTA
-		observations. The left image shows the maps of counts with the measurement
-		region and background regions overlaid in different colors. The right image
+		observations for the 1DC dataset. The left image shows the maps of counts with the measurement
+		region in white and background regions overlaid in different colors. The right image
 		shows the resulting spectral points and their corresponding log-likelihood
 		profiles.} \label{fig:cta_galactic_center} \end{figure*}
 
@@ -1384,7 +1387,7 @@ the performance of the upgraded stereo system~\citep{magic_performance} and
 already included in~\cite{joint_crab}. The observations were taken at small
 zenith angles ($<30^{\circ}$) in wobble mode~\citep{fomin_1994}, with the
 source sitting at an offset of $0.4^{\circ}$ from the FoV center. Their energy
-range spans $80\,{\rm GeV} -- 20\,{\rm TeV}$. They are reduced to ON/OFF
+range spans $80\,{\rm GeV} - 20\,{\rm TeV}$. They are reduced to ON/OFF
 dataset before being fitted. \hawc flux points data are estimated
 in~\cite{hawc_crab_2019} with $2.5\,{\rm years}$ of data and span an energy
 range $300\,{\rm GeV} - 300\,{\rm TeV}$, and directly read with \gammapy.
@@ -1419,7 +1422,8 @@ astronomy one typically observes two radiation production
 mechanisms, the so-called hadronic and leptonic scenarios.
 There are mutiple Python packages that are able to model
 the \gammaray emission, given a physical scenario. Among those
-packages are  \cite{agnpy}, \cite{naima}, \cite{jetset} or \cite{gamera}.
+packages are  Agnpy \citep{agnpy}, Naima \citep{naima}, Jetset \citep{jetset}
+and Gamera \citep{gamera}.
 Tyically those emission models predict broadband emission from
 radio, up to the very high-energy \gammaray range.
 By relying on the multiple dataset types in \gammapy those
