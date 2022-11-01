@@ -679,17 +679,25 @@ classes \code{Geom}, \code{Map} and \code{MapAxis} respectively.
 
 The geometry object defines the pixelization scheme and map boundaries. It also
 provides methods to transform between sky and pixel coordinates. Maps consist
-of a geometry instance together with a Numpy data array containing the corresponding
-map values. Map axes contain a sequence of ordered values which define bins on
-a given dimension, spatial or not. Map axes can have physical units attached to
-them, as well as define non-linear spaced bins. All map classes support a basic
-set of arithmetic and boolean operations with unit support, up- and downsampling along
-extra axes, interpolation, resampling of extra axes, interactive visualisation
+of a geometry instance defining the coordinate system together with a
+Numpy array containing the associated data. All map classes support a basic
+set of arithmetic and boolean operations with  unit support, up- and downsampling
+along extra axes, interpolation, resampling of extra axes, interactive visualisation
 in notebooks and interpolation onto different geometries.
 
-The sub-package provides a uniform API for the FITS World Coordinate System
-(WCS), the HEALPix pixelization and region-based data structure
-(see Figure~\ref{ig*:minted:gp_maps}).
+The \code{MapAxis} class provides a uniform API for axes representing
+bins on any physical quantity, such as energy or angular offset.
+Map axes can have physical units attached to them, as well as define
+non-lineary spaced bins. The special case of time is covered by the
+dedicated \code{TimeMapAxis}, which allows time bins to be non-contiguous,
+as it is often the case with observation time-stamps. The generic
+class \code{LabelMapAxis} allows the creation of axes for non-numeric entries.
+
+To handle the spatial dimension the sub-package exposes a uniform API for
+the FITS World Coordinate System (WCS), the HEALPix pixelization and
+region-based data structure (see Figure~\ref{ig*:minted:gp_maps}).
+This allows uses to perform the same higher level operations on maps
+independent of the underlying pixelisation scheme.
 
 \begin{figure}
 	\import{code-examples/generated/}{gp_maps}
@@ -738,15 +746,12 @@ dividing a rectangular sky region, the spatial dimension is reduced to a single
 bin with an arbitrary shape, describing a region in the sky with that same
 shape. Typically they are is used together with a non-spatial dimension, for
 example an energy axis, to represent how a quantity varies in that dimension
-inside the corresponding region. Technically the region is represented on the local
-tangential projection, as implement by \cite{AstropyRegions2022}.
+inside the corresponding region. To avoid the complexity of handling
+spherical geometry for regions, the regions are projected onto the local
+tangential plane using a WCS transform. This approach follows Astropy's "regions"
+package \citep{AstropyRegions2022}, which is both used as an API to define regions
+for users as well as handling the underlying geometric operations.
 
-Additionally, the \code{MapAxis} class provides a uniform API for axes representing
-bins on any physical quantity, such as energy or angular offset. The special
-case of time is covered by the dedicated \code{TimeMapAxis}, which allows time bins to
-be non-contiguous, as it is often the case with observation time-stamps. The
-generic class \code{LabelMapAxis} allows the creation of axes for non-numeric
-entries.
 
 \subsection{gammapy.datasets}
 \label{ssec:gammapy-datasets}
@@ -793,8 +798,13 @@ methods.
     \import{code-examples/generated/}{gp_makers}
 	\caption{
         Using \code{gammapy.makers} to reduce DL3 level data into a
-		\code{MapDataset}. All \code{Maker} classes take
-        the configuration on initialisation of the class.
+		\code{MapDataset}. All \code{Maker} classes represent 
+		a step in the data reduction process. They take
+        the configuration on initialisation of the class. They 
+		also consitently define \code{.run()} methods, which take 
+		a dataset object and and optionally \an code{Observation} 
+		object. This way \code{Maker} classes can be chained
+		to define more complex data reduction "pipelines".
     }
 	\label{ig*:minted:gp_makers}
 \end{figure}
