@@ -866,8 +866,8 @@ model:
     f(l, b, E, t) = F(E)  \cdot G(l, b, E) \cdot  H(t, E)
 \end{equation}
 
-Where the spectral model $F$ implicitly carries the total flux
-norm of the model. The spatial model $G$ optionally depends
+Where the spectral model $F$ implicitly includes an \textit{amplitude} parameter
+for the total flux of the model. The spatial model $G$ optionally depends
 on energy and allows to support e.g. energy dependent
 morphology models. The temporal model component $H$
 optionally also supports an energy variable to
@@ -884,10 +884,10 @@ into the following categories:
 \end{itemize}
 
 The models follow a naming scheme which contains the category as a suffix to
-the class name.
-The spectral models include a special class of normed models, named using the \code{NormSpectralModel} suffix.
-These spectral models feature a dimension-less norm parameter
-instead of an amplitude parameter with physical units. They
+the class name. The spectral models include a special class of normed models,
+named using the \code{NormSpectralModel} suffix.
+These spectral models feature a dimension-less \textit{norm} parameter
+instead of an \text{amplitude} parameter with physical units. They
 must be used along with another spectral model, as a multiplicative correction
 factor according to their spectral shape. They can be typically used for
 adjusting template based models, or adding taking into account
@@ -965,8 +965,10 @@ The \code{gammapy.estimators} sub-module features methods to compute flux
 points, light curves, flux maps, flux profiles from data.
 The basic method for all these measurements is equivalent.
 The initial fine bins of \code{MapDataset} are grouped into
-larger bins. The norm of the best fit "reference" spectral
-model is fitted (or 'scaled') in the  restricted data range only.
+larger bins. A multiplicative correction factor (the \textit{norm})
+is applied to the best fit "reference" spectral
+model and is fitted in the restricted data range, defined by the 
+bin group, only.
 
 The base class of all algorithms is the \code{Estimator}  class.
 
@@ -1286,8 +1288,9 @@ panel of Figure~\ref{fig:cube_analysis}.
 \begin{figure*}[t]
 	\centering
 	\includegraphics[width=1.\textwidth]{figures/cube_analysis.pdf}
-	\caption{Example of a 3D analysis for simulated sources using the \cta \irfs. The
-		left image shows a significance map where the three simulated sources can be
+	\caption{Example of a 3D analysis for simulated sources with point-like, Gaussian
+		and shell-like morphology. The simulation uses \textit{prod5} \irfs from \cta.
+		The left image shows a significance map where the three simulated sources can be
 		seen. The middle figure shows another significance map, but this time after
 		subtracting the best-fit model for each of the sources, which are displayed in
 		black. The right figure shows the contribution of each source model to the
