@@ -365,14 +365,15 @@ observations taken between 2004 and 2008) based  on the \gadf DL3 format \citep{
 This data release served as a basis for analysis tools validation \cite[see e.g.]{Mohrmann2019}.
 
 %% Paper outline
-In this article, we describe the general structure of the \gammapy package and
-its main concepts. In Section \ref{sec:analysis-workflow-overview}, we present
-the data analysis workflow in very high-energy \gammaray astronomy. Then we
-show how this workflow is reflected in the structure of the \gammapy package and
-describe the various subpackages it contains. Section \ref{sec:applications}
-presents a number of applications, while Section \ref{sec:gammapy-project}
-discusses the project organization.
-
+In this article, we describe the general structure of the \gammapy package,
+its main concepts and organisational structure. We start in
+Section~\ref{sec:gammaray-data-analysis} with a general overview
+of the data analysis workflow in very high-energy \gammaray astronomy. Then we
+show how this workflow is reflected in the structure of the \gammapy package 
+in Section~\ref{sec:gammapy-package} and also
+describe the various subpackages it contains. Section~\ref{sec:applications}
+presents a number of applications, while Section~\ref{sec:gammapy-project}
+finally discusses the project organization.
 
 
 \section{Gamma-ray Data Analysis}
@@ -401,13 +402,17 @@ a given observation technique and even to a given instrument.
 
 The other sequence, referred to as high-level analysis, deals with the extraction of physical
 quantities related to \gammaray sources and the production of high-level products such as spectra,
-light curves and catalogs. The methods and tools applied here are more generic and are broadly
+light curves and catalogs. The methods applied here are more generic and are broadly
 shared across the field. They also frequently imply joint analysis of multi-instrument data.
-To extract physically relevant information, the measured data are usually compared to a
-model of the expected \gammaray emitters in the instrument field-of-view using statistical
-techniques such as maximum likelihood.
+To extract physically relevant information, the measured counts on an instrument are usually
+compared to a parametrised model of the true intensity distribution of \gammaray source in a given
+field-of-view, which is "forward folded" through a model of the instrument repsonse
+to get a prediction for the expected counts measured by the instrument. Parameters
+of the model are then estimated using statistical techniques such as maximum likelihood
+estimation (MLE).
 
-We can write the expected number of detected events at measured position $p$ and energy $E$:
+In the most general way we can write the expected number of detected events at measured
+position $p$ and energy $E$:
 \begin{align}
    N(p, E) {\rm d}p {\rm d}E = &t_{\rm obs} \int_{E_{\rm true}} \int_{p_{\rm true}}  R(p, E|p_{\rm true}, E_{\rm true})\\
    &\times \Phi(p_{\rm true}, E_{\rm true}) {\rm d}E_{\rm true} {\rm d}p_{\rm true}
@@ -415,7 +420,7 @@ We can write the expected number of detected events at measured position $p$ and
 where
 \begin{itemize}
 \item $R(p, E| p_{\rm true}, E_{\rm true})$ is the instrument response
-\item $\Phi(p_{\rm true}, E_{\rm true})$ is the sky flux model
+\item $\Phi(p_{\rm true}, E_{\rm true})$ is the parametrised sky flux model
 \item $t_{\rm obs}$ is the observation time
 \end{itemize}
 
@@ -445,37 +450,41 @@ where:
 corresponding instrument response functions (IRFs). The latter include the aforementioned
 effective area, point spread function (PSF), energy dispersion and residual hadronic background.
 The handling of DL3 data is performed by classes and methods
-in the \code{gammapy.data} (see \ref{ssec:gammapy-data}) and the \code{gammapy.irf}
-(see \ref{ssec:gammapy-irf}) subpackages.
+in the \code{gammapy.data} (see Section~\ref{ssec:gammapy-data}) and the \code{gammapy.irf}
+(see Section~\ref{ssec:gammapy-irf}) subpackages.
 
 The first step in the analysis is the selection and extraction of observations
-based of their meta data including information such as pointing direction, observation
+based of their metadata including information such as pointing direction, observation
 time and observation conditions.
 
-The next step of the analysis is the data reduction where all observation events and instrument
-responses are projected onto a user-defined geometry. A typical geometry consists in a spectral representation with a measured
-energy axis, and in a spatial representation, either a coordinates system  with a projection
+The next step of the analysis is the data reduction, where all observation events and instrument
+responses are filled into or projected onto a common physical coordinate system, defined by
+a map geometry. The definition of the map geometry typically consists of a spectral dimension
+defined by a binned energy axis and of a spatial dimension, which either defines 
+a spherical projection from celestial coordinates to an pixelised image space
 (for 3-dimensional or cube analysis) or a region on the sky (for regular spectral analysis).
 The \code{gammapy.maps} subpackage provides general multidimensional geometry objects
-(Geom) and the associated data structures (Maps) (see \ref{ssec:gammapy-maps}).
+(\code{Geom}) and the associated data structures (\code{Maps}) (see Section~\ref{ssec:gammapy-maps}).
 
-All observation events and instrument responses are projected onto the
-user defined geometry. Because residual hadronic background models can be subject
-to significant uncertainties, background correction must be applied,
+After all data has been projected into the same coordinate system, it is typically
+required to improve the residual hadronic background estimate. As residual hadronic
+background models can be subject to significant systematic uncertainties,
+the background estimated can be improved by taking into account actual data
+from regions without known \gammaray sources. This includes methods 
 such as the ring or the field-of-view background techniques or
-background measurements must be performed within, e.g. reflected regions~\citep{Berge07}.
-Parts of the data with high associated IRF systematics must also be excluded by defining
-a 'safe' data range. These data reduction steps are performed by classes and functions
-implemented in the \code{gammapy.makers} subpackage (see \ref{ssec:gammapy-makers}).
+background measurements performed within, e.g. reflected regions~\citep{Berge07}.
+Data measured at the field-of-view or energy boundaries of the instrument is typically
+associated with a sytematic uncertainty in the IRF. For this reason this part 
+of the data is often excluded from subsequent analysis by defining regions of
+ "safe" data in the spatial as well as energy dimension.
+All of these data reduction steps are performed by classes and functions
+implemented in the \code{gammapy.makers} subpackage (see Section~\ref{ssec:gammapy-makers}).
 
-The counts data and the reduced IRFs in the form of maps are bundled into dataset objects
-that represent the data level 4 (DL4). They can be written to
-disk, in a format specific to \gammapy to allow users to read them back at any time later
-for modeling and fitting.
-
-This latter step datasets classes bundle reduced data in form of maps, reduced IRFs, models and
-fit statistics. Different sub-classes support different analysis methods
-and fit statistics (e.g. Poisson statistics with known background or
+The counts data and the reduced IRFs in the form of maps are bundled into datasets
+that represent the data level 4 (DL4). Those reduced datasets can be written to disk,
+in a format specific to \gammapy to allow users to read them back at any time later
+for modeling and fitting. Different variations of such datasets support different 
+analysis methods and fit statistics (e.g. Poisson statistics with known background or
 with OFF background measurements). The datasets are used to perform joint-likelihood
 fitting allowing to combine different measurements, e.g. from different observations
 but also from different instruments or event classes. They can also be used for binned
@@ -484,7 +493,7 @@ simulation as well as event sampling to simulate DL3 events data.
 The next step is then typically to model and fit the datasets, either
 individually, or in a joint likelihood analysis. For this purpose \gammapy
 provides a uniform interface to multiple fitting backends. It also provides
-a variety of :ref:`built in models <model-gallery>`. This includes spectral,
+a variety of built in models. This includes spectral,
 spatial and temporal model classes to describe the \gammaray emission in the sky.
 Where spectral models can be simple analytical models or more complex ones from radiation
 mechanisms of accelerated particle populations (e.g. inverse Compton or $\pi^{o}$ decay).
@@ -544,10 +553,10 @@ The \code{gammapy.data} sub-package implements the functionality to select,
 read and represent DL3 \gammaray data in memory. It provides the main user
 interface to access the lowest data level. \gammapy currently only
 supports data that is compliant with v0.2 of the \gadf data format.
-As both the \gadf data model and \gammapy were initially conceived for
-\iact data analysis, DL3 data are typically bundled into individual
-observations, which correspond to stable periods of data
-aquisitions (typically $20 - 30\,{\rm min}$) for a given instrument.
+DL3 data are typically bundled into individual observations, which
+corresponds to stable periods of data aqusition. For IACT data analysis,
+for which the GADF data model and Gammapy were initially conceived for,
+these are usually $20 - 30\,{\rm min}$ long.
 Each observation is assigned a unique integer ID for reference.
 
 A typical usage example is shown in Figure~\ref{fig*:minted:gp_data}.
@@ -558,18 +567,18 @@ files containing information about the telescope observation mode and the
 content of the data unit of each file. The \code{DataStore} allows for
 selecting a list of observations based on specific filters.
 
-The so-called DL3 files represented by the \code{Observation} class consist
-of two types of elements: a list of \gammaray events with relevant physical
-quantities for the successive analysis (estimated energy, direction and arrival
-times) that is handled by the \code{EventList} class and an instrument
-response function (IRF), providing the response of the system, typically
-factorised in independent components (see the description in
-Sec.~\ref{ssec:gammapy-irf}). The separate handling of event lists and IRFs
-additionally allows for data from other \gammaray instruments to be read. For
+The DL3 level data represented by the \code{Observation} class consist
+of two types of elements: first a list of \gammaray events with relevant physical
+quantities such as estimated energy, direction and arrival
+times, which is represented by the \code{EventList} class/. Second a set of
+associated IRFs, providing the response of the system, typically
+factorised in independent components as described in
+Section~\ref{ssec:gammapy-irf}. The separate handling of event lists and IRFs
+additionally allows for data from non-IACT \gammaray instruments to be read. For
 example, to read \fermi data, the user can read separately their event list
 (already compliant with the \gadf specifications) and then find the appropriate
 IRF class representing the response functions provided by \fermi, see
-Sec.~\ref{ssec:fermi}.
+example in Section~\ref{ssec:multi-instrument-analysis}.
 %
 \begin{figure}[ht!]
 	\import{code-examples/generated/}{gp_data}
@@ -608,7 +617,7 @@ axes, convert their format or units in different kinds, plot or write them into
 output files. In the following, we list the main classes of the
 sub-package:
 
-\paragraph{Effective area:}
+\subsubsection{Effective Area}
 \gammapy provides the class \code{EffectiveAreaTable2D} to
 manage Aeff, which is usually defined in terms of true energy and offset angle.
 The class functionalities offer the possibility to read from files or to create
@@ -617,22 +626,28 @@ write, and evaluate the effective area for a given energy and offset angles, or
 even plot the multi-dimensional Aeff table.
 
 
-\paragraph{Point spread function:}
+\subsubsection{Point Spread Function}
 \gammapy allows user to treat different kinds of PSFs,
 in particular, parametric multi-dimensional Gaussians (\code{EnergyDependentMultiGaussPSF})
 or King profile functions (\code{PSFKing})
 one. The \code{EnergyDependentMultiGaussPSF} class is able to handle up to three
 Gaussians, defined in terms of amplitudes and sigma given for each true energy
 and offset angle bin. Similarly, \code{PSFKing takes} into account the gamma and
-sigma parameters as defined here. The \code{ParametricPSF} allows to create a
-PSF with a representation different from Gaussian(s) or King profile(s).
-Finally, the user can take advantage from the \code{PSFMap} class, which creates
-a multi-dimensional map of the PSF in sky coordinates. At each position, a PSF
-kernel map (\code{PSFKernel}) provides a PSF as a function of the true energy.
-The creation of PSF kernel maps, where the PSF is defined for each
-sky-position, is also given to the user. The latter two can speed up analyses.
+sigma parameters. The general \code{ParametricPSF} class allows users to create a
+custom PSF with a parametric representation different from Gaussian(s) or King profile(s).
+The generic \code{PSF3D} class stores a radial symmetric profile of a
+PSF to represent non-parametric shapes, againa depending on true energy 
+of offset form the poiting position.
 
-\paragraph{Energy dispersion:}
+To handle the change of the PSF with the observational offset during the analysis 
+the \code{PSFMap} class is used. It stores the radial profile of the PSF
+depending on the true energy and position on the sky. During the modeling
+step in the analysis, the PSF profile for each model component is 
+looked up at its current position and converted into a 3d convolution kernel
+which used for the prediction of counts from that model component.
+
+
+\subsubsection{Energy Dispersion}
 for \iact, it is generally given in terms of the so-called
  migration parameter ($\mu$), which is defined as the ratio between the
 reconstructed energy and the true energy. This ratio should be as close as one
@@ -644,7 +659,7 @@ map, i.e., a 4-dimensional WCS map where at each sky-position is associated an
 Edisp kernel. The latter is a representation of the Edisp as a function of the
 true energy only thanks to the sub-class \code{EDispKernel}.
 
-\paragraph{Background model:}
+\subsubsection{Background model}
 The BKG can be represented in \gammapy as either 1) a 2D map (\code{Background2D})
 of count rate normalised per steradians and energy at different
 reconstructed energies and offset angles or 2) as rate per steradians and energy, as a
@@ -667,8 +682,8 @@ provides methods to transform between sky and pixel coordinates. Maps consist
 of a geometry instance together with a Numpy data array containing the corresponding
 map values. Map axes contain a sequence of ordered values which define bins on
 a given dimension, spatial or not. Map axes can have physical units attached to
-them, as well as define non-linear spaced bins. All map classes support operations such
-as arithmetic operations with unit support, up- and downsampling along
+them, as well as define non-linear spaced bins. All map classes support a basic
+set of arithmetic and boolean operations with unit support, up- and downsampling along
 extra axes, interpolation, resampling of extra axes, interactive visualisation
 in notebooks and interpolation onto different geometries.
 
@@ -1759,7 +1774,7 @@ of \gammapy is planned to be developed into a fully configurable
 API design. This will allow users to define arbitrary complex analysis
 scenarios as YAML files and even extend their workflows by user defined
 analysis steps via a registry system. Another important topic will
-be to improve the support of handling meta data for data structures
+be to improve the support of handling metadata for data structures
 and provenance information to track the history of the data reduction
 process from the DL3 to the highest DL5/DL6 data levels.
 
