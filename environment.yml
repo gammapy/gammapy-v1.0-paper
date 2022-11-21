@@ -24,6 +24,7 @@ dependencies:
   - pre-commit
   - rust
   - ruamel.yaml
+  - tabulate==0.8.10
   - tqdm
   - requests
   - pip:
