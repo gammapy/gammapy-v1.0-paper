@@ -769,17 +769,15 @@ for users as well as handling the underlying geometric operations.
 	\label{fig*:minted:gp_datasets}
 \end{figure}
 %
-The end product of the data reduction process described in Section
-\ref{sec:gammaray-data-analysis} (and in detail in \ref{ssec:gammapy-makers}) are a set of binned counts, background and IRF maps,
-at the DL4 level. The \code{gammapy.datasets} subpackage contains classes to bundle
+The \code{gammapy.datasets} subpackage contains classes to bundle
 together binned data along with associated models and the likelihood, which
 provides an interface to the \code{Fit} class (Sec \ref{sssec:fit}) for
 modeling and fitting purposes. Depending upon the type of analysis and the
 associated statistics, different types of Datasets are supported. \code{MapDataset} is
 used for 3D (spectral and morphological) fitting, and a 1D spectral fitting is
 done using \code{SpectrumDataset}. While the default statistics for both of these is
-Cash, their corresponding on off versions are adapted for the case where the
-background is measured from real off counts, and support wstat statistics. The
+\emph{Cash}}, their corresponding on off versions are adapted for the case where the
+background is measured from real off counts, and support \emph{WStat} statistics. The
 predicted counts are computed by convolution of the models with the associated
 IRFs. Fitting of precomputed flux points is enabled through \code{FluxPointsDataset},
 using chi2 statistics. Multiple datasets of same or different types can be
@@ -813,8 +811,9 @@ The data reduction step includes all tasks required to process and prepare
 \gammaray data from the DL3 level to modeling and fitting. The \code{gammapy.makers} sub-package
 contains the various classes and functions required to do so. First, events are
 binned and IRFs are interpolated and projected onto the chosen analysis
-geometry. This produces counts, exposure, background, psf and energy dispersion
-maps. The \code{MapDatasetMaker} and \code{SpectrumDatasetMaker} are
+geometry. The end product of the data reduction process are a set of binned counts,
+background exposure, psf and energy dispersion maps at the DL4 level. 
+The \code{MapDatasetMaker} and \code{SpectrumDatasetMaker} are
 responsible for this task, see Fig~\ref{ig*:minted:gp_makers}.
 
 Because the background models suffer from strong uncertainties it is required
@@ -882,7 +881,7 @@ the fit and parameter API.
 \subsubsection{Models}
 \label{sssec:models}
 Source models in \gammapy are four dimensional models which support two
-spatial dimensions $\ell, b$, and energy dimension $E$ as well as
+spatial dimensions define by the sky coordinates $\ell, b$, and energy dimension $E$ as well as
 the time dimension $t$. To simplify the the definition of the
 models, \gammapy uses a factorised representation of the total source
 model:
@@ -987,7 +986,7 @@ possibly reveals more detailed emission features, which
 are relevant for studying correlation with counterpart emissions.
 
 The \code{gammapy.estimators} sub-module features methods to compute flux
-points, light curves, flux maps, flux profiles from data.
+points, light curves, flux maps and flux profiles from data.
 The basic method for all these measurements is equivalent.
 The initial fine bins of \code{MapDataset} are grouped into
 larger bins. A multiplicative correction factor (the \textit{norm})
@@ -995,11 +994,6 @@ is applied to the best fit "reference" spectral
 model and is fitted in the restricted data range, defined by the 
 bin group, only.
 
-The base class of all algorithms is the \code{Estimator}  class.
-
-Signifiance is estimated based on hypothesis
-testing against the background only model. This allows
-to assign a significance to the given flux bin.
 In addition to the best fit flux norm all estimators compute
 quantities corresponding to this flux. This includes
 the predicted number of total, signal and background
@@ -1021,6 +1015,7 @@ of a fit, for which asymptomatically a parabolic
 shape of the profile is expected at the best fit
 values (\todo{Reference to modeling / fitting section?}).
 
+The base class of all algorithms is the \code{Estimator}  class.
 The result of the flux point estimation are either stored in a
 \code{FluxMaps} or \code{FluxPoints} object. Both objects
 are based on an internal representation of the flux which is
@@ -1404,7 +1399,7 @@ instruments.
 
 The \fermi data is introduced at the data level DL4. It is prepared 
 using the standard \textit{fermitools} \citep{Fermitools2019} and
-selecting a region of $X^{\circ}$ around the
+selecting a region of $5^{\circ} \mathrm{x} 4^{\circ}$ around the
 position of the Crab Nebula applying the same selection criteria of the 3FHL
 catalog (7 years of data with energy from $10\,{\rm GeV}$ to $2\,{\rm TeV}$,
 ~\citealt{3FHL}).
@@ -1603,8 +1598,8 @@ Other automated tasks, executing in the \textit{gammapy-benchmarks} repository,
 are responsible for numerical validation tests and benchmarks monitoring. Also
 tasks related with the release process are partially automated, and every
 contribution to the codebase repository triggers the documentation building and
-publishing workflow within the \textit{gammapy-docs} repository (see Sec.
-~\ref{ssec:software-distribution} and Sec. ~\ref{ssec:documentation}).
+publishing workflow within the \textit{gammapy-docs} repository
+(see Sec.~\ref{ssec:software-distribution} and Sec.~\ref{ssec:documentation-and-user-support}).
 
 This small ecosystem of interconnected up-to-date repositories, automated tasks
 and alerts, is just a part of a bigger set of \github repositories, where most
@@ -1808,7 +1803,7 @@ IACT instruments, the internal data model and software design are general
 enough to be applied to other \gammaray instruments as well.
 The use of \gammapy for the analysis of data from the High Altitude
 Water Cherenkov Observatory (HAWC) has been successfully
-demonstrated by \todo{Olivera et al.}. This makes \gammapy
+demonstrated by \cite{Olivera2022}. This makes \gammapy
 a viable choice for the base library for the science tools
 of the future Southern Widefield Gamma Ray Observatory
 (SWGO) and use with data from Large High Altitude Air Shower Observatory (LHAASO) as well. \gammapy
