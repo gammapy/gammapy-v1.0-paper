@@ -1443,7 +1443,7 @@ By combining \gammapy with astrophysical modelling codes, users can also fit
 astrophysical spectral models to \gammaray data. In \gammaray
 astronomy one typically observes two radiation production
 mechanisms, the so-called hadronic and leptonic scenarios.
-There are mutiple Python packages that are able to model
+There are several Python packages that are able to model
 the \gammaray emission, given a physical scenario. Among those
 packages are  Agnpy \citep{agnpy}, Naima \citep{naima}, Jetset \citep{jetset}
 and Gamera \citep{gamera}.
@@ -1455,6 +1455,18 @@ data can be combined to constrain such a broadband emission model.
 users to wrap a given astrophysical emission model from the
 naima package and fit it directly to \gammaray data.
 
+As an example of this application, we use the same multi-instrument
+dataset described in the previous section and we fit it with an inverse
+Compton model computed with naima and wrapped in the \gammapy fitting
+ routine with the NaimaSpectraModel class. We consider a log-parabolic
+electron distribution scattering: the synchrotron radiation produced by
+the same electrons; near and far infrared photon fields and the cosmic
+microwave background (CMB). We adopted the prescription on the target
+photon fields provided in the naima 
+documentation \footnote{\url{https://naima.readthedocs.io/en/latest/examples.html#crab-nebula-ssc-model}}.
+The best-fit inverse Compton spectrum is represented with a red dashed line in
+Fig.~\ref{fig:multi_instrument_analysis}.
+
 \subsection{Surveys, Catalogs, and Population Studies}
 \label{ssec:surveys-catalogs-and-population-studies}
 
@@ -1464,7 +1476,7 @@ source population studies over a large set of coherently detected and modelled o
 Early versions of \gammapy were developed in parallel of the preparation of
 the \hess Galactic plane survey catalog~\citep[HGPS, ][]{2018A&A...612A...1H} and
 the associated PWN and SNR populations studies~\citep{2018A&A...612A...2H,
-	2018A&A...612A...3H}.
+	2018A&A...612A...3H}. 
 
 The increase in sensitivity and resolution provided by the new generation of
 instruments scales up the number of detectable sources and the complexity of 
@@ -1474,7 +1486,6 @@ simulations, we jump from 78 sources detected by \hess to about 500 detectable b
 CTA~\citep{2021arXiv210903729R}. This large increase in the amount of data to analyse
 and increase in complexity of modelling scenarios, requires the high level
 analysis software to be both scalabale as well as performant. 
-
 
 In short the production of catalogs from \gammaray surveys can be divided in
 four main steps: data reduction; object detection; model fitting and model
@@ -1526,27 +1537,28 @@ provided by the surveys.
 In this section, we provide an overview of the organization of the \gammapy
 project. We briefly describe the main roles and responsibilities within the
 team, as well as the technical infrastructure designed to facilitate the
-development and maintenance of \gammapy as a high quality software. We use
+development and maintenance of \gammapy as a high-quality software. We use
 common tools and services for software development of Python open-source
 projects, code review, testing, package distribution and user support, with a
-customized solution for a versioned thoroughly tested documentation in the form
+customized solution for a versioned and thoroughly-tested documentation in the form
 of user-friendly playable tutorials. This section concludes with an outlook on
 the roadmap for future directions.
 
 \subsection{Organizational Structure}
 \label{ssec:organizational-structure}
 
-\gammapy is a well-organised international open-source project with a broad
-developer base and the presence of commitments from strong groups and
-institutes in the very high-energy astrophysics
+\gammapy is an international open-source project with a broad
+developer base and contributions and commitments from mutiple groups and
+leading institutes in the very high-energy astrophysics
 domain\footnote{\url{https://gammapy.org/team.html}}. The main development
-roadmaps are discussed and validated by a Coordination Committee, composed of
-representatives of the main contributing laboratories. This committee is
-chaired by a Project Manager and his deputy while two Lead Developers manage
-the development strategy and organise technical activities. Because of this
-institutionally driven characteristic, the permanent staff and commitment of
-supporting institutes ensure the continuity of the executive teams. A core team
-of developers from the contributing laboratories is in charge of the regular
+roadmaps are discussed and validated by a \textit{Coordination Committee}, composed of
+representatives of the main contributing institutions and observatories.
+This committee is
+chaired by a \textit{Project Manager} and his deputy while two \textit{Lead Developers} manage
+the development strategy and organise technical activities. This
+institutionally driven organisation, the permanent staff and commitment of
+supporting institutes, ensures the continuity of the executive teams. A core team
+of developers from the contributing institutions is in charge of the regular
 development, which benefits from punctual contributions of the community at
 large.
 
@@ -1588,7 +1600,7 @@ use of the pull request system to discuss and review code contributions.
 Several automated tasks are set as \github
 actions\footnote{\url{https://\github.com/features/actions}}, blocking the
 processes and alerting developers when fails occur. This is the case of the
-content integration workflow, which monitors the execution of the test coverage
+continuous integration workflow, which monitors the execution of the test coverage
 suite\footnote{\url{https://pytest.org}} using datasets from the
 \textit{gammapy-data} repository. Tests scan not only the codebase but also the
 code snippets present in docstrings of the scripts and in the RST documentation
@@ -1710,22 +1722,22 @@ support release of \gammapy.
 \label{ssec:release-cycle}
 With the first long term support (LTS) release v1.0, the \gammapy project
 enters a new development phase. The development will change from
-quick feature driven development to more stable maintenance
+quick feature-driven development to more stable maintenance
 and user support driven developement. After v1.0 we foresee
-a developement cycle with major, minor and bugfix releases.
-We basically followg the development cycle of the Astropy
+a developement cycle with major, minor and bugfix releases;
+we basically follow the development cycle of the Astropy
 project. Thus we expect a major LTS release approximately
 every two years, minor releases are planned every 6~months,
 while bug-fix releases will happen as needed. While
 bug-fix releases will not introduce API breaking changes,
 we will work with a deprecation system for minor releases.
-API breaking changes will be announced to user by runtime
+API-breaking changes will be announced to user by runtime
 warnings first and then implemented in the subsequent
 minor release. This approach we consider a fair
 compromise between the interests of users in a stable
 package and the interest of developers to improve
-and develop \gammapy in future. The developemnt cycle is described
-in more detail in PIG 24 \todo{reference}.
+and develop \gammapy in future. The development cycle is described
+in more detail in PIG 23 \citep{gammapy_pig_23}.
 
 \section{Reproducibility}
 \label{sec:reproducibility}
@@ -1733,14 +1745,14 @@ One of the most important goals of the \gammapy project is to support open and
 reproducible science results. Thus we decided to write this manuscript
 openly and publish the Latex source code along with the associated
 Python scripts to create the figures
-in \url{https://\github.com/gammapy/gammapy-v1.0-paper}.
+in \url{https://github.com/gammapy/gammapy-v1.0-paper}.
 This \github repository also documents the history of the creation
 and evolution of the manuscript with time. To simplify the reproducibility
 of this manuscript including figures and text, we relied on the tool
-"showyourwork"~\citep{Luger2021}. This tool coordinates the building
+\textit{showyourwork}~\citep{Luger2021}. This tool coordinates the building
 process and software as well as data dependencies such, that the complete
 manuscript can be reproduced with a single \code{make} command, after
-downloading the source repository. See \todo{reference?} for detailed
+downloading the source repository. See \url{https://github.com/gammapy/gammapy-v1.0-paper/blob/main/README.md} for detailed
 instructions. Almost all figures in this manuscript provide a link
 to a Python script, that was used to produce it. This means all
 example analyses presented in Sec.\ref{sec:applications} link to
@@ -1761,7 +1773,7 @@ of the instrument response users can reduce and project the data
 to WCS, HEALPix and region based data structures. The reduced data is bundled
 into datasets, which serve as a basis for Poisson maximum likelihood
 modelling of the data. For this purpose \gammapy provides a wide selection
-of built-in, spectral, spatial and temporal models as well as unified
+of built-in spectral, spatial and temporal models, as well as unified
 fitting interface with connection to multiple optimization backends.
 
 With the v1.0 milestone the \gammapy project enters a new development
