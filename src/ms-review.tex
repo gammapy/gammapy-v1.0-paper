@@ -1514,11 +1514,15 @@ for each object, so the complexity of the problem increases rapidly in regions
 crowded with multiple extended sources. Finally an object is discarded if its
 best-fit model is not significantly preferred over the null hypothesis (no
 source) comparing the difference in log likelihood between these two
-hypotheses. For the association and classification step, that is tightly
-connected to the population studies, we can a minima compare the fitted models
-to the set of \gammaray catalogs available in \code{gammapy.catalog}. However
-further multi-wavelength cross-matches are usually required to characterize the
-sources.
+hypotheses.
+
+For the association and classification step, that is tightly connected to the
+population studies, we can easily compare the fitted models to the set of
+existing \gammaray catalogs available in \code{gammapy.catalog}. Further
+multi-wavelength cross-matches are usually required to characterize the
+sources. This an e.g. easily be achieved by relying on coordinate
+handling from Astropy or affiliated packages such as \textit{AstroML}~\citep{astroML}
+or \textit{Astroquery}~\citep{astroquery}.
 
 Studies performed on simulations not only offer a first glimpse on what could
 be the sky seen by CTA (according to our current knowledge on source
