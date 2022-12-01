@@ -1,6 +1,6 @@
-from gammapy.catalog import SOURCE_CATALOGS
+from gammapy.catalog import CATALOG_REGISTRY
 
-catalog = SOURCE_CATALOGS.get_cls("4fgl")()
+catalog = CATALOG_REGISTRY.get_cls("4fgl")()
 print("Number of sources :", len(catalog.table))
 
 source = catalog["PKS 2155-304"]

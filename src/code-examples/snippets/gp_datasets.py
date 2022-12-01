@@ -9,7 +9,7 @@ from gammapy.datasets import (
 path = Path("$GAMMAPY_DATA")
 
 map_dataset = MapDataset.read(
-    path / "/cta-1dc-gc/cta-1dc-gc.fits.gz",
+    path / "cta-1dc-gc/cta-1dc-gc.fits.gz",
     name="map-dataset",
 )
 
@@ -19,7 +19,7 @@ spectrum_dataset = SpectrumDatasetOnOff.read(
 )
 
 flux_points_dataset = FluxPointsDataset.read(
-    "$GAMMAPY_DATA/tests/spectrum/flux_points/diff_flux_points.fits",
+    path / "tests/spectrum/flux_points/diff_flux_points.fits",
     name="flux-points-dataset",
 )
 
