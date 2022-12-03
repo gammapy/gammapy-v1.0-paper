@@ -9,13 +9,14 @@ variables:
   PYTHONNOUSERSITE: "1"
 
 dependencies:
+  - gammapy=1.0
   - numpy=1.22
   - iminuit=2.8.4
   - scipy=1.7.3
   - matplotlib=3.5.1
   - pip>=20.3.3
   - python=3.9
-  - astropy=5.0
+  - astropy=5.1
   - markupsafe=2.0.1
   - snakemake-minimal==6.12.3
   - jinja2=2.11.3
@@ -29,4 +30,3 @@ dependencies:
   - requests
   - pip:
       - pygments
-      - git+https://github.com/gammapy/gammapy.git
