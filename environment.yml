@@ -15,6 +15,7 @@ dependencies:
   - scipy=1.7.3
   - matplotlib=3.5.1
   - pip>=20.3.3
+  - naima=0.10
   - python=3.9
   - astropy=5.1
   - markupsafe=2.0.1
