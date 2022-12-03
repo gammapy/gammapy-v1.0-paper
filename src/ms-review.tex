@@ -570,7 +570,7 @@ selecting a list of observations based on specific filters.
 The DL3 level data represented by the \code{Observation} class consist
 of two types of elements: first a list of \gammaray events with relevant physical
 quantities such as estimated energy, direction and arrival
-times, which is represented by the \code{EventList} class/. Second a set of
+times, which is represented by the \code{EventList} class. Second a set of
 associated IRFs, providing the response of the system, typically
 factorised in independent components as described in
 Section~\ref{ssec:gammapy-irf}. The separate handling of event lists and IRFs
@@ -599,7 +599,7 @@ example in Section~\ref{ssec:multi-instrument-analysis}.
 %\begin{figure}
 %	%	\import{code-examples/generated/}{gp_makers}
 %
-%	\caption{In Fig.~\ref{ig*:minted:irf_examples}, we show some example of Aeff,
+%	\caption{In Figure~\ref{ig*:minted:irf_examples}, we show some example of Aeff,
 %		PSF, Edisp and BKG read and plotted from a typical \irf.}
 %	\label{ig*:minted:irf_examples}
 %\end{figure}
@@ -609,8 +609,8 @@ to handle IRFs in a variety of formats.
 Usually, \irfs store instrument properties in the form of multi-dimensional
 tables, with quantities expressed in terms of energy (true or reconstructed),
 off-axis angles or cartesian detector coordinates. The main information stored in
-the common \gammaray \irfs are the effective area (Aeff), energy dispersion
-(Edisp), point spread function (PSF) and background rate (BKG). The \code{gammapy.irf}
+the common \gammaray \irfs are the effective area, energy dispersion,
+point spread function and background rate. The \code{gammapy.irf}
 sub-package can open and access specific \irf extensions,
 interpolate and evaluate the quantities of interest on both energy and spatial
 axes, convert their format or units in different kinds, plot or write them into
@@ -619,20 +619,20 @@ sub-package:
 
 \subsubsection{Effective Area}
 \gammapy provides the class \code{EffectiveAreaTable2D} to
-manage Aeff, which is usually defined in terms of true energy and offset angle.
+manage the effective area, which is usually defined in terms of true energy and offset angle.
 The class functionalities offer the possibility to read from files or to create
-it from scratch. {\code{EffectiveAreaTable2D} can also convert, interpolate,
+it from scratch. {The \code{EffectiveAreaTable2D} class can also convert, interpolate,
 write, and evaluate the effective area for a given energy and offset angles, or
-even plot the multi-dimensional Aeff table.
+even plot the multi-dimensional effective area table.
 
 
 \subsubsection{Point Spread Function}
 \gammapy allows user to treat different kinds of PSFs,
 in particular, parametric multi-dimensional Gaussians (\code{EnergyDependentMultiGaussPSF})
-or King profile functions (\code{PSFKing})
-one. The \code{EnergyDependentMultiGaussPSF} class is able to handle up to three
+or King profile functions (\code{PSFKing}). The \code{EnergyDependentMultiGaussPSF}
+ class is able to handle up to three
 Gaussians, defined in terms of amplitudes and sigma given for each true energy
-and offset angle bin. Similarly, \code{PSFKing takes} into account the gamma and
+and offset angle bin. Similarly, \code{PSFKing} takes into account the gamma and
 sigma parameters. The general \code{ParametricPSF} class allows users to create a
 custom PSF with a parametric representation different from Gaussian(s) or King profile(s).
 The generic \code{PSF3D} class stores a radial symmetric profile of a
@@ -648,21 +648,23 @@ which used for the prediction of counts from that model component.
 
 
 \subsubsection{Energy Dispersion}
-for \iact, it is generally given in terms of the so-called
- migration parameter ($\mu$), which is defined as the ratio between the
-reconstructed energy and the true energy. This ratio should be as close as one
-and its dispersion can assume the shape of a Gaussian (or even more complex
-distributions). Migration parameter is given at each offset angle and
-reconstructed energy. The main sub-classes are \code{EnergyDispersion2D},
-designed to interpret Edisp, \code{EDispKernelMap}, which builds an Edisp kernel
-map, i.e., a 4-dimensional WCS map where at each sky-position is associated an
-Edisp kernel. The latter is a representation of the Edisp as a function of the
-true energy only thanks to the sub-class \code{EDispKernel}.
+For \iacts, the energy dispersion is typically parameterised in terms of the so-called
+migration parameter ($\mu$), which is defined as the ratio between the
+reconstructed energy and the true energy. By definition the mean of this ratio is
+close to unity for a small energy bias and its distribution can 
+be typically described by a Gaussian, however more complex
+shapes are also common. The migration parameter is given at each offset angle and
+reconstructed energy. The main sub-classes are the \code{EnergyDispersion2D} which is
+designed to handle the raw instrument description. Then there is the \code{EDispKernelMap},
+which contains an energy disperion matrix per sky position. I.e., a 4-dimensional WCS map
+where at each sky-position is associated an energy dispersion matrix.
+The latter is a representation of the energy resolution as a function of the
+true energy only repesented by the sub-class \code{EDispKernel}.
 
 \subsubsection{Background model}
-The BKG can be represented in \gammapy as either 1) a 2D map (\code{Background2D})
-of count rate normalised per steradians and energy at different
-reconstructed energies and offset angles or 2) as rate per steradians and energy, as a
+The backgropund rate can be represented in \gammapy as either a 2-dimensional
+data structure (\code{Background2D}) of count rate normalised per steradians and energy at different
+reconstructed energies and offset angles or as rate per steradians and energy, as a
 function of reconstructed energy and detector coordinates (\code{Background3D}).
 In the former, the background is expected to follow a radially symmetric shape,
 while in the latter, it can be more complex.
@@ -918,7 +920,6 @@ adjusting template based models, or adding taking into account
 the absorbtion effect on 
 \gammaray spectra caused by the extra-galactic background light (EBL) (\code{EBLAbsorptionNormSpectralModel})
 model. \gammapy supports a variety of EBL absorbtion models, such as
-
 \cite{Franceschini2008}, \cite{Finke2010} and \cite{Dominguez2011}.
 
 The analytic spatial models are all normalized such as they integrate to
@@ -935,7 +936,7 @@ has a \code{Models} class.
 The model gallery provides a visual overview of the available models in
 \gammapy. Most of the analytic models  commonly used in \gammaray astronomy are
 built-in. We also offer a wrapper to radiative models implemented in the Naima
-package~\cite{naima}. The modeling framework can be easily extended with
+package~\citep{naima}. The modeling framework can be easily extended with
 user-defined models. For example agnpy models that describe leptonic radiative
 processes in jetted Active Galactic Nuclei (AGN) can be wrapped into
 \gammapy~\citep[see Section 3.5 of ][]{2021arXiv211214573N} .
@@ -965,9 +966,15 @@ examples are given in the tutorials.
 \todo{Add fit code example...?}
 
 The Fit class provides a uniform interface to multiple fitting backends:
-\iminuit~\citep{iminuit}, “scipy”,~\citep{2020SciPy-NMeth}, and
-“sherpa”~\citep{sherpa-2005,sherpa-2011}. Note that, for now, covariance matrix
-and errors are computed only for the fitting with \iminuit. However depending on
+
+\begin{itemize}
+	\item \iminuit~\citep{iminuit}
+	\item \code{scipy.optimize}~\citep{2020SciPy-NMeth}
+	\item Sherpa~\citep{sherpa-2011}
+\end{itemize}
+
+Note that, for now, covariance matrixand errors are computed only for the fitting with 
+\iminuit. However depending on
 the problem other optimizers can better perform, so sometimes it can be useful
 to run a pre-fit with alternative optimization methods. In future we plan to
 extend the supported fitting backends, including for example solutions based on Markov chain Monte Carlo.
@@ -1013,7 +1020,7 @@ the flux norm parameter around the fit minimum.
 This information is useful for inspecting the quality
 of a fit, for which asymptomatically a parabolic
 shape of the profile is expected at the best fit
-values (\todo{Reference to modeling / fitting section?}).
+values.
 
 The base class of all algorithms is the \code{Estimator}  class.
 The result of the flux point estimation are either stored in a
@@ -1060,7 +1067,7 @@ blocks for time series. So far \gammapy does not
 support 'unfolding' of \gammaray spectra.
 Methods for this will be implemented in a future version of \gammapy.
 
-Code example ~\ref{fig*:minted:gp_estimators} shows how to use
+The code example shown in Figure~\ref{fig*:minted:gp_estimators} shows how to use
 the \code{TSMapEstimator} objects with a given input \code{MapDataset}.
 In addition to the model it allows to specify the energy
 bins of the resulting flux and TS maps.
@@ -1080,7 +1087,7 @@ bins of the resulting flux and TS maps.
 \label{ssec:gammapy-analysis}
 The \code{gammapy.analysis} sub-module provides a high-level interface (HLI) for the most
 common use cases identified in \gammaray analyses. The included classes and methods
- can be used in Python scripts, notebooks or as commands within IPython
+ can be used in Python scripts, notebooks or as commands within \texttt{IPython}
 sessions. The HLI can also be used to automatise
 workflows driven by parameters declared in a configuration file in YAML format.
 This way, a full analysis can be executed via a single command line taking the
@@ -1091,9 +1098,7 @@ defined in the configuration \code{AnalysisConfig} objects and triggering the ex
 the \code{AnalysisStep} classes that define the identified common use cases. These
 steps include the following: observations selection with the \code{DataStore},  data
 reduction, excess map computation, model fitting, flux points estimation, and
-light curves production. The structure of the \code{Analysis} class allows to define
-custom AnalysisStep, so one could design and configure arbitrarily complex
-workflows. \todo{the latter is not true for v1.0..., include example YAML file?}
+light curves production.
 
 
 \subsection{gammapy.visualization}
@@ -1213,7 +1218,7 @@ astronomy also called \textit{aperture photometry}. The spectrum is typically me
 in two steps: first a parametric spectral model is fitted to the data and
 secondly flux points are computed in a pre-defined set of energy bins. The
 result of such an analysis performed on three simulated CTA observations is
-shown in Fig.~\ref{fig:cta_galactic_center}. In this case the spectrum was
+shown in Figure~\ref{fig:cta_galactic_center}. In this case the spectrum was
 measured in a circular aperture centered on the Galactic Center, in
 \gammaray~astronomy often called "on region". For such analysis the users first
 chooses a region of interest and energy binning, both defined by a
@@ -1429,7 +1434,7 @@ parabola is fitted to the almost five decades in energy $10\,{\rm GeV} -
 	300\,{\rm TeV}$. %% is the LP formula specified elsewhere?
 
 The result of the joint fit is displayed in
-Fig.~\ref{fig:multi_instrument_analysis}. We remark that the objective of this
+Figure~\ref{fig:multi_instrument_analysis}. We remark that the objective of this
 exercise is illustrative. We display the flexibility of \gammapy in
 simultaneously fitting multi-instrument data even at different levels of
 reduction, without aiming to provide a new measurement of the Crab Nebula
@@ -1445,8 +1450,8 @@ astronomy one typically observes two radiation production
 mechanisms, the so-called hadronic and leptonic scenarios.
 There are several Python packages that are able to model
 the \gammaray emission, given a physical scenario. Among those
-packages are  Agnpy \citep{agnpy}, Naima \citep{naima}, Jetset \citep{jetset}
-and Gamera \citep{gamera}.
+packages are  Agnpy~\citep{agnpy}, Naima~\citep{naima}, Jetset~\citep{jetset}
+and Gamera~\citep{gamera}.
 Tyically those emission models predict broadband emission from
 radio, up to the very high-energy \gammaray range.
 By relying on the multiple dataset types in \gammapy those
@@ -1463,9 +1468,9 @@ electron distribution scattering: the synchrotron radiation produced by
 the same electrons; near and far infrared photon fields and the cosmic
 microwave background (CMB). We adopted the prescription on the target
 photon fields provided in the
-documentation of the \textit{Naima} package \url{https://naima.readthedocs.io/en/latest/examples.html#crab-nebula-ssc-model}.
+documentation of the \textit{Naima} package \footnote{\url{https://naima.readthedocs.io/en/stable/examples.html\#crab-nebula-ssc-model}}.
 The best-fit inverse Compton spectrum is represented with a red dashed line in
-Fig.~\ref{fig:multi_instrument_analysis}.
+Figure~\ref{fig:multi_instrument_analysis}.
 
 \subsection{Surveys, Catalogs, and Population Studies}
 \label{ssec:surveys-catalogs-and-population-studies}
@@ -1606,15 +1611,15 @@ actions\footnote{\url{https://github.com/features/actions}}, blocking the
 processes and alerting developers when fails occur. This is the case of the
 continuous integration workflow, which monitors the execution of the test coverage
 suite\footnote{\url{https://pytest.org}} using datasets from the
-\textit{gammapy-data} repository. Tests scan not only the codebase but also the
+\textit{gammapy-data} repository\footnote{\url{https://github.com/gammapy/gammapy-data}}. Tests scan not only the codebase but also the
 code snippets present in docstrings of the scripts and in the RST documentation
 files, as well as in the tutorials provided in the form of Jupyter notebooks.
 
-Other automated tasks, executing in the \textit{gammapy-benchmarks} repository,
+Other automated tasks, executing in the \textit{gammapy-benchmarks}\footnote{\url{https://github.com/gammapy/gammapy-benchmarks}} repository,
 are responsible for numerical validation tests and benchmarks monitoring. Also
 tasks related with the release process are partially automated, and every
 contribution to the codebase repository triggers the documentation building and
-publishing workflow within the \textit{gammapy-docs} repository
+publishing workflow within the \textit{gammapy-docs} repository\footnote{\url{https://github.com/gammapy/gammapy-docs}}
 (see Sec.~\ref{ssec:software-distribution} and Sec.~\ref{ssec:documentation-and-user-support}).
 
 This small ecosystem of interconnected up-to-date repositories, automated tasks
@@ -1688,12 +1693,12 @@ that do not fit in the \gammapy core documentation but which may be relevant as
 specific use cases. Contributions happen via pull requests to the
 \textit{gammapy-recipes} \github repository and merged after a short review. All
 notebooks in the repository are tested and published in the \gammapy recipes
-webpage\footnote{\url{https://gammapy.\github.io/gammapy-recipes}} automatically
+webpage\footnote{\url{https://gammapy.github.io/gammapy-recipes}} automatically
 using \github actions.
 
 A growing community of users is gathering around the Slack
 messaging\footnote{\url{https://gammapy.slack.com}} and \github
-discussions\footnote{\url{https://\github.com/gammapy/gammapy/discussions}}
+discussions\footnote{\url{https://github.com/gammapy/gammapy/discussions}}
 support forums, providing valuable feedback on the \gammapy functionalities,
 interface and documentation. Other communication channels have been set like
 mailing lists, a Twitter account\footnote{\url{https://twitter.com/gammapyST}},
@@ -1758,15 +1763,16 @@ One of the most important goals of the \gammapy project is to support open and
 reproducible science results. Thus we decided to write this manuscript
 openly and publish the Latex source code along with the associated
 Python scripts to create the figures
-in \url{https://github.com/gammapy/gammapy-v1.0-paper}.
+in an open repository~\footnote{\url{https://github.com/gammapy/gammapy-v1.0-paper}}.
 This \github repository also documents the history of the creation
 and evolution of the manuscript with time. To simplify the reproducibility
 of this manuscript including figures and text, we relied on the tool
 \textit{showyourwork}~\citep{Luger2021}. This tool coordinates the building
 process and software as well as data dependencies such, that the complete
 manuscript can be reproduced with a single \code{make} command, after
-downloading the source repository. See \url{https://github.com/gammapy/gammapy-v1.0-paper/blob/main/README.md} for detailed
-instructions. Almost all figures in this manuscript provide a link
+downloading the source repository. For this we provide
+detailed instructions online\footnote{\url{https://github.com/gammapy/gammapy-v1.0-paper/blob/main/README.md}}.
+Almost all figures in this manuscript provide a link
 to a Python script, that was used to produce it. This means all
 example analyses presented in Sec.\ref{sec:applications} link to
 actually working Python source code.
