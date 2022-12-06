@@ -106,7 +106,7 @@ def make_pie():
     figsize = config.FigureSizeAA()
     fig = plt.figure(figsize=figsize.inch)
 
-    ax = fig.add_axes([0, 0, 0.95, 0.95])
+    ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
 
     file_data = pd.read_csv(TEMPFILE, sep=", ", engine="python")
     df = file_data[:-1]

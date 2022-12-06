@@ -7,7 +7,7 @@ from gammapy.scripts.download import progress_download
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
-BASE_URL = "https://github.com/gammapy/gammapy-data/raw/master/"
+BASE_URL = "https://github.com/gammapy/gammapy-data/raw/v1.0/"
 PATH = Path(__file__).parent.parent
 PATH_DATA = PATH / "src/data"
 

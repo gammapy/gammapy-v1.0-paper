@@ -202,7 +202,8 @@ rule prepare_multi_instrument:
     output:
         "src/data/multi-instrument/datasets/flux_points/crab_magic_flux_points.fits",
         "src/data/multi-instrument/datasets/flux_points/crab_fermi_flux_points.fits",
-        "src/data/multi-instrument/results/crab_multi_instrument_fit.yaml",
+        "src/data/multi-instrument/results/crab_multi_instrument_fit_lp_model.yaml",
+        "src/data/multi-instrument/results/crab_multi_instrument_fit_naima_ic_model.yaml",
     conda:
         "environment.yml"
     shell:
