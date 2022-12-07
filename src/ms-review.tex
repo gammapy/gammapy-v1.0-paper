@@ -452,14 +452,14 @@ where:
   i.e. $E_{\rm disp}(\mu|p_{\rm true}, E_{\rm true})$.
 \end{itemize}
 
-An additional component of DL3 IRFs is the residual hadronic background model $$.
+An additional component of DL3 IRFs is the residual hadronic background model $Bkg$.
 It represents the  intensity of mis-identified charged particles events that are expected
 during an observation. It is defined as a function of the measured position in the field-of-view
 and measured energy.
 
 In total, the expected number of events in a \gammaray observation is given by:
 \begin{align}
-N(p, E) {\rm d}p {\rm d}E =  E_{\rm disp} \star (PSF \star A_{\rm eff} t_{\rm obs} t_{\rm obs}) + Bkg(p, E)
+N(p, E) {\rm d}p {\rm d}E =  E_{\rm disp} \star (PSF \star A_{\rm eff} t_{\rm obs} \Phi) + Bkg(p, E)
 \end{align}
 
 \subsection{Data analysis workflow}
@@ -504,6 +504,9 @@ with OFF background measurements). The datasets are used to perform joint-likeli
 fitting allowing to combine different measurements, e.g. from different observations
 but also from different instruments or event classes. They can also be used for binned
 simulation as well as event sampling to simulate DL3 events data.
+The various DL4 objects and the associated functionalities are
+implemented in the \code{gammapy.datasets} subpackage (see Section~\ref{ssec:gammapy-datasets}).
+
 
 The next step is then typically to model and fit the datasets, either
 individually, or in a joint likelihood analysis. For this purpose \gammapy
@@ -515,6 +518,9 @@ mechanisms of accelerated particle populations (e.g. inverse Compton or $\pi^{o}
 Independently or subsequently to the global modelling, the data can be
 re-grouped to compute flux points, light curves and flux as well as significance
 maps in energy bands.
+The modelling and fitting functionalities are implemented in the \code{gammapy.modeling},
+\code{gammapy.estimators} and \code{gammapy.stats} subpackages (see respectively
+Section~\ref{ssec:gammapy-modeling}, \ref{ssec:gammapy-estimators} and \ref{ssec:gammapy-stats}).
 
 \section{\gammapy Package}
 \label{sec:gammapy-package}
