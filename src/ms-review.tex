@@ -190,57 +190,31 @@
 % 5 {} token are mandatory
 
 \abstract{
-	% TODO: the feature are still to detailed and partly copy and pasted form the ICRS abstract...avoid this
-	% context heading (optional)
-	% {} leave it empty if necessary
-	%{Gammapy context:}
-	Historically, the data and the analysis software of \gammaray astronomy experiments are
-	proprietary to the collaborations operating them. The next generation of \gammaray instruments, as the Cherenkov Telescope Array
-	(CTA) will be operated as open observatories, with public
-	data. This introduces the need to have a high-level analysis software available to the astronomical community. In
-	this article we present the first major release of \gammapy, the Long-term Support (LTS) v1.0, a
-	community-developed open-source Python package for \gammaray astronomy. We
-	present its general design and provide an
-	overview of the analysis methods and features it implements. Starting from
-	event lists and a description of the specific instrument response functions
-	(IRF) stored in open FITS based data formats, \gammapy implements the reduction
-	of the input data and instrument response to binned WCS, HEALPix or region based
-	data structures. Thereby it
-	handles the dependency of the IRFs with time, energy as well as position on the
-	sky. It offers a variety of background estimation methods for spectral, spatial
-	and spectro-morphological analysis. Counts, background and IRFs data are
-	bundled in datasets and can be serialised, rebinned and stacked. \gammapy
-	supports to model binned data using Poisson
-	maximum likelihood fitting. It comes with built-in spectral, spatial and
-	temporal models, support for particle radiation emission spectra as well as
-	support for custom user models, to model e.g.,
-	energy dependent morphology of \gammaray sources. Multiple datasets can be
-	combined in a joint-likelihood approach to either handle time dependent IRFs,
-	different classes of events or combination of data from multiple instruments.
-	Gammapy also implements methods to estimate flux points, likelihood
-	profiles per energy bin, light curves as well as flux and signficance maps in
-	energy bins.  We further describe the general
-	development approach and how \gammapy integrates into ecosystem of other
-	scientific and astronomical Python packages. We also present analysis examples
-	with simulated CTA data and provide results of scientific validation analyses
-	using data of existing instruments such as \hess and \fermi.
 
-	% The \gammaray can be considered as the last frontier
-	% In the last two decades the measurement of \gammaray emission from the universe has
-	% evolved from a niche
+	{Context} In the last two decades the measurement of \gammaray emission from the universe has
+	evolved from a niche area of closed collaborations operating with proprietary data and software into
+	an active and exciting field of astrophysics. The next generation of \gammaray instruments,
+	such as the Cherenkov Telescope Array (CTA), will be operated as open observatories with publicly available
+	data, which will require open high-level astronomy software customised for high energy astrophysics.
 
-	% aims heading (mandatory)
-	%{Gammapy aims}
-	%Reproducible analyses, share algorithms etc.
+	{Aims} In this article, we present the first the Long-term Support (LTS) release of \gammapy v1.0. \gammapy
+	is a community-developed, open-source Python package for \gammaray astronomy. Integrated into the general
+	python eco-system, it is built on Numpy, Scipy and Astropy and uses open FITS based data formats for serialisation.
+	It provides a uniform platform for reduction and modelling of data from many \gammaray instruments.
 
-	% methods heading (mandatory)
-	%{Gammapy methods}
+	{Methods} Starting from event list and instrument response functions at the so called "Data Level 3",
+	\gammapy provides pipelines for reduction of the input data to binned WCS, HEALPix or region based data structures.
+	A variety of background reduction methods, including traditional techniques like the Reflected and Ring regions,
+	as well as novel 3D Field of View Likelihood techniques, are supported. The binned data can then be modelled
+	using Poisson maximum likelihood fitting. While a variety of in-built spectral, temporal and spatial models
+	are supplied, it also supports implementation of custom user defined models. Estimation of flux points, likelihood
+	profiles and light curves are also implemented.
 
-	% results heading (mandatory)
-	%{Gammapy results}
-
-	% conclusions heading (optional), leave it empty if necessary
-	%{Gammapy conclusions}
+	{Results} The flexible API allows a joint likelihood analysis between different datasets,
+	thus providing a simple platform for handling time dependent instrument responses,
+	different events classes, or combining data from multiple separate instruments. The results are continuously
+	validated with previously published ones. We show analysis examples using open data from various observatories: \fermi., \hess , MAGIC, CTA (simulated),
+	and HAWC. 
 }
 
 % \date{Received September 15, 1996; accepted March 16, 1997}
