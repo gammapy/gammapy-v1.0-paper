@@ -411,8 +411,14 @@ to get a prediction for the expected counts measured by the instrument. Paramete
 of the model are then estimated using statistical techniques such as maximum likelihood
 estimation (MLE).
 
-In the most general way we can write the expected number of detected events at measured
-position $p$ and energy $E$:
+\subsection{Events and Instrument Response Functions: the Data Level 3}
+
+\gammaray data at the Data Level 3 (DL3) consists in lists of gamma-like events and their
+corresponding instrument response functions (IRFs). The latter include the effective area,
+point spread function (PSF), energy dispersion and residual hadronic background.
+
+In the most general way we can write the expected number of detected events from a given astrophysical source
+of \gammaray at measured position $p$ and energy $E$:
 \begin{align}
    N(p, E) {\rm d}p {\rm d}E = &t_{\rm obs} \int_{E_{\rm true}} \int_{p_{\rm true}}  R(p, E|p_{\rm true}, E_{\rm true})\\
    &\times \Phi(p_{\rm true}, E_{\rm true}) {\rm d}E_{\rm true} {\rm d}p_{\rm true}
@@ -446,10 +452,19 @@ where:
   i.e. $E_{\rm disp}(\mu|p_{\rm true}, E_{\rm true})$.
 \end{itemize}
 
-\gammaray data at the Data Level 3 (DL3) therefore consists in lists of gamma-like events and their
-corresponding instrument response functions (IRFs). The latter include the aforementioned
-effective area, point spread function (PSF), energy dispersion and residual hadronic background.
-The handling of DL3 data is performed by classes and methods
+An additional component of DL3 IRFs is the residual hadronic background model $$.
+It represents the  intensity of mis-identified charged particles events that are expected
+during an observation. It is defined as a function of the measured position in the field-of-view
+and measured energy.
+
+In total, the expected number of events in a \gammaray observation is given by:
+\begin{align}
+N(p, E) {\rm d}p {\rm d}E =  E_{\rm disp} \star (PSF \star A_{\rm eff} t_{\rm obs} t_{\rm obs}) + Bkg(p, E)
+\end{align}
+
+\subsection{Data analysis workflow}
+
+In Gammapy, the handling of DL3 data is performed by classes and methods
 in the \code{gammapy.data} (see Section~\ref{ssec:gammapy-data}) and the \code{gammapy.irf}
 (see Section~\ref{ssec:gammapy-irf}) subpackages.
 
@@ -460,8 +475,8 @@ time and observation conditions.
 The next step of the analysis is the data reduction, where all observation events and instrument
 responses are filled into or projected onto a common physical coordinate system, defined by
 a map geometry. The definition of the map geometry typically consists of a spectral dimension
-defined by a binned energy axis and of a spatial dimension, which either defines 
-a spherical projection from celestial coordinates to an pixelised image space
+defined by a binned energy axis and of spatial dimensions, which either define 
+a spherical projection from celestial coordinates to a pixelised image space
 (for 3-dimensional or cube analysis) or a region on the sky (for regular spectral analysis).
 The \code{gammapy.maps} subpackage provides general multidimensional geometry objects
 (\code{Geom}) and the associated data structures (\code{Maps}) (see Section~\ref{ssec:gammapy-maps}).
