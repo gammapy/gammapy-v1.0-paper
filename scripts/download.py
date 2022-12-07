@@ -37,6 +37,14 @@ FILENAMES_HAWC = [
     "HAWC19_flux_points.fits",
 ]
 
+FILENAMES_HAWC_DL3 = [
+    "hdu-index-table-GP-Crab.fits.gz",
+    "obs-index-table-GP-Crab.fits.gz",
+    "irfs/EffectiveAreaMap_Crab_fHitbin5GP.fits.gz",
+    "irfs/PSFMap_Crab_fHitbin5GP.fits.gz",
+]
+
+
 FILENAMES_CTA = [
     "index/gps/hdu-index.fits.gz",
     "index/gps/obs-index.fits.gz",
@@ -124,6 +132,17 @@ def download_hawc_data():
         progress_download(source, destination)
 
 
+def download_hawc_dl3_data():
+    hawc_path = PATH_DATA / f"hawc-dl3/"
+    hawc_path.mkdir(exist_ok=True, parents=True)
+
+    for filename in FILENAMES_HAWC_DL3:
+        destination = hawc_path / filename
+        source = BASE_URL + "hawc_crab/" + filename
+        log.info(f"Downloading {source}")
+        progress_download(source, destination)
+
+
 def download_hess_pks2155_data():
     pks_path = PATH_DATA / f"lightcurve/input"
     pks_path.mkdir(exist_ok=True, parents=True)
@@ -151,6 +170,7 @@ DATASETS_REGISTRY = {
     "cta-1dc": download_cta_data,
     "pks-flare": download_hess_pks2155_data,
     "multi-instrument": download_multi_instrument,
+    "hawc-dl3": download_hawc_dl3_data
 }
 
 

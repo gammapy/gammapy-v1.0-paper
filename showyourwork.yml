@@ -43,6 +43,10 @@ dependencies:
         - src/data/lightcurve/input/obs-index.fits.gz
         - src/data/fermi-ts-map/input/fermi-3fhl-gc-exposure-cube.fits.gz
         - src/data/fermi-ts-map/input/fermi-3fhl-gc-psf-cube.fits.gz
+        - src/data/hawc-dl3/hdu-index-table-GP-Crab.fits.gz
+        - src/data/obs-index-table-GP-Crab.fits.gz
+        - src/data/irfs/EffectiveAreaMap_Crab_fHitbin5GP.fits.gz
+        - src/data/irfs/PSFMap_Crab_fHitbin5GP.fits.gz
 
 
 
