@@ -21,6 +21,9 @@ obs_cta = data_store.obs(110380)
 data_store = DataStore.from_dir("../data/lightcurve/input/")
 obs_hess = data_store.obs(33787)
 
+data_store = DataStore.from_dir("../data/multi-instrument/input/magic")
+obs_magic = data_store.obs(5029748, required_irf=["aeff"])
+
 
 figsize = config.FigureSizeAA(aspect_ratio=2.6, width_aa="two-column")
 
@@ -43,10 +46,16 @@ aeff_fermi = exposure_fermi.to_region_nd_map(func=np.mean) / fermi_livetime
 
 ax_aeff = axes[0]
 ax_aeff.set_title("Effective Area")
+ax_aeff.xaxis.set_units(u.TeV)
+ax_aeff.yaxis.set_units(u.Unit("m2"))
+
 aeff_hess = obs_hess.aeff.slice_by_idx({"energy_true": slice(42, None)})
 obs_cta.aeff.plot_energy_dependence(ax=ax_aeff, offset=offset, label="CTA", **kwargs)
 aeff_hess.plot_energy_dependence(ax=ax_aeff, offset=offset, label="H.E.S.S.", **kwargs)
 aeff_fermi.plot(ax=ax_aeff, marker="None", label="Fermi-LAT", **kwargs)
+
+aeff_magic = obs_magic.aeff.slice_by_idx({"energy_true": slice(2, 24)})
+aeff_magic.plot_energy_dependence(ax=ax_aeff, offset=[0.4] * u.deg, label="MAGIC", **kwargs)
 
 ax_aeff.set_xlim(*xlim)
 ax_aeff.set_yscale("log")
