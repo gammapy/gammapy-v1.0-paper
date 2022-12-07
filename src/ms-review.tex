@@ -278,17 +278,6 @@ use these images to reconstruct the properties of the incident particle.
 Those instruments have a limited field of view (FoV) and duty cycle, but
 good energy and angular resolution \citep{2015CRPhy..16..610D}.
 
-\begin{figure*}[t]
-	\centering
-	\includegraphics[width=\textwidth]{figures/big-picture.pdf}
-    \caption{
-        Relation of \gammapy to different \gammaray instruments and the data formats.
-        \gammapy provides access to the data stored in GADF format and the
-        high-level data analysis functionality.}
-	\label{fig:big_picture}
-
-\end{figure*}
-
 Water Cherenkov observatories detect directly particles from the tail of the
 shower when it reaches the ground. These instruments have very
 large field-of-view, large duty-cycle but higher energy threshold and
@@ -636,7 +625,7 @@ and offset angle bin. Similarly, \code{PSFKing} takes into account the gamma and
 sigma parameters. The general \code{ParametricPSF} class allows users to create a
 custom PSF with a parametric representation different from Gaussian(s) or King profile(s).
 The generic \code{PSF3D} class stores a radial symmetric profile of a
-PSF to represent non-parametric shapes, againa depending on true energy 
+PSF to represent non-parametric shapes, again depending on true energy
 of offset form the poiting position.
 
 To handle the change of the PSF with the observational offset during the analysis 
