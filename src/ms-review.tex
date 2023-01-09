@@ -191,30 +191,36 @@
 
 \abstract{
 
-	{Context} In the last two decades the measurement of \gammaray emission from the universe has
-	evolved from a niche area of closed collaborations operating with proprietary data and software into
-	an active and exciting field of astrophysics. The next generation of \gammaray instruments,
-	such as the Cherenkov Telescope Array (CTA), will be operated as open observatories with publicly available
-	data, which will require open high-level astronomy software customised for high energy astrophysics.
+	{Context} Traditionally, the \gammaray universe has been probed
+	 by small collaborations of scientists employing proprietary data and analysis software.
+	 However, the next generation of \gammaray instruments,
+	 such as the the Cherenkov Telescope Array (CTA), will be operated as open observatories.
+	 Alongside the data, the observatories will make available to the astronomical community
+	 software tools for their analysis. This necessity prompted the development, in the last decade,
+	 of open high-level astronomy software customised for high energy astrophysics.
 
-	{Aims} In this article, we present the first the Long-term Support (LTS) release of \gammapy v1.0. \gammapy
-	is a community-developed, open-source Python package for \gammaray astronomy. Integrated into the general
-	python eco-system, it is built on Numpy, Scipy and Astropy and uses open FITS based data formats for serialisation.
-	It provides a uniform platform for reduction and modelling of data from many \gammaray instruments.
+	{Aims} In this article, we present \gammapy, an open-source python package for the analysis of \gammaray data,
+	and illustrate the functionalities of the first long-term release of the software, version 1.0.
+	Built on the modern python scientific ecosystem, \gammapy provides a uniform platform for reducing and
+	modelling data from different gamma-ray instruments. \gammapy complies with several well-established
+	data conventions in high-energy astrophysics, providing serialised data products that are interoperable
+	with other software.
 
 	{Methods} Starting from event list and instrument response functions at the so called "Data Level 3",
-	\gammapy provides pipelines for reduction of the input data to binned WCS, HEALPix or region based data structures.
-	A variety of background reduction methods, including traditional techniques like the Reflected and Ring regions,
-	as well as novel 3D Field of View Likelihood techniques, are supported. The binned data can then be modelled
-	using Poisson maximum likelihood fitting. While a variety of in-built spectral, temporal and spatial models
-	are supplied, it also supports implementation of custom user defined models. Estimation of flux points, likelihood
-	profiles and light curves are also implemented.
+	\gammapy provides pipelines for creating reduced data binned in energy and coordinates.
+	To facilitate the rejection of the hadronic background, several techniques for background estimation
+	 are implemented in the package.
+	 After the data are binned, the flux and morphology of one or more \gammaray sources can be estimated
+	 using Poisson maximum likelihood fitting
+	 and assuming a variety of spectral, temporal, and spatial models.
+	  Estimation of flux points, likelihood profiles and light curves are also implemented.
 
-	{Results} The flexible API allows a joint likelihood analysis between different datasets,
-	thus providing a simple platform for handling time dependent instrument responses,
-	different events classes, or combining data from multiple separate instruments. The results are continuously
-	validated with previously published ones. We show analysis examples using open data from various observatories: \fermi., \hess , MAGIC, CTA (simulated),
-	and HAWC. 
+	{Results} After describing the structure of the package, we demonstrate the capabilities of \gammapy
+	performing several traditional analyses in gamma-ray astronomy with publicly available data:
+	spectral and spectro-morphological analyses, estimation of the light curve of a source.
+	The flexibility and power of the software is displayed in a final multi-instrument example,
+	where data sets from different instruments, at different stages of data reduction,
+	are simultaneously fitted with a flux model produced by another astrophysical software.
 }
 
 % \date{Received September 15, 1996; accepted March 16, 1997}
