@@ -404,28 +404,24 @@ The other sequence, referred to as high-level analysis, deals with the extractio
 quantities related to \gammaray sources and the production of high-level products such as spectra,
 light curves and catalogs. The methods applied here are more generic and are broadly
 shared across the field. They also frequently imply joint analysis of multi-instrument data.
-To extract physically relevant information, the measured counts on an instrument are usually
-compared to a parametrised model of the true intensity distribution of \gammaray source in a given
-field-of-view, which is "forward folded" through a model of the instrument response
-to get a prediction for the expected counts measured by the instrument. Parameters
-of the model are then estimated using statistical techniques such as maximum likelihood
-estimation (MLE).
 
-\subsection{Predicted counts and Instrument Response Functions}
+%\subsection{Predicted counts and Instrument Response Functions}
 
+To extract physically relevant information, such as the flux, spatial or spectral shape of one or more sources,
+an analytical model is commonly adopted to describe the intensity of gamma-ray sources as a function of the energy,
+$E_{true}$, and of the position in the field of view, $p_{true}$:
+$$ \Phi(p_{\rm true}, E_{\rm true}, \hat{\theta}) \quad \mathrm{[TeV^{-1}cm^{-2}s^{-1}]} $$
+where $\hat{\theta}$ is a set of model parameters that can be adjusted in a fit. To convert this analytical flux model
+into a prediction on the number of gamma-ray events, $N_{pred}$, with their estimated energy $E$  and position $p$, the model
+is convolved through the response function of the instrument.
 
-In the most general way we can write the expected number of detected events from a given astrophysical source
-of \gammaray at measured position $p$ and energy $E$:
+In the most general way we can write the expected number of detected events from the sky model $\Phi$ at measured position $p$ and energy $E$, for
+a given set of parameters $\hat{\theta}$:
 \begin{align}
-   N(p, E) {\rm d}p {\rm d}E = &t_{\rm obs} \int_{E_{\rm true}} \int_{p_{\rm true}}  R(p, E|p_{\rm true}, E_{\rm true})\\
-   &\times \Phi(p_{\rm true}, E_{\rm true}) {\rm d}E_{\rm true} {\rm d}p_{\rm true}
+   N(p, E, \hat{\theta}) {\rm d}p {\rm d}E = &t_{\rm obs} \int_{E_{\rm true}} \int_{p_{\rm true}}  R(p, E|p_{\rm true}, E_{\rm true})\\
+   &\times \Phi(p_{\rm true}, E_{\rm true}, \hat{\theta} )) {\rm d}E_{\rm true} {\rm d}p_{\rm true}
 \end{align}
-where
-\begin{itemize}
-\item $R(p, E| p_{\rm true}, E_{\rm true})$ is the instrument response
-\item $\Phi(p_{\rm true}, E_{\rm true})$ is the parametrised sky flux model
-\item $t_{\rm obs}$ is the observation time
-\end{itemize}
+where $R(p, E| p_{\rm true}, E_{\rm true}$ is the instrument response and $t_{\rm obs}$ is the observation time
 
 A common assumption is that the instrument response can be simplified as the product
 of three independent functions:
@@ -460,12 +456,12 @@ and measured energy.
 
 In total, the expected number of events in a \gammaray observation is given by:
 \begin{align}
-N(p, E) {\rm d}p {\rm d}E =  E_{\rm disp} \star (PSF \star A_{\rm eff} t_{\rm obs} \Phi) + Bkg(p, E)
+  N(p, E, \hat{\theta})\ {\rm d}p\ {\rm d}E =  &E_{\rm disp} \star \left[ PSF \star \left( A_{\rm eff} \times t_{\rm obs} \times \Phi(\hat{\theta}) \right) \right]\\
+                       & + Bkg(p, E)
 \end{align}
 
-In practice, the background model is subject to numerous uncertainties and needs to be corrected on the data.
-More frequently, a background model is not even available and the background contribution has to be estimated
-directly from the data.
+Finally, predicted and observed events, $N_{obs}$, can be then combined in a likelihood function, $\mathcal{L}(\hat{\theta}, N_{obs})$, usually Poissonian, that is maximised to obtain the best-fit parameters of the flux model, $\bar{\theta}$. 
+
 
 \subsection{Data analysis workflow}
 
