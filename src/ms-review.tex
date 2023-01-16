@@ -449,12 +449,12 @@ where:
   i.e. $E_{\rm disp}(\mu|p_{\rm true}, E_{\rm true})$.
 \end{itemize}
 
-\gammaray data at the Data Level 3 (DL3) therefore consist in lists of gamma-like events and their
-corresponding instrument response functions (IRFs). The latter include the effective area,
-point spread function (PSF) and energy dispersion.
+\gammaray data at the Data Level 3 (DL3) therefore consist of lists of gamma-like events and their
+corresponding instrument response functions (IRFs). The latter include the effective area ($A_{\rm eff}$),
+point spread function (PSF) and energy dispersion ($E_{\rm disp}$).
 
 An additional component of DL3 IRFs is the residual hadronic background model $Bkg$.
-It represents the  intensity of mis-identified charged particles events that are expected
+It represents the intensity of charged particles misidentified as gamma-rays that are expected
 during an observation. It is defined as a function of the measured position in the field-of-view
 and measured energy.
 
@@ -464,7 +464,7 @@ N(p, E) {\rm d}p {\rm d}E =  E_{\rm disp} \star (PSF \star A_{\rm eff} t_{\rm ob
 \end{align}
 
 In practice, the background model is subject to numerous uncertainties and needs to be corrected on the data.
-Frequently, a background model is not even available and the background contribution has to be estimated
+More frequently, a background model is not even available and the background contribution has to be estimated
 directly from the data.
 
 \subsection{Data analysis workflow}
