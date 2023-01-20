@@ -190,57 +190,37 @@
 % 5 {} token are mandatory
 
 \abstract{
-	% TODO: the feature are still to detailed and partly copy and pasted form the ICRS abstract...avoid this
-	% context heading (optional)
-	% {} leave it empty if necessary
-	%{Gammapy context:}
-	Historically, the data and the analysis software of \gammaray astronomy experiments are
-	proprietary to the collaborations operating them. The next generation of \gammaray instruments, as the Cherenkov Telescope Array
-	(CTA) will be operated as open observatories, with public
-	data. This introduces the need to have a high-level analysis software available to the astronomical community. In
-	this article we present the first major release of \gammapy, the Long-term Support (LTS) v1.0, a
-	community-developed open-source Python package for \gammaray astronomy. We
-	present its general design and provide an
-	overview of the analysis methods and features it implements. Starting from
-	event lists and a description of the specific instrument response functions
-	(IRF) stored in open FITS based data formats, \gammapy implements the reduction
-	of the input data and instrument response to binned WCS, HEALPix or region based
-	data structures. Thereby it
-	handles the dependency of the IRFs with time, energy as well as position on the
-	sky. It offers a variety of background estimation methods for spectral, spatial
-	and spectro-morphological analysis. Counts, background and IRFs data are
-	bundled in datasets and can be serialised, rebinned and stacked. \gammapy
-	supports to model binned data using Poisson
-	maximum likelihood fitting. It comes with built-in spectral, spatial and
-	temporal models, support for particle radiation emission spectra as well as
-	support for custom user models, to model e.g.,
-	energy dependent morphology of \gammaray sources. Multiple datasets can be
-	combined in a joint-likelihood approach to either handle time dependent IRFs,
-	different classes of events or combination of data from multiple instruments.
-	Gammapy also implements methods to estimate flux points, likelihood
-	profiles per energy bin, light curves as well as flux and signficance maps in
-	energy bins.  We further describe the general
-	development approach and how \gammapy integrates into ecosystem of other
-	scientific and astronomical Python packages. We also present analysis examples
-	with simulated CTA data and provide results of scientific validation analyses
-	using data of existing instruments such as \hess and \fermi.
 
-	% The \gammaray can be considered as the last frontier
-	% In the last two decades the measurement of \gammaray emission from the universe has
-	% evolved from a niche
+	{Context} Traditionally, the \gammaray universe has been probed
+	 by small collaborations of scientists employing proprietary data and analysis software.
+	 However, the next generation of \gammaray instruments,
+	 such as the the Cherenkov Telescope Array (CTA), will be operated as open observatories.
+	 Alongside the data, the observatories will make available to the astronomical community
+	 software tools for their analysis. This necessity prompted the development, in the last decade,
+	 of open high-level astronomy software customised for high energy astrophysics.
 
-	% aims heading (mandatory)
-	%{Gammapy aims}
-	%Reproducible analyses, share algorithms etc.
+	{Aims} In this article, we present \gammapy, an open-source python package for the analysis of \gammaray data,
+	and illustrate the functionalities of the first long-term release of the software, version 1.0.
+	Built on the modern python scientific ecosystem, \gammapy provides a uniform platform for reducing and
+	modelling data from different gamma-ray instruments. \gammapy complies with several well-established
+	data conventions in high-energy astrophysics, providing serialised data products that are interoperable
+	with other software.
 
-	% methods heading (mandatory)
-	%{Gammapy methods}
+	{Methods} Starting from event list and instrument response functions",
+	\gammapy provides pipelines for creating reduced data binned in energy and coordinates.
+	To facilitate the handling of the hadronic background, several techniques for background estimation
+	 are implemented in the package.
+	 After the data are binned, the flux and morphology of one or more \gammaray sources can be estimated
+	 using Poisson maximum likelihood fitting
+	 and assuming a variety of spectral, temporal, and spatial models.
+	  Estimation of flux points, likelihood profiles and light curves are also implemented.
 
-	% results heading (mandatory)
-	%{Gammapy results}
-
-	% conclusions heading (optional), leave it empty if necessary
-	%{Gammapy conclusions}
+	{Results} After describing the structure of the package, we demonstrate the capabilities of \gammapy
+	performing several traditional analyses in gamma-ray astronomy with publicly available data:
+	spectral and spectro-morphological analyses, estimation of the light curve of a source.
+	The flexibility and power of the software are displayed in a final multi-instrument example,
+	where data sets from different instruments, at different stages of data reduction,
+	are simultaneously fitted with a flux model produced by another astrophysical software.
 }
 
 % \date{Received September 15, 1996; accepted March 16, 1997}
