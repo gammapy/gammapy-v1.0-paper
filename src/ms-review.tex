@@ -45,6 +45,9 @@
 \newcommand{\gammapy}{Gammapy\xspace}
 \newcommand{\scipy}{Scipy\xspace}
 \newcommand{\numpy}{Numpy\xspace}
+\newcommand{\iminuit}{IMinuit\xspace}
+\newcommand{\sherpa}{Sherpa\xspace}
+
 
 \newcommand{\hess}{H.E.S.S.\xspace}
 \newcommand{\hawc}{HAWC\xspace}
@@ -63,7 +66,6 @@
 \newcommand{\gadf}{GADF\xspace}
 \newcommand{\milagro}{MILAGRO\xspace}
 \newcommand{\github}{GitHub\xspace}
-\newcommand{\iminuit}{IMinuit}
 
 
 % Front matter
@@ -952,7 +954,7 @@ processes in jetted Active Galactic Nuclei (AGN) can be wrapped into
 \subsubsection{Fit}
 \label{sssec:fit}
 
-The \code{Fit} class provides methods to fit i.e., optimise parameters and estimate
+The \code{Fit} class provides methods to fit i.e., optimise model parameters and estimate
 parameter errors and correlations. It interfaces with a \code{Datasets} object, which
 in turn is connected to a \code{Models} object containing the model parameters in its
 \code{Parameters} object. Models can be unique for a given dataset, or contribute to
@@ -960,21 +962,20 @@ multiple datasets, allowing e.g., to do a joint fit to
 multiple IACT datasets, or to a joint IACT and \fermi dataset. Many
 examples are given in the tutorials.
 
-\todo{Add fit code example...?}
 
-The Fit class provides a uniform interface to multiple fitting backends:
+The \code{Fit} class provides a uniform interface to multiple fitting backends:
 
 \begin{itemize}
 	\item \iminuit~\citep{iminuit}
 	\item \code{scipy.optimize}~\citep{2020SciPy-NMeth}
-	\item Sherpa~\citep{sherpa-2011}
+	\item \sherpa~\citep{sherpa-2011}
 \end{itemize}
 
-Note that, for now, covariance matrixand errors are computed only for the fitting with 
+Note that, for now, covariance matrix and errors are computed only for the fitting with 
 \iminuit. However depending on
 the problem other optimizers can better perform, so sometimes it can be useful
 to run a pre-fit with alternative optimization methods. In future we plan to
-extend the supported fitting backends, including for example solutions based on Markov chain Monte Carlo.
+extend the supported fitting backends, including for example solutions based on Markov chain Monte Carlo methods.
 \footnote{a prototype is available in gammapy-recipes,
 	\url{https://gammapy.github.io/gammapy-recipes/_build/html/notebooks/mcmc-sampling-emcee/mcmc_sampling.html}
 }
