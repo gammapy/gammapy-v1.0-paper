@@ -1,9 +1,10 @@
 from pathlib import Path
+
 from gammapy.datasets import (
+    Datasets,
+    FluxPointsDataset,
     MapDataset,
     SpectrumDatasetOnOff,
-    FluxPointsDataset,
-    Datasets
 )
 
 path = Path("$GAMMAPY_DATA")
@@ -19,13 +20,11 @@ spectrum_dataset = SpectrumDatasetOnOff.read(
 )
 
 flux_points_dataset = FluxPointsDataset.read(
-    path / "tests/spectrum/flux_points/diff_flux_points.fits",
+    path / "hawc_crab/HAWC19_flux_points.fits",
     name="flux-points-dataset",
 )
 
 
-datasets = Datasets([
-    map_dataset, spectrum_dataset, flux_points_dataset
-])
+datasets = Datasets([map_dataset, spectrum_dataset, flux_points_dataset])
 
 print(datasets["map-dataset"])
