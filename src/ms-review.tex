@@ -571,7 +571,8 @@ example, to read \fermi data, the user can read separately their event list
 IRF class representing the response functions provided by \fermi, see
 example in Section~\ref{ssec:multi-instrument-analysis}.
 %
-\begin{figure}[ht!]
+\begin{figure}
+	\small
 	\import{code-examples/generated/}{gp_data}
 	\caption{
         Using \code{gammapy.data} to access DL3 level data with a \code{DataStore} object.
@@ -693,6 +694,7 @@ This allows uses to perform the same higher level operations on maps
 independent of the underlying pixelisation scheme.
 
 \begin{figure}
+	\small
 	\import{code-examples/generated/}{gp_maps}
 
 	\caption{
@@ -750,6 +752,7 @@ for users as well as handling the underlying geometric operations.
 \label{ssec:gammapy-datasets}
 %
 \begin{figure}
+	\small
 	\import{code-examples/generated/}{gp_datasets}
 	\caption{
         Using \code{gammapy.datasets} to read existing reduced binned datasets.
@@ -786,6 +789,7 @@ methods.
 \label{ssec:gammapy-makers}
 %
 \begin{figure}
+	\small
     \import{code-examples/generated/}{gp_makers}
 	\caption{
         Using \code{gammapy.makers} to reduce DL3 level data into a
@@ -852,6 +856,7 @@ likelihood profiles to measure errors and upper limits. The code example
 significance~\citep{LiMa} of a set of measurements.
 
 \begin{figure}
+	\small
 	\import{code-examples/generated/}{gp_stats}
 	\caption{
         Using \code{gammapy.stats} to compute statistical quantities
@@ -933,6 +938,7 @@ processes in jetted Active Galactic Nuclei (AGN) can be wrapped into
 \gammapy~\citep[see Section 3.5 of ][]{2021arXiv211214573N} .
 
 \begin{figure}
+	\small
 	\import{code-examples/generated/}{gp_models}
 	\caption{Using \code{gammapy.modeling.models} to define a source model with a
     spectral, spatial and temporal component. For convenience the model
@@ -1065,6 +1071,7 @@ bins of the resulting flux and TS maps.
 
 
 \begin{figure}
+	\small
 	\import{code-examples/generated/}{gp_estimators}
 	\caption{Using the \code{TSMapEstimator} object from \code{gammapy.estimators} to compute a
         a flux, flux upper limits and TS map. The additional parameters \code{n\_sigma}
@@ -1179,6 +1186,7 @@ Newly released relevant catalogs will be added in future.
 \end{table*}
 
 \begin{figure}
+	\small
 	\import{code-examples/generated/}{gp_catalogs}
 	\caption{Using \code{gammapy.catalogs} to access the underlying model, flux points and
 		light-curve from the \fermi 4FGL catalog for the blazar PKS 2155-304}
