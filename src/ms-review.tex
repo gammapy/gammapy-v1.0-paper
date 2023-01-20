@@ -393,25 +393,24 @@ The other sequence, referred to as high-level analysis, deals with the extractio
 quantities related to \gammaray sources and the production of high-level products such as spectra,
 light curves and catalogs. The methods applied here are more generic and are broadly
 shared across the field. They also frequently imply joint analysis of multi-instrument data.
-To extract physically relevant information, the measured counts on an instrument are usually
-compared to a parametrised model of the true intensity distribution of \gammaray source in a given
-field-of-view, which is "forward folded" through a model of the instrument repsonse
-to get a prediction for the expected counts measured by the instrument. Parameters
-of the model are then estimated using statistical techniques such as maximum likelihood
-estimation (MLE).
 
-In the most general way we can write the expected number of detected events at measured
-position $p$ and energy $E$:
+%\subsection{Predicted counts and Instrument Response Functions}
+
+To extract physically relevant information, such as the flux, spatial or spectral shape of one or more sources,
+an analytical model is commonly adopted to describe the intensity of gamma-ray sources as a function of the energy,
+$E_{true}$, and of the position in the field of view, $p_{true}$:
+$$ \Phi(p_{\rm true}, E_{\rm true}, \hat{\theta}) \quad \mathrm{[TeV^{-1}cm^{-2}s^{-1}]} $$
+where $\hat{\theta}$ is a set of model parameters that can be adjusted in a fit. To convert this analytical flux model
+into a prediction on the number of gamma-ray events, $N_{pred}$, with their estimated energy $E$  and position $p$, the model
+is convolved through the response function of the instrument.
+
+In the most general way we can write the expected number of detected events from the sky model $\Phi$ at measured position $p$ and energy $E$, for
+a given set of parameters $\hat{\theta}$:
 \begin{align}
-   N(p, E) {\rm d}p {\rm d}E = &t_{\rm obs} \int_{E_{\rm true}} \int_{p_{\rm true}}  R(p, E|p_{\rm true}, E_{\rm true})\\
-   &\times \Phi(p_{\rm true}, E_{\rm true}) {\rm d}E_{\rm true} {\rm d}p_{\rm true}
+   N(p, E, \hat{\theta}) {\rm d}p {\rm d}E = &t_{\rm obs} \int_{E_{\rm true}} \int_{p_{\rm true}}  R(p, E|p_{\rm true}, E_{\rm true})\\
+   &\times \Phi(p_{\rm true}, E_{\rm true}, \hat{\theta} )) {\rm d}E_{\rm true} {\rm d}p_{\rm true}
 \end{align}
-where
-\begin{itemize}
-\item $R(p, E| p_{\rm true}, E_{\rm true})$ is the instrument response
-\item $\Phi(p_{\rm true}, E_{\rm true})$ is the parametrised sky flux model
-\item $t_{\rm obs}$ is the observation time
-\end{itemize}
+where $R(p, E| p_{\rm true}, E_{\rm true}$ is the instrument response and $t_{\rm obs}$ is the observation time
 
 A common assumption is that the instrument response can be simplified as the product
 of three independent functions:
@@ -435,10 +434,27 @@ where:
   i.e. $E_{\rm disp}(\mu|p_{\rm true}, E_{\rm true})$.
 \end{itemize}
 
-\gammaray data at the Data Level 3 (DL3) therefore consists in lists of gamma-like events and their
-corresponding instrument response functions (IRFs). The latter include the aforementioned
-effective area, point spread function (PSF), energy dispersion and residual hadronic background.
-The handling of DL3 data is performed by classes and methods
+\gammaray data at the Data Level 3 (DL3) therefore consist of lists of gamma-like events and their
+corresponding instrument response functions (IRFs). The latter include the effective area ($A_{\rm eff}$),
+point spread function (PSF) and energy dispersion ($E_{\rm disp}$).
+
+An additional component of DL3 IRFs is the residual hadronic background model $Bkg$.
+It represents the intensity of charged particles misidentified as gamma-rays that are expected
+during an observation. It is defined as a function of the measured position in the field-of-view
+and measured energy.
+
+In total, the expected number of events in a \gammaray observation is given by:
+\begin{align}
+  N(p, E, \hat{\theta})\ {\rm d}p\ {\rm d}E =  &E_{\rm disp} \star \left[ PSF \star \left( A_{\rm eff} \times t_{\rm obs} \times \Phi(\hat{\theta}) \right) \right]\\
+                       & + Bkg(p, E)
+\end{align}
+
+Finally, predicted and observed events, $N_{obs}$, can be then combined in a likelihood function, $\mathcal{L}(\hat{\theta}, N_{obs})$, usually Poissonian, that is maximised to obtain the best-fit parameters of the flux model, $\bar{\theta}$. 
+
+
+\subsection{Data analysis workflow}
+
+In Gammapy, the handling of DL3 data is performed by classes and methods
 in the \code{gammapy.data} (see Section~\ref{ssec:gammapy-data}) and the \code{gammapy.irf}
 (see Section~\ref{ssec:gammapy-irf}) subpackages.
 
@@ -449,13 +465,13 @@ time and observation conditions.
 The next step of the analysis is the data reduction, where all observation events and instrument
 responses are filled into or projected onto a common physical coordinate system, defined by
 a map geometry. The definition of the map geometry typically consists of a spectral dimension
-defined by a binned energy axis and of a spatial dimension, which either defines 
-a spherical projection from celestial coordinates to an pixelised image space
+defined by a binned energy axis and of spatial dimensions, which either define 
+a spherical projection from celestial coordinates to a pixelised image space
 (for 3-dimensional or cube analysis) or a region on the sky (for regular spectral analysis).
 The \code{gammapy.maps} subpackage provides general multidimensional geometry objects
 (\code{Geom}) and the associated data structures (\code{Maps}) (see Section~\ref{ssec:gammapy-maps}).
 
-After all data has been projected into the same coordinate system, it is typically
+After all data has been projected into the same geometry, it is typically
 required to improve the residual hadronic background estimate. As residual hadronic
 background models can be subject to significant systematic uncertainties,
 the background estimated can be improved by taking into account actual data
@@ -463,7 +479,7 @@ from regions without known \gammaray sources. This includes methods
 such as the ring or the field-of-view background techniques or
 background measurements performed within, e.g. reflected regions~\citep{Berge07}.
 Data measured at the field-of-view or energy boundaries of the instrument is typically
-associated with a sytematic uncertainty in the IRF. For this reason this part 
+associated with a systematic uncertainty in the IRF. For this reason this part 
 of the data is often excluded from subsequent analysis by defining regions of
  "safe" data in the spatial as well as energy dimension.
 All of these data reduction steps are performed by classes and functions
@@ -478,6 +494,9 @@ with OFF background measurements). The datasets are used to perform joint-likeli
 fitting allowing to combine different measurements, e.g. from different observations
 but also from different instruments or event classes. They can also be used for binned
 simulation as well as event sampling to simulate DL3 events data.
+The various DL4 objects and the associated functionalities are
+implemented in the \code{gammapy.datasets} subpackage (see Section~\ref{ssec:gammapy-datasets}).
+
 
 The next step is then typically to model and fit the datasets, either
 individually, or in a joint likelihood analysis. For this purpose \gammapy
@@ -489,6 +508,9 @@ mechanisms of accelerated particle populations (e.g. inverse Compton or $\pi^{o}
 Independently or subsequently to the global modelling, the data can be
 re-grouped to compute flux points, light curves and flux as well as significance
 maps in energy bands.
+The modelling and fitting functionalities are implemented in the \code{gammapy.modeling},
+\code{gammapy.estimators} and \code{gammapy.stats} subpackages (see respectively
+Section~\ref{ssec:gammapy-modeling}, \ref{ssec:gammapy-estimators} and \ref{ssec:gammapy-stats}).
 
 \section{\gammapy Package}
 \label{sec:gammapy-package}
