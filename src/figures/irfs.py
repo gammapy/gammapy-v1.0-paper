@@ -1,12 +1,14 @@
 import logging
-import numpy as np
+
+import config
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+import numpy as np
 from astropy import units as u
+
 from gammapy.data import DataStore
 from gammapy.irf import PSFMap
 from gammapy.maps import Map
-import matplotlib.ticker as ticker
-import config
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -24,24 +26,18 @@ obs_hess = data_store.obs(33787)
 data_store = DataStore.from_dir("../data/multi-instrument/input/magic")
 obs_magic = data_store.obs(5029748, required_irf=["aeff"])
 
-
 figsize = config.FigureSizeAA(aspect_ratio=2.6, width_aa="two-column")
 
 xlim = 0.008, 500
 
 kwargs = {"lw": 2}
 
-gridspec = {
-    "top": 0.92,
-    "right": 0.98,
-    "left": 0.08,
-    "bottom": 0.15
-}
-fig, axes = plt.subplots(
-    figsize=figsize.inch, nrows=1, ncols=2, gridspec_kw=gridspec
-)
+gridspec = {"top": 0.92, "right": 0.98, "left": 0.08, "bottom": 0.15}
+fig, axes = plt.subplots(figsize=figsize.inch, nrows=1, ncols=2, gridspec_kw=gridspec)
 
-exposure_fermi = Map.read("../data/fermi-ts-map/input/fermi-3fhl-gc-exposure-cube.fits.gz")
+exposure_fermi = Map.read(
+    "../data/fermi-ts-map/input/fermi-3fhl-gc-exposure-cube.fits.gz"
+)
 aeff_fermi = exposure_fermi.to_region_nd_map(func=np.mean) / fermi_livetime
 
 ax_aeff = axes[0]
@@ -55,7 +51,9 @@ aeff_hess.plot_energy_dependence(ax=ax_aeff, offset=offset, label="H.E.S.S.", **
 aeff_fermi.plot(ax=ax_aeff, marker="None", label="Fermi-LAT", **kwargs)
 
 aeff_magic = obs_magic.aeff.slice_by_idx({"energy_true": slice(2, 24)})
-aeff_magic.plot_energy_dependence(ax=ax_aeff, offset=[0.4] * u.deg, label="MAGIC", **kwargs)
+aeff_magic.plot_energy_dependence(
+    ax=ax_aeff, offset=[0.4] * u.deg, label="MAGIC", **kwargs
+)
 
 ax_aeff.set_xlim(*xlim)
 ax_aeff.set_yscale("log")
@@ -79,9 +77,7 @@ psf_fermi = PSFMap.read(
     "../data/fermi-ts-map/input/fermi-3fhl-gc-psf-cube.fits.gz", format="gtpsf"
 )
 
-psf_fermi.plot_containment_radius_vs_energy(
-    ax=ax_psf, fraction=[0.68], **kwargs
-)
+psf_fermi.plot_containment_radius_vs_energy(ax=ax_psf, fraction=[0.68], **kwargs)
 ax_psf.lines[-1].set_label("Fermi-LAT")
 ax_psf.set_yticks([0, 0.1, 0.2, 0.3, 0.4])
 ax_psf.yaxis.set_major_formatter(ticker.FormatStrFormatter("%.1f"))
