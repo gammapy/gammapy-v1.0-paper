@@ -25,6 +25,10 @@ flux_points_dataset = FluxPointsDataset.read(
 )
 
 
-datasets = Datasets([map_dataset, spectrum_dataset, flux_points_dataset])
+datasets = Datasets([
+    map_dataset,
+    spectrum_dataset,
+    flux_points_dataset
+])
 
 print(datasets["map-dataset"])
