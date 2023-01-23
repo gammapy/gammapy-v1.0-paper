@@ -213,7 +213,7 @@ def plot_gadf_icon(ax, offset, size=14, text=""):
         ha="center",
         color=GP_GRAY,
         fontweight="black",
-        size=12,
+        size=10,
     )
 
 
@@ -221,7 +221,7 @@ def plot_instrument_logos(fig):
     left, offset = 0, 0
     left_cta_hess = 0
     plot_instrument_logo(
-        "logos/cta.png", fig=fig, position=(-0.03, offset + 0.7), size=0.35
+        "logos/cta.png", fig=fig, position=(-0.03, offset + 0.7), size=0.28
     )
     plot_instrument_logo(
         "logos/hess.jpg",
@@ -232,6 +232,7 @@ def plot_instrument_logos(fig):
     plot_instrument_logo(
         "logos/veritas.png", fig=fig, position=(left_cta_hess + 0.1, offset + 0.58)
     )
+
     plot_instrument_logo(
         "logos/fermi.png", fig=fig, position=(left + 0.15, offset + 0.1)
     )
@@ -240,13 +241,13 @@ def plot_instrument_logos(fig):
 
 def plot_package_logos(fig):
     plot_instrument_logo(
-        "logos/numpy.png", fig=fig, position=(0.45, 0.15), size=0.15, alpha=0.5
+        "logos/numpy.png", fig=fig, position=(0.4, 0.13), size=0.15, alpha=0.5
     )
     plot_instrument_logo(
-        "logos/scipy.png", fig=fig, position=(0.6, 0.15), size=0.15, alpha=0.5
+        "logos/scipy.png", fig=fig, position=(0.55, 0.13), size=0.15, alpha=0.5
     )
     plot_instrument_logo(
-        "logos/astropy.png", fig=fig, position=(0.55, 0), size=0.15, alpha=0.5
+        "logos/astropy.png", fig=fig, position=(0.5, 0), size=0.15, alpha=0.5
     )
 
 
@@ -259,15 +260,37 @@ def main(draft=True):
     ax.set_xlim(0, FIGSIZE.mm[0])
     ax.set_ylim(0, FIGSIZE.mm[1])
 
+    ax.text(
+        x=10,
+        y=95,
+        s="IACTs",
+        size=12,
+        color=GP_GRAY,
+    )
+
+    kwargs = {}
+    kwargs["head_width"] = 4
+    kwargs["head_length"] = 3
+    kwargs["length_includes_head"] = True
+    width = 2
+    plot_arrow(ax, offset=(48, 65), dx=16, dy=-12, width=width, fc=GRAY, **kwargs)
+
+    plot_arrow(ax, offset=(50, 25), dx=14, dy=14, width=width, fc=GRAY, **kwargs)
+
+    plot_arrow(
+        ax, offset=(100, 27), dx=0, dy=10, width=width, fc=GRAY, alpha=0.5, **kwargs
+    )
+
     ypos = 40
-    plot_gp_logo(ax=ax, offset=(80, ypos), fontsize=120, sub_title="")
-    plot_gadf_icon(ax=ax, offset=(68, ypos), text="DL3\nGADF", size=20)
+    plot_gp_logo(ax=ax, offset=(70, ypos), fontsize=150, sub_title="")
+    plot_gadf_icon(ax=ax, offset=(68, ypos), text="DL3\nGADF", size=18)
 
     ax.tick_params(axis="both", direction="in", pad=-20)
     ax.xaxis.set_minor_locator(MultipleLocator(10))
     ax.yaxis.set_minor_locator(MultipleLocator(10))
 
     plot_instrument_logos(fig=fig)
+
     plot_package_logos(fig=fig)
 
     # ax.text(s="Other IACTS")
@@ -309,6 +332,15 @@ def main(draft=True):
 
     ax_lc = add_sub_axes(ax, [left, 8, width, height])
     plot_lightcurve(ax=ax_lc)
+
+    kwargs = {}
+    kwargs["head_width"] = 4
+    kwargs["head_length"] = 3
+    kwargs["length_includes_head"] = True
+    width = 2
+    plot_arrow(ax, offset=(130, 55), dx=16, dy=20, width=width, fc=GRAY, **kwargs)
+    plot_arrow(ax, offset=(130, 50), dx=16, dy=0, width=width, fc=GRAY, **kwargs)
+    plot_arrow(ax, offset=(130, 45), dx=14, dy=-20, width=width, fc=GRAY, **kwargs)
 
     filename = "big-picture.pdf"
     log.info(f"Writing {filename}")
