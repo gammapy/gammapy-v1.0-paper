@@ -221,16 +221,25 @@ def plot_instrument_logos(fig):
     left, offset = 0, 0
     left_cta_hess = 0
     plot_instrument_logo(
-        "logos/cta.png", fig=fig, position=(-0.03, offset + 0.7), size=0.28
+        "logos/cta.png", fig=fig, position=(-0.07, offset + 0.66), size=0.32
     )
     plot_instrument_logo(
         "logos/hess.jpg",
         fig=fig,
         position=(left_cta_hess - 0.02, offset + 0.56),
-        size=0.20,
+        size=0.15,
     )
     plot_instrument_logo(
-        "logos/veritas.png", fig=fig, position=(left_cta_hess + 0.1, offset + 0.58)
+        "logos/veritas.png",
+        fig=fig,
+        position=(left_cta_hess + 0.1, offset + 0.58),
+        size=0.13,
+    )
+    plot_instrument_logo(
+        "logos/magic.png",
+        fig=fig,
+        position=(left_cta_hess + 0.15, offset + 0.75),
+        size=0.13,
     )
 
     plot_instrument_logo(
@@ -241,13 +250,16 @@ def plot_instrument_logos(fig):
 
 def plot_package_logos(fig):
     plot_instrument_logo(
-        "logos/numpy.png", fig=fig, position=(0.4, 0.13), size=0.15, alpha=0.5
+        "logos/numpy.png", fig=fig, position=(0.46, 0.13), size=0.18, alpha=0.5
     )
     plot_instrument_logo(
-        "logos/scipy.png", fig=fig, position=(0.55, 0.13), size=0.15, alpha=0.5
+        "logos/scipy.png", fig=fig, position=(0.61, 0.15), size=0.15, alpha=0.5
     )
     plot_instrument_logo(
-        "logos/astropy.png", fig=fig, position=(0.5, 0), size=0.15, alpha=0.5
+        "logos/astropy.png", fig=fig, position=(0.48, 0), size=0.15, alpha=0.5
+    )
+    plot_instrument_logo(
+        "logos/matplotlib.png", fig=fig, position=(0.60, 0.06), size=0.15, alpha=0.5
     )
 
 
@@ -261,29 +273,46 @@ def main(draft=True):
     ax.set_ylim(0, FIGSIZE.mm[1])
 
     ax.text(
-        x=10,
-        y=95,
-        s="IACTs",
+        x=3,
+        y=93,
+        s="Pointing $\gamma$-ray Observatories",
         size=12,
         color=GP_GRAY,
     )
 
+    ax.text(
+        x=3,
+        y=4,
+        s="All-sky $\gamma$-ray Observatories",
+        size=12,
+        color=GP_GRAY,
+    )
+
+    ax.text(
+        x=76,
+        y=35,
+        s="Common\ndata format",
+        size=12,
+        color=GP_GRAY,
+        va="center",
+        ha="center",
+    )
     kwargs = {}
     kwargs["head_width"] = 4
     kwargs["head_length"] = 3
     kwargs["length_includes_head"] = True
     width = 2
-    plot_arrow(ax, offset=(48, 65), dx=16, dy=-12, width=width, fc=GRAY, **kwargs)
+    plot_arrow(ax, offset=(50, 65), dx=15, dy=-10, width=width, fc=GRAY, **kwargs)
 
-    plot_arrow(ax, offset=(50, 25), dx=14, dy=14, width=width, fc=GRAY, **kwargs)
+    plot_arrow(ax, offset=(50, 25), dx=15, dy=20, width=width, fc=GRAY, **kwargs)
 
     plot_arrow(
-        ax, offset=(100, 27), dx=0, dy=10, width=width, fc=GRAY, alpha=0.5, **kwargs
+        ax, offset=(108, 27), dx=0, dy=10, width=width, fc=GRAY, alpha=0.5, **kwargs
     )
 
     ypos = 40
     plot_gp_logo(ax=ax, offset=(70, ypos), fontsize=150, sub_title="")
-    plot_gadf_icon(ax=ax, offset=(68, ypos), text="DL3\nGADF", size=18)
+    plot_gadf_icon(ax=ax, offset=(70, ypos + 2), text="DL3\nGADF", size=18)
 
     ax.tick_params(axis="both", direction="in", pad=-20)
     ax.xaxis.set_minor_locator(MultipleLocator(10))
