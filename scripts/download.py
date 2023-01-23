@@ -1,7 +1,9 @@
-from fileinput import filename
 import logging
-import click
+from fileinput import filename
 from pathlib import Path
+
+import click
+
 from gammapy.scripts.download import progress_download
 
 log = logging.getLogger(__name__)
@@ -41,7 +43,15 @@ FILENAMES_HAWC_DL3 = [
     "hdu-index-table-GP-Crab.fits.gz",
     "obs-index-table-GP-Crab.fits.gz",
     "irfs/EffectiveAreaMap_Crab_fHitbin5GP.fits.gz",
+    "irfs/EffectiveAreaMap_Crab_fHitbin6GP.fits.gz",
+    "irfs/EffectiveAreaMap_Crab_fHitbin7GP.fits.gz",
+    "irfs/EffectiveAreaMap_Crab_fHitbin8GP.fits.gz",
+    "irfs/EffectiveAreaMap_Crab_fHitbin9GP.fits.gz",
     "irfs/PSFMap_Crab_fHitbin5GP.fits.gz",
+    "irfs/PSFMap_Crab_fHitbin6GP.fits.gz",
+    "irfs/PSFMap_Crab_fHitbin7GP.fits.gz",
+    "irfs/PSFMap_Crab_fHitbin8GP.fits.gz",
+    "irfs/PSFMap_Crab_fHitbin9GP.fits.gz",
 ]
 
 
@@ -170,7 +180,7 @@ DATASETS_REGISTRY = {
     "cta-1dc": download_cta_data,
     "pks-flare": download_hess_pks2155_data,
     "multi-instrument": download_multi_instrument,
-    "hawc-dl3": download_hawc_dl3_data
+    "hawc-dl3": download_hawc_dl3_data,
 }
 
 

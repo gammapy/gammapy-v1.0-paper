@@ -214,9 +214,17 @@ rule prepare_multi_instrument:
 rule download_hawc_dl3:
     output:
         "src/data/hawc-dl3/hdu-index-table-GP-Crab.fits.gz",
-        "src/data/obs-index-table-GP-Crab.fits.gz",
-        "src/data/irfs/EffectiveAreaMap_Crab_fHitbin5GP.fits.gz",
-        "src/data/irfs/PSFMap_Crab_fHitbin5GP.fits.gz",
+        "src/data/hawc-dl3/obs-index-table-GP-Crab.fits.gz",
+        "src/data/hawc-dl3/irfs/EffectiveAreaMap_Crab_fHitbin5GP.fits.gz",
+        "src/data/hawc-dl3/irfs/EffectiveAreaMap_Crab_fHitbin6GP.fits.gz",
+        "src/data/hawc-dl3/irfs/EffectiveAreaMap_Crab_fHitbin7GP.fits.gz",
+        "src/data/hawc-dl3/irfs/EffectiveAreaMap_Crab_fHitbin8GP.fits.gz",
+        "src/data/hawc-dl3/irfs/EffectiveAreaMap_Crab_fHitbin9GP.fits.gz",
+        "src/data/hawc-dl3/irfs/PSFMap_Crab_fHitbin5GP.fits.gz",
+        "src/data/hawc-dl3/irfs/PSFMap_Crab_fHitbin6GP.fits.gz",
+        "src/data/hawc-dl3/irfs/PSFMap_Crab_fHitbin7GP.fits.gz",
+        "src/data/hawc-dl3/irfs/PSFMap_Crab_fHitbin8GP.fits.gz",
+        "src/data/hawc-dl3/irfs/PSFMap_Crab_fHitbin9GP.fits.gz",
     conda:
         "environment.yml"
     shell:
