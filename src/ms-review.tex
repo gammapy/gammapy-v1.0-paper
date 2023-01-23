@@ -191,39 +191,43 @@
 % \abstract{}{}{}{}{}
 % 5 {} token are mandatory
 
-\abstract{
+\abstract
+	{
+		Traditionally, the \gammaray universe has been probed
+		by small collaborations of scientists employing proprietary data and analysis software.
+		However, the next generation of \gammaray instruments,
+		such as the the Cherenkov Telescope Array (CTA), will be operated as open observatories.
+		Alongside the data, the observatories will make available to the astronomical community
+		software tools for their analysis. This necessity prompted the development, in the last decade,
+		of open high-level astronomy software customised for high energy astrophysics.
+	}
+	{
+		In this article, we present \gammapy, an open-source python package for the analysis of \gammaray data,
+		and illustrate the functionalities of the first long-term release of the software, version 1.0.
+		Built on the modern python scientific ecosystem, \gammapy provides a uniform platform for reducing and
+		modelling data from different gamma-ray instruments. \gammapy complies with several well-established
+		data conventions in high-energy astrophysics, providing serialised data products that are interoperable
+		with other software.
+	}
+	{
+		Starting from event list and instrument response functions",
+		\gammapy provides pipelines for creating reduced data binned in energy and coordinates.
+		To facilitate the handling of the hadronic background, several techniques for background estimation
+		are implemented in the package.
+		After the data are binned, the flux and morphology of one or more \gammaray sources can be estimated
+		using Poisson maximum likelihood fitting
+		and assuming a variety of spectral, temporal, and spatial models.
+		Estimation of flux points, likelihood profiles and light curves are also implemented.
+	}
+	{
+		After describing the structure of the package, we demonstrate the capabilities of \gammapy
+		performing several traditional analyses in gamma-ray astronomy with publicly available data:
+		spectral and spectro-morphological analyses, estimation of the light curve of a source.
+		The flexibility and power of the software are displayed in a final multi-instrument example,
+		where data sets from different instruments, at different stages of data reduction,
+		are simultaneously fitted with a flux model produced by another astrophysical software.
+	}{}
 
-	{Context} Traditionally, the \gammaray universe has been probed
-	 by small collaborations of scientists employing proprietary data and analysis software.
-	 However, the next generation of \gammaray instruments,
-	 such as the the Cherenkov Telescope Array (CTA), will be operated as open observatories.
-	 Alongside the data, the observatories will make available to the astronomical community
-	 software tools for their analysis. This necessity prompted the development, in the last decade,
-	 of open high-level astronomy software customised for high energy astrophysics.
-
-	{Aims} In this article, we present \gammapy, an open-source python package for the analysis of \gammaray data,
-	and illustrate the functionalities of the first long-term release of the software, version 1.0.
-	Built on the modern python scientific ecosystem, \gammapy provides a uniform platform for reducing and
-	modelling data from different gamma-ray instruments. \gammapy complies with several well-established
-	data conventions in high-energy astrophysics, providing serialised data products that are interoperable
-	with other software.
-
-	{Methods} Starting from event list and instrument response functions",
-	\gammapy provides pipelines for creating reduced data binned in energy and coordinates.
-	To facilitate the handling of the hadronic background, several techniques for background estimation
-	 are implemented in the package.
-	 After the data are binned, the flux and morphology of one or more \gammaray sources can be estimated
-	 using Poisson maximum likelihood fitting
-	 and assuming a variety of spectral, temporal, and spatial models.
-	  Estimation of flux points, likelihood profiles and light curves are also implemented.
-
-	{Results} After describing the structure of the package, we demonstrate the capabilities of \gammapy
-	performing several traditional analyses in gamma-ray astronomy with publicly available data:
-	spectral and spectro-morphological analyses, estimation of the light curve of a source.
-	The flexibility and power of the software are displayed in a final multi-instrument example,
-	where data sets from different instruments, at different stages of data reduction,
-	are simultaneously fitted with a flux model produced by another astrophysical software.
-}
 
 % \date{Received September 15, 1996; accepted March 16, 1997}
 \keywords{
@@ -259,6 +263,32 @@ by detecting the Cherenkov radiation emitted by the cascading charged particles 
 use these images to reconstruct the properties of the incident particle.
 Those instruments have a limited field of view (FoV) and duty cycle, but
 good energy and angular resolution \citep{2015CRPhy..16..610D}.
+
+\begin{figure*}[t]
+	\centering
+	\includegraphics[width=\textwidth]{figures/big-picture.pdf}
+	\caption{
+		Core idea and relation of \gammapy to different \gammaray instruments
+		and the gamma astro data formats (GADF). The top left shows the
+		group of current and future pointing instruments based on the 
+		imaging atmospheric Cherenkov technique (IACT). This includes
+		instruments such as the  Cherenkov Telescope Array (CTA),
+		the High Energy Stereoscopic System (H.E.S.S.), the
+		Major Atmospheric Gamma Imaging Cherenkov Telescopes (MAGIC),
+		and the Very Energetic Radiation Imaging Telescope Array System (VERITAS).
+		The lower left shows the group of allsky instruments such as the
+		Fermi Large Area Telescope (Fermi-LAT) amd the High Altitude 
+		Water Cherencov Observatory (HAWC). The calibrated data of all those
+		instruments can be converted and stored into the common GADF data format.
+		\gammapy can read data stored in the GADF format.
+		The \gammapy package is not a part of any instrument, but instead
+		provides a common interface to the data and analysis of all
+		these \gammaray instruments. This way users can also easily combine data from
+		different instruments and perform a joint analysis. 
+	}
+	\label{fig:big_picture}
+
+\end{figure*}
 
 Water Cherenkov observatories detect directly particles from the tail of the
 shower when it reaches the ground. These instruments have very
@@ -320,6 +350,7 @@ Python package for astronomical reasearch. Among other things, it offers functio
 transforming and representing astronomical coordinates, manipulating physical quantities
 and their units as well as reading and writing FITS files.
 
+
 %% \gammapy: concept and goals
 %%% Question: starting date? Is is relevant, what is the real start?
 The \gammapy project started in 2015 with the objective of building a flexible and
@@ -347,23 +378,9 @@ presents a number of applications, while Section~\ref{sec:gammapy-project}
 finally discusses the project organization.
 
 
+
 \section{Gamma-ray Data Analysis}
 \label{sec:gammaray-data-analysis}
-%
-\begin{figure*}[ht!]
-	\centering
-	\includegraphics[width=1.\textwidth]{figures/irfs.pdf}
-	\caption{
-		Example instrument response functions of some experiments and
-        observatories for which \gammapy can analyse data. The \cta IRFs
-        are from the prod5 production. The \hess IRFs are from the DL3 DR1,
-        using observation ID 033787. The point spread function shows the 65\&
-        containment radius of the PSF. The \fermi IRFs are from \textit{pass8}.
-        \todo{Add more instruments? HAWC? MAGIC?}
-    }
-	\label{fig:irfs}
-\end{figure*}
-%
 % This might not be the bast place compared to introduction
 The data reduction process in \gammaray astronomy is usually split into two parts.
 The first one deals with the data processing from camera measurement, calibration, event
@@ -431,27 +448,43 @@ In total, the expected number of events in a \gammaray observation is given by:
                        & + Bkg(p, E)
 \end{align}
 
-Finally, predicted and observed events, $N_{obs}$, can be then combined in a likelihood function, $\mathcal{L}(\hat{\theta}, N_{obs})$, usually Poissonian, that is maximised to obtain the best-fit parameters of the flux model, $\bar{\theta}$. 
+Finally, predicted and observed events, $N_{obs}$, can be then combined in a likelihood function,
+$\mathcal{L}(\hat{\theta}, N_{obs})$, usually Poissonian, that is maximised to obtain the best-fit parameters of the flux model, $\bar{\theta}$. 
 
 
 \subsection{Data analysis workflow}
+%
+\begin{figure*}[h!]
+	\centering
+	\includegraphics[width=1.\textwidth]{figures/data_flow.pdf}
+	\caption{
+		\gammapy sub-package structure and data analysis workflow. The top row
+        defines the groups for the different data levels and reduction steps
+        from raw gamma-like events on the left, to high level science products
+        on the right. The direction of the data flow is illustrated with the
+        grey arrows. The gray folder icons represent the different sub-packages
+        in \gammapy and their names. Below each icon there is a list of the most
+        important objects defined in the sub-package.
+    }
+	\label{fig:data_flow}
+\end{figure*}
+%
 
-In Gammapy, the handling of DL3 data is performed by classes and methods
+The first step in \gammaray data analysis is the selection and extraction of observations
+based of their metadata including information such as pointing direction, observation
+time and observation conditions. The access to the events data and instrument 
+reponse per observation is supported by classes and methods
 in the \code{gammapy.data} (see Section~\ref{ssec:gammapy-data}) and the \code{gammapy.irf}
 (see Section~\ref{ssec:gammapy-irf}) subpackages.
-
-The first step in the analysis is the selection and extraction of observations
-based of their metadata including information such as pointing direction, observation
-time and observation conditions.
 
 The next step of the analysis is the data reduction, where all observation events and instrument
 responses are filled into or projected onto a common physical coordinate system, defined by
 a map geometry. The definition of the map geometry typically consists of a spectral dimension
 defined by a binned energy axis and of spatial dimensions, which either define 
 a spherical projection from celestial coordinates to a pixelised image space
-(for 3-dimensional or cube analysis) or a region on the sky (for regular spectral analysis).
-The \code{gammapy.maps} subpackage provides general multidimensional geometry objects
-(\code{Geom}) and the associated data structures (\code{Maps}) (see Section~\ref{ssec:gammapy-maps}).
+or a single region on the sky. The \code{gammapy.maps} subpackage provides
+general multidimensional geometry objects and the associated data structures
+(see Section~\ref{ssec:gammapy-maps}).
 
 After all data has been projected into the same geometry, it is typically
 required to improve the residual hadronic background estimate. As residual hadronic
@@ -468,17 +501,15 @@ All of these data reduction steps are performed by classes and functions
 implemented in the \code{gammapy.makers} subpackage (see Section~\ref{ssec:gammapy-makers}).
 
 The counts data and the reduced IRFs in the form of maps are bundled into datasets
-that represent the data level 4 (DL4). Those reduced datasets can be written to disk,
+that represent the fourth data level (DL4). Those reduced datasets can be written to disk,
 in a format specific to \gammapy to allow users to read them back at any time later
 for modeling and fitting. Different variations of such datasets support different 
-analysis methods and fit statistics (e.g. Poisson statistics with known background or
-with OFF background measurements). The datasets are used to perform joint-likelihood
+analysis methods and fit statistics. The datasets are used to perform joint-likelihood
 fitting allowing to combine different measurements, e.g. from different observations
 but also from different instruments or event classes. They can also be used for binned
 simulation as well as event sampling to simulate DL3 events data.
 The various DL4 objects and the associated functionalities are
 implemented in the \code{gammapy.datasets} subpackage (see Section~\ref{ssec:gammapy-datasets}).
-
 
 The next step is then typically to model and fit the datasets, either
 individually, or in a joint likelihood analysis. For this purpose \gammapy
@@ -499,20 +530,6 @@ Section~\ref{ssec:gammapy-modeling}, \ref{ssec:gammapy-estimators} and \ref{ssec
 \subsection{Overview}
 \label{ssec:overview}
 %
-\begin{figure*}[ht!]
-	\centering
-	\includegraphics[width=1.\textwidth]{figures/data_flow.pdf}
-	\caption{
-		\gammapy sub-package structure and data analysis workflow. The top row
-        defines the groups for the different data levels and reduction steps
-        from raw gamma-like events on the left, to high level science products
-        on the right. The direction of the data flow is illustrated with the
-        grey arrows. The gray folder icons represent the different sub-packages
-        in \gammapy and their names. Below each icon there is a list of the most
-        important objects defined in the sub-package.
-    }
-	\label{fig:data_flow}
-\end{figure*}
 %
 The \gammapy package is structured into multiple sub-packages. The definition
 of the content of the different sub-packages follows mostly the stages in the
@@ -590,13 +607,21 @@ example in Section~\ref{ssec:multi-instrument-analysis}.
 \subsection{gammapy.irf}
 \label{ssec:gammapy-irf}
 %
-%\begin{figure}
-%	%	\import{code-examples/generated/}{gp_makers}
 %
-%	\caption{In Figure~\ref{ig*:minted:irf_examples}, we show some example of Aeff,
-%		PSF, Edisp and BKG read and plotted from a typical \irf.}
-%	\label{ig*:minted:irf_examples}
-%\end{figure}
+\begin{figure*}[ht!]
+	\centering
+	\includegraphics[width=1.\textwidth]{figures/irfs.pdf}
+	\caption{
+		Using \code{gammapy.irf} to read and plot instrument repsonse functions.
+		Here we show example instrument response functions of some experiments and
+        observatories for which \gammapy can analyse data. The \cta IRFs
+        are from the prod5 production. The \hess IRFs are from the DL3 DR1,
+        using observation ID 033787. The point spread function shows the 65\&
+        containment radius of the PSF. The \fermi IRFs are from \textit{pass8}.
+    }
+	\label{fig:irfs}
+\end{figure*}
+%
 %
 The \code{gammapy.irf} sub-package contains all classes and functionality
 to handle IRFs in a variety of formats.
@@ -655,14 +680,15 @@ where at each sky-position is associated an energy dispersion matrix.
 The latter is a representation of the energy resolution as a function of the
 true energy only repesented by the sub-class \code{EDispKernel}.
 
-\subsubsection{Background model}
-The backgropund rate can be represented in \gammapy as either a 2-dimensional
+\subsubsection{Instrumental Background}
+The instrumental backgropund rate can be represented in \gammapy as either a 2-dimensional
 data structure (\code{Background2D}) of count rate normalised per steradians and energy at different
 reconstructed energies and offset angles or as rate per steradians and energy, as a
 function of reconstructed energy and detector coordinates (\code{Background3D}).
 In the former, the background is expected to follow a radially symmetric shape,
 while in the latter, it can be more complex.
 
+Some example IRFs that are read and plotted with \gammapy are show in Figure~\ref{fig:irfs}.
 
 \subsection{gammapy.maps}
 \label{ssec:gammapy-maps}
@@ -1234,7 +1260,7 @@ power law spectral shape, using the \code{PowerLawSpectralModel} and \code{Fit} 
 Based on this best fit model the final flux points and corresponding
 log-likelihood profiles are computed using the \code{FluxPointsEstimator}.
 
-\begin{figure*}[t]
+\begin{figure*}
 	\centering
 	\includegraphics[width=1.\textwidth]{figures/cta_galactic_center.pdf}
 	\caption{
@@ -1247,6 +1273,20 @@ log-likelihood profiles are computed using the \code{FluxPointsEstimator}.
 
 \subsection{3D Analysis}
 \label{ssec:3d-analysis}
+%
+\begin{figure*}[t]
+	\centering
+	\includegraphics[width=1.\textwidth]{figures/cube_analysis.pdf}
+	\caption{Example of a 3D analysis for simulated sources with point-like, Gaussian
+		and shell-like morphology. The simulation uses \textit{prod5} \irfs from \cta.
+		The left image shows a significance map where the three simulated sources can be
+		seen. The middle figure shows another significance map, but this time after
+		subtracting the best-fit model for each of the sources, which are displayed in
+		black. The right figure shows the contribution of each source model to the
+		circular region of radius 0.5\textdegree drawn in the left image, together with
+		the excess counts inside that region. } \label{fig:cube_analysis}
+\end{figure*}
+%
 The 1D analysis approach is a powerful tool to measure the spectrum of an
 isolated source. However, more complicated situations require a more careful
 treatment. In a field of view containing several overlapping sources, the 1D
@@ -1309,19 +1349,6 @@ in the left panel of Figure~\ref{fig:cube_analysis}. We can now compare the
 measured excess counts integrated in that region to the expected relative
 contribution from each of the three source models. The result can be seen in the left
 panel of Figure~\ref{fig:cube_analysis}.
-
-\begin{figure*}[t]
-	\centering
-	\includegraphics[width=1.\textwidth]{figures/cube_analysis.pdf}
-	\caption{Example of a 3D analysis for simulated sources with point-like, Gaussian
-		and shell-like morphology. The simulation uses \textit{prod5} \irfs from \cta.
-		The left image shows a significance map where the three simulated sources can be
-		seen. The middle figure shows another significance map, but this time after
-		subtracting the best-fit model for each of the sources, which are displayed in
-		black. The right figure shows the contribution of each source model to the
-		circular region of radius 0.5\textdegree drawn in the left image, together with
-		the excess counts inside that region. } \label{fig:cube_analysis}
-\end{figure*}
 
 Note that all the models fitted also have a spectral component, from which flux
 points can be derived in a similar way as described in~\ref{ssec:1d-analysis}.
@@ -1582,27 +1609,27 @@ the \textit{gammapy} repository (see Table~\ref{table:codestats:data} and
 Figure~\ref{fig:codestats:lang} for code lines statistics). We make extensive
 use of the pull request system to discuss and review code contributions.
 
-\begin{table}
-	\import{tables/generated/}{codestats}
-	\caption{
-        Overview of used programming languages and distribution of code across the different file
-        categories in the \gammapy code base. The most right column list the total number of lines
-        in a file. The \textit{comment} column lists the number of comments in the files
-        (including method and class docstrings), the \textit{blank} column lists the
-        number of blank lines in the file. The uppermost rows distinguish between
-        code that implements actual functionality and code the implements tests.
-        All documentataion in \gammapy is implemented as dosctrings, \text{reStructuredText} (RST)
-        files or notebooks.
-    }
-	\label{table:codestats:data}
-\end{table}
+% \begin{table}
+% 	\import{tables/generated/}{codestats}
+% 	\caption{
+%         Overview of used programming languages and distribution of code across the different file
+%         categories in the \gammapy code base. The most right column list the total number of lines
+%         in a file. The \textit{comment} column lists the number of comments in the files
+%         (including method and class docstrings), the \textit{blank} column lists the
+%         number of blank lines in the file. The uppermost rows distinguish between
+%         code that implements actual functionality and code the implements tests.
+%         All documentataion in \gammapy is implemented as dosctrings, \text{reStructuredText} (RST)
+%         files or notebooks.
+%     }
+% 	\label{table:codestats:data}
+% \end{table}
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=0.5\textwidth]{figures/codestats.pdf}
 	\caption{
 		Overview of used programming languages and distribution of code across the different file
-        categories in the \gammapy code base.
+        categories in the \gammapy code base. The total number of lines is $\approx 50 000$.
     } \label{fig:codestats:lang}
 \end{figure}
 
