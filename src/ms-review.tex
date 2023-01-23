@@ -191,39 +191,43 @@
 % \abstract{}{}{}{}{}
 % 5 {} token are mandatory
 
-\abstract{
+\abstract
+	{
+		Traditionally, the \gammaray universe has been probed
+		by small collaborations of scientists employing proprietary data and analysis software.
+		However, the next generation of \gammaray instruments,
+		such as the the Cherenkov Telescope Array (CTA), will be operated as open observatories.
+		Alongside the data, the observatories will make available to the astronomical community
+		software tools for their analysis. This necessity prompted the development, in the last decade,
+		of open high-level astronomy software customised for high energy astrophysics.
+	}
+	{
+		In this article, we present \gammapy, an open-source python package for the analysis of \gammaray data,
+		and illustrate the functionalities of the first long-term release of the software, version 1.0.
+		Built on the modern python scientific ecosystem, \gammapy provides a uniform platform for reducing and
+		modelling data from different gamma-ray instruments. \gammapy complies with several well-established
+		data conventions in high-energy astrophysics, providing serialised data products that are interoperable
+		with other software.
+	}
+	{
+		Starting from event list and instrument response functions",
+		\gammapy provides pipelines for creating reduced data binned in energy and coordinates.
+		To facilitate the handling of the hadronic background, several techniques for background estimation
+		are implemented in the package.
+		After the data are binned, the flux and morphology of one or more \gammaray sources can be estimated
+		using Poisson maximum likelihood fitting
+		and assuming a variety of spectral, temporal, and spatial models.
+		Estimation of flux points, likelihood profiles and light curves are also implemented.
+	}
+	{
+		After describing the structure of the package, we demonstrate the capabilities of \gammapy
+		performing several traditional analyses in gamma-ray astronomy with publicly available data:
+		spectral and spectro-morphological analyses, estimation of the light curve of a source.
+		The flexibility and power of the software are displayed in a final multi-instrument example,
+		where data sets from different instruments, at different stages of data reduction,
+		are simultaneously fitted with a flux model produced by another astrophysical software.
+	}{}
 
-	{Context} Traditionally, the \gammaray universe has been probed
-	 by small collaborations of scientists employing proprietary data and analysis software.
-	 However, the next generation of \gammaray instruments,
-	 such as the the Cherenkov Telescope Array (CTA), will be operated as open observatories.
-	 Alongside the data, the observatories will make available to the astronomical community
-	 software tools for their analysis. This necessity prompted the development, in the last decade,
-	 of open high-level astronomy software customised for high energy astrophysics.
-
-	{Aims} In this article, we present \gammapy, an open-source python package for the analysis of \gammaray data,
-	and illustrate the functionalities of the first long-term release of the software, version 1.0.
-	Built on the modern python scientific ecosystem, \gammapy provides a uniform platform for reducing and
-	modelling data from different gamma-ray instruments. \gammapy complies with several well-established
-	data conventions in high-energy astrophysics, providing serialised data products that are interoperable
-	with other software.
-
-	{Methods} Starting from event list and instrument response functions",
-	\gammapy provides pipelines for creating reduced data binned in energy and coordinates.
-	To facilitate the handling of the hadronic background, several techniques for background estimation
-	 are implemented in the package.
-	 After the data are binned, the flux and morphology of one or more \gammaray sources can be estimated
-	 using Poisson maximum likelihood fitting
-	 and assuming a variety of spectral, temporal, and spatial models.
-	  Estimation of flux points, likelihood profiles and light curves are also implemented.
-
-	{Results} After describing the structure of the package, we demonstrate the capabilities of \gammapy
-	performing several traditional analyses in gamma-ray astronomy with publicly available data:
-	spectral and spectro-morphological analyses, estimation of the light curve of a source.
-	The flexibility and power of the software are displayed in a final multi-instrument example,
-	where data sets from different instruments, at different stages of data reduction,
-	are simultaneously fitted with a flux model produced by another astrophysical software.
-}
 
 % \date{Received September 15, 1996; accepted March 16, 1997}
 \keywords{
@@ -259,6 +263,32 @@ by detecting the Cherenkov radiation emitted by the cascading charged particles 
 use these images to reconstruct the properties of the incident particle.
 Those instruments have a limited field of view (FoV) and duty cycle, but
 good energy and angular resolution \citep{2015CRPhy..16..610D}.
+
+\begin{figure*}[t]
+	\centering
+	\includegraphics[width=\textwidth]{figures/big-picture.pdf}
+	\caption{
+		Core idea and relation of \gammapy to different \gammaray instruments
+		and the gamma astro data formats (GADF). The top left shows the
+		group of current and future pointing instruments based on the 
+		imaging atmospheric Cherenkov technique (IACT). This includes
+		instruments such as the  Cherenkov Telescope Array (CTA),
+		the High Energy Stereoscopic System (H.E.S.S.), the
+		Major Atmospheric Gamma Imaging Cherenkov Telescopes (MAGIC),
+		and the Very Energetic Radiation Imaging Telescope Array System (VERITAS).
+		The lower left shows the group of allsky instruments such as the
+		Fermi Large Area Telescope (Fermi-LAT) amd the High Altitude 
+		Water Cherencov Observatory (HAWC). The calibrated data of all those
+		instruments can be converted and stored into the common GADF data format.
+		\gammapy can read data stored in the GADF format.
+		The \gammapy package is not a part of any instrument, but instead
+		provides a common interface to the data and analysis of all
+		these \gammaray instruments. This way users can also easily combine data from
+		different instruments and perform a joint analysis. 
+	}
+	\label{fig:big_picture}
+
+\end{figure*}
 
 Water Cherenkov observatories detect directly particles from the tail of the
 shower when it reaches the ground. These instruments have very
@@ -320,17 +350,6 @@ Python package for astronomical reasearch. Among other things, it offers functio
 transforming and representing astronomical coordinates, manipulating physical quantities
 and their units as well as reading and writing FITS files.
 
-
-\begin{figure*}[t]
-	\centering
-	\includegraphics[width=\textwidth]{figures/big-picture.pdf}
-	\caption{
-		Relation of \gammapy to different \gammaray instruments and the data formats.
-		\gammapy provides access to the data stored in GADF format and the
-		high-level data analysis functionality.}
-	\label{fig:big_picture}
-
-\end{figure*}
 
 %% \gammapy: concept and goals
 %%% Question: starting date? Is is relevant, what is the real start?
