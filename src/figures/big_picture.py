@@ -302,7 +302,7 @@ def main(draft=True):
     kwargs["head_length"] = 3
     kwargs["length_includes_head"] = True
     width = 2
-    plot_arrow(ax, offset=(50, 65), dx=15, dy=-10, width=width, fc=GRAY, **kwargs)
+    plot_arrow(ax, offset=(46, 69), dx=19, dy=-14, width=width, fc=GRAY, **kwargs)
 
     plot_arrow(ax, offset=(50, 25), dx=15, dy=20, width=width, fc=GRAY, **kwargs)
 
@@ -367,9 +367,9 @@ def main(draft=True):
     kwargs["head_length"] = 3
     kwargs["length_includes_head"] = True
     width = 2
-    plot_arrow(ax, offset=(130, 55), dx=16, dy=20, width=width, fc=GRAY, **kwargs)
+    plot_arrow(ax, offset=(130, 55), dx=16, dy=15, width=width, fc=GRAY, **kwargs)
     plot_arrow(ax, offset=(130, 50), dx=16, dy=0, width=width, fc=GRAY, **kwargs)
-    plot_arrow(ax, offset=(130, 45), dx=14, dy=-20, width=width, fc=GRAY, **kwargs)
+    plot_arrow(ax, offset=(130, 45), dx=14, dy=-15, width=width, fc=GRAY, **kwargs)
 
     filename = "big-picture.pdf"
     log.info(f"Writing {filename}")
