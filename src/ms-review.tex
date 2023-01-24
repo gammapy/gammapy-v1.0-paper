@@ -380,6 +380,22 @@ finally discusses the project organization.
 
 
 \section{Gamma-ray Data Analysis}
+%
+\begin{figure*}[h!]
+	\centering
+	\includegraphics[width=1.\textwidth]{figures/data_flow.pdf}
+	\caption{
+		\gammapy sub-package structure and data analysis workflow. The top row
+        defines the groups for the different data levels and reduction steps
+        from raw gamma-like events on the left, to high level science products
+        on the right. The direction of the data flow is illustrated with the
+        grey arrows. The gray folder icons represent the different sub-packages
+        in \gammapy and their names. Below each icon there is a list of the most
+        important objects defined in the sub-package.
+    }
+	\label{fig:data_flow}
+\end{figure*}
+%
 \label{sec:gammaray-data-analysis}
 % This might not be the bast place compared to introduction
 The data reduction process in \gammaray astronomy is usually split into two parts.
@@ -453,23 +469,6 @@ $\mathcal{L}(\hat{\theta}, N_{obs})$, usually Poissonian, that is maximised to o
 
 
 \subsection{Data analysis workflow}
-%
-\begin{figure*}[h!]
-	\centering
-	\includegraphics[width=1.\textwidth]{figures/data_flow.pdf}
-	\caption{
-		\gammapy sub-package structure and data analysis workflow. The top row
-        defines the groups for the different data levels and reduction steps
-        from raw gamma-like events on the left, to high level science products
-        on the right. The direction of the data flow is illustrated with the
-        grey arrows. The gray folder icons represent the different sub-packages
-        in \gammapy and their names. Below each icon there is a list of the most
-        important objects defined in the sub-package.
-    }
-	\label{fig:data_flow}
-\end{figure*}
-%
-
 The first step in \gammaray data analysis is the selection and extraction of observations
 based of their metadata including information such as pointing direction, observation
 time and observation conditions. The access to the events data and instrument 
