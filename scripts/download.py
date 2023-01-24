@@ -148,7 +148,7 @@ def download_hawc_dl3_data():
 
     for filename in FILENAMES_HAWC_DL3:
         destination = hawc_path / filename
-        source = BASE_URL + "hawc_crab/" + filename
+        source = BASE_URL + "hawc/crab_events_pass4/" + filename
         log.info(f"Downloading {source}")
         progress_download(source, destination)
 
