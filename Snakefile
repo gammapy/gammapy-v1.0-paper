@@ -210,6 +210,26 @@ rule prepare_multi_instrument:
         "cd src/data/multi-instrument && python make.py"
 
 
+# Custom rule to download multi-instrument data, Fermi-LAT
+rule download_hawc_dl3:
+    output:
+        "src/data/hawc-dl3/hdu-index-table-GP-Crab.fits.gz",
+        "src/data/hawc-dl3/obs-index-table-GP-Crab.fits.gz",
+        "src/data/hawc-dl3/irfs/EffectiveAreaMap_Crab_fHitbin5GP.fits.gz",
+        "src/data/hawc-dl3/irfs/EffectiveAreaMap_Crab_fHitbin6GP.fits.gz",
+        "src/data/hawc-dl3/irfs/EffectiveAreaMap_Crab_fHitbin7GP.fits.gz",
+        "src/data/hawc-dl3/irfs/EffectiveAreaMap_Crab_fHitbin8GP.fits.gz",
+        "src/data/hawc-dl3/irfs/EffectiveAreaMap_Crab_fHitbin9GP.fits.gz",
+        "src/data/hawc-dl3/irfs/PSFMap_Crab_fHitbin5GP.fits.gz",
+        "src/data/hawc-dl3/irfs/PSFMap_Crab_fHitbin6GP.fits.gz",
+        "src/data/hawc-dl3/irfs/PSFMap_Crab_fHitbin7GP.fits.gz",
+        "src/data/hawc-dl3/irfs/PSFMap_Crab_fHitbin8GP.fits.gz",
+        "src/data/hawc-dl3/irfs/PSFMap_Crab_fHitbin9GP.fits.gz",
+    conda:
+        "environment.yml"
+    shell:
+        "cd scripts && python download.py hawc-dl3"
+
 # Custom rule for the codestats
 rule codestats:
     input:
