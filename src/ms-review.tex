@@ -47,6 +47,7 @@
 \newcommand{\numpy}{Numpy\xspace}
 \newcommand{\iminuit}{IMinuit\xspace}
 \newcommand{\sherpa}{Sherpa\xspace}
+\newcommand{\agnpy}{Agnpy\xspace}
 
 
 \newcommand{\hess}{H.E.S.S.\xspace}
@@ -210,18 +211,18 @@
 		with other software.
 	}
 	{
-		Starting from event list and instrument response functions",
+		Starting from event list and "instrument response functions",
 		\gammapy provides pipelines for creating reduced data binned in energy and coordinates.
-		To facilitate the handling of the hadronic background, several techniques for background estimation
+		To facilitate the rejection of the residual hadronic background, several techniques for background estimation
 		are implemented in the package.
 		After the data are binned, the flux and morphology of one or more \gammaray sources can be estimated
 		using Poisson maximum likelihood fitting
 		and assuming a variety of spectral, temporal, and spatial models.
-		Estimation of flux points, likelihood profiles and light curves are also implemented.
+		Estimation of flux points, likelihood profiles and light curves is also implemented.
 	}
 	{
 		After describing the structure of the package, we demonstrate the capabilities of \gammapy
-		performing several traditional analyses in gamma-ray astronomy with publicly available data:
+		performing both traditional and novel analyses in gamma-ray astronomy with publicly available data:
 		spectral and spectro-morphological analyses, estimation of the light curve of a source.
 		The flexibility and power of the software are displayed in a final multi-instrument example,
 		where data sets from different instruments, at different stages of data reduction,
@@ -245,15 +246,15 @@
 
 %% \gammaray astronomy
 \gammaray astronomy is a rather young field of research. The \gammaray~
-range of the electromagnetic spectrum provides us with insight to the
-most energetic process in the universe such as surroundings of
+range of the electromagnetic spectrum provides us with insight into the
+most energetic processes in the universe such as surroundings of
 black holes and remnants of supernova explosions. As in other
 branches of astronomy, \gammarays can be observed by both
 satellite as well as ground based instruments.
 Ground based instrument use the Earth's atmosphere as a particle detector.
 Very high-energy cosmic \gammarays interact in the atmosphere and
 create a large shower of secondary particles that can be observed from the ground.
-Ground-based \gammaray astronomy relies on this phenomenon to detect the
+Ground-based \gammaray astronomy relies on these extensive air showers to detect the
 primary \gammaray photons and measure their direction and energy.
 It covers the energy range from fews tens of GeV up to the PeV.
 There are two main categories of ground based instruments: 
@@ -284,13 +285,15 @@ good energy and angular resolution \citep{2015CRPhy..16..610D}.
 		The \gammapy package is not a part of any instrument, but instead
 		provides a common interface to the data and analysis of all
 		these \gammaray instruments. This way users can also easily combine data from
-		different instruments and perform a joint analysis. 
+		different instruments and perform a joint analysis.
+		\gammapy is built on the scientific python eco-system, and the required dependencies
+		are shown below the \gammapy logo.
 	}
 	\label{fig:big_picture}
 
 \end{figure*}
 
-Water Cherenkov observatories detect directly particles from the tail of the
+Water Cherenkov observatories detect particles directly from the tail of the
 shower when it reaches the ground. These instruments have very
 large field-of-view, large duty-cycle but higher energy threshold and
 usually have lower signal to noise ratios compared to IACTs.
@@ -299,18 +302,19 @@ usually have lower signal to noise ratios compared to IACTs.
 Ground based \gammaray astronomy has been historically structured
 by experiments run by independent collaborations relying
 on their own proprietary data and analysis software developed as part of the
-instrument. While this model has been very successful so far, it does not
-permit easy combination of data from several instruments and therefore
+instrument. While this model has been successful so far, it does not
+permit easy combination of data from several instruments and therefore,
 limits the interoperability of existing facilities. This lack of
-interoperability currently limits the full explotation of the
-available \gammaray data, especially because the different detection
+interoperability currently limits the full exploitation of the
+available \gammaray data, especially because the different instruments often have
+complementary sky coverages, and the various detection
 techniques have complementary properties in terms of covered energy rage,
-dutu cycle and spatial resolution.
+duty cycle and spatial resolution.
 
 %TODO: better transition into context
 The Cherenkov Telescope Array (CTA) will be the first instrument to be operated
 as an open observatory in the domain. Its high level data (e.g. the event list) will be shared publicly after
-some proprietary period and the software required to analyze it will be distributed
+some proprietary period, and the software required to analyze it will be distributed
 as well. To allow the re-usability of existing instruments and their interoperability
 requires open data formats and open tools that can support the various analysis methods
 commonly used in the field.
@@ -322,13 +326,13 @@ is remarkably similar. After data calibration, shower events are reconstructed a
 gamma/hadron separation is applied to build lists of \gammaray like events.
 The lists of \gammaray events are then used to derive scientific results, such as spectra, sky maps
 or light curves, taking into account the observatory specific instrument response functions (IRF).
-One the data is present in the form of a list of events, the information is independent on
+Once the data is present in the form of a list of events, the information is independent of
 the data reduction process, and eventually of the detection technique. This implies,
 for example, that data from IACT and particle samplers can be represented
 within the same model. The efforts to prototype a format usable by various instruments
 converged in the so-called \textit{Data Format for \gammaray Astronomy}
 initiative~\citep{gadf_proc, gadf_universe}, abbreviated in
-\texttt{gamma-astro-data-format} (\gadf). The latter proposes prototypical
+\texttt{gamma-astro-data-format} (\gadf). This proposes prototypical
 specifications to produce files based on the flexible image transport system
 (FITS) format~\citep{fits} encapsulating this high-level information. This is
 realized by storing a list of gamma-like events with their measured quantities
@@ -336,8 +340,8 @@ realized by storing a list of gamma-like events with their measured quantities
 system.
 
 %% Context: develoment of open software
-Python has become extremely popular as a scientific programming language
-in particular in the field of data sciences. The success is
+Python has become extremely popular as a scientific programming language,
+in particular, in the field of data sciences. The success is
 mostly attributed to the simple and easy to learn syntax, the ability to act as
 a 'glue' language between different programming languages and last but not least
 the rich eco-system of packages and its open and supportive community, from
@@ -346,7 +350,7 @@ core numerical analysis packages such as \numpy~\citep{numpy} and
 or optimization packages such as \iminuit \citep{iminuit}.
 
 The \astropy~\citep{astropy} was created in 2012 to build a community-developed
-Python package for astronomical reasearch. Among other things, it offers functionalities for
+Python package for astronomical research. Among other things, it offers functionalities for
 transforming and representing astronomical coordinates, manipulating physical quantities
 and their units as well as reading and writing FITS files.
 
@@ -364,7 +368,8 @@ different instruments and the \gadf data format is illustrated in Figure~\ref{fi
 %% \gammapy: from first developments to validation and selection
 The \hess collaboration released a limited test dataset (about 50 hours of
 observations taken between 2004 and 2008) based  on the \gadf DL3 format \citep{HESS_DR1}.
-This data release served as a basis for analysis tools validation \cite[see e.g.]{Mohrmann2019}.
+This data release served as a basis for validation of open analysis tools,
+including \gammapy \cite[see e.g.]{Mohrmann2019}.
 
 %% Paper outline
 In this article, we describe the general structure of the \gammapy package,
@@ -499,8 +504,8 @@ of the data is often excluded from subsequent analysis by defining regions of
 All of these data reduction steps are performed by classes and functions
 implemented in the \code{gammapy.makers} subpackage (see Section~\ref{ssec:gammapy-makers}).
 
-The counts data and the reduced IRFs in the form of maps are bundled into datasets
-that represent the fourth data level (DL4). Those reduced datasets can be written to disk,
+The counts data and the reduced IRFs in the form of maps are bundled into "datasets"
+that represent the fourth data level (DL4). These reduced datasets can be written to disk,
 in a format specific to \gammapy to allow users to read them back at any time later
 for modeling and fitting. Different variations of such datasets support different 
 analysis methods and fit statistics. The datasets are used to perform joint-likelihood
@@ -512,10 +517,11 @@ implemented in the \code{gammapy.datasets} subpackage (see Section~\ref{ssec:gam
 
 The next step is then typically to model and fit the datasets, either
 individually, or in a joint likelihood analysis. For this purpose \gammapy
-provides a uniform interface to multiple fitting backends. It also provides
-a variety of built in models. This includes spectral,
-spatial and temporal model classes to describe the \gammaray emission in the sky.
-Where spectral models can be simple analytical models or more complex ones from radiation
+provides a uniform interface to multiple fitting backends. In addition to
+providing a variety of built in models, including spectral,
+spatial and temporal model classes to describe the \gammaray emission in the sky,
+custom user-defined models are also supported.
+Spectral models can be simple analytical models or more complex ones from radiation
 mechanisms of accelerated particle populations (e.g. inverse Compton or $\pi^{o}$ decay).
 Independently or subsequently to the global modelling, the data can be
 re-grouped to compute flux points, light curves and flux as well as significance
@@ -544,10 +550,10 @@ event lists and IRFs as well as functionality
 to the DL3 data from disk into memory. The \code{gammapy.makers} sub-package
 contains the functionality to reduce the DL3 data to binned maps.
 Binned maps and datasets, which represent a collection of binned
-maps are defined in the \code{gammapy.maps} and \code{gammapy.datasets}
+maps, are defined in the \code{gammapy.maps} and \code{gammapy.datasets}
 sub-packages respectively. Parametric models, which are defined in
 \code{gammapy.modeling}, are used to jointly model a combination
-of datasets for example to create source catalogs. Estimator classes,
+of datasets, for example, to create source catalogs. Estimator classes,
 which are contained in \code{gammapy.estimators} are used to
 compute higher level science products such as flux and signficance maps,
 light curves or flux points. Finally there is a \code{gammapy.analysis}
@@ -563,8 +569,8 @@ read and represent DL3 \gammaray data in memory. It provides the main user
 interface to access the lowest data level. \gammapy currently only
 supports data that is compliant with v0.2 of the \gadf data format.
 DL3 data are typically bundled into individual observations, which
-corresponds to stable periods of data aqusition. For IACT data analysis,
-for which the GADF data model and Gammapy were initially conceived for,
+corresponds to stable periods of data acquisition. For IACT data analysis,
+for which the GADF data model and Gammapy were initially conceived,
 these are usually $20 - 30\,{\rm min}$ long.
 Each observation is assigned a unique integer ID for reference.
 
@@ -577,16 +583,16 @@ content of the data unit of each file. The \code{DataStore} allows for
 selecting a list of observations based on specific filters.
 
 The DL3 level data represented by the \code{Observation} class consist
-of two types of elements: first a list of \gammaray events with relevant physical
+of two types of elements: first, a list of \gammaray events with relevant physical
 quantities such as estimated energy, direction and arrival
-times, which is represented by the \code{EventList} class. Second a set of
+times, which is represented by the \code{EventList} class. Second, a set of
 associated IRFs, providing the response of the system, typically
 factorised in independent components as described in
 Section~\ref{ssec:gammapy-irf}. The separate handling of event lists and IRFs
 additionally allows for data from non-IACT \gammaray instruments to be read. For
 example, to read \fermi data, the user can read separately their event list
 (already compliant with the \gadf specifications) and then find the appropriate
-IRF class representing the response functions provided by \fermi, see
+IRF classes representing the response functions provided by \fermi, see
 example in Section~\ref{ssec:multi-instrument-analysis}.
 %
 \begin{figure}
@@ -655,32 +661,32 @@ sigma parameters. The general \code{ParametricPSF} class allows users to create 
 custom PSF with a parametric representation different from Gaussian(s) or King profile(s).
 The generic \code{PSF3D} class stores a radial symmetric profile of a
 PSF to represent non-parametric shapes, again depending on true energy
-of offset form the poiting position.
+of offset form the pointing position.
 
 To handle the change of the PSF with the observational offset during the analysis 
 the \code{PSFMap} class is used. It stores the radial profile of the PSF
 depending on the true energy and position on the sky. During the modeling
 step in the analysis, the PSF profile for each model component is 
 looked up at its current position and converted into a 3d convolution kernel
-which used for the prediction of counts from that model component.
+which is used for the prediction of counts from that model component.
 
 
 \subsubsection{Energy Dispersion}
 For \iacts, the energy dispersion is typically parameterised in terms of the so-called
 migration parameter ($\mu$), which is defined as the ratio between the
-reconstructed energy and the true energy. By definition the mean of this ratio is
+reconstructed energy and the true energy. By definition, the mean of this ratio is
 close to unity for a small energy bias and its distribution can 
-be typically described by a Gaussian, however more complex
+be typically described by a Gaussian. However, more complex
 shapes are also common. The migration parameter is given at each offset angle and
 reconstructed energy. The main sub-classes are the \code{EnergyDispersion2D} which is
-designed to handle the raw instrument description. Then there is the \code{EDispKernelMap},
+designed to handle the raw instrument description, and the \code{EDispKernelMap},
 which contains an energy disperion matrix per sky position. I.e., a 4-dimensional WCS map
 where at each sky-position is associated an energy dispersion matrix.
 The latter is a representation of the energy resolution as a function of the
-true energy only repesented by the sub-class \code{EDispKernel}.
+true energy only represented by the sub-class \code{EDispKernel}.
 
 \subsubsection{Instrumental Background}
-The instrumental backgropund rate can be represented in \gammapy as either a 2-dimensional
+The instrumental background rate can be represented in \gammapy as either a 2-dimensional
 data structure (\code{Background2D}) of count rate normalised per steradians and energy at different
 reconstructed energies and offset angles or as rate per steradians and energy, as a
 function of reconstructed energy and detector coordinates (\code{Background3D}).
@@ -709,7 +715,7 @@ in notebooks and interpolation onto different geometries.
 The \code{MapAxis} class provides a uniform API for axes representing
 bins on any physical quantity, such as energy or angular offset.
 Map axes can have physical units attached to them, as well as define
-non-lineary spaced bins. The special case of time is covered by the
+non-linearly spaced bins. The special case of time is covered by the
 dedicated \code{TimeMapAxis}, which allows time bins to be non-contiguous,
 as it is often the case with observation time-stamps. The generic
 class \code{LabelMapAxis} allows the creation of axes for non-numeric entries.
@@ -796,7 +802,7 @@ The \code{gammapy.datasets} subpackage contains classes to bundle
 together binned data along with associated models and the likelihood, which
 provides an interface to the \code{Fit} class (Sec \ref{sssec:fit}) for
 modeling and fitting purposes. Depending upon the type of analysis and the
-associated statistics, different types of Datasets are supported. \code{MapDataset} is
+associated statistic, different types of Datasets are supported. \code{MapDataset} is
 used for 3D (spectral and morphological) fitting, and a 1D spectral fitting is
 done using \code{SpectrumDataset}. While the default statistics for both of these is
 \emph{Cash}}, their corresponding on off versions are adapted for the case where the
@@ -823,7 +829,7 @@ methods.
 		\code{MapDataset}. All \code{Maker} classes represent 
 		a step in the data reduction process. They take
         the configuration on initialisation of the class. They 
-		also consitently define \code{.run()} methods, which take 
+		also consistently define \code{.run()} methods, which take
 		a dataset object and optionally an \code{Observation} 
 		object. This way \code{Maker} classes can be chained
 		to define more complex data reduction "pipelines".
@@ -849,7 +855,7 @@ Specific \code{Makers} such as the \code{FoVBackgroundMaker} or the
 
 Finally, to limit other sources of systematic uncertainties, a data validity
 domain is determined by the \code{SafeMaskMaker}. It can be used to limit the
-extent of the field of view used or to limit the energy range to, e.g., a domain
+extent of the field of view used, or to limit the energy range to, e.g., a domain
 where the energy reconstruction bias is below a given value.
 
 
@@ -942,7 +948,7 @@ factor according to their spectral shape. They can be typically used for
 adjusting template based models, or adding taking into account
 the absorbtion effect on 
 \gammaray spectra caused by the extra-galactic background light (EBL) (\code{EBLAbsorptionNormSpectralModel})
-model. \gammapy supports a variety of EBL absorbtion models, such as
+model. \gammapy supports a variety of EBL absorption models, such as
 \cite{Franceschini2008}, \cite{Finke2010} and \cite{Dominguez2011}.
 
 The analytic spatial models are all normalized such as they integrate to
@@ -960,7 +966,7 @@ The model gallery provides a visual overview of the available models in
 \gammapy. Most of the analytic models  commonly used in \gammaray astronomy are
 built-in. We also offer a wrapper to radiative models implemented in the Naima
 package~\citep{naima}. The modeling framework can be easily extended with
-user-defined models. For example agnpy models that describe leptonic radiative
+user-defined models. For example, \agnpy models that describe leptonic radiative
 processes in jetted Active Galactic Nuclei (AGN) can be wrapped into
 \gammapy~\citep[see Section 3.5 of ][]{2021arXiv211214573N} .
 
@@ -970,7 +976,7 @@ processes in jetted Active Galactic Nuclei (AGN) can be wrapped into
 	\caption{Using \code{gammapy.modeling.models} to define a source model with a
     spectral, spatial and temporal component. For convenience the model
     parameters can be defined as strings with attached units. The spatial model
-    takes an addtional \code{frame} parameter which allow users to define
+    takes an additional \code{frame} parameter which allow users to define
     the coordinate frame of the position of the model.
     }
 	\label{fig*:minted:gp_models}
@@ -1035,14 +1041,14 @@ From the TS value the significance of the
 significance of the measured signal and associated flux
 can be derived.
 
-Optionally it can also compute more advanced quantities
-such as assymmetric flux errors, flux upper limits
+Optionally, it can also compute more advanced quantities
+such as asymmetric flux errors, flux upper limits
 and one dimensional profiles of the fit statistic,
 which show how the likelihood functions varies with
 the flux norm parameter around the fit minimum.
-This information is useful for inspecting the quality
-of a fit, for which asymptomatically a parabolic
-shape of the profile is expected at the best fit
+This information is useful in inspecting the quality
+of a fit, for which  a parabolic
+shape of the profile is asymptomatically expected at the best fit
 values.
 
 The base class of all algorithms is the \code{Estimator}  class.
@@ -1058,7 +1064,7 @@ user to conveniently transform between different
 SED types. Table~\ref{tab:sed_types} shows an
 overview and definitions of the supported SED types.
 The actual flux values for each SED type are obtained
-by mutiplication of the norm with the  reference flux.
+by multiplication of the norm with the  reference flux.
 
 \begin{table*}
     \begin{center}
@@ -1086,13 +1092,13 @@ and formats compatible with Astropy's \code{Table} and
 users to directly further analyse the results, e.g.
 standard algorithms for time analysis such as
 computing Lomb-Scargle periodograms or Bayesian
-blocks for time series. So far \gammapy does not
+blocks for time series. So far, \gammapy does not
 support 'unfolding' of \gammaray spectra.
 Methods for this will be implemented in a future version of \gammapy.
 
 The code example shown in Figure~\ref{fig*:minted:gp_estimators} shows how to use
 the \code{TSMapEstimator} objects with a given input \code{MapDataset}.
-In addition to the model it allows to specify the energy
+In addition to the model, it allows to specify the energy
 bins of the resulting flux and TS maps.
 
 
@@ -1520,10 +1526,10 @@ analysis software to be both scalabale as well as performant.
 
 In short the production of catalogs from \gammaray surveys can be divided in
 four main steps: data reduction; object detection; model fitting and model
-selection; associations and classification. All steps can be either be done
-with \gammapy directly or by relying on the seemless integration 
+selection; associations and classification. All steps can either be done directly
+with \gammapy or by relying on the seamless integration
 of \gammapy with the scientific Python ecosystem. This allows to rely
-on 3rd functionality wherever needed.
+on 3rd party functionality wherever needed.
 
 The \iacts data reduction step is done in the same way than described in the 
 previous sections but scale up to few thousands of observations. The object
@@ -1594,7 +1600,7 @@ the development strategy and organise technical activities. This
 institutionally driven organisation, the permanent staff and commitment of
 supporting institutes, ensures the continuity of the executive teams. A core team
 of developers from the contributing institutions is in charge of the regular
-development, which benefits from punctual contributions of the community at
+development, which benefits from regular contributions of the community at
 large.
 
 \subsection{Technical Infrastructure}
@@ -1637,15 +1643,18 @@ actions\footnote{\url{https://github.com/features/actions}}, blocking the
 processes and alerting developers when fails occur. This is the case of the
 continuous integration workflow, which monitors the execution of the test coverage
 suite\footnote{\url{https://pytest.org}} using datasets from the
-\textit{gammapy-data} repository\footnote{\url{https://github.com/gammapy/gammapy-data}}. Tests scan not only the codebase but also the
+\textit{gammapy-data} repository\footnote{\url{https://github.com/gammapy/gammapy-data}}.
+Tests scan not only the codebase, but also the
 code snippets present in docstrings of the scripts and in the RST documentation
 files, as well as in the tutorials provided in the form of Jupyter notebooks.
 
-Other automated tasks, executing in the \textit{gammapy-benchmarks}\footnote{\url{https://github.com/gammapy/gammapy-benchmarks}} repository,
-are responsible for numerical validation tests and benchmarks monitoring. Also
+Other automated tasks, executing in the
+\textit{gammapy-benchmarks}\footnote{\url{https://github.com/gammapy/gammapy-benchmarks}} repository,
+are responsible for numerical validation tests and benchmarks monitoring. Also,
 tasks related with the release process are partially automated, and every
 contribution to the codebase repository triggers the documentation building and
-publishing workflow within the \textit{gammapy-docs} repository\footnote{\url{https://github.com/gammapy/gammapy-docs}}
+publishing workflow within the
+\textit{gammapy-docs} repository\footnote{\url{https://github.com/gammapy/gammapy-docs}}
 (see Sec.~\ref{ssec:software-distribution} and Sec.~\ref{ssec:documentation-and-user-support}).
 
 This small ecosystem of interconnected up-to-date repositories, automated tasks
