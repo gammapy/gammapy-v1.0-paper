@@ -199,7 +199,6 @@
 
 \abstract
 	{
-
 		Traditionally, \gammaray astronomy has been conducted
 		by collaborations of scientists employing proprietary data and analysis software.
 		However, the next generation of \gammaray instruments,
@@ -209,30 +208,31 @@
 		of open high-level astronomy software customised for high energy astrophysics.
 	}
 	{
-		In this article, we present \gammapy, an open-source python package for the analysis of \gammaray data,
+		In this article, we present \gammapy, an open-source python package for the analysis of astronomical \gammaray data,
 		and illustrate the functionalities of the first long-term release of the software, version 1.0.
 		Built on the modern python scientific ecosystem, \gammapy provides a uniform platform for reducing and
-		modelling data from different gamma-ray instruments. \gammapy complies with several well-established
+		modelling data from different \gammaray instruments for a variety of analysis scenarios. \gammapy complies with several well-established
 		data conventions in high-energy astrophysics, providing serialised data products that are interoperable
 		with other software.
 	}
 	{
 		Starting from event list and instrument response functions,
-		\gammapy provides pipelines for creating reduced data binned in energy and coordinates.
+		\gammapy provides the funcionality for reducing data binned in energy and sky coordinates.
 		To facilitate the rejection of the residual hadronic background, several techniques for background estimation
 		are implemented in the package.
 		After the data are binned, the flux and morphology of one or more \gammaray sources can be estimated
 		using Poisson maximum likelihood fitting
 		and assuming a variety of spectral, temporal, and spatial models.
-		Estimation of flux points, likelihood profiles and light curves is also implemented.
+		Estimation of flux points, likelihood profiles and light curves is also supported.
 	}
 	{
-		After describing the structure of the package, we demonstrate the capabilities of \gammapy
-		performing both traditional and novel analyses in gamma-ray astronomy with publicly available data:
-		spectral and spectro-morphological analyses, estimation of the light curve of a source.
+		After describing the structure of the package, we show the capabilities of \gammapy
+		in multiple traditional and novel \gammaray astronomy analysis scenarios using publicly available data
+		such as spectral and spectro-morphological modelling as well as estimation of the spectral energy
+		distribution (SED) and light curve of a source.
 		The flexibility and power of the software are displayed in a final multi-instrument example,
-		where data sets from different instruments, at different stages of data reduction,
-		are simultaneously fitted with a flux model produced by another astrophysical software.
+		where datasets from different instruments, at different stages of data reduction,
+		are simultaneously fitted with an astrophysical flux model produced by another astrophysical software.
 	}{}
 
 
@@ -253,7 +253,7 @@
 %% \gammaray astronomy
 %% CN: I think we should use the expression Water Cherenkov Detectors and use the
 %% abbreviation (WCD) all along the text, later we use "particle samplers"
-\gammaray astronomy is a rather young field of research. The \gammaray~
+\gammaray astronomy is a rather young field of research. The \gammaray
 range of the electromagnetic spectrum provides us insights into the
 most energetic processes in the universe such as those accelerating particles in the surroundings of
 black holes, and remnants of supernova explosions. As in other
@@ -263,11 +263,11 @@ Ground-based instruments use the Earth's atmosphere as a particle detector.
 Very-high-energy (VHE) cosmic \gammarays interact in the atmosphere and
 create a large shower of secondary particles that can be observed from the ground.
 Ground-based \gammaray astronomy relies on these extensive air showers to detect the
-primary \gammaray photons and infer their direction and energy.
+primary \gammaray photons and infer their incident direction and energy.
 VHE \gammaray astronomy covers the energy range from fews tens of ${\rm GeV}$ up to the ${\rm PeV}$.
 There are two main categories of ground-based instruments: 
 Imaging Atmospheric Cherenkov Telescopes (IACT) and 
-Water Cherenkov observatories. IACTs obtain images of the atmospheric showers
+Water Cherenkov Detectors (WCD). IACTs obtain images of the atmospheric showers
 by detecting the Cherenkov radiation emitted by the cascading charged particles and
 use these images to reconstruct the properties of the incident particle.
 Those instruments have a limited field of view (FoV) and duty cycle, but
@@ -281,7 +281,7 @@ good energy and angular resolution.
 		and the gamma astro data formats (GADF). The top left shows the
 		group of current and future pointing instruments based on the 
 		imaging atmospheric Cherenkov technique (IACT). This includes
-		instruments such as the  Cherenkov Telescope Array (CTA),
+		instruments such as the Cherenkov Telescope Array (CTA),
 		the High Energy Stereoscopic System (H.E.S.S.), the
 		Major Atmospheric Gamma Imaging Cherenkov Telescopes (MAGIC),
 		and the Very Energetic Radiation Imaging Telescope Array System (VERITAS).
@@ -302,8 +302,8 @@ good energy and angular resolution.
 \end{figure*}
 
 Water Cherenkov observatories detect particles directly from the tail of the
-shower when it reaches the ground. These instruments have very
-large field-of-view, large duty-cycle but higher energy threshold and
+shower when it reaches the ground. These instruments have a very
+large FoV large duty-cycle but higher energy threshold and
 usually have lower signal to noise ratios compared to IACTs \citep{2015CRPhy..16..610D}.
 
 %% Context
@@ -328,7 +328,6 @@ it is required to use open data formats and open tools that can support the vari
 commonly used in the field.
 
 %% Context : formats
-%% CN: particle samplers -> WCD
 In practice, the data reduction workflow of all \gammaray observatories
 is remarkably similar. After data calibration, shower events are reconstructed and
 gamma/hadron separation is applied to build lists of \gammaray-like events.
@@ -336,7 +335,7 @@ The lists of \gammaray events are then used to derive scientific results, such a
 or light curves, taking into account the observatory's specific instrument response functions (IRF).
 Once the data is reduced to a list of events, the information is independent of
 the data-reduction process, and, eventually, of the detection technique. This implies,
-for example, that hihg-level data from IACT and particle samplers can be represented
+for example, that high-level data from IACTs and WCDs can be represented
 with the same data model. The efforts to prototype a format usable by various instruments
 converged in the so-called \textit{Data Format for \gammaray Astronomy}
 initiative~\citep{gadf_proc, gadf_universe}, abbreviated in
@@ -344,14 +343,14 @@ initiative~\citep{gadf_proc, gadf_universe}, abbreviated in
 specifications to produce files based on the flexible image transport system
 (FITS) format~\citep{fits} encapsulating this high-level information. This is
 realized by storing a list of gamma-like events with their measured quantities
-(energy, direction, arrival time) and a parametrisation of the response of the
-system. %% where? in the data units of a FITS file.
+such as energy, incident direction and arrival time and a parametrisation of
+the IRFs associated with the event list data. %% where? in the data units of a FITS file.
 
 %% Context: develoment of open software
-Python has become extremely popular as a scientific programming language,
+In the past deaced Python has become extremely popular as a scientific programming language,
 in particular, in the field of data sciences. This success is
 mostly attributed to the simple and easy to learn syntax, the ability to act as
-a 'glue' language between different programming languages and last but not least
+a "glue" language between different programming languages and last but not least
 the rich ecosystem of packages and its open and supportive community, from
 core numerical analysis packages such as \numpy~\citep{numpy} and
 \scipy~\citep{2020SciPy-NMeth}, visualization libraries, e.g. Matplotlib \citep{matplotlib},
@@ -364,7 +363,7 @@ and their units as well as reading and writing FITS files.
 
 %% \gammapy: concept and goals
 %%% Question: starting date? Is is relevant, what is the real start?
-The \gammapy project started in 2015 with the objective of building a flexible and
+The \gammapy project started based on the same idea as \astropuy with the objective of building a flexible and
 efficient software library for very high-energy \gammaray data analysis \citep{gammapy_2015}.
 This is possible thanks to the definition of a standardised common data format such as the \gadf, and thanks to
 an open development with a broad community of contributors. The relation of \gammapy to the
@@ -413,15 +412,15 @@ finally discusses the project organization.
 The data analysis process in \gammaray astronomy is usually split into two parts.
 The first one deals with the data processing from camera measurement, calibration, event
 reconstruction and selection to yield a list of reconstructed \gammaray event candidates.
-This sequence, sometimes referred to as low-level analysis, is usually very specific to
-a given observation technique and even to a given instrument.
+This part of the data reduction sequence, sometimes referred to as low-level analysis,
+is usually very specific to a given observation technique and even to a given instrument.
 
 The other sequence, referred to as high-level analysis, deals with the extraction of physical
 quantities related to \gammaray sources and the production of high-level products such as spectra,
 light curves and catalogs. The methods applied here are more generic and are broadly
-shared across the field. They also frequently imply joint analysis of multi-instrument data.
-%% CN: I don't understand this: since the high-level methods are the same, then they "imply"
-%% joint analyses?? Maybe they eventually allow or permit?
+shared across the field. The similarity in the high-level analysis would also allow
+for combining data from multiple instruments, but could not be fully exploited, due to
+a lack of common data formats and software tools.
 
 %\subsection{Predicted counts and Instrument Response Functions}
 
@@ -444,21 +443,28 @@ is convolved through the response function of the instrument.
 %% will avoid to number each new line
 
 In the most general way, we can write the expected number of detected events from the sky model $\Phi$ at measured position $p$ and energy $E$, for
-a given set of parameters $\hat{\theta}$, as
-\begin{align}
-   N(p, E, \hat{\theta})\,{\rm d}p\,{\rm d}E = &t_{\rm obs} \int_{E_{\rm true}} \int_{p_{\rm true}}  R(p, E|p_{\rm true}, E_{\rm true}) \nonumber \\
-   &\times \Phi(p_{\rm true}, E_{\rm true}, \hat{\theta} ) {\rm d}E_{\rm true} {\rm d}p_{\rm true}
-\end{align}
+a given set of parameters $\hat{\theta}$, as:
+%
+\begin{equation}
+	\begin{split}
+   		N(p, E, \hat{\theta})\,{\rm d}p\,{\rm d}E = &t_{\rm obs} \int_{E_{\rm true}} \int_{p_{\rm true}}  R(p, E|p_{\rm true}, E_{\rm true}) \\
+   		&\times \Phi(p_{\rm true}, E_{\rm true}, \hat{\theta} ) {\rm d}E_{\rm true} {\rm d}p_{\rm true}
+	\end{split}
+\end{equation}
+
 where $R(p, E| p_{\rm true}, E_{\rm true})$ is the instrument response and $t_{\rm obs}$ is the observation time
 
 A common assumption is that the instrument response can be simplified as the product
 of three independent functions:
 
-\begin{align}
-   R(p, E|p_{\rm true}, E_{\rm true}) = &A_{\rm eff}(p_{\rm true}, E_{\rm true}) \times \nonumber \\
+\begin{equation}
+	\begin{split}
+   R(p, E|p_{\rm true}, E_{\rm true}) = &A_{\rm eff}(p_{\rm true}, E_{\rm true}) \times \\
     &PSF(p|p_{\rm true}, E_{\rm true}) \times \nonumber \\
     &E_{\rm disp}(E|p_{\rm true}, E_{\rm true})
-\end{align}
+	\end{split}
+\end{equation}
+
 where:
 \begin{itemize}
 \item $A_{\rm eff}(p_{\rm true}, E_{\rm true})$ is the effective collection area of the detector. It is the product
@@ -490,10 +496,13 @@ during an observation. It is defined as a function of the measured position in t
 and measured energy.
 
 In total, the expected number of events in a \gammaray observation is given by:
-\begin{align}
-  N(p, E, \hat{\theta})\ {\rm d}p\ {\rm d}E =  &E_{\rm disp} \star \left[ PSF \star \left( A_{\rm eff} \times t_{\rm obs} \times \Phi(\hat{\theta}) \right) \right]  \nonumber\\
+\begin{equation}
+	\begin{split}
+  N(p, E, \hat{\theta})\ {\rm d}p\ {\rm d}E =  &E_{\rm disp} \star \left[ PSF \star \left( A_{\rm eff} \times t_{\rm obs} \times \Phi(\hat{\theta}) \right) \right]\\
                        & + Bkg(p, E) \times t_{\rm obs}
-\end{align}
+	\end{split}
+\end{equation}
+				
 %% CN: Instead of rewriting this formula and introducing this new notation for the convolution,
 %% can't we just say that, when predicting counts, $Bkg(p, E)$ has to be summed to the convolution
 %% (or integral) in the previous equation?
@@ -634,7 +643,7 @@ IRF classes representing the response functions provided by \fermi, see
 example in Section~\ref{ssec:multi-instrument-analysis}.
 
 %% CN: Shouldn't we display the output of this snippet?
-%% otherwise what's teh point of the `print`' functions?
+%% otherwise what's the point of the `print`' functions?
 \begin{figure}
 	\small
 	\import{code-examples/generated/}{gp_data}
@@ -658,20 +667,24 @@ example in Section~\ref{ssec:multi-instrument-analysis}.
 	\includegraphics[width=1.\textwidth]{figures/irfs.pdf}
 	\caption{
 		Using \code{gammapy.irf} to read and plot instrument response functions.
-		Here we show example instrument response functions of some experiments and
-        observatories for which \gammapy can analyse data. The \cta IRFs
-        are from the \textit{prod5} production. The \hess IRFs are from the DL3 DR1,
+		The left panel shows the effective area as a function of energy for
+		the \cta, \hess, \magic, \hawc and \fermi instruments. The right panel shows
+		the $68\%$ containment radius o as a function of energy for the \cta, \hess
+		and \fermi instruments. These IRFs do not correspond to the latest
+		performance of the instruments, but still are representative of the 
+		detector type and energy range. We also neede to rely on publicly available
+		data. The \cta IRFs are from the \textit{prod5} production. The \hess IRFs are from the DL3 DR1,
         using observation ID 033787. The \magic effective area is computed for a
-        $20\,{\rm min}$ observation at the Crab Nebula coordinates.
-        The point spread function shows the $68\%$
-        containment radius of the PSF. The \fermi IRFs are from \textit{pass8}.
+        $20\,{\rm min}$ observation at the Crab Nebula coordinates. The
+		\fermi IRFs use \textit{pass8} data and are also taken at the position of the Crab Nebula.
+		The \hawc effective area is shown for the event classes $N_{Hit}=5 - 9$ as light gray
+		lines along with the sum of all event classes as a black line. The \hawc IRFs are taken from
+		the first public release of event data the \hawc collaboration. All 
+		data is also availabe in the \code{gammapy-data} repository.
     }
 	\label{fig:irfs}
 \end{figure*}
 %
-%
-%% CN: description of the HAWC IRF missing, what is the difference between the gray
-%% and black effective areas? Where are they taken from?
 
 The \code{gammapy.irf} sub-package contains all classes and functionality
 to handle IRFs in a variety of formats.
