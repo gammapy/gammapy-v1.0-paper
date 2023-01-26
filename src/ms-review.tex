@@ -714,7 +714,7 @@ even plot the multi-dimensional effective area table.
 \gammapy allows user to treat different kinds of PSFs,
 in particular, parametric multi-dimensional Gaussians (\code{EnergyDependentMultiGaussPSF})
 or King profile functions (\code{PSFKing}). The \code{EnergyDependentMultiGaussPSF}
- class is able to handle up to three
+class is able to handle up to three
 Gaussians, defined in terms of amplitudes and sigma given for each true energy
 and offset angle bin. Similarly, \code{PSFKing} takes into account the gamma and
 sigma parameters. The general \code{ParametricPSF} class allows users to create a
@@ -732,7 +732,8 @@ which is used for the prediction of counts from that model component.
 
 
 \subsubsection{Energy Dispersion}
-For \iacts, the energy dispersion is typically parameterised in terms of the so-called
+For \iacts, the energy resolution and bias, or sometimes called energy dispersion,
+is typically parametrised in terms of the so-called
 migration parameter ($\mu$), which is defined as the ratio between the
 reconstructed energy and the true energy. By definition, the mean of this ratio is
 close to unity for a small energy bias and its distribution can 
@@ -740,11 +741,11 @@ be typically described by a Gaussian. However, more complex
 shapes are also common. The migration parameter is given at each offset angle and
 reconstructed energy. The main sub-classes are the \code{EnergyDispersion2D} which is
 designed to handle the raw instrument description, and the \code{EDispKernelMap},
-which contains an energy disperion matrix per sky position. I.e., a 4-dimensional WCS map
-where at each sky-position is associated an energy dispersion matrix.
-The latter is a representation of the energy resolution as a function of the
-true energy only represented by the sub-class \code{EDispKernel}.
-%% CN: I don't understand what "the latter" refers to.
+which contains an energy disperion matrix per sky position. I.e., a 4-dimensional
+sky map where at each position is associated to an energy dispersion matrix.
+The energy dispersion matrix is a representation of the energy resolution
+as a function of the true energy only and implemnted in \gammapy
+by the sub-class \code{EDispKernel}.
 
 \subsubsection{Instrumental Background}
 The instrumental background rate can be represented in \gammapy as either a 2-dimensional
@@ -754,7 +755,7 @@ function of reconstructed energy and detector coordinates (\code{Background3D}).
 In the former, the background is expected to follow a radially symmetric shape,
 while in the latter, it can be more complex.
 
-Some example IRFs read and plotted with \gammapy are shown in Figure~\ref{fig:irfs}.
+Some example IRFs read from public data files and plotted with \gammapy are shown in Figure~\ref{fig:irfs}.
 
 \subsection{gammapy.maps}
 \label{ssec:gammapy-maps}
@@ -773,7 +774,8 @@ set of arithmetic and boolean operations with  unit support, up- and downsamplin
 along extra axes, interpolation, resampling of extra axes, interactive visualisation
 in notebooks and interpolation onto different geometries.
 
-The \code{MapAxis} class provides a uniform API for axes representing
+The \code{MapAxis} class provides a uniform application programming interface
+(API) for axes representing
 bins on any physical quantity, such as energy or angular offset.
 Map axes can have physical units attached to them, as well as define
 non-linearly spaced bins. The special case of time is covered by the
@@ -786,7 +788,6 @@ the FITS World Coordinate System (WCS), the HEALPix pixelization and
 region-based data structure (see Figure~\ref{ig*:minted:gp_maps}).
 This allows uses to perform the same higher level operations on maps
 independent of the underlying pixelisation scheme.
-%% CN: API acronym not introduced
 
 \begin{figure}
 	\small
@@ -805,7 +806,6 @@ independent of the underlying pixelisation scheme.
     \label{ig*:minted:gp_maps}
 \end{figure}
 
-% itemize because it helps me write, could also just be paragraphs...
 \subsubsection{WCS Maps}
 The FITS WCS pixelization supports a different number of projections to
 represent celestial spherical coordinates in a regular rectangular grid.
@@ -865,11 +865,15 @@ together binned data along with associated models and the likelihood, which
 provides an interface to the \code{Fit} class (Sec \ref{sssec:fit}) for
 modeling and fitting purposes. Depending upon the type of analysis and the
 associated statistic, different types of Datasets are supported. The \code{MapDataset} is
-used for 3D (spectral and morphological) fitting, and a 1D spectral fitting is
-done using \code{SpectrumDataset}. While the default statistics for both of these is
-\emph{Cash}}, their corresponding ON/OFF versions are adapted for the case where the
-background is measured from real OFF counts, and support \emph{WStat} statistics. The
-predicted counts are computed by convolution of the models with the associated
+used for combined spectral and morphological (3D) fitting, and a 1D spectral fitting is
+done using \code{SpectrumDataset}. While the default fit statistics for both of these
+classes is the \emph{Cash}}~\citep{Cash} statistic, there are other classes which support
+analyses where the background is measured from control regions, so called "off" obervations.
+Those require the use of a different fit statistics, which takes into account the
+uncertainty of the background measurement. This case is covered by the \code{MapDatasetOnOff}
+and \code{SpectrumDatasetOnOff} classes, which use the \emph{WStat}~\citep{WStat} statistic.
+
+The predicted counts are computed by convolution of the models with the associated
 IRFs. Fitting of precomputed flux points is enabled through \code{FluxPointsDataset},
 using \emph{$\chi^2$} statistics. Multiple datasets of same or different types can be
 bundled together in \code{Datasets} (e.g., Figure \ref{fig*:minted:gp_datasets}),
@@ -879,8 +883,6 @@ across different wavelengths. Datasets also provide functionalities for
 manipulating reduced data, e.g. stacking, sub-grouping, plotting. Users can
 also create their customized datasets for implementing modified likelihood
 methods.
-%% CN: references missing for Cash and Wstat statistics
-%% CN: what are the "corresponding on off versions"?
 
 \subsection{gammapy.makers}
 \label{ssec:gammapy-makers}
