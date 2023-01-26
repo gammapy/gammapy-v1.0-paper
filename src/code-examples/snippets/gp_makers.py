@@ -30,7 +30,7 @@ maker = MapDatasetMaker()
 
 mask_maker = SafeMaskMaker(
     methods=["offset-max", "aeff-default"],
-    offset_max="2.3 deg",
+    offset_max="2.0 deg",
 )
 
 bkg_maker = FoVBackgroundMaker(
