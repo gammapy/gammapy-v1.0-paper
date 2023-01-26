@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 fermi_livetime = 5e7 * u.s
-hawc_lifetime = 56.53223 * u.day
+hawc_lifetime = 6.4 * u.h
 
 offset = [1] * u.deg
 
@@ -74,7 +74,7 @@ for nhit_bin in range(5, 10):
     ax_aeff.plot(energy, data, alpha=0.2, color="k")
     aeff_hawc_max.append(data)
 
-aeff_hawc_max = np.stack(aeff_hawc_max).max(axis=0)
+aeff_hawc_max = np.stack(aeff_hawc_max).sum(axis=0)
 
 ax_aeff.plot(
     aeff_hawc.geom.axes["energy_true"].center,
