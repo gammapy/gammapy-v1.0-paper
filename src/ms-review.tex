@@ -126,39 +126,39 @@
 \abstract
 	{
 		Traditionally, \gammaray astronomy has been conducted
-		by collaborations of scientists employing proprietary data and analysis software.
+		by experiments employing proprietary data and analysis software.
 		However, the next generation of \gammaray instruments,
-		such as the the Cherenkov Telescope Array (CTA), will be operated as open observatories.
-		Alongside the data, the observatories will make available to the astronomical community
-		software tools for their analysis. This necessity prompted the development, in the last decade,
+		such as the the Cherenkov Telescope Array, will be operated as open observatories.
+		Alongside the data, they will make available to the community
+		software tools for their analysis. This necessity prompted the development
 		of open high-level astronomy software customised for high energy astrophysics.
 	}
 	{
-		In this article, we present \gammapy, an open-source python package for the analysis of astronomical \gammaray data,
-		and illustrate the functionalities of the first long-term release of the software, version 1.0.
-		Built on the modern python scientific ecosystem, \gammapy provides a uniform platform for reducing and
-		modelling data from different \gammaray instruments for a variety of analysis scenarios. \gammapy complies with several well-established
-		data conventions in high-energy astrophysics, providing serialised data products that are interoperable
-		with other software.
+		In this article, we present \gammapy, an open-source Python package for the analysis of astronomical \gammaray data,
+		and illustrate the functionalities of its first long-term release, the version 1.0.
+		Built on the modern Python scientific ecosystem, \gammapy provides a uniform platform for reducing and
+		modelling data from different \gammaray instruments for many analysis scenarios. \gammapy complies with
+		several well-established data conventions in high-energy astrophysics, providing serialised data products that
+		are interoperable with other softwares.
 	}
 	{
 		Starting from event list and instrument response functions,
-		\gammapy provides the funcionality for reducing data binned in energy and sky coordinates.
-		To facilitate the rejection of the residual hadronic background, several techniques for background estimation
+		\gammapy provides the functionalities for reducing data binned in energy and sky coordinates.
+		To handle the residual hadronic background, several techniques for background estimation
 		are implemented in the package.
 		After the data are binned, the flux and morphology of one or more \gammaray sources can be estimated
 		using Poisson maximum likelihood fitting
-		and assuming a variety of spectral, temporal, and spatial models.
+		and assuming a variety of spectral, temporal and spatial models.
 		Estimation of flux points, likelihood profiles and light curves is also supported.
 	}
 	{
 		After describing the structure of the package, we show the capabilities of \gammapy
-		in multiple traditional and novel \gammaray astronomy analysis scenarios using publicly available data
-		such as spectral and spectro-morphological modelling as well as estimation of the spectral energy
-		distribution (SED) and light curve of a source.
-		The flexibility and power of the software are displayed in a final multi-instrument example,
+		in multiple traditional and novel \gammaray analysis scenarios using public data
+		such as spectral and spectro-morphological modelling and estimations of a spectral energy
+		distribution and a light curve.
+		Its flexibility and its power are displayed in a final multi-instrument example,
 		where datasets from different instruments, at different stages of data reduction,
-		are simultaneously fitted with an astrophysical flux model produced by another astrophysical software.
+		are simultaneously fitted with an astrophysical flux model.
 	}{}
 
 
@@ -220,7 +220,7 @@ good energy and angular resolution.
 		provides a common interface to the data and analysis of all
 		these \gammaray instruments. This way users can also easily combine data from
 		different instruments and perform a joint analysis.
-		\gammapy is built on the scientific python ecosystem, and the required dependencies
+		\gammapy is built on the scientific Python ecosystem, and the required dependencies
 		are shown below the \gammapy logo.
 	}
 	\label{fig:big_picture}
@@ -273,7 +273,7 @@ such as energy, incident direction and arrival time and a parametrisation of
 the IRFs associated with the event list data. %% where? in the data units of a FITS file.
 
 %% Context: develoment of open software
-In the past deaced Python has become extremely popular as a scientific programming language,
+In the past decade Python has become extremely popular as a scientific programming language,
 in particular, in the field of data sciences. This success is
 mostly attributed to the simple and easy to learn syntax, the ability to act as
 a "glue" language between different programming languages and last but not least
@@ -295,9 +295,7 @@ This is possible thanks to the definition of a standardised common data format s
 an open development with a broad community of contributors. The relation of \gammapy to the
 different instruments and the \gadf data format is illustrated in Figure~\ref{fig:big_picture}.
 
-%\gammapy is built on the scientific Python stack and makes use of Astropy.
 
-%% \gammapy: from first developments to validation and selection
 %% CN: what about mentioning the joint Crab? or is it mentioned later?
 The \hess collaboration released a limited test dataset (about 50 hours of
 observations taken between 2004 and 2008) based  on the \gadf DL3 format \citep{HESS_DR1}.
