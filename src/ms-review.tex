@@ -427,7 +427,10 @@ a lack of common data formats and software tools.
 To extract physically relevant information, such as the flux, spatial or spectral shape of one or more sources,
 an analytical model is commonly adopted to describe the intensity of gamma-ray sources as a function of the energy,
 $E_{\rm true}$, and of the position in the field of view, $p_{\rm true}$:
-$$ \Phi(p_{\rm true}, E_{\rm true}, \hat{\theta}) \quad \mathrm{[TeV^{-1}cm^{-2}s^{-1}]} $$
+\begin{equation}
+    \Phi(p_{\rm true}, E_{\rm true}, \hat{\theta}) \quad \mathrm{[TeV^{-1}cm^{-2}s^{-1}]}
+    \label{eq:general_source_model}
+\end{equation}
 where $\hat{\theta}$ is a set of model parameters that can be adjusted in a fit. To convert this analytical flux model
 into a prediction on the number of gamma-ray events, $N_{\rm pred}$, with their estimated energy $E$ and position $p$, the model
 is convolved through the response function of the instrument.
@@ -861,17 +864,19 @@ for users as well as handling the underlying geometric operations.
 \end{figure}
 %
 The \code{gammapy.datasets} subpackage contains classes to bundle
-together binned data along with associated models and the likelihood, which
+together binned data along with the associated models and likelihood function, which
 provides an interface to the \code{Fit} class (Sec \ref{sssec:fit}) for
 modeling and fitting purposes. Depending upon the type of analysis and the
 associated statistic, different types of Datasets are supported. The \code{MapDataset} is
-used for combined spectral and morphological (3D) fitting, and a 1D spectral fitting is
-done using \code{SpectrumDataset}. While the default fit statistics for both of these
-classes is the \emph{Cash}}~\citep{Cash} statistic, there are other classes which support
+used for combined spectral and morphological (3D) fitting, while a 1D spectral 
+fitting can be performed using the \code{SpectrumDataset}.
+While the default fit statistics for both of these classes is the \emph{Cash}}~\citep{Cash}
+statistic, there are other classes which support
 analyses where the background is measured from control regions, so called "off" obervations.
 Those require the use of a different fit statistics, which takes into account the
 uncertainty of the background measurement. This case is covered by the \code{MapDatasetOnOff}
 and \code{SpectrumDatasetOnOff} classes, which use the \emph{WStat}~\citep{WStat} statistic.
+%% CN: Wstat reference not correctly displayed in the PDF
 
 The predicted counts are computed by convolution of the models with the associated
 IRFs. Fitting of precomputed flux points is enabled through \code{FluxPointsDataset},
@@ -898,26 +903,26 @@ methods.
 		also consistently define \code{.run()} methods, which take
 		a dataset object and optionally an \code{Observation} 
 		object. In this way, \code{Maker} classes can be chained
-		to define more complex data reduction "pipelines".
+		to define more complex data reduction pipelines.
     }
 	\label{ig*:minted:gp_makers}
 \end{figure}
 %
-The data reduction step includes all tasks required to process and prepare
-\gammaray data from the DL3 level to modeling and fitting. The \code{gammapy.makers} sub-package
-contains the various classes and functions required to do so. First, events are
-binned and IRFs are interpolated and projected onto the chosen analysis
+The \code{gammapy.makers} sub-package contains the various classes and functions required
+to process and prepare \gammaray data from the DL3 to the DL4, representing the input for modeling and fitting.
+First, events are binned and IRFs are interpolated and projected onto the chosen analysis
 geometry. The end product of the data reduction process are a set of binned counts,
 background exposure, psf and energy dispersion maps at the DL4 level. 
 The \code{MapDatasetMaker} and \code{SpectrumDatasetMaker} are
-responsible for this task, see Fig~\ref{ig*:minted:gp_makers}.
+responsible for this task for 3D and 1D analyses, respectively (see Fig~\ref{ig*:minted:gp_makers}).
 
 Because the background models suffer from strong uncertainties it is required
 to correct them from the data themselves. Several techniques are commonly used
 in TeV \gammaray astronomy such as field-of-view background normalization or
 background measurement in reflected regions, see~\cite{Berge07}.
 Specific \code{Makers} such as the \code{FoVBackgroundMaker} or the
-\code{ReflectedRegionsBackgroundMaker} are in charge of this step.
+\code{ReflectedRegionsBackgroundMaker} are in charge of this process.
+%% CN: I would add a single line explaining what each of them do
 
 Finally, to limit other sources of systematic uncertainties, a data validity
 domain is determined by the \code{SafeMaskMaker}. It can be used to limit the
@@ -927,8 +932,8 @@ where the energy reconstruction bias is below a given value.
 
 \subsection{gammapy.stats}
 \label{ssec:gammapy-stats}
-The \code{gammapy.stats} subpackage contains the fit statistics and associated
-statistical estimators that are commonly used in \gammaray astronomy. In
+The \code{gammapy.stats} subpackage contains the fit statistics and the associated
+statistical estimators commonly adopted in \gammaray astronomy. In
 general, \gammaray observations count Poisson-distributed events at various sky
 positions, and contain both signal and background events. Estimation of the
 number of signal events is done through likelihood maximization. In \gammapy,
@@ -940,7 +945,7 @@ the likelihood function used. When the expected number of background events is k
 ~\citep{Cash}. It is used by datasets using background templates such as the
 \code{MapDataset}. When the number of background events is unknown and an OFF
 measurement where only background events are expected is used, the statistic
-function is \emph{WStat}. It is a profile log-likelihood statistic where background
+function is \emph{WStat}. It is a profile log-likelihood statistic where the background
 counts are marginalized parameters. It is used by datasets containing off
 counts measurements such as the \code{SpectrumDatasetOnOff}, used for classical
 spectral analysis.
@@ -966,7 +971,7 @@ significance~\citep{LiMa} of a set of measurements.
         attributes such as \code{stat.n\_sig} and \code{stat.sqrt\_ts}.
     }
 	\label{codeexample:stats} \end{figure}
-
+%% CN: the figure does not explain what alpha is
 
 \subsection{gammapy.modeling}
 \label{ssec:gammapy-modeling}
@@ -977,64 +982,58 @@ the fit and parameter API.
 
 \subsubsection{Models}
 \label{sssec:models}
-Source models in \gammapy are four dimensional models which support two
-spatial dimensions define by the sky coordinates $\ell, b$, and energy dimension $E$ as well as
-the time dimension $t$. To simplify the the definition of the
+Source models in \gammapy (Eq.~\ref{eq:general_source_model}) are four-dimensional 
+analytical models which support two spatial dimensions defined by the sky coordinates
+$\ell, b$, an energy dimension $E$, and a time dimension $t$. To simplify the the definition of the
 models, \gammapy uses a factorised representation of the total source
 model:
 
 \begin{equation}
-    f(l, b, E, t) = F(E)  \times G(l, b, E) \times  H(t, E)
+    \phi(\ell, b, E, t) = F(E) \times G(\ell, b, E) \times H(t, E).
+    \label{eq:source_model_dependency}
 \end{equation}
 
-where the spectral model $F$ implicitly includes an \textit{amplitude} parameter
-for the total flux of the model. The spatial model $G$ optionally depends
-on energy and allows to support e.g. energy dependent
-morphology models. The temporal model component $H$
-optionally also supports an energy variable to
-allow for spectral variations of the model with time.
-
-Following the factorisation the models objects are grouped
-into the following categories:
-\begin{itemize}
-	\item \code{SpectralModel}: models to describe spectral shapes of sources,
-	\item \code{SpatialModel}: models to describe spatial shapes (morphologies) of sources,
-	\item \code{TemporalModel}: models to describe temporal flux evolution of sources, such as
-	      light and phase curves.
-\end{itemize}
+The spectral component $F(E)$, described by the \code{SpectralModel} class, always
+includes an \textit{amplitude} parameter to adjust the total flux of the model.
+The spatial component $G(\ell, b, E)$, described by the \code{SpatialModel} class,
+also depends on energy, in order to consider energy-dependent sources morphology.
+Finally, the temporal component $H(t, E)$, described by the \code{TemporalModel}
+class, also supports an energy dependency in order to consider spectral variations
+of the model with time.
 
 The models follow a naming scheme which contains the category as a suffix to
 the class name. The spectral models include a special class of normed models,
 named using the \code{NormSpectralModel} suffix.
 These spectral models feature a dimension-less \textit{norm} parameter
 instead of an \textit{amplitude} parameter with physical units. They
-must be used along with another spectral model, as a multiplicative correction
-factor according to their spectral shape. They can be typically used for
-adjusting template based models, or adding taking into account
-the absorbtion effect on 
-\gammaray spectra caused by the extra-galactic background light (EBL) (\code{EBLAbsorptionNormSpectralModel})
-model. \gammapy supports a variety of EBL absorption models, such as
-\cite{Franceschini2008}, \cite{Finke2010} and \cite{Dominguez2011}.
+can be used as an energy-dependent multiplicative correction
+factor to another spectral model. They are typically used for
+adjusting template-based models, or, for example, to take into account
+the absorbtion effect on \gammaray spectra caused by the extra-galactic background
+light (EBL) (\code{EBLAbsorptionNormSpectralModel}). \gammapy supports a variety
+of EBL absorption models, such as those from \cite{Franceschini2008}, \cite{Finke2010},
+and \cite{Dominguez2011}.
 
-The analytic spatial models are all normalized such as they integrate to
-unity over the sky but the template spatial models may not, so in that special
+The analytical spatial models are all normalized such as they integrate to
+unity over the entire sky. The template spatial models may not, so in that special
 case they have to be combined with a \code{NormSpectralModel}.
 
-The \code{SkyModel} object represents factorised model that combines the spectral,
-spatial and temporal model components (the spatial and temporal components being
-optional). \code{SkyModel} object represents additive emission components, usually
-sources or diffuse emission, although a single source can also be modeled by
-multiple components. To handle list of multiple \code{SkyModel} objects, \gammapy
-has a \code{Models} class.
+The \code{SkyModel} class represents the factorised model in Eq.~\ref{eq:source_model_dependency}
+(the spatial and temporal components being optional).
+A \code{SkyModel} object can represent the sum of several emission components:
+either, for example, from multiple sources and from a diffuse emission, or from several spectral
+components within the same source. To handle list of multiple \code{SkyModel} objects, \gammapy
+implements a \code{Models} class.
 
+%% CN: a link to the model gallery?
 The model gallery provides a visual overview of the available models in
-\gammapy. Most of the analytic models  commonly used in \gammaray astronomy are
+\gammapy. Most of the analytic models commonly used in \gammaray astronomy are
 built-in. We also offer a wrapper to radiative models implemented in the Naima
 package~\citep{naima}. The modeling framework can be easily extended with
-user-defined models. For example, \agnpy models that describe leptonic radiative
-processes in jetted Active Galactic Nuclei (AGN) can be wrapped into
-\gammapy~\citep[see Section 3.5 of ][]{2021arXiv211214573N} .
+user-defined models. For example, the radiaitve models of jetted Active Galactic Nuclei (AGN)
+implemented in \agnpy, can be wrapped into \gammapy~\citep[see Section 3.5 of ][]{2022A&A...660A..18N}.
 
+%% CN: here again, print() without output. Is it useful?
 \begin{figure}
 	\small
 	\import{code-examples/generated/}{gp_models}
@@ -1050,14 +1049,18 @@ processes in jetted Active Galactic Nuclei (AGN) can be wrapped into
 \subsubsection{Fit}
 \label{sssec:fit}
 
-The \code{Fit} class provides methods to fit i.e., optimise model parameters and estimate
-parameter errors and correlations. It interfaces with a \code{Datasets} object, which
+%% CN: should we mention that the dataset also include the stat function?
+%% and thus the fit interfaces only with the dataset
+The \code{Fit} class provides methods to fit, i.e. optimise, model parameters and estimate
+their errors and correlations. It interfaces with a \code{Datasets} object, which
 in turn is connected to a \code{Models} object containing the model parameters in its
 \code{Parameters} object. Models can be unique for a given dataset, or contribute to
-multiple datasets, allowing e.g., to do a joint fit to
-multiple IACT datasets, or to a joint IACT and \fermi dataset. Many
+multiple datasets, allowing e.g., to perform a joint fit to
+multiple IACT datasets, or to jointly fit IACT and \fermi dataset. Many
 examples are given in the tutorials.
-
+%% CN: I would write "to perform a joint fit from multiple datasets from the same instruments
+%% (e.g. collected with different configurations) or from multiple datasets from different gamma-ray
+%% instruments (space- and ground-based)."
 
 The \code{Fit} class provides a uniform interface to multiple fitting backends:
 \begin{itemize}
@@ -1074,13 +1077,13 @@ extend the supported fitting backends, including for example solutions based on 
 \footnote{a prototype is available in gammapy-recipes,
 	\url{https://gammapy.github.io/gammapy-recipes/_build/html/notebooks/mcmc-sampling-emcee/mcmc_sampling.html}
 }
+%% CN: watchout with giving links to notebooks whose position might change or disappear in the future.
 
 \subsection{gammapy.estimators}
 \label{ssec:gammapy-estimators}
-By fitting parametric models to the data, the total integrated
-flux and overall temporal, spectral and morphological shape of the
-\gammaray emission can be constrained. In many cases it is useful
-to make a more detailed follow-up analysis by measuring the
+By fitting parametric models to the data, the total \gammaray
+flux and its overall temporal, spectral and morphological components can be constrained.
+In many cases though, it is useful to make a more detailed follow-up analysis by measuring the
 flux in smaller spectral, temporal or spatial bins. This
 possibly reveals more detailed emission features, which
 are relevant for studying correlation with counterpart emissions.
@@ -1092,26 +1095,25 @@ The initial fine bins of \code{MapDataset} are grouped into
 larger bins. A multiplicative correction factor (the \textit{norm})
 is applied to the best fit "reference" spectral
 model and is fitted in the restricted data range, defined by the 
-bin group, only.
+bin group only.
 
-In addition to the best fit flux \textit{norm} all estimators compute
-quantities corresponding to this flux. This includes
+In addition to the best-fit flux \textit{norm}, all estimators compute
+quantities corresponding to this flux. This includes:
 the predicted number of total, signal and background
-counts per flux bin. The total fit statistics
-of the best fit model, the fit statistics of the
-null hypothesis and the difference between both,
+counts per flux bin; the total fit statistics
+of the best fit model; the fit statistics of the
+null hypothesis; and the difference between both,
 the so-called TS value.
-From the TS value the significance of the
-significance of the measured signal and associated flux
+From the TS value the significance of the measured signal and associated flux
 can be derived.
 
-Optionally, it can also compute more advanced quantities
+Optionally, the estimators can also compute more advanced quantities
 such as asymmetric flux errors, flux upper limits
-and one dimensional profiles of the fit statistic,
+and one-dimensional profiles of the fit statistic,
 which show how the likelihood functions varies with
 the flux \textit{norm} parameter around the fit minimum.
 This information is useful in inspecting the quality
-of a fit, for which  a parabolic
+of a fit, for which a parabolic
 shape of the profile is asymptomatically expected at the best fit
 values.
 
@@ -1151,14 +1153,14 @@ by multiplication of the \textit{norm} with the reference flux.
 Both result objects support the possibility to serialise
 the data into multiple formats. This includes the
 \gadf SED format \footnote{\url{https://gamma-astro-data-formats.readthedocs.io/en/latest/spectra/flux_points/index.html}},
-FITS based ND sky-maps and formats compatible with Astropy's \code{Table} and
+FITS-based ND sky maps and other formats compatible with Astropy's \code{Table} and
 \code{BinnedTimeSeries} data structures. This allows
-users to directly further analyse the results, e.g.
-standard algorithms for time analysis such as
-computing Lomb-Scargle periodograms or Bayesian
-blocks for time series. So far, \gammapy does not
-support 'unfolding' of \gammaray spectra.
+users to further analyse the results with Astropy, for example using
+standard algorithms for time analysis, such as
+the Lomb-Scargle periodogram or the Bayesian
+blocks. So far, \gammapy does not support unfolding of \gammaray spectra.
 Methods for this will be implemented in a future version of \gammapy.
+%% CN: reference for unfolding https://ui.adsabs.harvard.edu/abs/2007NIMPA.583..494A/abstract
 
 The code example shown in Figure~\ref{fig*:minted:gp_estimators} shows how to use
 the \code{TSMapEstimator} objects with a given input \code{MapDataset}.
@@ -1193,7 +1195,7 @@ the \code{AnalysisStep} classes that define the identified common use cases. The
 steps include the following: observations selection with the \code{DataStore},  data
 reduction, excess map computation, model fitting, flux points estimation, and
 light curves production.
-
+%% CN: I would not say that these are use cases, rather analysis or data reduction steps
 
 \subsection{gammapy.visualization}
 \label{ssec:gammapy-visualization}
@@ -1296,13 +1298,18 @@ Newly released relevant catalogs will be added in future.
 
 \section{Applications}
 \label{sec:applications}
-
-\gammapy is in use for a variety of science cases by different IACT
-experiments leading to more than 60 publications
+%% CN: I think we never explained what gammapy-data is and we should have at this point 
+%% (it is used without mention also in the TSEstimator example).
+\gammapy is currently used for a variety of analysis by different IACT
+experiments and has already been employed in more than 60 scientific publications
 \footnote{\href{https://ui.adsabs.harvard.edu/search/q=(\%20(citations(doi\%3A\%2210.1051\%2F0004-6361\%2F201834938\%22)\%20OR\%20citations(bibcode\%3A2017ICRC...35..766D))\%20AND\%20year\%3A2014-2023)&sort=date\%20desc\%2C\%20bibcode\%20desc&p_=0}{List on ADS}}.
-The analysis examples shown in the following section are limited by the availability
-of public data. In general, there is no limitation on performing a specific analysis
-on data from a given instrument.
+In this section, we illustrate the capabilities of Gammapy by performing some standard
+analyses cases commonly considered in gamma-ray astronomy.
+The examples shown are limited by the availability of public data,
+with those employed being publicly available data collected within the \code{gammapy-data} repository.
+We remark that, as long as the data are compliant with the GADF specifications,
+and hence with Gammapy's data structures, there is no limitation on performing
+analyses of data from a given instrument.
 
 
 \subsection{1D Analysis}
