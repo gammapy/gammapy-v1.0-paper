@@ -29,5 +29,6 @@ dependencies:
   - tabulate==0.8.10
   - tqdm
   - requests
+  - healpy
   - pip:
       - pygments
