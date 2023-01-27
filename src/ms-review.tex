@@ -375,7 +375,7 @@ a given set of parameters $\hat{\theta}$, as:
 \begin{equation}
 	\begin{split}
    		N(p, E, \hat{\theta})\,{\rm d}p\,{\rm d}E = &t_{\rm obs} \int_{E_{\rm true}} \int_{p_{\rm true}}  R(p, E|p_{\rm true}, E_{\rm true}) \\
-   		&\times \Phi(p_{\rm true}, E_{\rm true}, \hat{\theta} ) {\rm d}E_{\rm true} {\rm d}p_{\rm true}
+   		&\cdot \Phi(p_{\rm true}, E_{\rm true}, \hat{\theta} ) {\rm d}E_{\rm true} {\rm d}p_{\rm true}
 	\end{split}
 \end{equation}
 
@@ -386,14 +386,15 @@ of three independent functions:
 
 \begin{equation}
 	\begin{split}
-   R(p, E|p_{\rm true}, E_{\rm true}) = &A_{\rm eff}(p_{\rm true}, E_{\rm true}) \times \\
-    &PSF(p|p_{\rm true}, E_{\rm true}) \times \nonumber \\
-    &E_{\rm disp}(E|p_{\rm true}, E_{\rm true})
+   R(p, E|p_{\rm true}, E_{\rm true}) = &~A_{\rm eff}(p_{\rm true}, E_{\rm true}) \\
+	& \cdot PSF(p|p_{\rm true}, E_{\rm true})\\
+    & \cdot E_{\rm disp}(E|p_{\rm true}, E_{\rm true})
 	\end{split}
 \end{equation}
 
 where:
 \begin{itemize}
+\setlength\itemsep{1em}
 \item $A_{\rm eff}(p_{\rm true}, E_{\rm true})$ is the effective collection area of the detector. It is the product
   of the detector collection area times its detection efficiency at true energy $E_{\rm true}$ and position $p_{\rm true}$.
 \item $PSF(p|p_{\rm true}, E_{\rm true})$ is the point spread function (PSF). It gives the probability of
@@ -425,8 +426,8 @@ and measured energy.
 In total, the expected number of events in a \gammaray observation is given by:
 \begin{equation}
 	\begin{split}
-  N(p, E, \hat{\theta})\ {\rm d}p\ {\rm d}E =  &E_{\rm disp} \star \left[ PSF \star \left( A_{\rm eff} \times t_{\rm obs} \times \Phi(\hat{\theta}) \right) \right]\\
-                       & + Bkg(p, E) \times t_{\rm obs}
+  N(p, E, \hat{\theta})\ {\rm d}p\ {\rm d}E =  &E_{\rm disp} \star \left[ PSF \star \left( A_{\rm eff} \cdot t_{\rm obs} \cdot \Phi(\hat{\theta}) \right) \right]\\
+                       & + Bkg(p, E) \cdot t_{\rm obs}
 	\end{split}
 \end{equation}
 				
@@ -912,7 +913,7 @@ models, \gammapy uses a factorised representation of the total source
 model:
 
 \begin{equation}
-    \phi(\ell, b, E, t) = F(E) \times G(\ell, b, E) \times H(t, E).
+    \phi(\ell, b, E, t) = F(E) \cdot G(\ell, b, E) \cdot H(t, E).
     \label{eq:source_model_dependency}
 \end{equation}
 
@@ -987,6 +988,7 @@ examples are given in the tutorials.
 
 The \code{Fit} class provides a uniform interface to multiple fitting backends:
 \begin{itemize}
+	\setlength\itemsep{1em}
 	\item \iminuit~\citep{iminuit}
 	\item \code{scipy.optimize}~\citep{2020SciPy-NMeth}
 	\item \sherpa~\citep{sherpa-2011}
