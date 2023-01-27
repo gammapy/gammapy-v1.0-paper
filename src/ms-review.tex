@@ -271,7 +271,7 @@ initiative~\citep{gadf_proc, gadf_universe}, abbreviated in
 \texttt{gamma-astro-data-format} (\gadf). This proposes prototypical
 specifications to produce files based on the flexible image transport system
 (FITS) format~\citep{fits} encapsulating this high-level information. This is
-realized by storing a list of gamma-like events with their measured quantities
+realized by storing a list of \gammaray-like events with their measured quantities
 such as energy, incident direction and arrival time and a parametrisation of
 the IRFs associated with the event list data. %% where? in the data units of a FITS file.
 
@@ -329,13 +329,12 @@ finally discusses the project organization.
 
 
 \section{Gamma-ray Data Analysis}
-% CN: gamma-like here, was \gammaray-like in the previous section
 \begin{figure*}[h!]
 	\centering
 	\includegraphics[width=1.\textwidth]{figures/data_flow.pdf}
 	\caption{
 		\gammapy sub-package structure and data analysis workflow. The top row
-        defines the different levels of data reduction, from lists of gamma-like
+        defines the different levels of data reduction, from lists of \gammaray-like
         events on the left (DL3), to high-level scientific products products
         (DL5) on the right. The direction of the data flow is illustrated with the
         gray arrows. The gray folder icons represent the different sub-packages
@@ -423,7 +422,7 @@ where:
 
 %% CN: except for the figures we never introduced what the DL3 or the Data Level acronym is
 %% maybe add (see Fig.~1)
-\gammaray data at the Data Level 3 (DL3) therefore consist of lists of gamma-like events and their
+\gammaray data at the Data Level 3 (DL3) therefore consist of lists of \gammaray-like events and their
 corresponding instrument response functions. The latter include the effective area ($A_{\rm eff}$),
 point spread function and energy dispersion ($E_{\rm disp}$).
 In general, they depend on event's detector
@@ -1922,5 +1921,7 @@ a common vision of open and reproducible science for the future.
 % Back matter
 \bibliographystyle{aa}
 \bibliography{bib.bib}
+
+\appendix
 
 \end{document}
