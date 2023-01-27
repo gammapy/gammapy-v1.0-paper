@@ -24,6 +24,12 @@ rule minted:
         "src/code-examples/generated/gp_maps.tex",
         "src/code-examples/generated/gp_models.tex",
         "src/code-examples/generated/gp_estimators.tex",
+        "src/code-examples/generated/gp_stats.tex",
+        "src/code-examples/generated-output/gp_data.tex",
+        "src/code-examples/generated-output/gp_datasets.tex",
+        "src/code-examples/generated-output/gp_maps.tex",
+        "src/code-examples/generated-output/gp_models.tex",
+        "src/code-examples/generated-output/gp_stats.tex",
     conda:
         "environment.yml"
     shell:
