@@ -13,7 +13,7 @@
 %                              according to the author-year natbib style
 
 % \documentclass[]{aa}
-\documentclass[traditabstract, longauth]{aa}
+\documentclass[longauth]{aa}
 
 \usepackage{graphicx}
 \usepackage{url}
@@ -53,6 +53,7 @@
 \newcommand{\iminuit}{IMinuit\xspace}
 \newcommand{\sherpa}{Sherpa\xspace}
 \newcommand{\agnpy}{Agnpy\xspace}
+\newcommand{\matplotlib}{Matplotlib\xspace}
 
 
 \newcommand{\hess}{H.E.S.S.\xspace}
@@ -192,12 +193,18 @@ Ground-based \gammaray astronomy relies on these extensive air showers to detect
 primary \gammaray photons and infer their incident direction and energy.
 VHE \gammaray astronomy covers the energy range from fews tens of ${\rm GeV}$ up to the ${\rm PeV}$.
 There are two main categories of ground-based instruments: 
-Imaging Atmospheric Cherenkov Telescopes (IACT) and 
-Water Cherenkov Detectors (WCD). IACTs obtain images of the atmospheric showers
+
+\textit{Imaging Atmospheric Cherenkov Telescopes (IACT)} obtain images of the atmospheric showers
 by detecting the Cherenkov radiation emitted by the cascading charged particles and
 use these images to reconstruct the properties of the incident particle.
 Those instruments have a limited field of view (FoV) and duty cycle, but
 good energy and angular resolution.
+	
+\textit{Water Cherenkov Detectors (WCD)} detect particles directly from the tail of the
+shower when it reaches the ground. These instruments have a very
+large FoV large duty-cycle but higher energy threshold and
+usually have lower signal to noise ratios compared to IACTs \citep{2015CRPhy..16..610D}.
+
 
 \begin{figure*}[t]
 	\centering
@@ -227,10 +234,6 @@ good energy and angular resolution.
 
 \end{figure*}
 
-Water Cherenkov observatories detect particles directly from the tail of the
-shower when it reaches the ground. These instruments have a very
-large FoV large duty-cycle but higher energy threshold and
-usually have lower signal to noise ratios compared to IACTs \citep{2015CRPhy..16..610D}.
 
 %% Context
 Ground-based \gammaray astronomy has been historically conducted
@@ -272,35 +275,46 @@ realized by storing a list of gamma-like events with their measured quantities
 such as energy, incident direction and arrival time and a parametrisation of
 the IRFs associated with the event list data. %% where? in the data units of a FITS file.
 
-%% Context: develoment of open software
-In the past decade Python has become extremely popular as a scientific programming language,
+%% Context: development of open software
+In the past decade observing the \gammaray sky has transitioned from a niche in the field of
+particle physics to an established branch of astronomy, completing the view of the
+sky in high energies. At the same time \textit{Python}
+has become extremely popular as a scientific programming language,
 in particular, in the field of data sciences. This success is
 mostly attributed to the simple and easy to learn syntax, the ability to act as
 a "glue" language between different programming languages and last but not least
-the rich ecosystem of packages and its open and supportive community, from
-core numerical analysis packages such as \numpy~\citep{numpy} and
-\scipy~\citep{2020SciPy-NMeth}, visualization libraries, e.g. Matplotlib \citep{matplotlib},
-to optimization packages such as \iminuit \citep{iminuit}.
+the rich ecosystem of packages and its open and supportive community \citep{Momcheva2015}.
 
-The \astropy~\citep{astropy} project was created in 2012 to build a community-developed
-Python package for astronomical research. Among other things, it offers functionalities for
-transforming and representing astronomical coordinates, manipulating physical quantities
-and their units as well as reading and writing FITS files.
+In the sub-field of astronomy, it was the \astropy project \citep{astropy} that 
+was created in 2012 to build a community-developed core Python package for astronomy.
+It offers basic functionalities that astronomers of many fields needs, such as representing
+and transforming astronomical coordinates, manipulating physical quantities includinf units
+as well as reading and writing FITS files.
+
 
 %% \gammapy: concept and goals
 %%% Question: starting date? Is is relevant, what is the real start?
-The \gammapy project started based on the same idea as \astropy with the objective of building a flexible and
-efficient software library for very high-energy \gammaray data analysis \citep{gammapy_2015}.
-This is possible thanks to the definition of a standardised common data format such as the \gadf, and thanks to
-an open development with a broad community of contributors. The relation of \gammapy to the
-different instruments and the \gadf data format is illustrated in Figure~\ref{fig:big_picture}.
-
+The \gammapy project was started following the idea of \astropy: the objective of building a common
+software library for very high-energy \gammaray data analysis \citep{gammapy_2015}. 
+The core of the idea is illustrated in Figure~\ref{fig:big_picture}. Various \gammaray instruments
+export their data to a standardised common data format the \gadf. This data can then be combined and
+analysed using a single common software library. This means that the \gammapy package is not a part of
+any instrument, but an independent community developed software project. The \gammapy package is
+is built on the scientific Python ecosystem: it uses \numpy~\citep{numpy} for n-dimensional data
+structures, \scipy~\citep{2020SciPy-NMeth} for numerical algorithms, \astropy~\citep{astropy} for
+astronomy-specific functionality, and \matplotlib~\citep{matplotlib} for visualization.
 
 %% CN: what about mentioning the joint Crab? or is it mentioned later?
-The \hess collaboration released a limited test dataset (about 50 hours of
-observations taken between 2004 and 2008) based  on the \gadf DL3 format \citep{HESS_DR1}.
-This data release served as a basis for validation of open analysis tools,
-including \gammapy \cite[see e.g.][]{Mohrmann2019}.
+With the public availability of the \gadf format sepcifications and the 
+\gammapy package, some experiments started to make limited subsets of
+their \gammaray data publicly available for testing and validating
+\gammapy. For example, the \hess collaboration released a limited test
+dataset (about 50 hours of observations taken between 2004 and 2008)
+based  n the \gadf DL3 format \citep{HESS_DR1}. This data release served
+as a basis for validation of open analysis tools, including \gammapy 
+\cite[see e.g.][]{Mohrmann2019}. The \hawc collaboration also released
+a limited test dataset of the Crab Nebula, which was used to validate
+the \gammapy package in \cite{Olivera2022}.
 
 %% Paper outline
 In this article, we describe the general structure of the \gammapy package,
