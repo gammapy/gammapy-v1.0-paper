@@ -58,7 +58,7 @@ def plot_sub_package_icon(
     ax, offset=(0.5, 0.5), name=".makers", size=(22, 14), color=GP_GRAY, classes=[]
 ):
     p = Polygon(
-        offset + size * FOLDER_ICON, fc="None", ec=color, lw=1, transform=ax.transData
+        offset + size * FOLDER_ICON, fc="None", ec=color, lw=1, transform=ax.transData, zorder=2
     )
     ax.add_artist(p)
 
@@ -70,8 +70,9 @@ def plot_sub_package_icon(
         size=fontsize_gp,
         va="bottom",
         color=GP_ORANGE,
+        zorder=2,
     )
-    ax.text(offset[0] + 6, offset[1] + 5.5, s="$\pi$", size=fontsize_gp, color=color)
+    ax.text(offset[0] + 6, offset[1] + 5.5, s="$\pi$", size=fontsize_gp, color=color, zorder=2)
     ax.text(
         offset[0] + 1,
         offset[1] + 5,
@@ -79,12 +80,13 @@ def plot_sub_package_icon(
         size=fontsize_gp,
         va="bottom",
         color=GP_ORANGE,
+        zorder=2,
     )
-    ax.text(offset[0] + 6, offset[1] + 5.5, s="$\pi$", size=fontsize_gp, color=color)
-    ax.text(offset[0] + 1, offset[1] + 1.5, s=name, size=9.5, color=color)
+    ax.text(offset[0] + 6, offset[1] + 5.5, s="$\pi$", size=fontsize_gp, color=color, zorder=2)
+    ax.text(offset[0] + 1, offset[1] + 1.5, s=name, size=9.5, color=color, zorder=2)
 
     for idx, cls in enumerate(classes):
-        ax.text(offset[0], offset[1] - 4 - 4.2 * idx, s=cls, size=8, color=color)
+        ax.text(offset[0], offset[1] - 4 - 4.2 * idx, s=cls, size=8, color=color, zorder=2)
 
 
 def plot_brace(ax, x, y, scale):
@@ -216,21 +218,21 @@ def plot_data_levels(ax, ypos=123):
     kwargs["size"] = 24
 
     ax.text(15, ypos, "DL3", **kwargs)
-    ax.text(80, ypos, "DL4", **kwargs)
-    ax.text(160, ypos, "DL5/6", **kwargs)
+    ax.text(85, ypos, "DL4", **kwargs)
+    ax.text(162, ypos, "DL5/6", **kwargs)
 
     kwargs["size"] = 12
     ax.text(15, ypos - 7, "$\mathsf{\gamma}$-like events", **kwargs)
-    ax.text(80, ypos - 7, "Binned data", **kwargs)
-    ax.text(160, ypos - 7, "Science products", **kwargs)
+    ax.text(85, ypos - 7, "Binned data", **kwargs)
+    ax.text(161, ypos - 7, "Science products", **kwargs)
 
     # Arrows
-    plot_arrow(ax, offset=(27.5, ypos), dx=41.5, fc=GRAY)
-    plot_arrow(ax, offset=(92.5, ypos), dx=50, fc=GRAY)
+    plot_arrow(ax, offset=(27.5, ypos), dx=45.5, fc=GRAY)
+    plot_arrow(ax, offset=(97.5, ypos), dx=48, fc=GRAY)
 
-    kwargs["color"] = GRAY
-    ax.text(47.5, ypos - 20, "Data\nReduction", **kwargs)
-    ax.text(117.5, ypos - 20, "Modeling &\nFitting", **kwargs)
+    kwargs["color"] = GP_GRAY
+    ax.text(49.5, ypos - 20, "Data\nReduction", zorder=2, **kwargs)
+    ax.text(122.5, ypos - 20, "Modeling &\nFitting", zorder=2, **kwargs)
 
 
 def plot_high_level_interface(fig, ax, ypos=24):
@@ -242,7 +244,7 @@ def plot_high_level_interface(fig, ax, ypos=24):
     #     fig, ax, p1, p2, k_r=0.025, bool_auto=True, color=color, lw=2, int_line_num=1
     # )
 
-    x, y = np.array([[5, 5, 135, 135], [ypos, ypos - 2, ypos - 2, ypos]])
+    x, y = np.array([[5, 5, 140, 140], [ypos, ypos - 2, ypos - 2, ypos]])
     line = mlines.Line2D(x, y, lw=3, color=GRAY)
     ax.add_line(line)
 
@@ -250,7 +252,7 @@ def plot_high_level_interface(fig, ax, ypos=24):
     line = mlines.Line2D(x, y, lw=3, color=GRAY)
     ax.add_line(line)
 
-    offset = (40, ypos - 21.5)
+    offset = (42, ypos - 21.5)
     plot_sub_package_icon(ax, offset=(offset[0] + 22, ypos - 21.5), name=".analysis")
 
     size = 14
@@ -291,25 +293,26 @@ def main(draft=True):
 
     ymin = 0.2
     ymax = 0.85
-    ax.axvspan(32, 62, fc=LIGHT_GRAY, ec="None", ymin=ymin, ymax=ymax)
-    ax.axvspan(100, 135, fc=LIGHT_GRAY, ec="None", ymin=ymin, ymax=ymax)
+    ax.axvspan(32, 67, fc=LIGHT_GRAY, ec="None", ymin=ymin, ymax=ymax, zorder=1)
+    ax.axvspan(105, 140, fc=LIGHT_GRAY, ec="None", ymin=ymin, ymax=ymax, zorder=1)
 
     kwargs = {}
     kwargs["head_width"] = 13
     kwargs["head_length"] = 3
-    plot_arrow(ax, offset=(27.5, 56), dx=41, width=13, fc=LIGHT_GRAY, **kwargs)
-    plot_arrow(ax, offset=(93, 56), dx=21, width=13, fc=LIGHT_GRAY, **kwargs)
+    kwargs["zorder"] = 1
+    plot_arrow(ax, offset=(27.5, 56), dx=45, width=12, fc=LIGHT_GRAY, **kwargs)
+    plot_arrow(ax, offset=(101, 56), dx=22, width=12, fc=LIGHT_GRAY, **kwargs)
 
-    xpos = 120
-    plot_arrow(ax, offset=(xpos, 35), dx=23, width=13, fc=LIGHT_GRAY, **kwargs)
-    plot_arrow(ax, offset=(xpos, 64), dx=23, width=13, fc=LIGHT_GRAY, **kwargs)
-    plot_arrow(ax, offset=(xpos, 96), dx=23, width=13, fc=LIGHT_GRAY, **kwargs)
+    xpos = 123
+    plot_arrow(ax, offset=(xpos, 35), dx=23, width=12, fc=LIGHT_GRAY, **kwargs)
+    plot_arrow(ax, offset=(xpos, 64), dx=23, width=12, fc=LIGHT_GRAY, **kwargs)
+    plot_arrow(ax, offset=(xpos, 96), dx=23, width=12, fc=LIGHT_GRAY, **kwargs)
 
     classes = ["DataStore", "Observations", "Observation", "GTI"]
     plot_sub_package_icon(ax, offset=(5, 50), name=".data", classes=classes)
 
     classes = ["PSF", "EnergyDispersion", "EffectiveArea"]
-    plot_sub_package_icon(ax, offset=(5, 90), name=".irf", classes=classes, color=GRAY)
+    plot_sub_package_icon(ax, offset=(5, 80), name=".irf", classes=classes, color=GRAY)
 
     classes = [
         "MapDatasetMaker",
@@ -318,41 +321,35 @@ def main(draft=True):
         "RingBackgroundMaker",
         "etc.",
     ]
-    plot_sub_package_icon(
-        ax, offset=(34, 50), name=".makers", color=GRAY, classes=classes
-    )
+    plot_sub_package_icon(ax, offset=(34, 50), name=".makers", classes=classes)
 
-    classes = ["WcsNDMap", "HpxNDMap", "RegionNDMap", "etc."]
-    plot_sub_package_icon(ax, offset=(70, 90), name=".maps", classes=classes, color=GRAY,)
+    classes = ["WcsNDMap", "HpxNDMap", "etc."]
+    plot_sub_package_icon(ax, offset=(75, 80), name=".maps", classes=classes, color=GRAY,)
 
     classes = ["Datasets", "MapDataset", "MapDatasetOnOff", "etc."]
-    plot_sub_package_icon(ax, offset=(70, 50), name=".datasets", classes=classes)
+    plot_sub_package_icon(ax, offset=(75, 50), name=".datasets", classes=classes)
 
-    classes = ["FluxPointsEstimator", "FluxMapEstimator", "etc."]
-    plot_sub_package_icon(
-        ax, offset=(105, 40), name=".estimators", color=GRAY, classes=classes
-    )
+    classes = ["FluxPointsEstimator", "TSMapEstimator", "etc."]
+    plot_sub_package_icon(ax, offset=(108, 50), name=".estimators", classes=classes)
 
     classes = ["Fit, Models, SkyModel", "FoVBackgroundModel", "etc."]
-    plot_sub_package_icon(
-        ax, offset=(105, 80), name=".modeling", color=GRAY, classes=classes
-    )
+    plot_sub_package_icon(ax, offset=(108, 80), name=".modeling", classes=classes)
 
     if draft:
         plt.grid(alpha=0.2, lw=0.5)
     else:
         ax.set_axis_off()
 
-    ax_image = add_sub_axes(ax, [145, 54, 30, 20])
+    ax_image = add_sub_axes(ax, [148, 54, 30, 20])
     plot_image(ax=ax_image)
 
-    ax_fp = add_sub_axes(ax, [145, 25, 30, 20])
+    ax_fp = add_sub_axes(ax, [148, 25, 30, 20])
     plot_sed(ax=ax_fp)
 
-    ax_lc = add_sub_axes(ax, [145, 4, 30, 20])
+    ax_lc = add_sub_axes(ax, [148, 4, 30, 20])
     plot_lightcurve(ax=ax_lc)
 
-    ax_cat = add_sub_axes(ax, [145, 86, 30, 20])
+    ax_cat = add_sub_axes(ax, [148, 86, 30, 20])
     plot_catalog(ax=ax_cat)
 
     filename = "data_flow.pdf"
