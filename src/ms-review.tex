@@ -594,7 +594,8 @@ example in Section~\ref{ssec:multi-instrument-analysis}.
         Individual observations can be accessed by their unique integer observation id number.
         The actual events and instrument response functions can be accessed
         as attributes on the \code{Observation} object, such as \code{.events}
-        or \code{.aeff} for the effective area information.
+        or \code{.aeff} for the effective area information. The output
+		of the code example is shown in Figure~\ref{fig:code_example_gp_data}.
     }
 	\label{fig*:minted:gp_data}
 \end{figure}
@@ -645,7 +646,7 @@ sub-package:
 \gammapy provides the class \code{EffectiveAreaTable2D} to
 manage the effective area, which is usually defined in terms of true energy and offset angle.
 The class functionalities offer the possibility to read from files or to create
-it from scratch. {The \code{EffectiveAreaTable2D} class can also convert, interpolate,
+it from scratch. The \code{EffectiveAreaTable2D} class can also convert, interpolate,
 write, and evaluate the effective area for a given energy and offset angles, or
 even plot the multi-dimensional effective area table.
 
@@ -727,7 +728,7 @@ class \code{LabelMapAxis} allows the creation of axes for non-numeric entries.
 
 To handle the spatial dimension the sub-package exposes a uniform API for
 the FITS World Coordinate System (WCS), the HEALPix pixelization and
-region-based data structure (see Figure~\ref{ig*:minted:gp_maps}).
+region-based data structure (see Figure~\ref{fig*:minted:gp_maps}).
 This allows uses to perform the same higher level operations on maps
 independent of the underlying pixelisation scheme.
 
@@ -743,9 +744,10 @@ independent of the underlying pixelisation scheme.
         The energy minimum and maximum values for the creation of the
         \code{MapAxis} object can be defined as strings also specifying the
         unit. Region definitions can be passed as strings following
-        the DS9 region specifications \url{http://ds9.si.edu/doc/ref/region.html}.
+        the DS9 region specifications \url{http://ds9.si.edu/doc/ref/region.html}.The output
+		of the code example is shown in Figure~\ref{fig:code_example_gp_maps}.
         }
-    \label{ig*:minted:gp_maps}
+    \label{fig*:minted:gp_maps}
 \end{figure}
 
 \subsubsection{WCS Maps}
@@ -802,7 +804,8 @@ maps are represented by the \code{RegionGeom} and \code{RegionNDMap} classes.
         common \code{Datasets} container. All dataset types have an associated
         name attribute to allow access by name later in the code. The
         environment variable \code{\$GAMMAPY\_DATA} is automtically resolved
-        by \gammapy.
+        by \gammapy. The output
+		of the code example is shown in Figure~\ref{fig:code_example_gp_datasets}.
     }
 	\label{fig*:minted:gp_datasets}
 \end{figure}
@@ -814,7 +817,7 @@ modeling and fitting purposes. Depending upon the type of analysis and the
 associated statistic, different types of Datasets are supported. The \code{MapDataset} is
 used for combined spectral and morphological (3D) fitting, while a 1D spectral 
 fitting can be performed using the \code{SpectrumDataset}.
-While the default fit statistics for both of these classes is the \emph{Cash}}~\citep{Cash}
+While the default fit statistics for both of these classes is the \emph{Cash}~\citep{Cash}
 statistic, there are other classes which support
 analyses where the background is measured from control regions, so called "off" obervations.
 Those require the use of a different fit statistics, which takes into account the
@@ -846,9 +849,10 @@ methods.
 		also consistently define \code{.run()} methods, which take
 		a dataset object and optionally an \code{Observation} 
 		object. In this way, \code{Maker} classes can be chained
-		to define more complex data reduction pipelines.
+		to define more complex data reduction pipelines. The output
+		of the code example is shown in Figure~\ref{fig:code_example_gp_makers}.
     }
-	\label{ig*:minted:gp_makers}
+	\label{fig*:minted:gp_makers}
 \end{figure}
 %
 The \code{gammapy.makers} sub-package contains the various classes and functions required
@@ -857,7 +861,7 @@ First, events are binned and IRFs are interpolated and projected onto the chosen
 geometry. The end product of the data reduction process are a set of binned counts,
 background exposure, psf and energy dispersion maps at the DL4 level. 
 The \code{MapDatasetMaker} and \code{SpectrumDatasetMaker} are
-responsible for this task for 3D and 1D analyses, respectively (see Fig~\ref{ig*:minted:gp_makers}).
+responsible for this task for 3D and 1D analyses, respectively (see Figure~\ref{fig*:minted:gp_makers}).
 
 Because the background models suffer from strong uncertainties it is required
 to correct them from the data themselves. Several techniques are commonly used
@@ -912,8 +916,10 @@ significance~\citep{LiMa} of a set of measurements.
         of the \code{WStatCountsStatistic} class. The quantities
         are the computed ON excess of the corresponding class
         attributes such as \code{stat.n\_sig} and \code{stat.sqrt\_ts}.
+		The output of the code example is shown in Figure~\ref{fig:code_example_gp_stats}.
     }
-	\label{codeexample:stats} \end{figure}
+	\label{fig*:minted:gp_stats}
+\end{figure}
 %% CN: the figure does not explain what alpha is
 
 \subsection{gammapy.modeling}
@@ -984,7 +990,8 @@ implemented in \agnpy, can be wrapped into \gammapy~\citep[see Section 3.5 of ][
     spectral, spatial and temporal component. For convenience the model
     parameters can be defined as strings with attached units. The spatial model
     takes an additional \code{frame} parameter which allow users to define
-    the coordinate frame of the position of the model.
+    the coordinate frame of the position of the model. The output
+	of the code example is shown in Figure~\ref{fig:code_example_gp_models}.
     }
 	\label{fig*:minted:gp_models}
 \end{figure}
@@ -1118,7 +1125,8 @@ bins of the resulting flux and TS maps.
 	\caption{Using the \code{TSMapEstimator} object from \code{gammapy.estimators} to compute a
         a flux, flux upper limits and TS map. The additional parameters \code{n\_sigma}
         and \code{n\_sigma\_ul} define the confidence levels (in multiples of the normal distribution width)
-        of the flux error and and flux upper limit maps respectively.
+        of the flux error and and flux upper limit maps respectively. The output
+		of the code example is shown in Figure~\ref{fig:code_example_gp_estimators}.
     }
     \label{fig*:minted:gp_estimators}
 \end{figure}
@@ -1231,8 +1239,10 @@ Newly released relevant catalogs will be added in future.
 	\small
 	\import{code-examples/generated/}{gp_catalogs}
 	\caption{Using \code{gammapy.catalogs} to access the underlying model, flux points and
-		light-curve from the \fermi 4FGL catalog for the blazar PKS 2155-304}
-	\label{codeexample:data}
+		light-curve from the \fermi 4FGL catalog for the blazar PKS 2155-304. The output
+		of the code example is shown in Figure~\ref{fig:code_example_gp_catalogs}.
+	}
+	\label{fig*:minted:gp_catalogs}
 \end{figure}
 
 %\subsection{gammapy.utils}
@@ -1923,5 +1933,68 @@ a common vision of open and reproducible science for the future.
 \bibliography{bib.bib}
 
 \appendix
+\section{Code Examples Output}
+
+\begin{figure}[!ht]
+	\small
+	\import{code-examples/generated-output/}{gp_data}
+	\caption{Output from the code example shown in Figure~\ref{fig*:minted:gp_data}}
+	\label{fig:code_example_gp_data}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\small
+	\import{code-examples/generated-output/}{gp_datasets}
+	\caption{Output from the code example shown in Figure~\ref{fig*:minted:gp_datasets}}
+	\label{fig:code_example_gp_datasets}
+\end{figure}
+
+\begin{figure}[!ht]
+	\small
+	\import{code-examples/generated-output/}{gp_maps}
+	\caption{Output from the code example shown in Figure~\ref{fig*:minted:gp_maps}}
+	\label{fig:code_example_gp_maps}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\small
+	\import{code-examples/generated-output/}{gp_stats}
+	\caption{Output from the code example shown in Figure~\ref{fig*:minted:gp_stats}}
+	\label{fig:code_example_gp_stats}
+\end{figure}
+
+
+\begin{figure*}[!ht]
+	\centering
+	\includegraphics[width=1.\textwidth]{figures/gp_makers.pdf}
+	\caption{Output from the code example shown in Figure~\ref{fig*:minted:gp_makers}}
+	\label{fig:code_example_gp_makers}
+\end{figure*}
+
+
+\begin{figure*}[!ht]
+	\centering
+	\includegraphics[width=1.\textwidth]{figures/gp_estimators.pdf}
+	\caption{Output from the code example shown in Figure~\ref{fig*:minted:gp_estimators}}
+	\label{fig:code_example_gp_estimators}
+\end{figure*}
+
+
+\begin{figure*}[!ht]
+	\centering
+	\includegraphics[width=1.\textwidth]{figures/gp_catalogs.pdf}
+	\caption{Output from the code example shown in Figure~\ref{fig*:minted:gp_catalogs}}
+	\label{fig:code_example_gp_catalogs}
+\end{figure*}
+
+\begin{figure}[!ht]
+	\small
+	\import{code-examples/generated-output/}{gp_models}
+	\caption{Output from the code example shown in Figure~\ref{fig*:minted:gp_models}}
+	\label{fig:code_example_gp_models}
+\end{figure}
+
 
 \end{document}
