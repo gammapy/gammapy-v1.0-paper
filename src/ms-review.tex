@@ -562,10 +562,11 @@ for which the GADF data model and Gammapy were initially conceived,
 these are usually $20 - 30\,{\rm min}$ long.
 Each observation is assigned a unique integer ID for reference.
 
-%% CN: what is a index file?
 A typical usage example is shown in Figure~\ref{fig*:minted:gp_data}.
 First a \code{DataStore} object is created from the path of the data
-directory, which contains the DL3 data index file. The \code{DataStore}
+directory. The directory contains an observation as well as FITS HDU 
+index file which assigns the correct data and IRF FITS files and HDUs
+to the given observation ID. The \code{DataStore}
 object gathers a collection of observations and provides ancillary
 files containing information about the telescope observation mode and the
 content of the data unit of each file. The \code{DataStore} allows for
@@ -1247,7 +1248,7 @@ Newly released relevant catalogs will be added in future.
 \gammapy is currently used for a variety of analyses by different IACT
 experiments and has already been employed in more than 60 scientific publications
 \footnote{\href{https://ui.adsabs.harvard.edu/search/q=(\%20(citations(doi\%3A\%2210.1051\%2F0004-6361\%2F201834938\%22)\%20OR\%20citations(bibcode\%3A2017ICRC...35..766D))\%20AND\%20year\%3A2014-2023)&sort=date\%20desc\%2C\%20bibcode\%20desc&p_=0}{List on ADS}}.
-In this section, we illustrate the capabilities of Gammapy by performing some standard
+In this section, we illustrate the capabilities of \gammapy by performing some standard
 analysis cases commonly considered in \gammaray astronomy.
 Beside reproducing standard methodologies, we illustrate the unique data combination
 capabilites of Gammapy by presenting a multi-instrument analysis to date not possible within any
@@ -1267,7 +1268,7 @@ astronomy also called \textit{aperture photometry}. The spectrum is typically me
 in two steps: first a parametric spectral model is fitted to the data and
 secondly flux points are computed in a pre-defined set of energy bins. The
 result of such an analysis performed on three simulated CTA observations is
-shown in Fig.~\ref{fig:cta_galactic_center}. In this case the spectrum was
+shown in Fiure~\ref{fig:cta_galactic_center}. In this case the spectrum was
 measured in a circular aperture centered on the Galactic Center, in
 \gammaray~astronomy often called "ON region". For such analysis the users first
 chooses a region of interest and energy binning, both defined by a
@@ -1277,20 +1278,19 @@ reduced IRFs are bundled into a \code{SpectrumDataset}. To estimate
 the expected background in the ON region a "reflected regions" background
 method was used~\cite{Berge07}, represented in \gammapy by the
 \code{ReflectedRegionsBackgroundMaker} class. The resulting reflected regions are
-illustrated for all three observations overlayed on the counts map in Fig.~\ref{fig:cta_galactic_center}.
+illustrated for all three observations overlayed on the counts map in Figure~\ref{fig:cta_galactic_center}.
 After reduction, the data were modelled using a forward-folding method and assuming
-a point source with a power law spectral shape, using the \code{PowerLawSpectralModel}
-and \code{Fit} class. Based on this best-fit model, the final flux points and corresponding
+a point source with a power law spectral shape. The model was defined, using
+the \code{SkyModel} class with a \code{PowerLawSpectralModel} spectral component only.
+This model was then combined with the \code{SpectrumDataset}, which contains the reduced data 
+and fitted using the and \code{Fit} class. Based on this best-fit model, the final flux points and corresponding
 log-likelihood profiles are computed using the \code{FluxPointsEstimator}.
-%% CN: maybe say that a SkyModel containing only a PowerLawSpectralModel was associated
-%% with the SpectrumDataset, to be consisted with what was presented in the 
-%% gammapy.models and gammapy.fit subsections?
 
 \begin{figure*}
 	\centering
 	\includegraphics[width=1.\textwidth]{figures/cta_galactic_center.pdf}
 	\caption{
-		Example of 1D spectral analysis of the Galactic Center for three simulated CTA
+		Example of a one dimensional spectral analysis of the Galactic Center for three simulated CTA
 		observations for the 1DC dataset. The left image shows the maps of counts with the signal
 		region in white and background regions overlaid in different colors. The right image
 		shows the resulting spectral points and their corresponding log-likelihood
@@ -1554,13 +1554,12 @@ with \gammapy or by relying on the seamless integration
 of \gammapy with the scientific Python ecosystem. This allows to rely
 on 3rd party functionality wherever needed.
 
-%% CN: don't like the "a minima in finding local maxima"
 The \iacts data reduction step is done in the same way than described in the 
-previous sections but scale up to few thousands of observations. The object
- detection step consists a minima in
-finding local maxima in the significance (or TS) maps,  given by the
-\code{ExcessMapEstimator} (or \code{TSMapEstimator} respectively).  Further refinements can
-include for example  filtering and detection on these maps with techniques from
+previous sections but scaled up to few thousands of observations. The object
+detection step typically consists in finding local maxima in the significance or TS maps,
+computed by the \code{ExcessMapEstimator} or \code{TSMapEstimator} respectively.
+ Further refinements can
+include for example filtering and detection on these maps with techniques from
 the "scikit-image" package~\citep{scikit-image}, and outlier detection from
 the "scikit-learn" package~\citep{scikit-learn}. This allows e.g., to 
 reduce the number of spurious detections at this stage using standard
@@ -1693,7 +1692,6 @@ shields in the codebase repository.
 
 \subsection{Software Distribution}
 \label{ssec:software-distribution}
-%% CN: no mention of ESCAPE? Maybe a little note on the OSSR after metnioning zenodo?
 \gammapy is distributed for Linux, Windows and Mac environments, and installed
 in the usual way for Python packages. Each stable release is uploaded to the
 Python package index\footnote{\url{https://pypi.org}} and as a binary package
@@ -1727,13 +1725,12 @@ products~\footnote{\url{https://hal.science/hal-03885031v1}} of open science.
 
 \subsection{Documentation and User-support}
 \label{ssec:documentation-and-user-support}
-%% CN: "handwritten" user guide?
 \gammapy provides its user community with a tested and versioned up-to-date
 online
 documentation\footnote{\url{https://docs.gammapy.org}}~\citep{2019ASPC..523..357B}
 built with Sphinx\footnote{\url{https://www.sphinx-doc.org}} scanning the
 codebase Python scripts, as well as a set of RST files and Jupyter notebooks.
-The documentation includes a handwritten user guide, a set of executable
+The documentation includes a user guide, a set of executable
 tutorials, and a reference to the API automatically extracted from the code and
 docstrings. The \gammapy code snippets present in the documentation are tested
 in different environments using our continuous integration (CI) workflow based

@@ -312,7 +312,7 @@ def main(draft=True):
 
     ypos = 40
     plot_gp_logo(ax=ax, offset=(70, ypos), fontsize=150, sub_title="")
-    plot_gadf_icon(ax=ax, offset=(70, ypos + 2), text="DL3\nGADF", size=18)
+    plot_gadf_icon(ax=ax, offset=(70, ypos + 2), text="GADF", size=18)
 
     ax.tick_params(axis="both", direction="in", pad=-20)
     ax.xaxis.set_minor_locator(MultipleLocator(10))
