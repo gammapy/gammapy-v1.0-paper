@@ -6,12 +6,11 @@ alpha = [0.8, 0.5, 0.1]
 stat = WStatCountsStatistic(n_on, n_off, alpha)
 
 # Excess
-print(stat.n_sig)
+print(f"Excess: {stat.n_sig}")
 
 # Significance
-print(stat.sqrt_ts)
+print(f"Significance: {stat.sqrt_ts}")
 
-# Asymmetrical rrors
-print(stat.compute_errn(1.))
-print(stat.compute_errp(1.))
-
+# Asymmetrical errors
+print(f"Error Neg.: {stat.compute_errn(n_sigma=1.0)}")
+print(f"Error Pos.: {stat.compute_errp(n_sigma=1.0)}")
