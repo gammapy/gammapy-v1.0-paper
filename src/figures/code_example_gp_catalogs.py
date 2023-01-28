@@ -1,7 +1,10 @@
+import os
 from pathlib import Path
 
 import config
 import matplotlib.pyplot as plt
+
+os.environ["GAMMAPY_DATA"] = "../data"
 
 filename = Path("../code-examples/snippets/gp_catalogs.py")
 

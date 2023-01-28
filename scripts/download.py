@@ -107,6 +107,12 @@ def download_fermi_data():
         log.info(f"Downloading {source}")
         progress_download(source, destination)
 
+    source = BASE_URL + "catalogs/fermi/gll_psc_v28.fit.gz"
+    destination = PATH_DATA / "catalogs/fermi/gll_psc_v28.fit.gz"
+    destination.parent.mkdir(exist_ok=True, parents=True)
+    log.info(f"Downloading {source}")
+    progress_download(source, destination)
+
 
 def download_fermi_crab_3fhl():
     fermi_path = PATH_DATA / f"multi-instrument/input/fermi"
