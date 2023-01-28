@@ -55,7 +55,8 @@ dependencies:
         - src/data/hawc-dl3/irfs/PSFMap_Crab_fHitbin8GP.fits.gz
         - src/data/hawc-dl3/irfs/EffectiveAreaMap_Crab_fHitbin9GP.fits.gz
         - src/data/hawc-dl3/irfs/PSFMap_Crab_fHitbin9GP.fits.gz
-        
+    src/figures/code_example_gp_catalogs.py:
+        - src/data/catalogs/fermi/gll_psc_v28.fit.gz
 
 
 

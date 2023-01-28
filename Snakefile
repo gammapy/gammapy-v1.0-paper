@@ -42,6 +42,7 @@ rule download_fermi:
         "src/data/fermi-ts-map/input/fermi-3fhl-gc-background-cube.fits.gz",
         "src/data/fermi-ts-map/input/fermi-3fhl-gc-exposure-cube.fits.gz",
         "src/data/fermi-ts-map/input/fermi-3fhl-gc-psf-cube.fits.gz",
+        "src/data/catalogs/fermi/gll_psc_v28.fit.gz",
     conda:
         "environment.yml"
     shell:
