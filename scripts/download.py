@@ -93,6 +93,9 @@ FILENAMES_HESS_DR1 = [
     "hess-dl3-dr1/obs-index.fits.gz",
     "hess-dl3-dr1/hdu-index.fits.gz",
     "joint-crab/spectra/hess/pha_obs23523.fits",
+    "joint-crab/spectra/hess/arf_obs23523.fits",
+    "joint-crab/spectra/hess/rmf_obs23523.fits",
+    "joint-crab/spectra/hess/bkg_obs23523.fits",
 ]
 
 
