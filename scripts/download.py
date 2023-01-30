@@ -96,6 +96,12 @@ def download_cta_data():
         log.info(f"Downloading {source}")
         progress_download(source, destination)
 
+    source = BASE_URL + "cta-1dc-gc/cta-1dc-gc.fits.gz"
+    destination = PATH_DATA / "cta-1dc-gc/cta-1dc-gc.fits.gz"
+    destination.parent.mkdir(exist_ok=True, parents=True)
+    log.info(f"Downloading {source}")
+    progress_download(source, destination)
+
 
 def download_fermi_data():
     fermi_path = PATH_DATA / f"fermi-ts-map/input"

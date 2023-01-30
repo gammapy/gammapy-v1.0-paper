@@ -72,6 +72,7 @@ rule download_cta:
         "src/data/cta-galactic-center/input/data/baseline/gps/gps_baseline_111140.fits",
         "src/data/cta-galactic-center/input/data/baseline/gps/gps_baseline_111159.fits",
         "src/data/cta-galactic-center/input/caldb/data/cta/1dc/bcf/South_z20_50h/irf_file.fits",
+        "src/data/cta-1dc-gc/cta-1dc-gc.fits.gz",
     conda:
         "environment.yml"
     shell:
