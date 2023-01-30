@@ -11,174 +11,136 @@ logging.basicConfig(level=logging.INFO)
 
 BASE_URL = "https://github.com/gammapy/gammapy-data/raw/v1.0/"
 PATH = Path(__file__).parent.parent
-PATH_DATA = PATH / "src/data"
+PATH_DATA = PATH / "src/data/input"
 
 
 FILENAMES_FERMI = [
-    "fermi-3fhl-gc-counts-cube.fits.gz",
-    "fermi-3fhl-gc-background-cube.fits.gz",
-    "fermi-3fhl-gc-exposure-cube.fits.gz",
-    "fermi-3fhl-gc-psf-cube.fits.gz",
+    "fermi-3fhl-gc/fermi-3fhl-gc-counts-cube.fits.gz",
+    "fermi-3fhl-gc/fermi-3fhl-gc-background-cube.fits.gz",
+    "fermi-3fhl-gc/fermi-3fhl-gc-exposure-cube.fits.gz",
+    "fermi-3fhl-gc/fermi-3fhl-gc-psf-cube.fits.gz",
 ]
 
+FILENAMES_FERMI_CATALOG = ["catalogs/fermi/gll_psc_v28.fit.gz"]
+
 FILENAMES_FERMI_3FHL = [
-    "Fermi-LAT-3FHL_data_Fermi-LAT.fits",
-    "Fermi-LAT-3FHL_iem.fits",
-    "Fermi-LAT-3FHL_datasets.yaml",
-    "Fermi-LAT-3FHL_models.yaml",
+    "fermi-3fhl-crab/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
+    "fermi-3fhl-crab/Fermi-LAT-3FHL_iem.fits",
+    "fermi-3fhl-crab/Fermi-LAT-3FHL_datasets.yaml",
+    "fermi-3fhl-crab/Fermi-LAT-3FHL_models.yaml",
 ]
 
 FILENAMES_MAGIC = [
-    "hdu-index.fits.gz",
-    "obs-index.fits.gz",
-    "20131004_05029747_DL3_CrabNebula-W0.40+035.fits",
-    "20131004_05029748_DL3_CrabNebula-W0.40+215.fits",
+    "magic/rad_max/data/hdu-index.fits.gz",
+    "magic/rad_max/data/obs-index.fits.gz",
+    "magic/rad_max/data/20131004_05029747_DL3_CrabNebula-W0.40+035.fits",
+    "magic/rad_max/data/20131004_05029748_DL3_CrabNebula-W0.40+215.fits",
 ]
 
 FILENAMES_HAWC = [
-    "HAWC19_flux_points.fits",
+    "hawc_crab/HAWC19_flux_points.fits",
 ]
 
 FILENAMES_HAWC_DL3 = [
-    "hdu-index-table-GP-Crab.fits.gz",
-    "obs-index-table-GP-Crab.fits.gz",
-    "irfs/EffectiveAreaMap_Crab_fHitbin5GP.fits.gz",
-    "irfs/EffectiveAreaMap_Crab_fHitbin6GP.fits.gz",
-    "irfs/EffectiveAreaMap_Crab_fHitbin7GP.fits.gz",
-    "irfs/EffectiveAreaMap_Crab_fHitbin8GP.fits.gz",
-    "irfs/EffectiveAreaMap_Crab_fHitbin9GP.fits.gz",
-    "irfs/PSFMap_Crab_fHitbin5GP.fits.gz",
-    "irfs/PSFMap_Crab_fHitbin6GP.fits.gz",
-    "irfs/PSFMap_Crab_fHitbin7GP.fits.gz",
-    "irfs/PSFMap_Crab_fHitbin8GP.fits.gz",
-    "irfs/PSFMap_Crab_fHitbin9GP.fits.gz",
+    "hawc/crab_events_pass4/hdu-index-table-GP-Crab.fits.gz",
+    "hawc/crab_events_pass4/obs-index-table-GP-Crab.fits.gz",
+    "hawc/crab_events_pass4/irfs/EffectiveAreaMap_Crab_fHitbin5GP.fits.gz",
+    "hawc/crab_events_pass4/irfs/EffectiveAreaMap_Crab_fHitbin6GP.fits.gz",
+    "hawc/crab_events_pass4/irfs/EffectiveAreaMap_Crab_fHitbin7GP.fits.gz",
+    "hawc/crab_events_pass4/irfs/EffectiveAreaMap_Crab_fHitbin8GP.fits.gz",
+    "hawc/crab_events_pass4/irfs/EffectiveAreaMap_Crab_fHitbin9GP.fits.gz",
+    "hawc/crab_events_pass4/irfs/PSFMap_Crab_fHitbin5GP.fits.gz",
+    "hawc/crab_events_pass4/irfs/PSFMap_Crab_fHitbin6GP.fits.gz",
+    "hawc/crab_events_pass4/irfs/PSFMap_Crab_fHitbin7GP.fits.gz",
+    "hawc/crab_events_pass4/irfs/PSFMap_Crab_fHitbin8GP.fits.gz",
+    "hawc/crab_events_pass4/irfs/PSFMap_Crab_fHitbin9GP.fits.gz",
 ]
 
 
 FILENAMES_CTA = [
-    "index/gps/hdu-index.fits.gz",
-    "index/gps/obs-index.fits.gz",
-    "data/baseline/gps/gps_baseline_110380.fits",
-    "data/baseline/gps/gps_baseline_111140.fits",
-    "data/baseline/gps/gps_baseline_111159.fits",
-    "caldb/data/cta/1dc/bcf/South_z20_50h/irf_file.fits",
+    "cta-1dc/index/gps/hdu-index.fits.gz",
+    "cta-1dc/index/gps/obs-index.fits.gz",
+    "cta-1dc/data/baseline/gps/gps_baseline_110380.fits",
+    "cta-1dc/data/baseline/gps/gps_baseline_111140.fits",
+    "cta-1dc/data/baseline/gps/gps_baseline_111159.fits",
+    "cta-1dc/caldb/data/cta/1dc/bcf/South_z20_50h/irf_file.fits",
 ]
 
-OBS_IDS_PKS2155 = [
-    "33787",
-    "33788",
-    "33789",
-    "33790",
-    "33791",
-    "33792",
-    "33793",
-    "33794",
-    "33795",
-    "33796",
-    "33797",
-    "33798",
-    "33799",
-    "33800",
-    "33801",
+OBS_IDS_HESS_DR1 = [
+    33787,
+    33788,
+    33789,
+    33790,
+    33791,
+    33792,
+    33793,
+    33794,
+    33795,
+    33796,
+    33797,
+    33798,
+    33799,
+    33800,
+    33801,
+    23523,
+    23526,
+    23559,
+    23592,
 ]
 
-FILENAMES_PKS2155 = ["obs-index.fits.gz", "hdu-index.fits.gz"]
+FILENAMES_HESS_DR1 = [
+    "hess-dl3-dr1/obs-index.fits.gz",
+    "hess-dl3-dr1/hdu-index.fits.gz",
+]
+
+for obs_id in OBS_IDS_HESS_DR1:
+    filename = f"hess-dl3-dr1/data/hess_dl3_dr1_obs_id_0{obs_id}.fits.gz"
+    FILENAMES_HESS_DR1.append(filename)
+
+
+def download_data_files(filenames):
+    for filename in filenames:
+        destination = PATH_DATA / filename
+        destination.parent.mkdir(exist_ok=True, parents=True)
+        source = BASE_URL + filename
+        log.info(f"Downloading {source}")
+        progress_download(source, destination)
 
 
 def download_cta_data():
-    cta_path = PATH_DATA / f"cta-galactic-center/input"
-    cta_path.mkdir(exist_ok=True, parents=True)
-
-    for filename in FILENAMES_CTA:
-        destination = cta_path / filename
-        destination.parent.mkdir(exist_ok=True, parents=True)
-        source = BASE_URL + "cta-1dc/" + filename
-        log.info(f"Downloading {source}")
-        progress_download(source, destination)
-
-    source = BASE_URL + "cta-1dc-gc/cta-1dc-gc.fits.gz"
-    destination = PATH_DATA / "cta-1dc-gc/cta-1dc-gc.fits.gz"
-    destination.parent.mkdir(exist_ok=True, parents=True)
-    log.info(f"Downloading {source}")
-    progress_download(source, destination)
+    """Download CTA data."""
+    download_data_files(FILENAMES_CTA)
 
 
 def download_fermi_data():
-    fermi_path = PATH_DATA / f"fermi-ts-map/input"
-    fermi_path.mkdir(exist_ok=True, parents=True)
-
-    for filename in FILENAMES_FERMI:
-        destination = fermi_path / filename
-        source = BASE_URL + "fermi-3fhl-gc/" + filename
-        log.info(f"Downloading {source}")
-        progress_download(source, destination)
-
-    source = BASE_URL + "catalogs/fermi/gll_psc_v28.fit.gz"
-    destination = PATH_DATA / "catalogs/fermi/gll_psc_v28.fit.gz"
-    destination.parent.mkdir(exist_ok=True, parents=True)
-    log.info(f"Downloading {source}")
-    progress_download(source, destination)
+    """Download Fermi data."""
+    download_data_files(FILENAMES_FERMI_CATALOG)
+    download_fermi_crab_3fhl()
 
 
 def download_fermi_crab_3fhl():
-    fermi_path = PATH_DATA / f"multi-instrument/input/fermi"
-    fermi_path.mkdir(exist_ok=True, parents=True)
-
-    for filename in FILENAMES_FERMI_3FHL:
-        destination = fermi_path / filename
-        source = BASE_URL + "fermi-3fhl-crab/" + filename
-        log.info(f"Downloading {source}")
-        progress_download(source, destination)
+    """Download Fermi 3FHL Crab data."""
+    download_data_files(FILENAMES_FERMI_3FHL)
 
 
 def download_magic_data():
-    magic_path = PATH_DATA / f"multi-instrument/input/magic"
-    magic_path.mkdir(exist_ok=True, parents=True)
-
-    for filename in FILENAMES_MAGIC:
-        destination = magic_path / filename
-        destination.parent.mkdir(exist_ok=True, parents=True)
-        source = BASE_URL + "magic/rad_max/data/" + filename
-        log.info(f"Downloading {source}")
-        progress_download(source, destination)
+    """Download MAGIC data."""
+    download_data_files(FILENAMES_MAGIC)
 
 
 def download_hawc_data():
-    hawc_path = PATH_DATA / f"multi-instrument/input/hawc"
-    hawc_path.mkdir(exist_ok=True, parents=True)
-
-    for filename in FILENAMES_HAWC:
-        destination = hawc_path / filename
-        source = BASE_URL + "hawc_crab/" + filename
-        log.info(f"Downloading {source}")
-        progress_download(source, destination)
+    """Download HAWC data."""
+    download_data_files(FILENAMES_HAWC)
 
 
 def download_hawc_dl3_data():
-    hawc_path = PATH_DATA / f"hawc-dl3/"
-    hawc_path.mkdir(exist_ok=True, parents=True)
-
-    for filename in FILENAMES_HAWC_DL3:
-        destination = hawc_path / filename
-        source = BASE_URL + "hawc/crab_events_pass4/" + filename
-        log.info(f"Downloading {source}")
-        progress_download(source, destination)
+    """Download HAWC data."""
+    download_data_files(FILENAMES_HAWC_DL3)
 
 
 def download_hess_pks2155_data():
-    pks_path = PATH_DATA / f"lightcurve/input"
-    pks_path.mkdir(exist_ok=True, parents=True)
-
-    for obs_id in OBS_IDS_PKS2155:
-        filename = "data/hess_dl3_dr1_obs_id_0" + obs_id + ".fits.gz"
-        FILENAMES_PKS2155.append(filename)
-
-    for filename in FILENAMES_PKS2155:
-        destination = pks_path / filename
-        destination.parent.mkdir(exist_ok=True, parents=True)
-        source = BASE_URL + "hess-dl3-dr1/" + filename
-        log.info(f"Downloading {source}")
-        progress_download(source, destination)
+    """Download HESS PKS2155 data."""
+    download_data_files(FILENAMES_HESS_DR1)
 
 
 def download_multi_instrument():
