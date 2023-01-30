@@ -92,7 +92,9 @@ OBS_IDS_HESS_DR1 = [
 FILENAMES_HESS_DR1 = [
     "hess-dl3-dr1/obs-index.fits.gz",
     "hess-dl3-dr1/hdu-index.fits.gz",
+    "joint-crab/spectra/hess/pha_obs23523.fits",
 ]
+
 
 for obs_id in OBS_IDS_HESS_DR1:
     filename = f"hess-dl3-dr1/data/hess_dl3_dr1_obs_id_0{obs_id}.fits.gz"
@@ -139,7 +141,7 @@ def download_hawc_dl3_data():
     download_data_files(FILENAMES_HAWC_DL3)
 
 
-def download_hess_pks2155_data():
+def download_hess_dr1_data():
     """Download HESS PKS2155 data."""
     download_data_files(FILENAMES_HESS_DR1)
 
@@ -153,7 +155,7 @@ def download_multi_instrument():
 DATASETS_REGISTRY = {
     "fermi-gc": download_fermi_data,
     "cta-1dc": download_cta_data,
-    "pks-flare": download_hess_pks2155_data,
+    "pks-flare": download_hess_dr1_data,
     "multi-instrument": download_multi_instrument,
     "hawc-dl3": download_hawc_dl3_data,
 }

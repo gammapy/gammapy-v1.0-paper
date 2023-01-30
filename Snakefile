@@ -28,6 +28,7 @@ rule minted:
         "src/data/input/hess-dl3-dr1/data/hess_dl3_dr1_obs_id_023592.fits.gz",
         "src/data/input/cta-1dc-gc/cta-1dc-gc.fits.gz",
         "src/data/input/catalogs/fermi/gll_psc_v28.fit.gz",
+        'src/data/input/joint-crab/spectra/hess/pha_obs23523.fits',
     output:
         "src/code-examples/generated/gp_data.tex",
         "src/code-examples/generated/gp_catalogs.tex",
@@ -159,6 +160,7 @@ rule download_hess:
         "src/data/input/hess-dl3-dr1/data/hess_dl3_dr1_obs_id_023526.fits.gz",
         "src/data/input/hess-dl3-dr1/data/hess_dl3_dr1_obs_id_023559.fits.gz",
         "src/data/input/hess-dl3-dr1/data/hess_dl3_dr1_obs_id_023592.fits.gz",
+        "src/data/input/joint-crab/spectra/hess/pha_obs23523.fits",
     conda:
         "environment.yml"
     shell:

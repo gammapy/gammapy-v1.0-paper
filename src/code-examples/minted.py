@@ -3,7 +3,7 @@ import os
 import subprocess
 from pathlib import Path
 
-os.environ["GAMMAPY_DATA"] = "../../data/input"
+os.environ["GAMMAPY_DATA"] = "../data/input"
 
 log = logging.getLogger(__file__)
 logging.basicConfig(level=logging.DEBUG)
