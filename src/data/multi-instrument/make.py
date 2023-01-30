@@ -1,34 +1,33 @@
 # reduce the MAGIC data to OGIP files for the 1D analysis
 import logging
-import numpy as np
-import astropy.units as u
-from astropy.constants import c
 from pathlib import Path
+
+import astropy.units as u
+import numpy as np
+from astropy.constants import c
 from astropy.coordinates import SkyCoord
+from naima.models import LogParabola
+from naima.radiative import InverseCompton, Synchrotron
 from regions import PointSkyRegion
 
 # gammapy imports
 from gammapy.data import DataStore
-from gammapy.maps import MapAxis
-from gammapy.maps import RegionGeom
+from gammapy.datasets import Datasets, FluxPointsDataset, SpectrumDataset
+from gammapy.estimators import FluxPoints, FluxPointsEstimator
 from gammapy.makers import (
+    ReflectedRegionsBackgroundMaker,
     SpectrumDatasetMaker,
     WobbleRegionsFinder,
-    ReflectedRegionsBackgroundMaker,
 )
-from gammapy.estimators import FluxPoints, FluxPointsEstimator
-from gammapy.datasets import Datasets, SpectrumDataset, FluxPointsDataset
+from gammapy.maps import MapAxis, RegionGeom
 from gammapy.modeling import Fit
 from gammapy.modeling.models import (
     Models,
+    NaimaSpectralModel,
     SkyModel,
     create_crab_spectral_model,
-    NaimaSpectralModel,
 )
 from gammapy.utils.scripts import read_yaml
-from naima.models import LogParabola
-from naima.radiative import Synchrotron, InverseCompton
-
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -53,14 +52,14 @@ class CrabInverseComptonSpectralModel(NaimaSpectralModel):
         Rpwn = 2.1 * u.pc
         Esy = np.logspace(-7, 9, 100) * u.eV
         Lsy = synch.flux(Esy, distance=0 * u.cm)  # use distance 0 to get luminosity
-        phn_sy = Lsy / (4 * np.pi * Rpwn ** 2 * c) * 2.24
+        phn_sy = Lsy / (4 * np.pi * Rpwn**2 * c) * 2.24
 
         radiative_model = InverseCompton(
             particle_distribution,
             seed_photon_fields=[
                 "CMB",
-                ["FIR", 70 * u.K, 0.5 * u.eV / u.cm ** 3],
-                ["NIR", 5000 * u.K, 1 * u.eV / u.cm ** 3],
+                ["FIR", 70 * u.K, 0.5 * u.eV / u.cm**3],
+                ["NIR", 5000 * u.K, 1 * u.eV / u.cm**3],
                 ["SSC", Esy, phn_sy],
             ],
             Eemin=0.1 * u.GeV,
@@ -90,7 +89,7 @@ class CrabInverseComptonSpectralModel(NaimaSpectralModel):
 
 def load_fermi_datasets():
     """Load the `MapDataset` already prepared for the Fermi-LAT data"""
-    return Datasets.read("input/fermi/Fermi-LAT-3FHL_datasets.yaml")
+    return Datasets.read("../input/fermi-3fhl-gc/Fermi-LAT-3FHL_datasets.yaml")
 
 
 def reduce_magic_data():
@@ -98,7 +97,7 @@ def reduce_magic_data():
     e_min = 80 * u.GeV
     e_max = 20 * u.TeV
 
-    data_store = DataStore.from_dir("input/magic")
+    data_store = DataStore.from_dir("../input/magic/rad_max/")
     observations = data_store.get_observations(
         required_irf=["aeff", "edisp", "rad_max"]
     )
@@ -144,7 +143,7 @@ def reduce_magic_data():
 def load_hawc_flux_points():
     """Load the HAWC flux points in a FluxPointsDataset"""
     flux_points_hawc = FluxPoints.read(
-        "input/hawc/HAWC19_flux_points.fits",
+        "../input/hawc_crab/HAWC19_flux_points.fits",
         reference_model=create_crab_spectral_model("meyer"),
     )
     dataset_hawc = FluxPointsDataset(data=flux_points_hawc, name="HAWC")

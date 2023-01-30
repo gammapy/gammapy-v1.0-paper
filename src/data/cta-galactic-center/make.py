@@ -1,30 +1,24 @@
 #!/usr/bin/env python
 import logging
 from pathlib import Path
-import numpy as np
+
 import astropy.units as u
+import numpy as np
 from astropy.coordinates import SkyCoord
 from regions import CircleSkyRegion
-from gammapy.modeling import Fit
+
 from gammapy.data import DataStore
-from gammapy.datasets import (
-    Datasets,
-    SpectrumDataset,
-    MapDataset,
-)
-from gammapy.modeling.models import (
-    PowerLawSpectralModel,
-    SkyModel,
-)
-from gammapy.maps import MapAxis, WcsGeom, RegionGeom
+from gammapy.datasets import Datasets, MapDataset, SpectrumDataset
+from gammapy.estimators import FluxPointsEstimator
 from gammapy.makers import (
     MapDatasetMaker,
+    ReflectedRegionsBackgroundMaker,
     SafeMaskMaker,
     SpectrumDatasetMaker,
-    ReflectedRegionsBackgroundMaker,
 )
-from gammapy.estimators import FluxPointsEstimator
-
+from gammapy.maps import MapAxis, RegionGeom, WcsGeom
+from gammapy.modeling import Fit
+from gammapy.modeling.models import PowerLawSpectralModel, SkyModel
 
 logging.basicConfig()
 log = logging.getLogger(__name__)
@@ -35,13 +29,17 @@ ENERGY_AXIS = MapAxis.from_edges(
 )
 
 GEOM = WcsGeom.create(
-    skydir=(0, 0), npix=(500, 400), binsz=0.02, frame="galactic", axes=[ENERGY_AXIS.squash()]
+    skydir=(0, 0),
+    npix=(500, 400),
+    binsz=0.02,
+    frame="galactic",
+    axes=[ENERGY_AXIS.squash()],
 )
 
 
 def get_observations():
     # Select observations
-    data_store = DataStore.from_dir("input/index/gps")
+    data_store = DataStore.from_dir("../input/cta-1dc/index/gps")
     obs_id = [110380, 111140, 111159]
     return data_store.get_observations(obs_id)
 
@@ -68,17 +66,13 @@ def make_datasets_spectral(observations):
 
     exclusion_mask = GEOM.to_image().region_mask([on_region], inside=False)
 
-    energy_axis = MapAxis.from_energy_bounds(
-        0.1, 40, 40, unit="TeV", name="energy"
-    )
+    energy_axis = MapAxis.from_energy_bounds(0.1, 40, 40, unit="TeV", name="energy")
     energy_axis_true = MapAxis.from_energy_bounds(
         0.05, 100, 200, unit="TeV", name="energy_true"
     )
 
     geom = RegionGeom.create(region=on_region, axes=[energy_axis])
-    dataset_empty = SpectrumDataset.create(
-        geom=geom, energy_axis_true=energy_axis_true
-    )
+    dataset_empty = SpectrumDataset.create(geom=geom, energy_axis_true=energy_axis_true)
 
     dataset_maker = SpectrumDatasetMaker(
         containment_correction=False, selection=["counts", "exposure", "edisp"]
@@ -104,9 +98,7 @@ def make_flux_points(datasets):
     stacked_dataset = datasets.stack_reduce(name="stacked")
     stacked_dataset.models = datasets.models
 
-    energy_edges = MapAxis.from_energy_bounds(
-        "1 TeV", "30 TeV", nbin=7
-    ).edges
+    energy_edges = MapAxis.from_energy_bounds("1 TeV", "30 TeV", nbin=7).edges
 
     fpe = FluxPointsEstimator(
         energy_edges=energy_edges, source="source-gc", selection_optional="all"
@@ -153,4 +145,3 @@ if __name__ == "__main__":
     fp = make_flux_points(datasets)
     log.info(f"Writing {filename}")
     fp.write(filename, overwrite=True)
-

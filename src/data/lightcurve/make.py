@@ -1,28 +1,30 @@
 import logging
 from pathlib import Path
+
 import astropy.units as u
 import numpy as np
-from astropy.coordinates import SkyCoord
+from astropy.coordinates import Angle, SkyCoord
 from astropy.time import Time
 from regions import CircleSkyRegion
-from astropy.coordinates import Angle
+
 from gammapy.data import DataStore
-from gammapy.datasets import SpectrumDataset, Datasets
-from gammapy.modeling.models import PowerLawSpectralModel, SkyModel
-from gammapy.modeling import Fit
-from gammapy.maps import MapAxis, RegionGeom
+from gammapy.datasets import Datasets, SpectrumDataset
 from gammapy.estimators import LightCurveEstimator
 from gammapy.makers import (
-    SpectrumDatasetMaker,
     ReflectedRegionsBackgroundMaker,
     SafeMaskMaker,
+    SpectrumDatasetMaker,
 )
+from gammapy.maps import MapAxis, RegionGeom
+from gammapy.modeling import Fit
+from gammapy.modeling.models import PowerLawSpectralModel, SkyModel
+
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 
 def get_observations():
-    data_store = DataStore.from_dir("input/")
+    data_store = DataStore.from_dir("../input/hess-dl3-dr1/")
     obs_table = data_store.obs_table
     obs_table_seclected = obs_table[obs_table["TARGET_TAG"] == "pks2155_flare"]
     obs_ids = obs_table_seclected["OBS_ID"]
@@ -63,9 +65,7 @@ def data_reduction(short_observations):
 
     datasets = Datasets()
 
-    dataset_empty = SpectrumDataset.create(
-        geom=geom, energy_axis_true=energy_axis_true
-    )
+    dataset_empty = SpectrumDataset.create(geom=geom, energy_axis_true=energy_axis_true)
 
     for obs in short_observations:
         dataset = dataset_maker.run(dataset_empty.copy(), obs)
@@ -116,4 +116,3 @@ if __name__ == "__main__":
     lc = light_curve(datasets, time_intervals, sky_model)
     log.info(f"Writing {filename}")
     lc.write(filename, format="lightcurve", overwrite=True)
-

@@ -1,26 +1,24 @@
-from pathlib import Path
 import logging
-import matplotlib.pyplot as plt
-import matplotlib.cm as cm
-from gammapy.maps import Map
-from gammapy.estimators import TSMapEstimator, FluxMaps
-from gammapy.datasets import MapDataset
-from gammapy.modeling.models import (
-    SkyModel,
-    PowerLawSpectralModel,
-    PointSpatialModel,
-)
-from gammapy.irf import PSFMap, EDispKernelMap
-from astropy.coordinates import SkyCoord
+from pathlib import Path
+
 import astropy.units as u
+import matplotlib.cm as cm
+import matplotlib.pyplot as plt
 import numpy as np
+from astropy.coordinates import SkyCoord
+
+from gammapy.datasets import MapDataset
+from gammapy.estimators import FluxMaps, TSMapEstimator
+from gammapy.irf import EDispKernelMap, PSFMap
+from gammapy.maps import Map
+from gammapy.modeling.models import PointSpatialModel, PowerLawSpectralModel, SkyModel
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 
 def read_dataset():
-    path = Path("input")
+    path = Path("../input/fermi-3fhl-gc/")
     counts = Map.read(path / "fermi-3fhl-gc-counts-cube.fits.gz")
     background = Map.read(path / "fermi-3fhl-gc-background-cube.fits.gz")
     exposure = Map.read(path / "fermi-3fhl-gc-exposure-cube.fits.gz")
@@ -49,10 +47,7 @@ def estimate_ts_map(dataset):
     model = SkyModel(spatial_model=spatial_model, spectral_model=spectral_model)
 
     estimator = TSMapEstimator(
-        model,
-        kernel_width="3 deg",
-        energy_edges=[10, 50, 2000] * u.GeV,
-        n_jobs=4
+        model, kernel_width="3 deg", energy_edges=[10, 50, 2000] * u.GeV, n_jobs=4
     )
     return estimator.run(dataset)
 
