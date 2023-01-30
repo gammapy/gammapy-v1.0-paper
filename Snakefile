@@ -15,7 +15,19 @@ use rule * from showyourwork
 
 rule minted:
     input:
-        "src/code-examples/minted.py"
+        "src/code-examples/snippets/gp_catalogs.py",
+        "src/code-examples/snippets/gp_data.py",
+        "src/code-examples/snippets/gp_datasets.py",
+        "src/code-examples/snippets/gp_estimators.py",
+        "src/code-examples/snippets/gp_makers.py",
+        "src/code-examples/snippets/gp_models.py",
+        "src/code-examples/snippets/gp_stats.py",
+        "src/data/input/hess-dl3-dr1/data/hess_dl3_dr1_obs_id_023523.fits.gz",
+        "src/data/input/hess-dl3-dr1/data/hess_dl3_dr1_obs_id_023526.fits.gz",
+        "src/data/input/hess-dl3-dr1/data/hess_dl3_dr1_obs_id_023559.fits.gz",
+        "src/data/input/hess-dl3-dr1/data/hess_dl3_dr1_obs_id_023592.fits.gz",
+        "src/data/input/cta-1dc-gc/cta-1dc-gc.fits.gz",
+        "src/data/input/catalogs/fermi/gll_psc_v28.fit.gz",
     output:
         "src/code-examples/generated/gp_data.tex",
         "src/code-examples/generated/gp_catalogs.tex",
@@ -143,6 +155,10 @@ rule download_hess:
         "src/data/input/hess-dl3-dr1/data/hess_dl3_dr1_obs_id_033799.fits.gz",
         "src/data/input/hess-dl3-dr1/data/hess_dl3_dr1_obs_id_033800.fits.gz",
         "src/data/input/hess-dl3-dr1/data/hess_dl3_dr1_obs_id_033801.fits.gz",
+        "src/data/input/hess-dl3-dr1/data/hess_dl3_dr1_obs_id_023523.fits.gz",
+        "src/data/input/hess-dl3-dr1/data/hess_dl3_dr1_obs_id_023526.fits.gz",
+        "src/data/input/hess-dl3-dr1/data/hess_dl3_dr1_obs_id_023559.fits.gz",
+        "src/data/input/hess-dl3-dr1/data/hess_dl3_dr1_obs_id_023592.fits.gz",
     conda:
         "environment.yml"
     shell:

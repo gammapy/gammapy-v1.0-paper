@@ -10,6 +10,11 @@ dependencies:
         - src/code-examples/generated/gp_makers.tex
         - src/code-examples/generated/gp_maps.tex
         - src/code-examples/generated/gp_models.tex
+        - src/code-examples/generated-output/gp_data.tex
+        - src/code-examples/generated-output/gp_datasets.tex
+        - src/code-examples/generated-output/gp_maps.tex
+        - src/code-examples/generated-output/gp_models.tex
+        - src/code-examples/generated-output/gp_stats.tex
         - src/tables/generated/codestats.tex
     src/figures/cta_galactic_center.py:
         - src/data/cta-galactic-center/datasets/datasets.yaml
@@ -55,6 +60,10 @@ dependencies:
         - src/data/input/hawc/crab_events_pass4/irfs/PSFMap_Crab_fHitbin8GP.fits.gz
         - src/data/input/hawc/crab_events_pass4/irfs/EffectiveAreaMap_Crab_fHitbin9GP.fits.gz
         - src/data/input/hawc/crab_events_pass4/irfs/PSFMap_Crab_fHitbin9GP.fits.gz
+        - src/data/input/magic/rad_max/data/hdu-index.fits.gz
+        - src/data/input/magic/rad_max/data/obs-index.fits.gz
+        - src/data/input/magic/rad_max/data/20131004_05029747_DL3_CrabNebula-W0.40+035.fits
+        - src/data/input/magic/rad_max/data/20131004_05029748_DL3_CrabNebula-W0.40+215.fits
     src/figures/code_example_gp_catalogs.py:
         - src/data/input/catalogs/fermi/gll_psc_v28.fit.gz
     src/figures/code_example_gp_estimators.py:

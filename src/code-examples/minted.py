@@ -1,6 +1,9 @@
 import logging
+import os
 import subprocess
 from pathlib import Path
+
+os.environ["GAMMAPY_DATA"] = "../../data/input"
 
 log = logging.getLogger(__file__)
 logging.basicConfig(level=logging.DEBUG)
@@ -60,5 +63,8 @@ if __name__ == "__main__":
 
         proc = subprocess.Popen(["python", str(filename)], stdout=subprocess.PIPE)
         out = proc.communicate()[0]
+
+        if out == "":
+            raise ValueError(f"No output from script {filename.name}")
 
         stdout_data = p.communicate(input=out)[0]
