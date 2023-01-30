@@ -32,6 +32,7 @@ rule minted:
         "src/data/input/joint-crab/spectra/hess/arf_obs23523.fits",
         "src/data/input/joint-crab/spectra/hess/rmf_obs23523.fits",
         "src/data/input/joint-crab/spectra/hess/bkg_obs23523.fits",
+        "src/data/input/hawc_crab/HAWC19_flux_points.fits",
     output:
         "src/code-examples/generated/gp_data.tex",
         "src/code-examples/generated/gp_catalogs.tex",
