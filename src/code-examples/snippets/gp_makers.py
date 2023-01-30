@@ -2,10 +2,16 @@ import astropy.units as u
 
 from gammapy.data import DataStore
 from gammapy.datasets import MapDataset
-from gammapy.makers import FoVBackgroundMaker, MapDatasetMaker, SafeMaskMaker
+from gammapy.makers import (
+    FoVBackgroundMaker,
+    MapDatasetMaker,
+    SafeMaskMaker
+)
 from gammapy.maps import MapAxis, WcsGeom
 
-data_store = DataStore.from_dir(base_dir="$GAMMAPY_DATA/hess-dl3-dr1")
+data_store = DataStore.from_dir(
+    base_dir="$GAMMAPY_DATA/hess-dl3-dr1"
+)
 
 obs = data_store.obs(23523)
 
