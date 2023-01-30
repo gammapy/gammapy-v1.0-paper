@@ -37,29 +37,29 @@ dependencies:
         - src/data/cube-analysis/npred_2.fits
         - src/data/cube-analysis/npred_3.fits
     src/figures/irfs.py:
-        - src/data/cta-galactic-center/input/index/gps/hdu-index.fits.gz
-        - src/data/cta-galactic-center/input/index/gps/obs-index.fits.gz
-        - src/data/lightcurve/input/hdu-index.fits.gz
-        - src/data/lightcurve/input/obs-index.fits.gz
-        - src/data/fermi-ts-map/input/fermi-3fhl-gc-exposure-cube.fits.gz
-        - src/data/fermi-ts-map/input/fermi-3fhl-gc-psf-cube.fits.gz
-        - src/data/hawc-dl3/hdu-index-table-GP-Crab.fits.gz
-        - src/data/hawc-dl3/obs-index-table-GP-Crab.fits.gz
-        - src/data/hawc-dl3/irfs/EffectiveAreaMap_Crab_fHitbin5GP.fits.gz
-        - src/data/hawc-dl3/irfs/PSFMap_Crab_fHitbin5GP.fits.gz
-        - src/data/hawc-dl3/irfs/EffectiveAreaMap_Crab_fHitbin6GP.fits.gz
-        - src/data/hawc-dl3/irfs/PSFMap_Crab_fHitbin6GP.fits.gz
-        - src/data/hawc-dl3/irfs/EffectiveAreaMap_Crab_fHitbin7GP.fits.gz
-        - src/data/hawc-dl3/irfs/PSFMap_Crab_fHitbin7GP.fits.gz
-        - src/data/hawc-dl3/irfs/EffectiveAreaMap_Crab_fHitbin8GP.fits.gz
-        - src/data/hawc-dl3/irfs/PSFMap_Crab_fHitbin8GP.fits.gz
-        - src/data/hawc-dl3/irfs/EffectiveAreaMap_Crab_fHitbin9GP.fits.gz
-        - src/data/hawc-dl3/irfs/PSFMap_Crab_fHitbin9GP.fits.gz
+        - src/data/input/cta-1dc/index/gps/hdu-index.fits.gz
+        - src/data/input/cta-1dc/index/gps/obs-index.fits.gz
+        - src/data/input/hess-dl3-dr1/hdu-index.fits.gz
+        - src/data/input/hess-dl3-dr1/obs-index.fits.gz
+        - src/data/input/fermi-3fhl-gc/fermi-3fhl-gc-exposure-cube.fits.gz
+        - src/data/input/fermi-3fhl-gc/fermi-3fhl-gc-psf-cube.fits.gz
+        - src/data/input/hawc/crab_events_pass4/hdu-index-table-GP-Crab.fits.gz
+        - src/data/input/hawc/crab_events_pass4/obs-index-table-GP-Crab.fits.gz
+        - src/data/input/hawc/crab_events_pass4/irfs/EffectiveAreaMap_Crab_fHitbin5GP.fits.gz
+        - src/data/input/hawc/crab_events_pass4/irfs/PSFMap_Crab_fHitbin5GP.fits.gz
+        - src/data/input/hawc/crab_events_pass4/irfs/EffectiveAreaMap_Crab_fHitbin6GP.fits.gz
+        - src/data/input/hawc/crab_events_pass4/irfs/PSFMap_Crab_fHitbin6GP.fits.gz
+        - src/data/input/hawc/crab_events_pass4/irfs/EffectiveAreaMap_Crab_fHitbin7GP.fits.gz
+        - src/data/input/hawc/crab_events_pass4/irfs/PSFMap_Crab_fHitbin7GP.fits.gz
+        - src/data/input/hawc/crab_events_pass4/irfs/EffectiveAreaMap_Crab_fHitbin8GP.fits.gz
+        - src/data/input/hawc/crab_events_pass4/irfs/PSFMap_Crab_fHitbin8GP.fits.gz
+        - src/data/input/hawc/crab_events_pass4/irfs/EffectiveAreaMap_Crab_fHitbin9GP.fits.gz
+        - src/data/input/hawc/crab_events_pass4/irfs/PSFMap_Crab_fHitbin9GP.fits.gz
     src/figures/code_example_gp_catalogs.py:
-        - src/data/catalogs/fermi/gll_psc_v28.fit.gz
+        - src/data/input/catalogs/fermi/gll_psc_v28.fit.gz
     src/figures/code_example_gp_estimators.py:
-        - src/data/cta-1dc-gc/cta-1dc-gc.fits.gz
-        
+        - src/data/input/cta-1dc-gc/cta-1dc-gc.fits.gz
+
 
 
 
