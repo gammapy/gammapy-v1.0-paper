@@ -72,7 +72,7 @@ rule download_cta:
         "src/data/input/cta-1dc/data/baseline/gps/gps_baseline_111140.fits",
         "src/data/input/cta-1dc/data/baseline/gps/gps_baseline_111159.fits",
         "src/data/input/cta-1dc/caldb/data/cta/1dc/bcf/South_z20_50h/irf_file.fits",
-        "src/data/cta-1dc-gc/cta-1dc-gc.fits.gz",
+        "src/data/input/cta-1dc-gc/cta-1dc-gc.fits.gz",
     conda:
         "environment.yml"
     shell:
@@ -180,10 +180,10 @@ rule prepare_hess:
 # Custom rule to download multi-instrument data, Fermi-LAT
 rule download_multi_instrument:
     output:
-        "src/data/input/fermi-3fhl-gc/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
-        "src/data/input/fermi-3fhl-gc/Fermi-LAT-3FHL_iem.fits",
-        "src/data/input/fermi-3fhl-gc/Fermi-LAT-3FHL_datasets.yaml",
-        "src/data/input/fermi-3fhl-gc/Fermi-LAT-3FHL_models.yaml",
+        "src/data/input/fermi-3fhl-crab/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
+        "src/data/input/fermi-3fhl-crab/Fermi-LAT-3FHL_iem.fits",
+        "src/data/input/fermi-3fhl-crab/Fermi-LAT-3FHL_datasets.yaml",
+        "src/data/input/fermi-3fhl-crab/Fermi-LAT-3FHL_models.yaml",
         "src/data/input/magic/rad_max/data/hdu-index.fits.gz",
         "src/data/input/magic/rad_max/data/obs-index.fits.gz",
         "src/data/input/magic/rad_max/data/20131004_05029747_DL3_CrabNebula-W0.40+035.fits",
@@ -198,10 +198,10 @@ rule download_multi_instrument:
 # Custom rule to prepare multi-instrument datasets
 rule prepare_multi_instrument:
     input:
-        "src/data/input/fermi-3fhl-gc/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
-        "src/data/input/fermi-3fhl-gc/Fermi-LAT-3FHL_iem.fits",
-        "src/data/input/fermi-3fhl-gc/Fermi-LAT-3FHL_datasets.yaml",
-        "src/data/input/fermi-3fhl-gc/Fermi-LAT-3FHL_models.yaml",
+        "src/data/input/fermi-3fhl-crab/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
+        "src/data/input/fermi-3fhl-crab/Fermi-LAT-3FHL_iem.fits",
+        "src/data/input/fermi-3fhl-crab/Fermi-LAT-3FHL_datasets.yaml",
+        "src/data/input/fermi-3fhl-crab/Fermi-LAT-3FHL_models.yaml",
         "src/data/input/magic/rad_max/data/hdu-index.fits.gz",
         "src/data/input/magic/rad_max/data/obs-index.fits.gz",
         "src/data/input/magic/rad_max/data/20131004_05029747_DL3_CrabNebula-W0.40+035.fits",

@@ -1,18 +1,18 @@
-import config
-import numpy as np
-import astropy.units as u
-from astropy.constants import c
-from gammapy.estimators import FluxPoints
-from gammapy.modeling.models import Models, SPECTRAL_MODEL_REGISTRY
-import matplotlib.pyplot as plt
-
 # relative import "from ..data.multi-instrument" will not work because of the
 # "-" in "multi-instrument"... this is the easiest trick I found
 import sys
 
+import astropy.units as u
+import config
+import matplotlib.pyplot as plt
+import numpy as np
+from astropy.constants import c
+
+from gammapy.estimators import FluxPoints
+from gammapy.modeling.models import SPECTRAL_MODEL_REGISTRY, Models
+
 sys.path.append("../data/multi-instrument")
 from make import CrabInverseComptonSpectralModel
-
 
 sed_x_label = r"$E\,/\,{\rm TeV}$"
 sed_y_label = (
@@ -30,9 +30,7 @@ fermi_flux_points = FluxPoints.read(
 magic_flux_points = FluxPoints.read(
     "../data/multi-instrument/datasets/flux_points/crab_magic_flux_points.fits"
 )
-hawc_flux_points = FluxPoints.read(
-    "../data/multi-instrument/input/hawc/HAWC19_flux_points.fits"
-)
+hawc_flux_points = FluxPoints.read("../data/input/hawc_crab/HAWC19_flux_points.fits")
 
 # load the best-fit models
 #  - log parabola

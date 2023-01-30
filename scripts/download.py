@@ -14,7 +14,7 @@ PATH = Path(__file__).parent.parent
 PATH_DATA = PATH / "src/data/input"
 
 
-FILENAMES_FERMI = [
+FILENAMES_FERMI_3FHL_GC = [
     "fermi-3fhl-gc/fermi-3fhl-gc-counts-cube.fits.gz",
     "fermi-3fhl-gc/fermi-3fhl-gc-background-cube.fits.gz",
     "fermi-3fhl-gc/fermi-3fhl-gc-exposure-cube.fits.gz",
@@ -23,7 +23,7 @@ FILENAMES_FERMI = [
 
 FILENAMES_FERMI_CATALOG = ["catalogs/fermi/gll_psc_v28.fit.gz"]
 
-FILENAMES_FERMI_3FHL = [
+FILENAMES_FERMI_3FHL_CRAB = [
     "fermi-3fhl-crab/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
     "fermi-3fhl-crab/Fermi-LAT-3FHL_iem.fits",
     "fermi-3fhl-crab/Fermi-LAT-3FHL_datasets.yaml",
@@ -116,12 +116,12 @@ def download_cta_data():
 def download_fermi_data():
     """Download Fermi data."""
     download_data_files(FILENAMES_FERMI_CATALOG)
-    download_fermi_crab_3fhl()
+    download_data_files(FILENAMES_FERMI_3FHL_GC)
 
 
 def download_fermi_crab_3fhl():
     """Download Fermi 3FHL Crab data."""
-    download_data_files(FILENAMES_FERMI_3FHL)
+    download_data_files(FILENAMES_FERMI_3FHL_CRAB)
 
 
 def download_magic_data():

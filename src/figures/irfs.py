@@ -19,13 +19,13 @@ hawc_lifetime = 6.4 * u.h
 
 offset = [1] * u.deg
 
-data_store = DataStore.from_dir("../data/cta-galactic-center/input/index/gps")
+data_store = DataStore.from_dir("../data/input/cta-1dc/index/gps")
 obs_cta = data_store.obs(110380)
 
-data_store = DataStore.from_dir("../data/lightcurve/input/")
+data_store = DataStore.from_dir("../data/input/hess-dl3-dr1/")
 obs_hess = data_store.obs(33787)
 
-data_store = DataStore.from_dir("../data/multi-instrument/input/magic")
+data_store = DataStore.from_dir("../data/input/magic/rad_max/data/")
 obs_magic = data_store.obs(5029748, required_irf=["aeff"])
 
 figsize = config.FigureSizeAA(aspect_ratio=2.6, width_aa="two-column")
@@ -38,7 +38,7 @@ gridspec = {"top": 0.92, "right": 0.98, "left": 0.08, "bottom": 0.15}
 fig, axes = plt.subplots(figsize=figsize.inch, nrows=1, ncols=2, gridspec_kw=gridspec)
 
 exposure_fermi = Map.read(
-    "../data/fermi-ts-map/input/fermi-3fhl-gc-exposure-cube.fits.gz"
+    "../data/input/fermi-3fhl-gc/fermi-3fhl-gc-exposure-cube.fits.gz"
 )
 aeff_fermi = exposure_fermi.to_region_nd_map(func=np.mean) / fermi_livetime
 
@@ -63,9 +63,7 @@ aeff_magic.plot_energy_dependence(
 aeff_hawc_max = []
 
 for nhit_bin in range(5, 10):
-    filename = (
-        f"../data/hawc-dl3/irfs/EffectiveAreaMap_Crab_fHitbin{nhit_bin}GP.fits.gz"
-    )
+    filename = f"../data/input/hawc/crab_events_pass4/irfs/EffectiveAreaMap_Crab_fHitbin{nhit_bin}GP.fits.gz"
     aeff_hawc_map = Map.read(filename)
     aeff_hawc = aeff_hawc_map.to_region_nd_map(func=np.mean) / hawc_lifetime
     data = aeff_hawc.quantity[:, 0, 0]
@@ -103,7 +101,7 @@ psf_hess.plot_containment_radius_vs_energy(
 )
 
 psf_fermi = PSFMap.read(
-    "../data/fermi-ts-map/input/fermi-3fhl-gc-psf-cube.fits.gz", format="gtpsf"
+    "../data/input/fermi-3fhl-gc/fermi-3fhl-gc-psf-cube.fits.gz", format="gtpsf"
 )
 
 energy_true = psf_fermi.psf_map.geom.axes["energy_true"].center

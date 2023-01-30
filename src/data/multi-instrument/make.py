@@ -89,7 +89,7 @@ class CrabInverseComptonSpectralModel(NaimaSpectralModel):
 
 def load_fermi_datasets():
     """Load the `MapDataset` already prepared for the Fermi-LAT data"""
-    return Datasets.read("../input/fermi-3fhl-gc/Fermi-LAT-3FHL_datasets.yaml")
+    return Datasets.read("../input/fermi-3fhl-crab/Fermi-LAT-3FHL_datasets.yaml")
 
 
 def reduce_magic_data():
@@ -97,7 +97,7 @@ def reduce_magic_data():
     e_min = 80 * u.GeV
     e_max = 20 * u.TeV
 
-    data_store = DataStore.from_dir("../input/magic/rad_max/")
+    data_store = DataStore.from_dir("../input/magic/rad_max/data")
     observations = data_store.get_observations(
         required_irf=["aeff", "edisp", "rad_max"]
     )
@@ -191,7 +191,7 @@ if __name__ == "__main__":
     datasets.extend(magic_datasets)
 
     # load the model
-    models = Models.read("input/fermi/Fermi-LAT-3FHL_models.yaml")
+    models = Models.read("../input/fermi-3fhl-crab/Fermi-LAT-3FHL_models.yaml")
     models[0].spectral_model.amplitude.value = 1e-11
     models[0].spectral_model.reference.value = 500
     models[0].spectral_model.reference.unit = u.GeV
