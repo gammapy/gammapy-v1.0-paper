@@ -64,6 +64,7 @@ FILENAMES_CTA = [
     "cta-1dc/data/baseline/gps/gps_baseline_111140.fits",
     "cta-1dc/data/baseline/gps/gps_baseline_111159.fits",
     "cta-1dc/caldb/data/cta/1dc/bcf/South_z20_50h/irf_file.fits",
+    "cta-1dc-gc/cta-1dc-gc.fits.gz",
 ]
 
 OBS_IDS_HESS_DR1 = [
