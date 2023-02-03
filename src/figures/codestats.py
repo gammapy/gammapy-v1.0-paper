@@ -30,10 +30,10 @@ $cells$summary"""
 
 def run_cloc(args):
     result_api = subprocess.run(
-        ["cloc", "--not-match-d=test", args.src], capture_output=True
+        ["cloc", "--not-match-d=test", args.src], capture_output=True, check=True,
     ).stdout
     result_test = subprocess.run(
-        ["cloc", "--match-d=test", args.src], capture_output=True
+        ["cloc", "--match-d=test", args.src], capture_output=True, check=True,
     ).stdout
 
     for line in result_api.splitlines():
