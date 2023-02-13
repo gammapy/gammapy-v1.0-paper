@@ -51,8 +51,7 @@ To clean up failed executions you can use:
     
 To regenerate the PDF after editing a `.tex` file just use:
 
-    rm ms.pdf
-    make
+    make -B
 
 You can use the editor of your choice to modify the files in `src/text/*.tex`.
 If you need to add a figure, please either put the corresponding `matplotlib`/ `python`
