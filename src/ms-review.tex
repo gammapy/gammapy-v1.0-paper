@@ -183,14 +183,14 @@
 The \gammaray range of the electromagnetic spectrum provides us insights into the
 most energetic processes in the universe such as those accelerating particles in the surroundings of
 black holes, and remnants of supernova explosions. As in other
-branches of astronomy, \gammarays can be observed by both
+branches of astronomy, \gammarays can be observed by
 satellite as well as ground based instruments.
 Ground-based instruments use the Earth's atmosphere as a particle detector.
 Very-high-energy (VHE) cosmic \gammarays interact in the atmosphere and
 create a large shower of secondary particles that can be observed from the ground.
 Ground-based \gammaray astronomy relies on these extensive air showers to detect the
 primary \gammaray photons and infer their incident direction and energy.
-VHE \gammaray astronomy covers the energy range from fews tens of ${\rm GeV}$ up to the ${\rm PeV}$.
+VHE \gammaray astronomy covers the energy range from few tens of ${\rm GeV}$ up to the ${\rm PeV}$.
 There are two main categories of ground-based instruments: 
 
 \textit{Imaging Atmospheric Cherenkov Telescopes (IACT)} obtain images of the atmospheric showers
@@ -201,8 +201,8 @@ good energy and angular resolution.
 	
 \textit{Water Cherenkov Detectors (WCD)} detect particles directly from the tail of the
 shower when it reaches the ground. These instruments have a very
-large FoV, large duty-cycle but higher energy threshold and
-usually have lower signal to noise ratios compared to IACTs~\citep{2015CRPhy..16..610D}.
+large FoV and large duty-cycle, but a higher energy threshold and
+usually lower signal to noise ratios compared to IACTs~\citep{2015CRPhy..16..610D}.
 
 
 \begin{figure*}[t]
@@ -236,7 +236,7 @@ usually have lower signal to noise ratios compared to IACTs~\citep{2015CRPhy..16
 
 %% Context
 Ground-based \gammaray astronomy has been historically conducted
-by experiments operated by independent collaborations, each relying
+through experiments operated by independent collaborations, each relying
 on their own proprietary data and analysis software developed as part of the
 instrument. While this model has been successful so far, it does not
 permit easy combination of data from several instruments and therefore
@@ -244,7 +244,7 @@ limits the interoperability of existing facilities. This lack of
 interoperability currently limits the full exploitation of the
 available \gammaray data, especially because the different instruments often have
 complementary sky coverages, and the various detection
-techniques have complementary properties in terms of the energy range covered,
+techniques have complementary properties in terms of energy range covered,
 duty cycle and spatial resolution.
 
 %TODO: better transition into context
@@ -297,13 +297,14 @@ as well as reading and writing FITS files.
 The \gammapy project was started following the idea of \astropy with the objective of building a common
 software library for very high-energy \gammaray data analysis \citep{gammapy_2015}. 
 The core of the idea is illustrated in Figure~\ref{fig:big_picture}. Various \gammaray instruments
-export their data to a standardised common data format -- the \gadf. This data can then be combined and
+export their data to the standardised common \gadf data format. This data can then be combined and
 analysed using a single common software library.
 This means that the \gammapy package is not specific to any instrument,
 but an independent community developed software project.
-The \gammapy package is is built on the scientific Python ecosystem: it uses \numpy~\citep{numpy} for n-dimensional data
+The \gammapy package is built on the scientific Python ecosystem: it uses \numpy~\citep{numpy} for n-dimensional data
 structures, \scipy~\citep{2020SciPy-NMeth} for numerical algorithms, \astropy~\citep{astropy} for
-astronomy-specific functionality, and \matplotlib~\citep{matplotlib} for visualization.
+astronomy-specific functionality, \iminuit~\citep{iminuit} for numerical minimisation
+and \matplotlib~\citep{matplotlib} for visualization.
 
 %% CN: what about mentioning the joint Crab? or is it mentioned later?
 With the public availability of the \gadf format sepcifications and the
@@ -426,9 +427,9 @@ where:
 \gammaray data at the Data Level 3 (DL3) therefore consist of lists of \gammaray-like events and their
 corresponding instrument response functions. The latter include the effective area ($A_{\rm eff}$),
 point spread function and energy dispersion ($E_{\rm disp}$).
-In general, they depend on event's detector
-geometrical parameters, e.g. the field-of-view location or the event elevation angle. So they might be parametrised as
-function of such parameters specific to the instrumental technical.
+In general, IRFs depend on the geometrical parameters of the detector, e.g. location 
+of an event in the FoV or the elevation angle of the event. So IRFs might be parametrised
+as a function of such detector specific coordinates too.
 
 %% CN: this paragraph repeats what is commented in the previous formula and itemize and can be removed
 
@@ -472,7 +473,7 @@ general multidimensional geometry objects and the associated data structures
 %% CN: I would actually distingusih two cases here:
 %% 1) the Bkg is already provided as a parametrisation
 %% 2) the Bkg is not provided and, thus, has to be estimated from the obs.
-After all data has been projected into the same geometry, it is typically
+After all data have been projected into the same geometry, it is typically
 required to improve the residual hadronic background estimate. As residual hadronic
 background models can be subject to significant systematic uncertainties,
 these models can be improved by taking into account actual data
@@ -564,7 +565,7 @@ Each observation is assigned a unique integer ID for reference.
 
 A typical usage example is shown in Figure~\ref{fig*:minted:gp_data}.
 First a \code{DataStore} object is created from the path of the data
-directory. The directory contains an observation as well as FITS HDU 
+directory. The directory contains an observation as well as a FITS HDU 
 index file which assigns the correct data and IRF FITS files and HDUs
 to the given observation ID. The \code{DataStore}
 object gathers a collection of observations and provides ancillary
@@ -665,7 +666,7 @@ sigma parameters. The general \code{ParametricPSF} class allows users to create 
 custom PSF with a parametric representation different from Gaussian(s) or King profile(s).
 The generic \code{PSF3D} class stores a radial symmetric profile of a
 PSF to represent non-parametric shapes, again depending on true energy
-of offset form the pointing position.
+and offset from the pointing position.
 
 To handle the change of the PSF with the observational offset during the analysis 
 the \code{PSFMap} class is used. It stores the radial profile of the PSF
@@ -692,14 +693,16 @@ as a function of the true energy only and implemnted in \gammapy
 by the sub-class \code{EDispKernel}.
 
 \subsubsection{Instrumental Background}
-The instrumental background rate can be represented in \gammapy as either a 2-dimensional
-data structure (\code{Background2D}) of count rate normalised per steradians and energy at different
-reconstructed energies and offset angles or as rate per steradians and energy, as a
-function of reconstructed energy and detector coordinates (\code{Background3D}).
-In the former, the background is expected to follow a radially symmetric shape,
-while in the latter, it can be more complex.
+The instrumental background rate can be represented as either a 2-dimensional
+data structure named \code{Background2D} or a 3-dimensional one named \code{Background3D}.
+The background rate is stored as a differential count rate, normalised per solid angle
+and energy at different reconstructed energies. In the first case the background is
+expected to follow a radially symmetric shape and changes only with the offset angle from
+FoV center. In the other case the background is allowed to vary with 
+longitude and latitude of a tangential FoV coordinates system.
 
-Some example IRFs read from public data files and plotted with \gammapy are shown in Figure~\ref{fig:irfs}.
+Some example IRFs read from public data files and plotted with \gammapy are shown 
+in Figure~\ref{fig:irfs}.
 
 \subsection{gammapy.maps}
 \label{ssec:gammapy-maps}
@@ -860,7 +863,7 @@ methods.
 The \code{gammapy.makers} sub-package contains the various classes and functions required
 to process and prepare \gammaray data from the DL3 to the DL4, representing the input for modeling and fitting.
 First, events are binned and IRFs are interpolated and projected onto the chosen analysis
-geometry. The end product of the data reduction process are a set of binned counts,
+geometry. The end product of the data reduction process is a set of binned counts,
 background exposure, psf and energy dispersion maps at the DL4 level. 
 The \code{MapDatasetMaker} and \code{SpectrumDatasetMaker} are
 responsible for this task for 3D and 1D analyses, respectively (see Figure~\ref{fig*:minted:gp_makers}).
@@ -905,7 +908,7 @@ measure excess counts and estimate the associated statistical significance,
 errors and upper limits. They perform maximum likelihood ratio tests to
 estimate significance (the square root of the statistic difference) and compute
 likelihood profiles to measure errors and upper limits. The code example
-\ref{codeexample:stats} shows how to compute the Li \& Ma
+\ref{fig*:minted:gp_stats} shows how to compute the Li \& Ma
 significance~\citep{LiMa} of a set of measurements.
 
 \begin{figure}
@@ -935,7 +938,7 @@ the fit and parameter API.
 \label{sssec:models}
 Source models in \gammapy (Eq.~\ref{eq:general_source_model}) are four-dimensional 
 analytical models which support two spatial dimensions defined by the sky coordinates
-$\ell, b$, an energy dimension $E$, and a time dimension $t$. To simplify the the definition of the
+$\ell, b$, an energy dimension $E$, and a time dimension $t$. To simplify the definition of the
 models, \gammapy uses a factorised representation of the total source
 model:
 
@@ -965,7 +968,7 @@ light (EBL) (\code{EBLAbsorptionNormSpectralModel}). \gammapy supports a variety
 of EBL absorption models, such as those from \cite{Franceschini2008}, \cite{Finke2010},
 and \cite{Dominguez2011}.
 
-The analytical spatial models are all normalized such as they integrate to
+The analytical spatial models are all normalized such that they integrate to
 unity over the entire sky. The template spatial models may not, so in that special
 case they have to be combined with a \code{NormSpectralModel}.
 
@@ -1056,8 +1059,8 @@ the predicted number of total, signal and background
 counts per flux bin; the total fit statistics
 of the best fit model; the fit statistics of the
 null hypothesis; and the difference between both,
-the so-called TS value.
-From the TS value the significance of the measured signal and associated flux
+the so-called \textit{TS value}.
+From this \textit{TS value}, a significance of the measured signal and associated flux
 can be derived.
 
 Optionally, the estimators can also compute more advanced quantities
@@ -1162,10 +1165,9 @@ wide field Galactic survey images across multiple panels to fit a standard
 paper size.
 
 The sub-package also provides \texttt{matplotlib} implementations of specific
-colormaps for false color image representation. Those colormaps have
-been historically used by larger collaborations in the very high-energy
-domain (such as \milagro or \hess) as \enquote{trademark} colormaps.
-While we explicitly discourage the use of those colormaps for publication
+colormaps. Those colormaps have been historically used by larger collaborations
+in the very high-energy domain (such as \milagro or \hess) as \enquote{trademark}
+colormaps. While we explicitly discourage the use of those colormaps for publication
 of new results, because they do not follow modern visualization
 standards, such as linear brightness gradients and accessibility
 for visually impaired people, we still consider the colormaps
@@ -1193,7 +1195,7 @@ pulsars \cite{2006ApJ...643..332F, 2006MNRAS.372..777L, 2004A&A...422..545Y}
 and \gammaray binaries.
 
 While the present list of use cases is rather preliminary, this can be enriched
-with time with by users and/or developers according to future needs.
+with time by users and/or developers according to future needs.
 
 \subsection{gammapy.catalog}
 \label{ssec:gammapy-catalog}
@@ -1480,7 +1482,7 @@ the performance of the upgraded stereo system~\citep{magic_performance} and
 already included in~\cite{joint_crab}. The observations were taken at small
 zenith angles ($<30^{\circ}$) in wobble mode~\citep{fomin_1994}, with the
 source sitting at an offset of $0.4^{\circ}$ from the FoV center. Their energy
-range spans $80\,{\rm GeV} - 20\,{\rm TeV}$. They data reduction for the 1D analysis
+range spans $80\,{\rm GeV} - 20\,{\rm TeV}$. The data reduction for the 1D analysis
 is applied, and the data are reduced to a \code{SpectrumDataset} before being fitted.
 
 \hawc data are directly provided as flux points (DL5 data level) and are read
@@ -1590,7 +1592,7 @@ For the association and classification step, which is tightly connected to the
 population studies, we can easily compare the fitted models to the set of
 existing \gammaray catalogs available in \code{gammapy.catalog}. Further
 multi-wavelength cross-matches are usually required to characterize the
-sources. This can e.g. easily be achieved by relying on coordinate
+sources. This can easily be achieved by relying on coordinate
 handling from Astropy in combination with affiliated packages
 \textit{Astroquery}~\citep{astroquery}.
 
@@ -1600,9 +1602,9 @@ populations), but also give us the opportunity to test the software on complex
 use cases\footnote{Note that the CTA-GPS simulations were performed with the
 	\textit{ctools} package~\citep{2016A&A...593A...1K} and analysed with both
 	\textit{ctools} and \textit{gammapy} packages in order to cross-validate
-	them.}. So we can  improve performances, optimize our analyses strategies, and
-identify the needs in term of parallelisation to process the large datasets
-provided by the surveys.
+	them.}. So we can improve performance, optimize our analyse strategies, and
+identify the needs in terms of parallelisation to process the large datasets
+provided by surveys.
 
 
 
