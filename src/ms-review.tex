@@ -199,10 +199,10 @@ use these images to reconstruct the properties of the incident particle.
 Those instruments have a limited field of view (FoV) and duty cycle, but
 good energy and angular resolution.
 	
-\textit{Water Cherenkov Detectors (WCD)} detect particles directly from the tail of the
+\textit{Water Cherenkov Detectors (WCDs)} detect particles directly from the tail of the
 shower when it reaches the ground. These instruments have a very
 large FoV and large duty-cycle, but a higher energy threshold and
-usually lower signal to noise ratios compared to IACTs~\citep{2015CRPhy..16..610D}.
+usually lower signal-to-noise ratios compared to IACTs~\citep{2015CRPhy..16..610D}.
 
 
 \begin{figure*}[t]
@@ -260,7 +260,7 @@ In practice, the data reduction workflow of all \gammaray observatories
 is remarkably similar. After data calibration, shower events are reconstructed and
 gamma/hadron separation is applied to build lists of \gammaray-like events.
 The lists of \gammaray events are then used to derive scientific results, such as spectra, sky maps
-or light curves, taking into account the observation specific instrument response functions (IRF).
+or light curves, taking into account the observation specific instrument response functions (IRFs).
 Once the data is reduced to a list of events with reconstructed physical properties of the primary particle,
 the information is independent of the data-reduction process, and, eventually, of the detection technique. This implies,
 for example, that high-level data from IACTs and WCDs can be represented
@@ -365,7 +365,7 @@ a lack of common data formats and software tools.
 
 To extract physically relevant information, such as the flux, spatial or spectral shape of one or more sources,
 an analytical model is commonly adopted to describe the intensity of gamma-ray sources as a function of the energy,
-$E_{\rm true}$, and of the position in the field of view, $p_{\rm true}$:
+$E_{\rm true}$, and of the position in the FoV, $p_{\rm true}$:
 \begin{equation}
     \Phi(p_{\rm true}, E_{\rm true}, \hat{\theta}) \quad \mathrm{[TeV^{-1}cm^{-2}s^{-1}]}
     \label{eq:general_source_model}
@@ -426,7 +426,7 @@ where:
 %% maybe add (see Fig.~1)
 \gammaray data at the Data Level 3 (DL3) therefore consist of lists of \gammaray-like events and their
 corresponding instrument response functions. The latter include the effective area ($A_{\rm eff}$),
-point spread function and energy dispersion ($E_{\rm disp}$).
+PSF and energy dispersion ($E_{\rm disp}$).
 In general, IRFs depend on the geometrical parameters of the detector, e.g. location 
 of an event in the FoV or the elevation angle of the event. So IRFs might be parametrised
 as a function of such detector specific coordinates too.
@@ -435,7 +435,7 @@ as a function of such detector specific coordinates too.
 
 An additional component of DL3 IRFs is the residual hadronic background model $Bkg$.
 It represents the intensity of charged particles misidentified as \gammarays that are expected
-during an observation. It is defined as a function of the measured position in the field-of-view
+during an observation. It is defined as a function of the measured position in the FoV
 and measured energy.
 
 In total, the expected number of events in a \gammaray observation is given by:
@@ -478,9 +478,9 @@ required to improve the residual hadronic background estimate. As residual hadro
 background models can be subject to significant systematic uncertainties,
 these models can be improved by taking into account actual data
 from regions without known \gammaray sources. This includes methods 
-such as the ring or the field-of-view background techniques or
+such as the ring or the FoV background techniques or
 background measurements performed within, e.g. reflected regions~\citep{Berge07}.
-Data measured at the field-of-view or energy boundaries of the instrument are typically
+Data measured at the FoV or energy boundaries of the instrument are typically
 associated with a systematic uncertainty in the IRF. For this reason this part 
 of the data is often excluded from subsequent analysis by defining regions of
  \enquote{safe} data in the spatial as well as energy dimension.
@@ -637,7 +637,7 @@ Usually, \irfs store instrument properties in the form of multi-dimensional
 tables, with quantities expressed in terms of energy (true or reconstructed),
 off-axis angles or cartesian detector coordinates. The main information stored in
 the common \gammaray \irfs are the effective area, energy dispersion,
-point spread function and background rate. The \code{gammapy.irf}
+PSF and background rate. The \code{gammapy.irf}
 sub-package can open and access specific \irf extensions,
 interpolate and evaluate the quantities of interest on both energy and spatial
 axes, convert their format or units, plot or write them into
@@ -682,7 +682,7 @@ is typically parametrised in terms of the so-called
 migration parameter ($\mu$), which is defined as the ratio between the
 reconstructed energy and the true energy. By definition, the mean of this ratio is
 close to unity for a small energy bias and its distribution can 
-be typically described by a Gaussian. However, more complex
+be typically described by a Gaussian profile. However, more complex
 shapes are also common. The migration parameter is given at each offset angle and
 reconstructed energy. The main sub-classes are the \code{EnergyDispersion2D} which is
 designed to handle the raw instrument description, and the \code{EDispKernelMap},
@@ -870,7 +870,7 @@ responsible for this task for 3D and 1D analyses, respectively (see Figure~\ref{
 
 Because the background models suffer from strong uncertainties it is required
 to correct them from the data themselves. Several techniques are commonly used
-in TeV \gammaray astronomy such as field-of-view background normalization or
+in TeV \gammaray astronomy such as FoV background normalization or
 background measurement in reflected regions, see~\cite{Berge07}.
 Specific \code{Makers} such as the \code{FoVBackgroundMaker} or the
 \code{ReflectedRegionsBackgroundMaker} are in charge of this process.
@@ -878,7 +878,7 @@ Specific \code{Makers} such as the \code{FoVBackgroundMaker} or the
 
 Finally, to limit other sources of systematic uncertainties, a data validity
 domain is determined by the \code{SafeMaskMaker}. It can be used to limit the
-extent of the field of view used, or to limit the energy range to, e.g., a domain
+extent of the FoV used, or to limit the energy range to, e.g., a domain
 where the energy reconstruction bias is below a given value.
 
 
@@ -1335,7 +1335,7 @@ log-likelihood profiles are computed using the \code{FluxPointsEstimator}.
 %
 The 1D analysis approach is a powerful tool to measure the spectrum of an
 isolated source. However, more complicated situations require a more careful
-treatment. In a field of view containing several overlapping sources, the 1D
+treatment. In a FoV containing several overlapping sources, the 1D
 approach cannot disentangle the contribution of each source to the total flux in
 the selected region. Sources with extended or complex morphology can result in
 the measured flux being underestimated, and heavily dependent on the choice of
@@ -1473,7 +1473,7 @@ spectrum of the Crab Nebula combining data from the \fermi, \magic and \hawc
 instruments.
 
 The \fermi data is introduced at the data level DL4, and directly bundled in a
-\code{MapDataset}. They ahve been prepared using the standard \textit{fermitools} \citep{Fermitools2019} and
+\code{MapDataset}. They have been prepared using the standard \textit{fermitools} \citep{Fermitools2019} and
 selecting a region of $5^{\circ} \mathrm{x} 4^{\circ}$ around the
 position of the Crab Nebula applying the same selection criteria of the 3FHL
 catalog (7 years of data with energy from $10\,{\rm GeV}$ to $2\,{\rm TeV}$,
