@@ -122,7 +122,7 @@ def plot_sed(ax):
 
     flux_points.plot_ts_profiles(ax=ax, sed_type="e2dnde", add_cbar=False)
     format_dl5_ax(ax=ax)
-    ax.set_title("SEDs", color=GP_GRAY, pad=4)
+    ax.set_title("Spectra", color=GP_GRAY, pad=4)
 
 
 def plot_image(ax):
@@ -130,7 +130,7 @@ def plot_image(ax):
     log.info(f"Reading: {filename}")
     m = Map.read(filename)
     m.plot(ax=ax, cmap="inferno", stretch="sqrt")
-    ax.set_title("Images", color=GP_GRAY, pad=4)
+    ax.set_title("Sky maps", color=GP_GRAY, pad=4)
     format_dl5_ax(ax=ax)
 
 
@@ -311,7 +311,7 @@ def main(draft=True):
     )
 
     ypos = 40
-    plot_gp_logo(ax=ax, offset=(70, ypos), fontsize=150, sub_title="")
+    plot_gp_logo(ax=ax, offset=(70, ypos), fontsize=130, sub_title="")
     plot_gadf_icon(ax=ax, offset=(70, ypos + 2), text="GADF", size=18)
 
     ax.tick_params(axis="both", direction="in", pad=-20)

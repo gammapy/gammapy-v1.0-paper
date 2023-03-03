@@ -30,10 +30,14 @@ $cells$summary"""
 
 def run_cloc(args):
     result_api = subprocess.run(
-        ["cloc", "--not-match-d=test", args.src], capture_output=True, check=True,
+        ["cloc", "--not-match-d=test", args.src],
+        capture_output=True,
+        check=True,
     ).stdout
     result_test = subprocess.run(
-        ["cloc", "--match-d=test", args.src], capture_output=True, check=True,
+        ["cloc", "--match-d=test", args.src],
+        capture_output=True,
+        check=True,
     ).stdout
 
     for line in result_api.splitlines():
@@ -113,10 +117,10 @@ def make_files(stats):
 
 
 def make_pie():
-    figsize = config.FigureSizeAA()
+    figsize = config.FigureSizeAA(aspect_ratio=1.6)
     fig = plt.figure(figsize=figsize.inch)
 
-    ax = fig.add_axes([0.12, 0.12, 0.76, 0.76])
+    ax = fig.add_axes([0.01, 0.01, 0.98, 0.98])
 
     file_data = pd.read_csv(TEMPFILE, sep=", ", engine="python")
     df = file_data[:-1]
@@ -125,7 +129,15 @@ def make_pie():
     # code
     df = df.sort_values(by=["code"])[::-1]
     sdf = shorthen_df(df)
-    sdf.plot(ax=ax, kind="pie", y="code", autopct=fix_autopct, legend=False, fontsize=8, radius=0.8)
+    sdf.plot(
+        ax=ax,
+        kind="pie",
+        y="code",
+        autopct=fix_autopct,
+        legend=False,
+        fontsize=8,
+        radius=1.1,
+    )
     plt.ylabel("")
     plt.savefig("codestats.pdf")
     logging.info("Piechart file codestats.pdf created.")
