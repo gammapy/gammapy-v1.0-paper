@@ -887,18 +887,21 @@ where the energy reconstruction bias is below a given value.
 The \code{gammapy.stats} subpackage contains the fit statistics and the associated
 statistical estimators commonly adopted in \gammaray astronomy. In
 general, \gammaray observations count Poisson-distributed events at various sky
-positions, and contain both signal and background events. Estimation of the
-number of signal events is done through likelihood maximization. In \gammapy,
-the fit statistics are Poisson log-likelihood functions normalized like
-chi-squares, i.e., they follow the expression $2 \time\cdot \log{\mathcal{L}}$,
-where $\mathcal{L}$ is
-the likelihood function used. When the expected number of background events is known, the used statistic function 
- is the \emph{Cash} statistic
-~\citep{Cash}. It is used by datasets using background templates such as the
-\code{MapDataset}. When the number of background events is unknown and an OFF
+positions and contain both signal and background events.
+To estimate the number of signal events in the observation one typically uses
+Poisson maximum likelihood estimation (MLE). In practice this is done
+by minimizing a fit statistic defined by $-2 \time\cdot \log{\mathcal{L}}$,
+where $\mathcal{L}$ is the likelihood function used. \gammapy uses the convention
+of a factor of 2 in front, such that a difference in log-likelihood will
+approach a $\Chi^2$ distribution in the statistial limit.
+
+When the expected number of background events is known, the statistic function 
+is the so called \emph{Cash} statistic ~\citep{Cash}. It is used by datasets using background
+templates such as the
+\code{MapDataset}. When the number of background events is unknown and an \enquote{off}
 measurement where only background events are expected is used, the statistic
 function is \emph{WStat}. It is a profile log-likelihood statistic where the background
-counts are marginalized parameters. It is used by datasets containing off
+counts are marginalized parameters. It is used by datasets containing \enquote{off}
 counts measurements such as the \code{SpectrumDatasetOnOff}, used for classical
 spectral analysis.
 
