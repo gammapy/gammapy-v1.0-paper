@@ -24,6 +24,7 @@
 \usepackage{color}
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
+\usepackage[autostyle]{csquotes}
 
 %% For the review, add the line numbers
 \usepackage[switch]{lineno}
@@ -281,7 +282,7 @@ sky in high energies. At the same time \textit{Python}
 has become extremely popular as a scientific programming language,
 in particular in the field of data sciences. This success is
 mostly attributed to the simple and easy to learn syntax, the ability to act as
-a "glue" language between different programming languages and last but not least
+a \enquote{glue} language between different programming languages and last but not least
 the rich ecosystem of packages and its open and supportive community \citep{Momcheva2015}.
 
 In the sub-field of astronomy, it was the \astropy project \citep{astropy} that 
@@ -481,7 +482,7 @@ background measurements performed within, e.g. reflected regions~\citep{Berge07}
 Data measured at the field-of-view or energy boundaries of the instrument are typically
 associated with a systematic uncertainty in the IRF. For this reason this part 
 of the data is often excluded from subsequent analysis by defining regions of
- "safe" data in the spatial as well as energy dimension.
+ \enquote{safe} data in the spatial as well as energy dimension.
 All of these data reduction steps are performed by classes and functions
 implemented in the \code{gammapy.makers} subpackage (see Section~\ref{ssec:gammapy-makers}).
 
@@ -492,7 +493,7 @@ implemented in the \code{gammapy.makers} subpackage (see Section~\ref{ssec:gamma
 %% dataset can handle lower energy data, e.g. X-ray.
 %% We also said in the abstract that Gammapy is compliant with other specifications
 %% adopted in high-energy astrophysics.
-The counts data and the reduced IRFs in the form of maps are bundled into "datasets"
+The counts data and the reduced IRFs in the form of maps are bundled into datasets
 that represent the fourth data level (DL4). These reduced datasets can be written to disk,
 in a format specific to \gammapy to allow users to read them back at any time later
 for modeling and fitting. Different variations of such datasets support different 
@@ -787,7 +788,7 @@ shape. Typically, they are used together with a non-spatial dimension, for
 example an energy axis, to represent how a quantity varies in that dimension
 inside the corresponding region. To avoid the complexity of handling
 spherical geometry for regions, the regions are projected onto the local
-tangential plane using a WCS transform. This approach follows Astropy's "regions"
+tangential plane using a WCS transform. This approach follows Astropy's \textit{Regions}
 package \citep{AstropyRegions2022}, which is both used as an API to define regions
 for users as well as handling the underlying geometric operations. Region based
 maps are represented by the \code{RegionGeom} and \code{RegionNDMap} classes.
@@ -820,7 +821,7 @@ used for combined spectral and morphological (3D) fitting, while a 1D spectral
 fitting can be performed using the \code{SpectrumDataset}.
 While the default fit statistics for both of these classes is the \emph{Cash}~\citep{Cash}
 statistic, there are other classes which support
-analyses where the background is measured from control regions, so called "off" obervations.
+analyses where the background is measured from control regions, so called \enquote{off} obervations.
 Those require the use of a different fit statistics, which takes into account the
 uncertainty of the background measurement. This case is covered by the \code{MapDatasetOnOff}
 and \code{SpectrumDatasetOnOff} classes, which use the \emph{WStat}~\citep{WStat} statistic.
@@ -1045,7 +1046,7 @@ points, light curves, flux maps and flux profiles from data.
 The basic method for all these measurements is equivalent.
 The initial fine bins of \code{MapDataset} are grouped into
 larger bins. A multiplicative correction factor (the \textit{norm})
-is applied to the best fit "reference" spectral
+is applied to the best fit reference spectral
 model and is fitted in the restricted data range, defined by the 
 bin group only.
 
@@ -1163,7 +1164,7 @@ paper size.
 The sub-package also provides \texttt{matplotlib} implementations of specific
 colormaps for false color image representation. Those colormaps have
 been historically used by larger collaborations in the very high-energy
-domain (such as \milagro or \hess) as "trademark" colormaps.
+domain (such as \milagro or \hess) as \enquote{trademark} colormaps.
 While we explicitly discourage the use of those colormaps for publication
 of new results, because they do not follow modern visualization
 standards, such as linear brightness gradients and accessibility
@@ -1280,12 +1281,12 @@ secondly flux points are computed in a pre-defined set of energy bins. The
 result of such an analysis performed on three simulated CTA observations is
 shown in Fiure~\ref{fig:cta_galactic_center}. In this case the spectrum was
 measured in a circular aperture centered on the Galactic Center, in
-\gammaray~astronomy often called "ON region". For such analysis the users first
+\gammaray~astronomy often called \enquote{on region}. For such analysis the users first
 chooses a region of interest and energy binning, both defined by a
 \code{RegionGeom}. In a second step, the events and the IRFs are binned
 into maps of this geometry, by the \code{SpectrumDatasetMaker}. All the data and
 reduced IRFs are bundled into a \code{SpectrumDataset}. To estimate
-the expected background in the ON region a "reflected regions" background
+the expected background in the \enquote{on region} a \enquote{reflected regions} background
 method was used~\cite{Berge07}, represented in \gammapy by the
 \code{ReflectedRegionsBackgroundMaker} class. The resulting reflected regions are
 illustrated for all three observations overlayed on the counts map in Figure~\ref{fig:cta_galactic_center}.
@@ -1405,8 +1406,7 @@ the \code{Observation.select\_time} method. Figure~\ref{fig:hess_lightcurve_pks}
 shows the light curve of the blazar PKS~2155-304 in different energy bands as
 observed by the \hess telescope during an exceptional flare on the night of
 July 29 - 30, 2006~\cite{2009A&A...502..749A}. The data are publicly available 
-as a part of the HESS-DL3-DR1~\cite{HESS_DR1}, and shipped with
-\verb"GAMMAPY_DATA". Each observation is first split into 10 min smaller
+as a part of the HESS-DL3-DR1~\cite{HESS_DR1}. Each observation is first split into 10 min smaller
 observations, and spectra extracted for each of these within a 0.11\textdegree~radius
 around the source. A \code{PowerLawSpectralModel} is fit to all the datasets, leading
 to a reconstructed index of $3.54 \pm 0.02$. With this adjusted spectral model
@@ -1570,8 +1570,8 @@ detection step typically consists in finding local maxima in the significance or
 computed by the \code{ExcessMapEstimator} or \code{TSMapEstimator} respectively.
  Further refinements can
 include for example filtering and detection on these maps with techniques from
-the "scikit-image" package~\citep{scikit-image}, and outlier detection from
-the "scikit-learn" package~\citep{scikit-learn}. This allows e.g., to 
+the \textit{Scikit-image} package~\citep{scikit-image}, and outlier detection from
+the \textit{Scikit-learn} package~\citep{scikit-learn}. This allows e.g., to 
 reduce the number of spurious detections at this stage using standard
 classification algorithms and then speed up the next step
 as less objects will have to be fitted simultaneously. During the modelling
@@ -1749,7 +1749,7 @@ on \github actions.
 The Jupyter notebooks tutorials are generated using the sphinx-gallery
 package \citep{sphinx-gallery}.
 The resulting web published tutorials also provide links to playground spaces in
-"myBinder"~\citep{project_jupyter-proc-scipy-2018}, where they may be executed
+\textit{myBinder}~\citep{project_jupyter-proc-scipy-2018}, where they may be executed
 on-line in versioned virtual environments hosted in the myBinder
 infrastructure. Users may also play with the tutorials locally in their
 laptops. They can download a specific version of the tutorials together with
@@ -1776,7 +1776,7 @@ weekly development meetings, etc.
 \subsection{Proposals for Improving \gammapy}
 \label{ssec:pigs}
 An important part of \gammapy's development organisation is the support
-for "Proposals for improving \gammapy" (PIG). This system is very much
+for \textit{Proposals for improving \gammapy}(PIG). This system is very much
 inspired by Python's PEP\footnote{\url{https://peps.python.org/pep-0001/}}
 and Astropy's APE \citep{greenfield_perry_2013} system.
 PIG are self-contained documents which outline a set of larger
@@ -1795,7 +1795,7 @@ individual contributions via pull requests. A list of all proposed
 PIG documents is available in the \gammapy online documentation
 \footnote{\url{https://docs.gammapy.org/dev/development/pigs/index.html}}.
 
-A special category of PIGs are long-term "roadmaps". To develop a common
+A special category of PIGs are long-term \textit{roadmaps}. To develop a common
 vision for all \gammapy project members on the future of the
 project, the main goals regarding planned features, maintenance and
 project organisation are written up as an overview and presented to the
@@ -1922,7 +1922,7 @@ a common vision of open and reproducible science for the future.
 	to our first Lead Developer of \gammapy, Christoph Deil. Finally, we would like to thank
 	all the \gammapy users that have provided feedback and submitted bug reports.
 	J.E.~Ruiz acknowledges financial support from the State Agency for Research of
-	the Spanish MCIU through the "Center of Excellence Severo Ochoa" award to the
+	the Spanish MCIU through the \textit{Center of Excellence Severo Ochoa} award to the
 	Instituto de Astrof\'isica de Andaluc\'ia (SEV-2017-0709). L.~Giunti acknowledges
 	financial support from the Agence Nationale de la Recherche (ANR-17-CE31-0014).
 
