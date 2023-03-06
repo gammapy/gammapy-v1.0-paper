@@ -263,13 +263,3 @@ rule download_hawc_dl3:
     shell:
         "cd scripts && python download.py hawc-dl3"
 
-# Custom rule for the codestats
-rule codestats:
-    input:
-        "src/figures/codestats.py"
-    output:
-        "src/tables/generated/codestats.tex",
-    conda:
-        "environment.yml"
-    shell:
-        "cd src/figures/ && python codestats.py"
