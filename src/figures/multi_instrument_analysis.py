@@ -14,7 +14,7 @@ from gammapy.modeling.models import SPECTRAL_MODEL_REGISTRY, Models
 sys.path.append("../data/multi-instrument")
 from make import CrabInverseComptonSpectralModel
 
-sed_x_label = r"$E\,/\,{\rm TeV}$"
+sed_x_label = "Energy / TeV"
 sed_y_label = (
     r"$E^2\,{\rm d}\phi/{\rm d}E\,/\,({\rm erg}\,{\rm cm}^{-2}\,{\rm s}^{-1})$"
 )

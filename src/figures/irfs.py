@@ -85,6 +85,7 @@ ax_aeff.plot(
 ax_aeff.set_xlim(*xlim)
 ax_aeff.set_yscale("log")
 ax_aeff.set_ylim(1e-1, 8e6)
+ax_aeff.set_xlabel("True Energy / TeV")
 ax_aeff.legend(fontsize=8, ncol=1)
 
 psf_hess = obs_hess.psf.slice_by_idx({"energy_true": slice(10, None)})
@@ -113,7 +114,7 @@ ax_psf.lines[-1].set_label("Fermi-LAT")
 ax_psf.set_yticks([0, 0.1, 0.2, 0.3, 0.4])
 ax_psf.yaxis.set_major_formatter(ticker.FormatStrFormatter("%.1f"))
 ax_psf.set_xlim(*xlim)
-ax_psf.set_xlabel("True Energy [TeV]")
+ax_psf.set_xlabel("True Energy / TeV")
 ax_psf.legend()
 
 # ax_edisp = axes[0, 1]
