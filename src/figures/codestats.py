@@ -10,11 +10,12 @@ from string import Template
 import config
 import matplotlib.pyplot as plt
 import pandas as pd
+from matplotlib.patches import Circle
 
 logging.basicConfig(level=logging.INFO)
 
 CODEBASE = "../../gammapy"
-TEMPFILE = "results.csv"
+TEMPFILE = "../data/codestats.csv"
 TEXFILE = "../tables/generated/codestats.tex"
 LATEX_TEMPLATE = r"""\begin{tabular}{ccccccc}
 \hline
@@ -117,10 +118,10 @@ def make_files(stats):
 
 
 def make_pie():
-    figsize = config.FigureSizeAA(aspect_ratio=1.6)
+    figsize = config.FigureSizeAA(aspect_ratio=1.618)
     fig = plt.figure(figsize=figsize.inch)
 
-    ax = fig.add_axes([0.01, 0.01, 0.98, 0.98])
+    ax = fig.add_axes([0, 0, 0.6, 1])
 
     file_data = pd.read_csv(TEMPFILE, sep=", ", engine="python")
     df = file_data[:-1]
@@ -134,11 +135,36 @@ def make_pie():
         kind="pie",
         y="code",
         autopct=fix_autopct,
-        legend=False,
+        legend=True,
         fontsize=8,
-        radius=1.1,
+        radius=1.2,
+        pctdistance=0.8,
+        labeldistance=None,
+        textprops={"va": "center", "ha": "center"},
     )
+    xpos = 0.6 * figsize.inch[0] / 2
+    ypos = figsize.inch[1] / 2
+
+    patch = Circle(
+        xy=(xpos, ypos),
+        radius=0.5,
+        facecolor="white",
+        transform=fig.dpi_scale_trans,
+    )
+    ax.add_patch(patch)
+
+    ax.text(
+        x=xpos,
+        y=ypos,
+        s="Total\n$\\approx 50,000$ LOC",
+        va="center",
+        ha="center",
+        color=(0.5, 0.5, 0.5),
+        transform=fig.dpi_scale_trans,
+    )
+
     plt.ylabel("")
+    plt.legend(loc="center left", bbox_to_anchor=(1, 0.5), frameon=False)
     plt.savefig("codestats.pdf")
     logging.info("Piechart file codestats.pdf created.")
 
@@ -168,19 +194,7 @@ def fix_autopct(pct):
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--src", help="Path to Gammapy project")
-    args = parser.parse_args()
-    if not args.src:
-        # raise Exception("Please provide --src path to Gammapy project")
-        args.src = CODEBASE
-
-    result = run_cloc(args)
-    make_files(result)
     make_pie()
-
-    # remove not needed intermediate file
-    Path(TEMPFILE).unlink()
 
 
 if __name__ == "__main__":
