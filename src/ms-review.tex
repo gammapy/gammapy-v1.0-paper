@@ -25,6 +25,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
 \usepackage[autostyle]{csquotes}
+\usepackage{siunitx}
 
 %% For the review, add the line numbers
 \usepackage[switch]{lineno}
@@ -239,7 +240,7 @@ Very-high-energy (VHE) cosmic \gammarays interact in the atmosphere and
 create large showers of secondary particles that can be observed from the ground.
 Ground-based \gammaray astronomy relies on these extensive air showers to detect the
 primary \gammaray photons and infer their incident direction and energy.
-VHE \gammaray astronomy covers the energy range from few tens of ${\rm GeV}$ up to the ${\rm PeV}$.
+VHE \gammaray astronomy covers the energy range from few tens of \unit{GeV} up to the \unit{PeV}.
 There are two main categories of ground-based instruments: 
 
 \textit{Imaging Atmospheric Cherenkov Telescopes (IACTs)} obtain images of the atmospheric showers
@@ -416,7 +417,7 @@ To extract physically relevant information, such as the flux, spatial or spectra
 an analytical model is commonly adopted to describe the intensity of the radiation from gamma-ray sources
 as a function of the energy, $E_{\rm true}$, and of the position in the FoV, $p_{\rm true}$:
 \begin{equation}
-    \Phi(p_{\rm true}, E_{\rm true}; \hat{\theta}), [\Phi] = \mathrm{TeV^{-1} \cdot cm^{-2}\cdot s^{-1}}
+    \Phi(p_{\rm true}, E_{\rm true}; \hat{\theta}), [\Phi] = \unit{TeV^{-1}.cm^{-2}.s^{-1}}
     \label{eq:general_source_model}
 \end{equation}
 where $\hat{\theta}$ is a set of model parameters that can be adjusted in a fit. To convert this analytical flux model
@@ -1147,10 +1148,10 @@ by multiplication of the \textit{norm} with the reference flux.
          \hline
          Type & Description & Unit Equivalency \\
          \hline
-         dnde & Differential flux at a given energy & $\mathrm{TeV^{-1}~cm^{-2}~s^{-1}}$ \\
-         e2dnde & Differential flux at a given energy  & $\mathrm{TeV~cm^{-2}~s^{-1}}$ \\
-         flux & Integrated flux in a given energy range & $\mathrm{cm^{-2}~s^{-1}}$ \\
-         eflux & Integrated energy flux in a given energy range & $\mathrm{erg~cm^{-2}~s^{-1}}$\\
+         dnde & Differential flux at a given energy & \unit{TeV^{-1}.cm^{-2}.s^{-1}} \\
+         e2dnde & Differential flux at a given energy  & \unit{TeV.cm^{-2}.s^{-1}} \\
+         flux & Integrated flux in a given energy range & \unit{cm^{-2}.s^{-1}} \\
+         eflux & Integrated energy flux in a given energy range & \unit{erg.cm^{-2}.s^{-1}}\\
          \hline
         \end{tabular}
     \end{center}
@@ -1465,15 +1466,15 @@ as a part of the HESS-DL3-DR1~\cite{HESS_DR1}. Each observation is first split i
 observations, and spectra extracted for each of these within a 0.11\textdegree~radius
 around the source. A \code{PowerLawSpectralModel} is fit to all the datasets, leading
 to a reconstructed index of $3.54 \pm 0.02$. With this adjusted spectral model
-the \code{LightCurveEstimator} runs directly for two energy bands, $0.5\,{\rm TeV} - 1.5\,{\rm TeV}$,
-and $1.5\,{\rm TeV} - 20\,{\rm TeV}$, respectively.
+the \code{LightCurveEstimator} runs directly for two energy bands,
+\qtyrange{0.5}{1.5}{TeV} and \qtyrange{1.5}{20}{TeV} respectively.
 %
 \begin{figure*}[t]
     \sidecaption
 	\includegraphics[width=0.6666\textwidth]{figures/hess_lightcurve_pks.pdf}
 	\caption{
         Binned light curves in two different energy bands for the source
-        PKS~2155-304 in two energy bands ($0.5\,{\rm TeV} - 1.5\,{\rm TeV}$, and $1.5\,{\rm TeV} - 20\,{\rm TeV}$)
+        PKS~2155-304 in two energy bands (\qtyrange{0.5}{1.5}{TeV} and \qtyrange{1.5}{20}{TeV})
         as observed by the \hess telescopes in 2006. The coloured markers
         show the flux points in the different energy bands. The horizontal
         error illustrates the width of the time bin of 10~min. The vertical
@@ -1526,7 +1527,7 @@ The \fermi data is introduced at the data level DL4, and directly bundled in a
 \code{MapDataset}. They have been prepared using the standard \textit{fermitools} \citep{Fermitools2019} and
 selecting a region of $5^{\circ}\,\times\,4^{\circ}$ around the
 position of the Crab Nebula, applying the same selection criteria of the 3FHL
-catalog (7 years of data with energy from $10\,{\rm GeV}$ to $2\,{\rm TeV}$,
+catalog (7 years of data with energy from \qty{10}{GeV} to \qty{2}{TeV},
 ~\citealt{3FHL}).
 
 The \magic data is included from the data level DL3. They consist of two
@@ -1535,12 +1536,12 @@ the performance of the upgraded stereo system~\citep{magic_performance} and
 already included in~\cite{joint_crab}. The observations were taken at small
 zenith angles ($<30^{\circ}$) in wobble mode~\citep{fomin_1994}, with the
 source sitting at an offset of $0.4^{\circ}$ from the FoV center. Their energy
-range spans $80\,{\rm GeV} - 20\,{\rm TeV}$. The data reduction for the 1D analysis
+range spans \qty{80}{GeV} to \qty{20}{TeV}. The data reduction for the 1D analysis
 is applied, and the data are reduced to a \code{SpectrumDataset} before being fitted.
 
 \hawc data are directly provided as flux points (DL5 data level) and are read
 via Gammapy's \code{FluxPoints} class. They were estimated in ~\cite{hawc_crab_2019}
-with $2.5\,{\rm years}$ of data and span an energy range $300\,{\rm GeV} - 300\,{\rm TeV}$.
+with $2.5\,{\rm years}$ of data and span an energy range \qty{300}{GeV} to \qty{300}{TeV}.
 
 Combining the datasets in a \code{Datasets} list, \gammapy automatically generates
 a likelihood including three different types of terms, two Poissonian likelihoods
@@ -1549,7 +1550,7 @@ accounting for the \hawc flux points. For \fermi, a three-dimensional forward fo
 of the sky model with the IRF is performed, in order to compute the predicted counts
 in each sky-coordinate and energy bin. For \magic, a one-dimensional forward-folding
 of the spectral model with the \irfs is performed to predict the counts in each estimated energy bin. A log
-parabola is fitted to the almost five decades in energy $10\,{\rm GeV} - 300\,{\rm TeV}$.
+parabola is fitted to the almost five decades in energy \qty{10}{GeV} to \qty{300}{TeV}.
 %% CN: is the LP formula specified elsewhere?
 
 The result of the joint fit is displayed in
