@@ -1,0 +1,17 @@
+Language, files, blank, comment, code
+Python API, 273, 14893, 26385, 34708
+Python Tests, 123, 6432, 1061, 22555
+DocStrings, 273, 0, 0, 26385
+reStructuredText, 133, 4058, 3149, 9576
+C, 2, 371, 1327, 5875
+YAML, 16, 33, 31, 781
+JSON, 1, 0, 0, 367
+SVG, 4, 4, 4, 298
+CSS, 1, 64, 8, 257
+make, 2, 39, 18, 210
+Batch, 1, 21, 1, 150
+Markdown, 5, 31, 0, 126
+INI, 1, 14, 0, 95
+Cython, 1, 16, 35, 68
+TOML, 1, 1, 0, 28
+Total, 441, 19545, 30958, 52539
