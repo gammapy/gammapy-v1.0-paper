@@ -369,7 +369,12 @@ as a basis for validation of open analysis tools, including \gammapy
 \cite[see e.g.][]{Mohrmann2019}. The \hawc collaboration also released
 a limited test dataset of the Crab Nebula, which was used to validate
 the \gammapy package in \cite{Olivera2022}.
-The increased availability of public data that followed the definition of a common data format, and the development of \gammapy as a community-driven open software, led the way toward a more open science in the very-high-energy \gray Astronomy domain. In future CTAO will be an open observatory committed to follow the FAIR (Findable, Accessible, Interoperable and Reusable) principles \citep{FAIR16, FAIR22} that define the key requirements for open science. 
+The increased availability of public data that followed the definition of
+a common data format, and the development of \gammapy as a community-driven open software,
+led the way toward a more open science in the very-high-energy \gammaray Astronomy domain.
+In future CTAO will be an open observatory committed to follow the FAIR
+(Findable, Accessible, Interoperable and Reusable) principles \citep{FAIR16, FAIR22} 
+that define the key requirements for open science. 
 
 %% Paper outline
 In this article, we describe the general structure of the \gammapy package,
@@ -393,8 +398,10 @@ finally discusses the project organization.
         events on the left (DL3), to high-level scientific products
         (DL5) on the right. The direction of the data flow is illustrated with the
         gray arrows. The gray folder icons represent the different sub-packages
-        in \gammapy and their names. Below each icon there is a list of the most
-        important objects defined in the sub-package.
+        in \gammapy and names given as the corresponding Python code suffix, e.g. 
+		\code{gammapy.data}. Below each icon there is a list of the most
+        important objects defined in the sub-package. The bottom of the figure
+		shows the 
     }
 	\label{fig:data_flow}
 \end{figure*}
@@ -446,7 +453,7 @@ a given set of parameters $\hat{\theta}$, as:
 	\end{split}
 \end{equation}
 
-where $R(p, E| p_{\rm true}, E_{\rm true})$ is the instrument response and $t_{\rm obs}$ is the observation time
+where $R(p, E| p_{\rm true}, E_{\rm true})$ is the instrument response and $t_{\rm obs}$ is the observation duration.
 
 A common assumption is that the instrument response can be simplified as the product
 of three independent functions:
@@ -470,7 +477,7 @@ where:
   $\delta p = p_{\rm true} - p$.
 \item $E_{\rm disp}(E|p_{\rm true}, E_{\rm true})$ is the energy dispersion. It gives the probability to
   reconstruct the photon at energy $E$ when the true energy is $E_{\rm true}$ and the true position $p_{\rm true}$.
-  \gammaray instruments consider $E_{\rm disp}(\mu|p_{\rm true}, E_{\rm true})$, the probability density of the migration, $\mu=\frac{E}{E_{\rm true}}$.
+  \gammaray instruments consider $E_{\rm disp}(\mu|p_{\rm true}, E_{\rm true})$, the probability density of the event migration, $\mu=\frac{E}{E_{\rm true}}$.
 \end{itemize}
 
 %% CN: except for the figures we never introduced what the DL3 or the Data Level acronym is
@@ -479,8 +486,8 @@ where:
 corresponding instrument response functions. The latter include the effective area ($A_{\rm eff}$),
 PSF and energy dispersion ($E_{\rm disp}$).
 In general, IRFs depend on the geometrical parameters of the detector, e.g. location 
-of an event in the FoV or the elevation angle of the event. So IRFs might be parametrised
-as a function of such detector specific coordinates too.
+of an event in the FoV or the elevation angle of the incoming direction of the event.
+Consequently IRFs might be parametrised as functions of detector specific coordinates too.
 
 %% CN: this paragraph repeats what is commented in the previous formula and itemize and can be removed
 
@@ -609,7 +616,7 @@ read, and represent DL3 \gammaray data in memory. It provides the main user
 interface to access the lowest data level. \gammapy currently only
 supports data that is compliant with \code{v0.2} and \code{v0.3} of the \gadf data format.
 DL3 data are typically bundled into individual observations, corresponding to stable periods of data acquisition. For IACT data analysis,
-for which the GADF data model and Gammapy were initially conceived,
+for which the GADF data model and \gammapy were initially conceived,
 these are usually $20 - 30\,{\rm min}$ long.
 Each observation is assigned a unique integer ID for reference.
 
@@ -1319,7 +1326,7 @@ experiments and has already been employed in more than 60 scientific publication
 In this section, we illustrate the capabilities of \gammapy by performing some standard
 analysis cases commonly considered in \gammaray astronomy.
 Beside reproducing standard methodologies, we illustrate the unique data combination
-capabilites of Gammapy by presenting a multi-instrument analysis to date not possible within any
+capabilites of \gammapy by presenting a multi-instrument analysis, which is not possible within any
 of the current instrument private software frameworks.
 The examples shown are based on the data accessible in the \code{gammapy-data} repository,
 and limited by the availability of public data.
@@ -1359,10 +1366,14 @@ log-likelihood profiles were computed using the \code{FluxPointsEstimator}.
 	\includegraphics[width=1.\textwidth]{figures/cta_galactic_center.pdf}
 	\caption{
 		Example of a one dimensional spectral analysis of the Galactic Center for three simulated CTA
-		observations for the 1DC dataset. The left image shows the maps of counts with the signal
-		region in white and background regions overlaid in different colors. The right image
-		shows the resulting spectral points and their corresponding log-likelihood
-		profiles.}
+		observations from the 1DC dataset. The left image shows the maps of counts with the signal
+		region in white and the reflected background regions for the three different observations
+		overlaid in different colors. The right image shows the resulting spectral flux points and
+		their corresponding log-likelihood profiles. The flux points are shown in orange, with the
+		horizontal bar illustrating the width of the energy bin and the vertical bar the $1~\sigma$
+		error. The log-likelihood profiles for each enetgy bin are shown in the background. The colormap
+		illustrates the difference of the log-likelihood to the log-likelihood of the best fit value.
+		}
 	\label{fig:cta_galactic_center}
 \end{figure*}
 %% CN: expand 1DC acronym and add a reference, here or in the section text
@@ -1474,11 +1485,12 @@ the \code{LightCurveEstimator} runs directly for two energy bands,
     \sidecaption
 	\includegraphics[width=0.6666\textwidth]{figures/hess_lightcurve_pks.pdf}
 	\caption{
-        Binned light curves in two different energy bands for the source
-        PKS~2155-304 in two energy bands (\SI{0.5}{TeV}~to~{1.5}{TeV} and \SI{1.5}{TeV}~to~{20}{TeV})
+        Binned PKS~2155-304 light curve in two different energy bands
         as observed by the \hess telescopes in 2006. The coloured markers
-        show the flux points in the different energy bands. The horizontal
-        error illustrates the width of the time bin of 10~min. The vertical
+        show the flux points in the different energy bands:
+		the range from (\SI{0.5}{TeV}~to~{1.5}{TeV} is shown in blue, while
+		the range from \SI{1.5}{TeV}~to~{20}{TeV}) is shown in orange.
+		The horizontal error illustrates the width of the time bin of 10~min. The vertical
         error bars show the associated asymmetrical flux errors. The marker
         is set to the center of the time bin.
     }
@@ -1566,30 +1578,35 @@ spectrum.
 \subsection{Broadband SED Modelling}
 \label{ssec:broadband-sed-modeling}
 By combining \gammapy with astrophysical modelling codes, users can also fit
-astrophysical spectral models to \gammaray data. In \gammaray
-astronomy one typically observes two radiation production
-mechanisms, the so-called hadronic and leptonic scenarios.
+astrophysical spectral models to \gammaray data. 
 There are several Python packages that are able to model
 the \gammaray emission, given a physical scenario. Among those
 packages are Agnpy~\citep{agnpy}, Naima~\citep{naima}, Jetset~\citep{jetset}
 and Gamera~\citep{gamera}.
 Typically those emission models predict broadband emission from
-radio, up to the very high-energy \gammaray range.
+radio, up to very high-energy \gammarays.
 By relying on the multiple dataset types in \gammapy those
 data can be combined to constrain such a broadband emission model.
 \gammapy provides a built-in \code{NaimaSpectralModel} that allows
 users to wrap a given astrophysical emission model from the
 Naima package and fit it directly to \gammaray data.
 
-As an example of this application, we use the same multi-instrument
-dataset described in the previous section and we fit it with an inverse
+As an example application, we use the same multi-instrument
+dataset of the Crab Nebula, described in the previous section,
+and we apply an inverse
 Compton model computed with Naima and wrapped in the \gammapy models
 through the \code{NaimaSpectralModel} class. We describe the gamma-ray emission 
 with an inverse Compton scenario, considering a log-parabolic
-electron distribution that scatters: the synchrotron radiation produced by
-the very same electrons; near and far infrared photon fields and the cosmic
-microwave background (CMB). We adopt the prescription on the target
-photon fields provided in the documentation of the \textit{Naima}
+electron distribution that scatters photons from:
+%
+\begin{itemize}
+	\item the synchrotron radiation produced by
+	the very same electrons
+	\item near and far infrared photon fields
+	\item and the cosmic microwave background (CMB)
+\end{itemize}
+%
+We adopt the prescription on the target photon fields provided in the documentation of the \textit{Naima}
 package\footnote{\url{https://naima.readthedocs.io/en/stable/examples.html\#crab-nebula-ssc-model}}.
 The best-fit inverse Compton spectrum is represented with a red dashed line in
 Figure~\ref{fig:multi_instrument_analysis}.
@@ -1972,7 +1989,7 @@ a common vision of open and reproducible science for the future.
 
 	We would like to thank the \texttt{Numpy}, \texttt{Scipy}, \texttt{IPython} and
 	\texttt{Matplotlib} communities for providing their packages which are
-	invaluable to the development of Gammapy. We thank the \github team for
+	invaluable to the development of \gammapy. We thank the \github team for
 	providing us with an excellent free development platform. We also are grateful
 	to Read the Docs (\ReadthedocsUrl), and Travis (\TravisUrl) for providing free
 	documentation hosting and testing respectively. Α special acknowledgment has to be given
