@@ -1,19 +1,20 @@
 import logging
+
 import click
-import numpy as np
-import matplotlib.pyplot as plt
+import config
 import matplotlib
 import matplotlib.lines as mlines
+import matplotlib.pyplot as plt
 import matplotlib.transforms as mtrans
-from matplotlib.patches import Polygon, FancyArrow, PathPatch, FancyArrowPatch
-from matplotlib.text import TextPath
-from matplotlib.ticker import MultipleLocator
+import numpy as np
 from astropy import units as u
 from astropy.table import Table
+from matplotlib.patches import FancyArrow, FancyArrowPatch, PathPatch, Polygon
+from matplotlib.text import TextPath
+from matplotlib.ticker import MultipleLocator
+
 from gammapy.estimators import FluxPoints
 from gammapy.maps import Map
-import config
-
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -26,9 +27,7 @@ FOLDER_ICON = np.array(
     [(0, 0), (0, 0.8), (0.08, 1), (0.5, 1), (0.58, 0.8), (0.93, 0.8), (0.93, 0)]
 )
 
-DOC_ICON = np.array(
-    [(0, 0), (0, 0.85), (0.15, 1), (0.75, 1), (0.75, 0)]
-)
+DOC_ICON = np.array([(0, 0), (0, 0.85), (0.15, 1), (0.75, 1), (0.75, 0)])
 
 GRAY = "gray"
 LIGHT_GRAY = "#ECECEC"
@@ -58,7 +57,12 @@ def plot_sub_package_icon(
     ax, offset=(0.5, 0.5), name=".makers", size=(22, 14), color=GP_GRAY, classes=[]
 ):
     p = Polygon(
-        offset + size * FOLDER_ICON, fc="None", ec=color, lw=1, transform=ax.transData, zorder=2
+        offset + size * FOLDER_ICON,
+        fc="None",
+        ec=color,
+        lw=1,
+        transform=ax.transData,
+        zorder=2,
     )
     ax.add_artist(p)
 
@@ -72,7 +76,14 @@ def plot_sub_package_icon(
         color=GP_ORANGE,
         zorder=2,
     )
-    ax.text(offset[0] + 6, offset[1] + 5.5, s="$\pi$", size=fontsize_gp, color=color, zorder=2)
+    ax.text(
+        offset[0] + 6,
+        offset[1] + 5.5,
+        s="$\pi$",
+        size=fontsize_gp,
+        color=color,
+        zorder=2,
+    )
     ax.text(
         offset[0] + 1,
         offset[1] + 5,
@@ -82,11 +93,20 @@ def plot_sub_package_icon(
         color=GP_ORANGE,
         zorder=2,
     )
-    ax.text(offset[0] + 6, offset[1] + 5.5, s="$\pi$", size=fontsize_gp, color=color, zorder=2)
+    ax.text(
+        offset[0] + 6,
+        offset[1] + 5.5,
+        s="$\pi$",
+        size=fontsize_gp,
+        color=color,
+        zorder=2,
+    )
     ax.text(offset[0] + 1, offset[1] + 1.5, s=name, size=9.5, color=color, zorder=2)
 
     for idx, cls in enumerate(classes):
-        ax.text(offset[0], offset[1] - 4 - 4.2 * idx, s=cls, size=8, color=color, zorder=2)
+        ax.text(
+            offset[0], offset[1] - 4 - 4.2 * idx, s=cls, size=8, color=color, zorder=2
+        )
 
 
 def plot_brace(ax, x, y, scale):
@@ -155,16 +175,24 @@ def plot_catalog(ax):
     format_dl5_ax(ax=ax)
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
-    ax.set_xticks([1/3, 2/3])
+    ax.set_xticks([1 / 3, 2 / 3])
     ax.set_yticks([0.25, 0.5, 0.75])
     ax.grid(lw=1, color=GP_GRAY)
-    ax.axvspan(0, 1/3, fc="lightgray", ec="None")
+    ax.axvspan(0, 1 / 3, fc="lightgray", ec="None")
     ax.axhspan(0.75, 1, fc="lightgray", ec="None")
     ax.tick_params(axis="both", direction="in", color=GP_GRAY)
 
-    for idx, xpos in enumerate([1/6, 3/6, 5/6]):
-        for jdx, ypos in enumerate([7/8, 5/8, 3/8, 1/8]):
-            plt.text(xpos, ypos, s=cell_text[jdx][idx], color=GP_GRAY, va="center", ha="center", size=8)
+    for idx, xpos in enumerate([1 / 6, 3 / 6, 5 / 6]):
+        for jdx, ypos in enumerate([7 / 8, 5 / 8, 3 / 8, 1 / 8]):
+            plt.text(
+                xpos,
+                ypos,
+                s=cell_text[jdx][idx],
+                color=GP_GRAY,
+                va="center",
+                ha="center",
+                size=7,
+            )
 
 
 def plot_lightcurve(ax):
@@ -175,9 +203,10 @@ def plot_lightcurve(ax):
     lc.plot(ax=ax, sed_type="dnde", marker="None", label="1 TeV")
     ax.set_yscale("linear")
     format_dl5_ax(ax=ax)
-    #ax.set_ylim(3e-11, 4e-10)
-    #ax.set_xlim(53945.85, 53946.09)
+    # ax.set_ylim(3e-11, 4e-10)
+    # ax.set_xlim(53945.85, 53946.09)
     ax.legend(fontsize=8, labelspacing=0.1)
+    ax.set_xlabel("Time", labelpad=0)
 
 
 def plot_sed(ax):
@@ -196,7 +225,8 @@ def plot_sed(ax):
 
     flux_points.plot_ts_profiles(ax=ax, sed_type="e2dnde", add_cbar=False)
     format_dl5_ax(ax=ax)
-    ax.set_title("SEDs & Lightcurves", color=GP_GRAY, pad=4)
+    ax.set_title("Flux Points", color=GP_GRAY, pad=4)
+    ax.set_xlabel("Energy", labelpad=0)
 
 
 def plot_image(ax):
@@ -204,7 +234,7 @@ def plot_image(ax):
     log.info(f"Reading: {filename}")
     m = Map.read(filename)
     m.plot(ax=ax, cmap="inferno", stretch="sqrt")
-    ax.set_title("Flux & TS Maps", color=GP_GRAY, pad=4)
+    ax.set_title("Sky Maps", color=GP_GRAY, pad=4)
     format_dl5_ax(ax=ax)
 
 
@@ -269,10 +299,12 @@ def plot_high_level_interface(fig, ax, ypos=24):
         ha="center",
         color=GRAY,
         fontweight="black",
-        size=9.5
+        size=9.5,
     )
 
-    plot_arrow(ax=ax, offset=(offset[0] + size * 0.74 + 1, offset[1] + size / 2), fc=GRAY)
+    plot_arrow(
+        ax=ax, offset=(offset[0] + size * 0.74 + 1, offset[1] + size / 2), fc=GRAY
+    )
 
 
 @click.command()
@@ -305,7 +337,7 @@ def main(draft=True):
 
     xpos = 123
     plot_arrow(ax, offset=(xpos, 35), dx=23, width=12, fc=LIGHT_GRAY, **kwargs)
-    plot_arrow(ax, offset=(xpos, 64), dx=23, width=12, fc=LIGHT_GRAY, **kwargs)
+    plot_arrow(ax, offset=(xpos, 68), dx=23, width=12, fc=LIGHT_GRAY, **kwargs)
     plot_arrow(ax, offset=(xpos, 96), dx=23, width=12, fc=LIGHT_GRAY, **kwargs)
 
     classes = ["DataStore", "Observations", "Observation", "GTI"]
@@ -324,7 +356,13 @@ def main(draft=True):
     plot_sub_package_icon(ax, offset=(34, 50), name=".makers", classes=classes)
 
     classes = ["WcsNDMap", "HpxNDMap", "etc."]
-    plot_sub_package_icon(ax, offset=(75, 80), name=".maps", classes=classes, color=GRAY,)
+    plot_sub_package_icon(
+        ax,
+        offset=(75, 80),
+        name=".maps",
+        classes=classes,
+        color=GRAY,
+    )
 
     classes = ["Datasets", "MapDataset", "MapDatasetOnOff", "etc."]
     plot_sub_package_icon(ax, offset=(75, 50), name=".datasets", classes=classes)
@@ -340,13 +378,13 @@ def main(draft=True):
     else:
         ax.set_axis_off()
 
-    ax_image = add_sub_axes(ax, [148, 54, 30, 20])
+    ax_image = add_sub_axes(ax, [148, 58, 30, 20])
     plot_image(ax=ax_image)
 
-    ax_fp = add_sub_axes(ax, [148, 25, 30, 20])
+    ax_fp = add_sub_axes(ax, [148, 31, 30, 20])
     plot_sed(ax=ax_fp)
 
-    ax_lc = add_sub_axes(ax, [148, 4, 30, 20])
+    ax_lc = add_sub_axes(ax, [148, 5, 30, 20])
     plot_lightcurve(ax=ax_lc)
 
     ax_cat = add_sub_axes(ax, [148, 86, 30, 20])

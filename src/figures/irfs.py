@@ -5,10 +5,9 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
 from astropy import units as u
-from astropy.visualization import quantity_support
 
 from gammapy.data import DataStore
-from gammapy.irf import PSFMap, RecoPSFMap
+from gammapy.irf import PSFMap
 from gammapy.maps import Map
 
 logging.basicConfig(level=logging.INFO)
@@ -37,29 +36,40 @@ kwargs = {"lw": 2}
 gridspec = {"top": 0.92, "right": 0.98, "left": 0.08, "bottom": 0.15}
 fig, axes = plt.subplots(figsize=figsize.inch, nrows=1, ncols=2, gridspec_kw=gridspec)
 
-exposure_fermi = Map.read(
-    "../data/input/fermi-3fhl-gc/fermi-3fhl-gc-exposure-cube.fits.gz"
-)
-aeff_fermi = exposure_fermi.to_region_nd_map(func=np.mean) / fermi_livetime
-
 ax_aeff = axes[0]
 ax_aeff.set_title("Effective Area")
 ax_aeff.xaxis.set_units(u.TeV)
 ax_aeff.yaxis.set_units(u.Unit("m2"))
 
+# H.E.S.S.
 aeff_hess = obs_hess.aeff.slice_by_idx({"energy_true": slice(42, None)})
-obs_cta.aeff.plot_energy_dependence(ax=ax_aeff, offset=offset, label="CTA", **kwargs)
 aeff_hess.plot_energy_dependence(ax=ax_aeff, offset=offset, label="H.E.S.S.", **kwargs)
+color = ax_aeff.lines[-1].get_color()
+ax_aeff.text(x=10, y=1e6, s="H.E.S.S.", color=color)
 
+# CTA
+obs_cta.aeff.plot_energy_dependence(ax=ax_aeff, offset=offset, label="CTA", **kwargs)
+color = ax_aeff.lines[-1].get_color()
+ax_aeff.text(x=0.06, y=3e5, s="CTAO", color=color)
+
+# Fermi-LAT
+exposure_fermi = Map.read(
+    "../data/input/fermi-3fhl-gc/fermi-3fhl-gc-exposure-cube.fits.gz"
+)
+aeff_fermi = exposure_fermi.to_region_nd_map(func=np.mean) / fermi_livetime
 energy = aeff_fermi.geom.axes["energy_true"].center
 data = aeff_fermi.quantity[:, 0, 0]
-ax_aeff.plot(energy, data, label="Fermi-LAT", **kwargs)
+ax_aeff.plot(energy, data, **kwargs)
+color = ax_aeff.lines[-1].get_color()
+ax_aeff.text(x=0.02, y=1.0, s="Fermi-LAT", color=color)
 
+# MAGIC
 aeff_magic = obs_magic.aeff.slice_by_idx({"energy_true": slice(2, 24)})
-aeff_magic.plot_energy_dependence(
-    ax=ax_aeff, offset=[0.4] * u.deg, label="MAGIC", **kwargs
-)
+aeff_magic.plot_energy_dependence(ax=ax_aeff, offset=[0.4] * u.deg, **kwargs)
+color = ax_aeff.lines[-1].get_color()
+ax_aeff.text(x=0.04, y=300, s="MAGIC", color=color)
 
+# HAWC
 aeff_hawc_max = []
 
 for nhit_bin in range(5, 10):
@@ -78,36 +88,46 @@ ax_aeff.plot(
     aeff_hawc.geom.axes["energy_true"].center,
     aeff_hawc_max,
     color="k",
-    label="HAWC",
     **kwargs,
 )
+color = ax_aeff.lines[-1].get_color()
+ax_aeff.text(x=50, y=3e4, s="HAWC", color=color)
 
 ax_aeff.set_xlim(*xlim)
 ax_aeff.set_yscale("log")
 ax_aeff.set_ylim(1e-1, 8e6)
 ax_aeff.set_xlabel("True Energy / TeV")
-ax_aeff.legend(fontsize=8, ncol=1)
+ax_aeff.set_ylabel("Effective Area / m$^2$")
+ax_aeff.get_legend().remove()
 
+# PSF
 psf_hess = obs_hess.psf.slice_by_idx({"energy_true": slice(10, None)})
 psf_cta = obs_cta.psf.slice_by_idx({"energy_true": slice(None, -2)})
 
 ax_psf = axes[1]
 ax_psf.set_title("Point Spread Function")
 psf_cta.plot_containment_radius_vs_energy(
-    ax=ax_psf, offset=offset, fraction=[0.68], label="CTA", **kwargs
+    ax=ax_psf, offset=offset, fraction=[0.68], **kwargs
 )
+color = ax_psf.lines[-1].get_color()
+ax_psf.text(x=20, y=0.05, s="CTAO", color=color)
 
 psf_hess.plot_containment_radius_vs_energy(
-    ax=ax_psf, offset=offset, fraction=[0.68], label="H.E.S.S.", **kwargs
+    ax=ax_psf, offset=offset, fraction=[0.68], **kwargs
 )
+color = ax_psf.lines[-1].get_color()
+ax_psf.text(x=3, y=0.15, s="H.E.S.S.", color=color)
+
 
 psf_fermi = PSFMap.read(
     "../data/input/fermi-3fhl-gc/fermi-3fhl-gc-psf-cube.fits.gz", format="gtpsf"
 )
-
 energy_true = psf_fermi.psf_map.geom.axes["energy_true"].center
 radius = psf_fermi.containment_radius(fraction=0.68, energy_true=energy_true)
-ax_psf.plot(energy_true, radius, label="Fermi-LAT", **kwargs)
+ax_psf.plot(energy_true, radius, **kwargs)
+color = ax_psf.lines[-1].get_color()
+ax_psf.text(x=0.02, y=0.07, s="Fermi-LAT", color=color)
+ax_psf.get_legend().remove()
 
 
 ax_psf.lines[-1].set_label("Fermi-LAT")
@@ -115,7 +135,8 @@ ax_psf.set_yticks([0, 0.1, 0.2, 0.3, 0.4])
 ax_psf.yaxis.set_major_formatter(ticker.FormatStrFormatter("%.1f"))
 ax_psf.set_xlim(*xlim)
 ax_psf.set_xlabel("True Energy / TeV")
-ax_psf.legend()
+ax_psf.set_ylabel("Containment radius / deg")
+
 
 # ax_edisp = axes[0, 1]
 # ax_edisp.set_title("Energy Resolution")

@@ -23,7 +23,7 @@ def plot_spectrum_and_image():
     fig = plt.figure(figsize=figsize.inch)
 
     wcs = counts.geom.wcs
-    rect = (0.05, 0.2, 0.4, 0.75)
+    rect = (0.05, 0.17, 0.4, 0.8)
     ax = fig.add_axes(rect=rect, projection=wcs)
     counts = counts.smooth("0.03 deg")
     norm = simple_norm(counts.data, stretch="asinh", max_cut=15, min_cut=0)
@@ -34,14 +34,20 @@ def plot_spectrum_and_image():
         datasets, ax=ax, legend_kwargs={"loc": "lower left", "fontsize": 6}
     )
 
-    rect = (0.55, 0.2, 0.4, 0.75)
+    rect = (0.55, 0.17, 0.4, 0.8)
     ax = fig.add_axes(rect=rect)
     fp = FluxPoints.read(
         "../data/cta-galactic-center/flux-points.fits", sed_type="likelihood"
     )
     fp.plot(ax=ax, sed_type="e2dnde", color="tab:orange")
     fp.plot_ts_profiles(ax=ax, sed_type="e2dnde", rasterized=True)
-    ax.set_xlabel("Energy / TeV")
+    sed_x_label = "Energy / TeV"
+    sed_y_label = (
+        r"$E^2\,{\rm d}\phi/{\rm d}E\,/\,({\rm erg}\,{\rm cm}^{-2}\,{\rm s}^{-1})$"
+    )
+
+    ax.set_xlabel(sed_x_label)
+    ax.set_ylabel(sed_y_label)
 
     filename = "cta_galactic_center.pdf"
     log.info(f"Writing {filename}")

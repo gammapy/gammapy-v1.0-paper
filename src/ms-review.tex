@@ -400,8 +400,10 @@ finally discusses the project organization.
         gray arrows. The gray folder icons represent the different sub-packages
         in \gammapy and names given as the corresponding Python code suffix, e.g. 
 		\code{gammapy.data}. Below each icon there is a list of the most
-        important objects defined in the sub-package. The bottom of the figure
-		shows the 
+        important objects defined in the sub-package. The light grey folder
+		icons show the subpackages for the most fundamental data structures such 
+		as maps and IRFs. The bottom of the figure shows the high-level analysis
+		sub-module with its dependcy on the YAML file format. 
     }
 	\label{fig:data_flow}
 \end{figure*}
@@ -1479,7 +1481,7 @@ observations, and spectra extracted for each of these within a 0.11\textdegree~r
 around the source. A \code{PowerLawSpectralModel} is fit to all the datasets, leading
 to a reconstructed index of $3.54 \pm 0.02$. With this adjusted spectral model
 the \code{LightCurveEstimator} runs directly for two energy bands,
-\SI{0.5}{TeV}~to~{1.5}{TeV} and \SI{1.5}{TeV}~to~{20}{TeV} respectively.
+\SI{0.5}{TeV}~to~\SI{1.5}{TeV} and \SI{1.5}{TeV}~to~\SI{20}{TeV} respectively.
 %
 \begin{figure*}[t]
     \sidecaption
@@ -1488,8 +1490,8 @@ the \code{LightCurveEstimator} runs directly for two energy bands,
         Binned PKS~2155-304 light curve in two different energy bands
         as observed by the \hess telescopes in 2006. The coloured markers
         show the flux points in the different energy bands:
-		the range from (\SI{0.5}{TeV}~to~{1.5}{TeV} is shown in blue, while
-		the range from \SI{1.5}{TeV}~to~{20}{TeV}) is shown in orange.
+		the range from (\SI{0.5}{TeV}~to~\SI{1.5}{TeV} is shown in blue, while
+		the range from \SI{1.5}{TeV}~to~\SI{20}{TeV}) is shown in orange.
 		The horizontal error illustrates the width of the time bin of 10~min. The vertical
         error bars show the associated asymmetrical flux errors. The marker
         is set to the center of the time bin.
