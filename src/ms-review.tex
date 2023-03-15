@@ -980,15 +980,16 @@ significance~\citep{LiMa} of a set of measurements.
 	\caption{
         Using \code{gammapy.stats} to compute statistical quantities
         such as excess, significance and asymetric errors
-        from counts based data. The data is passed on initialisation
-        of the \code{WStatCountsStatistic} class. The quantities
-        are the computed ON excess of the corresponding class
-        attributes such as \code{stat.n\_sig} and \code{stat.sqrt\_ts}.
+        from counts based data. The data array such as \code{counts}, \code{counts_off}
+		and the background efficency ratio \code{alpha} are passed on initialisation
+        of the \code{WStatCountsStatistic} class. The derived quantities
+        are then computed dynamically from the corresponding class
+        attributes such as \code{stat.n\_sig} for the excess
+		and \code{stat.sqrt\_ts} for the significance.
 		The output of the code example is shown in Figure~\ref{fig:code_example_gp_stats}.
     }
 	\label{fig*:minted:gp_stats}
 \end{figure}
-%% CN: the figure does not explain what alpha is
 
 \subsection{gammapy.modeling}
 \label{ssec:gammapy-modeling}
@@ -1956,7 +1957,12 @@ scenarios as YAML files and even extend their workflows by user defined
 analysis steps via a registry system. Another important topic will
 be to improve the support of handling metadata for data structures
 and provenance information to track the history of the data reduction
-process from the DL3 to the highest DL5/DL6 data levels.
+process from the DL3 to the highest DL5/DL6 data levels. \gammapy will
+also extend its functionality for time based analyses, including
+tests for variability in lightcurves and phase curves as well as
+improving the interoperabiltiy with other timing packages such
+as \textit{Stingray}~\citep{Stingray2019} and \textit{Astropy's}
+time series classes.
 
 Around the core Python package a large diverse community of
 users and contributors has developed. With regular developer meetings,
