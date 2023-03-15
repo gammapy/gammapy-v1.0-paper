@@ -1,10 +1,9 @@
-from gammapy.datasets import MapDataset
-from gammapy.estimators import TSMapEstimator
 from astropy import units as u
 
-dataset = MapDataset.read(
-    "$GAMMAPY_DATA/cta-1dc-gc/cta-1dc-gc.fits.gz"
-)
+from gammapy.datasets import MapDataset
+from gammapy.estimators import TSMapEstimator
+
+dataset = MapDataset.read("$GAMMAPY_DATA/cta-1dc-gc/cta-1dc-gc.fits.gz")
 
 estimator = TSMapEstimator(
     energy_edges=[0.1, 1, 10] * u.TeV,
@@ -13,4 +12,4 @@ estimator = TSMapEstimator(
 )
 
 maps = estimator.run(dataset)
-maps["sqrt_ts"].plot_grid()
+maps["sqrt_ts"].plot_grid(add_cbar=True)
