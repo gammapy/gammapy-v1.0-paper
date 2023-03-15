@@ -393,8 +393,10 @@ finally discusses the project organization.
         events on the left (DL3), to high-level scientific products
         (DL5) on the right. The direction of the data flow is illustrated with the
         gray arrows. The gray folder icons represent the different sub-packages
-        in \gammapy and their names. Below each icon there is a list of the most
-        important objects defined in the sub-package.
+        in \gammapy and names given as the corresponding Python code suffix, e.g. 
+		\code{gammapy.data}. Below each icon there is a list of the most
+        important objects defined in the sub-package. The bottom of the figure
+		shows the 
     }
 	\label{fig:data_flow}
 \end{figure*}
@@ -446,7 +448,7 @@ a given set of parameters $\hat{\theta}$, as:
 	\end{split}
 \end{equation}
 
-where $R(p, E| p_{\rm true}, E_{\rm true})$ is the instrument response and $t_{\rm obs}$ is the observation time
+where $R(p, E| p_{\rm true}, E_{\rm true})$ is the instrument response and $t_{\rm obs}$ is the observation duration.
 
 A common assumption is that the instrument response can be simplified as the product
 of three independent functions:
@@ -470,7 +472,7 @@ where:
   $\delta p = p_{\rm true} - p$.
 \item $E_{\rm disp}(E|p_{\rm true}, E_{\rm true})$ is the energy dispersion. It gives the probability to
   reconstruct the photon at energy $E$ when the true energy is $E_{\rm true}$ and the true position $p_{\rm true}$.
-  \gammaray instruments consider $E_{\rm disp}(\mu|p_{\rm true}, E_{\rm true})$, the probability density of the migration, $\mu=\frac{E}{E_{\rm true}}$.
+  \gammaray instruments consider $E_{\rm disp}(\mu|p_{\rm true}, E_{\rm true})$, the probability density of the event migration, $\mu=\frac{E}{E_{\rm true}}$.
 \end{itemize}
 
 %% CN: except for the figures we never introduced what the DL3 or the Data Level acronym is
@@ -479,8 +481,8 @@ where:
 corresponding instrument response functions. The latter include the effective area ($A_{\rm eff}$),
 PSF and energy dispersion ($E_{\rm disp}$).
 In general, IRFs depend on the geometrical parameters of the detector, e.g. location 
-of an event in the FoV or the elevation angle of the event. So IRFs might be parametrised
-as a function of such detector specific coordinates too.
+of an event in the FoV or the elevation angle of the incoming direction of the event.
+Consequently IRFs might be parametrised as functions of detector specific coordinates too.
 
 %% CN: this paragraph repeats what is commented in the previous formula and itemize and can be removed
 
