@@ -191,7 +191,7 @@ def plot_catalog(ax):
                 color=GP_GRAY,
                 va="center",
                 ha="center",
-                size=6,
+                size=7,
             )
 
 
@@ -206,6 +206,7 @@ def plot_lightcurve(ax):
     # ax.set_ylim(3e-11, 4e-10)
     # ax.set_xlim(53945.85, 53946.09)
     ax.legend(fontsize=8, labelspacing=0.1)
+    ax.set_xlabel("Time", labelpad=0)
 
 
 def plot_sed(ax):
@@ -224,7 +225,8 @@ def plot_sed(ax):
 
     flux_points.plot_ts_profiles(ax=ax, sed_type="e2dnde", add_cbar=False)
     format_dl5_ax(ax=ax)
-    ax.set_title("SEDs & Lightcurves", color=GP_GRAY, pad=4)
+    ax.set_title("Flux Points", color=GP_GRAY, pad=4)
+    ax.set_xlabel("Energy", labelpad=0)
 
 
 def plot_image(ax):
@@ -232,7 +234,7 @@ def plot_image(ax):
     log.info(f"Reading: {filename}")
     m = Map.read(filename)
     m.plot(ax=ax, cmap="inferno", stretch="sqrt")
-    ax.set_title("Flux & TS Maps", color=GP_GRAY, pad=4)
+    ax.set_title("Sky Maps", color=GP_GRAY, pad=4)
     format_dl5_ax(ax=ax)
 
 
@@ -335,7 +337,7 @@ def main(draft=True):
 
     xpos = 123
     plot_arrow(ax, offset=(xpos, 35), dx=23, width=12, fc=LIGHT_GRAY, **kwargs)
-    plot_arrow(ax, offset=(xpos, 64), dx=23, width=12, fc=LIGHT_GRAY, **kwargs)
+    plot_arrow(ax, offset=(xpos, 68), dx=23, width=12, fc=LIGHT_GRAY, **kwargs)
     plot_arrow(ax, offset=(xpos, 96), dx=23, width=12, fc=LIGHT_GRAY, **kwargs)
 
     classes = ["DataStore", "Observations", "Observation", "GTI"]
@@ -376,13 +378,13 @@ def main(draft=True):
     else:
         ax.set_axis_off()
 
-    ax_image = add_sub_axes(ax, [148, 54, 30, 20])
+    ax_image = add_sub_axes(ax, [148, 58, 30, 20])
     plot_image(ax=ax_image)
 
-    ax_fp = add_sub_axes(ax, [148, 25, 30, 20])
+    ax_fp = add_sub_axes(ax, [148, 31, 30, 20])
     plot_sed(ax=ax_fp)
 
-    ax_lc = add_sub_axes(ax, [148, 4, 30, 20])
+    ax_lc = add_sub_axes(ax, [148, 5, 30, 20])
     plot_lightcurve(ax=ax_lc)
 
     ax_cat = add_sub_axes(ax, [148, 86, 30, 20])
