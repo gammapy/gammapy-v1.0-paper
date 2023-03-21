@@ -328,7 +328,7 @@ quantities such as energy, incident direction and arrival time and a parametrisa
 the IRFs associated with the event list data. %% where? in the data units of a FITS file.
 
 %% Context: development of open software
-In the past decade observing the \gammaray sky has transitioned from a niche in the field of
+In the past decade, observing the \gammaray sky has transitioned from a niche in the field of
 particle physics to an established branch of astronomy, completing the view of the
 sky in high energies. At the same time \textit{Python}
 has become extremely popular as a scientific programming language,
@@ -351,14 +351,18 @@ software library for very high-energy \gammaray data analysis \citep{gammapy_201
 The core of the idea is illustrated in Figure~\ref{fig:big_picture}. The various \gammaray instruments
 can export their data to a common data format (\gadf) and then these data can be combined and
 analysed using a common software library.
-The \gammapy package is an independent community-developed software project, it has been selected to be the core library for the Science Analysis tools of CTAO
+The \gammapy package is an independent community-developed software project. It has been selected to be the core library for the Science Analysis tools of CTAO
 but also involves contributors associated to other instruments.
 The \gammapy package is built on the scientific Python ecosystem: it uses \numpy~\citep{numpy} for n-dimensional data
 structures, \scipy~\citep{2020SciPy-NMeth} for numerical algorithms, \astropy~\citep{astropy} for
 astronomy-specific functionality, \iminuit~\citep{iminuit} for numerical minimisation
 and \matplotlib~\citep{matplotlib} for visualization.
 
-%% CN: what about mentioning the joint Crab? or is it mentioned later?
+They consist of two
+observations of $20\,{\rm min}$ each, chosen from the dataset used to estimate
+the performance of the upgraded stereo system~\citep{magic_performance} and
+already included in~\cite{joint_crab}.
+
 With the public availability of the \gadf format specifications and the
 \gammapy package, some experiments started to make limited subsets of
 their \gammaray data publicly available for testing and validating
@@ -366,7 +370,10 @@ their \gammaray data publicly available for testing and validating
 dataset (about 50 hours of observations taken between 2004 and 2008)
 based on the \gadf DL3 format \citep{HESS_DR1}. This data release served
 as a basis for validation of open analysis tools, including \gammapy 
-\cite[see e.g.][]{Mohrmann2019}. The \hawc collaboration also released
+\cite[see e.g.][]{Mohrmann2019}. Two observations of the Crab nebula have been
+ released by the \magic collaboration~\citep{magic_performance}, using which a
+joint analysis across different gamma-ray instruments was first demonstrated in ~\cite{joint_crab}.
+The \hawc collaboration also released
 a limited test dataset of the Crab Nebula, which was used to validate
 the \gammapy package in \cite{Olivera2022}.
 The increased availability of public data that followed the definition of
