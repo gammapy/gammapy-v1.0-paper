@@ -7,7 +7,7 @@ import numpy as np
 from astropy import units as u
 
 from gammapy.data import DataStore
-from gammapy.irf import PSFMap
+from gammapy.irf import PSFMap, load_irf_dict_from_file
 from gammapy.maps import Map
 
 logging.basicConfig(level=logging.INFO)
@@ -18,8 +18,10 @@ hawc_lifetime = 6.4 * u.h
 
 offset = [1] * u.deg
 
-data_store = DataStore.from_dir("../data/input/cta-1dc/index/gps")
-obs_cta = data_store.obs(110380)
+cta_north = ("../data/cta-caldb/Prod5-North-20deg-AverageAz-4LSTs09MSTs.180000s-v0.1.fits")
+cta_south = ("../data/cta-caldb/Prod5-South-20deg-AverageAz-14MSTs37SSTs.180000s-v0.1.fits")
+irf_cta_north = load_irf_dict_from_file(cta_north)
+irf_cta_south = load_irf_dict_from_file(cta_south)
 
 data_store = DataStore.from_dir("../data/input/hess-dl3-dr1/")
 obs_hess = data_store.obs(33787)
@@ -45,12 +47,16 @@ ax_aeff.yaxis.set_units(u.Unit("m2"))
 aeff_hess = obs_hess.aeff.slice_by_idx({"energy_true": slice(42, None)})
 aeff_hess.plot_energy_dependence(ax=ax_aeff, offset=offset, label="H.E.S.S.", **kwargs)
 color = ax_aeff.lines[-1].get_color()
-ax_aeff.text(x=10, y=1e6, s="H.E.S.S.", color=color)
+ax_aeff.text(x=10, y=2e5, s="H.E.S.S.", color=color)
 
 # CTA
-obs_cta.aeff.plot_energy_dependence(ax=ax_aeff, offset=offset, label="CTA", **kwargs)
+irf_cta_north["aeff"].plot_energy_dependence(ax=ax_aeff, offset=offset, label="CTA North", **kwargs)
 color = ax_aeff.lines[-1].get_color()
-ax_aeff.text(x=0.06, y=3e5, s="CTAO", color=color)
+ax_aeff.text(x=0.01, y=3e5, s="CTAO North", color=color)
+
+irf_cta_south["aeff"].plot_energy_dependence(ax=ax_aeff, offset=offset, label="CTA South", **kwargs)
+color = ax_aeff.lines[-1].get_color()
+ax_aeff.text(x=0.5, y=3e6, s="CTAO South", color=color)
 
 # Fermi-LAT
 exposure_fermi = Map.read(
@@ -78,15 +84,15 @@ for nhit_bin in range(5, 10):
     aeff_hawc = aeff_hawc_map.to_region_nd_map(func=np.mean) / hawc_lifetime
     data = aeff_hawc.quantity[:, 0, 0]
 
-    energy = aeff_hawc.geom.axes["energy_true"].center
-    ax_aeff.plot(energy, data, alpha=0.2, color="k")
+    energy = aeff_hawc.geom.axes["energy_true"].center[:-30]
+    ax_aeff.plot(energy, data[:-30], alpha=0.2, color="k")
     aeff_hawc_max.append(data)
 
 aeff_hawc_max = np.stack(aeff_hawc_max).sum(axis=0)
 
 ax_aeff.plot(
-    aeff_hawc.geom.axes["energy_true"].center,
-    aeff_hawc_max,
+    aeff_hawc.geom.axes["energy_true"].center[:-26],
+    aeff_hawc_max[:-26],
     color="k",
     **kwargs,
 )
@@ -102,15 +108,11 @@ ax_aeff.get_legend().remove()
 
 # PSF
 psf_hess = obs_hess.psf.slice_by_idx({"energy_true": slice(10, None)})
-psf_cta = obs_cta.psf.slice_by_idx({"energy_true": slice(None, -2)})
+psf_cta_north = irf_cta_north["psf"].slice_by_idx({"energy_true": slice(1, None)})
+psf_cta_south = irf_cta_south["psf"].slice_by_idx({"energy_true": slice(1, None)})
 
 ax_psf = axes[1]
 ax_psf.set_title("Point Spread Function")
-psf_cta.plot_containment_radius_vs_energy(
-    ax=ax_psf, offset=offset, fraction=[0.68], **kwargs
-)
-color = ax_psf.lines[-1].get_color()
-ax_psf.text(x=20, y=0.05, s="CTAO", color=color)
 
 psf_hess.plot_containment_radius_vs_energy(
     ax=ax_psf, offset=offset, fraction=[0.68], **kwargs
@@ -118,6 +120,17 @@ psf_hess.plot_containment_radius_vs_energy(
 color = ax_psf.lines[-1].get_color()
 ax_psf.text(x=3, y=0.15, s="H.E.S.S.", color=color)
 
+psf_cta_north.plot_containment_radius_vs_energy(
+    ax=ax_psf, offset=offset, fraction=[0.68], **kwargs
+)
+color = ax_psf.lines[-1].get_color()
+ax_psf.text(x=1.5, y=0.06, s="CTAO North", color=color)
+
+psf_cta_south.plot_containment_radius_vs_energy(
+    ax=ax_psf, offset=offset, fraction=[0.68], **kwargs
+)
+color = ax_psf.lines[-1].get_color()
+ax_psf.text(x=1.5, y=0.015, s="CTAO South", color=color)
 
 psf_fermi = PSFMap.read(
     "../data/input/fermi-3fhl-gc/fermi-3fhl-gc-psf-cube.fits.gz", format="gtpsf"
@@ -133,6 +146,7 @@ ax_psf.get_legend().remove()
 ax_psf.lines[-1].set_label("Fermi-LAT")
 ax_psf.set_yticks([0, 0.1, 0.2, 0.3, 0.4])
 ax_psf.yaxis.set_major_formatter(ticker.FormatStrFormatter("%.1f"))
+ax_psf.set_ylim(0.,0.32)
 ax_psf.set_xlim(*xlim)
 ax_psf.set_xlabel("True Energy / TeV")
 ax_psf.set_ylabel("Containment radius / deg")
