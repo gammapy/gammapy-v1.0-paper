@@ -7,7 +7,7 @@ import numpy as np
 from astropy import units as u
 
 from gammapy.data import DataStore
-from gammapy.irf import PSFMap
+from gammapy.irf import PSFMap, load_irf_dict_from_file
 from gammapy.maps import Map
 
 logging.basicConfig(level=logging.INFO)
@@ -18,8 +18,12 @@ hawc_lifetime = 6.4 * u.h
 
 offset = [1] * u.deg
 
-data_store = DataStore.from_dir("../data/input/cta-1dc/index/gps")
-obs_cta = data_store.obs(110380)
+#data_store = DataStore.from_dir("../data/input/cta-1dc/index/gps")
+#obs_cta = data_store.obs(110380)
+cta_north = ("../data/cta-caldb/Prod5-North-20deg-AverageAz-4LSTs09MSTs.180000s-v0.1.fits")
+cta_south = ("../data/cta-caldb/Prod5-South-20deg-AverageAz-14MSTs37SSTs.180000s-v0.1.fits")
+irf_cta_north = load_irf_dict_from_file(cta_north)
+irf_cta_south = load_irf_dict_from_file(cta_south)
 
 data_store = DataStore.from_dir("../data/input/hess-dl3-dr1/")
 obs_hess = data_store.obs(33787)
@@ -48,7 +52,7 @@ color = ax_aeff.lines[-1].get_color()
 ax_aeff.text(x=10, y=1e6, s="H.E.S.S.", color=color)
 
 # CTA
-obs_cta.aeff.plot_energy_dependence(ax=ax_aeff, offset=offset, label="CTA", **kwargs)
+irf_cta_south["aeff"].plot_energy_dependence(ax=ax_aeff, offset=offset, label="CTA", **kwargs)
 color = ax_aeff.lines[-1].get_color()
 ax_aeff.text(x=0.06, y=3e5, s="CTAO", color=color)
 
@@ -102,15 +106,10 @@ ax_aeff.get_legend().remove()
 
 # PSF
 psf_hess = obs_hess.psf.slice_by_idx({"energy_true": slice(10, None)})
-psf_cta = obs_cta.psf.slice_by_idx({"energy_true": slice(None, -2)})
+psf_cta = irf_cta_south["psf"].slice_by_idx({"energy_true": slice(1, None)})
 
 ax_psf = axes[1]
 ax_psf.set_title("Point Spread Function")
-psf_cta.plot_containment_radius_vs_energy(
-    ax=ax_psf, offset=offset, fraction=[0.68], **kwargs
-)
-color = ax_psf.lines[-1].get_color()
-ax_psf.text(x=20, y=0.05, s="CTAO", color=color)
 
 psf_hess.plot_containment_radius_vs_energy(
     ax=ax_psf, offset=offset, fraction=[0.68], **kwargs
@@ -118,6 +117,11 @@ psf_hess.plot_containment_radius_vs_energy(
 color = ax_psf.lines[-1].get_color()
 ax_psf.text(x=3, y=0.15, s="H.E.S.S.", color=color)
 
+psf_cta.plot_containment_radius_vs_energy(
+    ax=ax_psf, offset=offset, fraction=[0.68], **kwargs
+)
+color = ax_psf.lines[-1].get_color()
+ax_psf.text(x=20, y=0.05, s="CTAO", color=color)
 
 psf_fermi = PSFMap.read(
     "../data/input/fermi-3fhl-gc/fermi-3fhl-gc-psf-cube.fits.gz", format="gtpsf"
