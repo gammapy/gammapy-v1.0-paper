@@ -52,11 +52,11 @@ ax_aeff.text(x=10, y=2e5, s="H.E.S.S.", color=color)
 # CTA
 irf_cta_north["aeff"].plot_energy_dependence(ax=ax_aeff, offset=offset, label="CTA North", **kwargs)
 color = ax_aeff.lines[-1].get_color()
-ax_aeff.text(x=0.01, y=3e5, s="CTAO South", color=color)
+ax_aeff.text(x=0.01, y=3e5, s="CTAO North", color=color)
 
 irf_cta_south["aeff"].plot_energy_dependence(ax=ax_aeff, offset=offset, label="CTA South", **kwargs)
 color = ax_aeff.lines[-1].get_color()
-ax_aeff.text(x=0.5, y=3e6, s="CTAO North", color=color)
+ax_aeff.text(x=0.5, y=3e6, s="CTAO South", color=color)
 
 # Fermi-LAT
 exposure_fermi = Map.read(
