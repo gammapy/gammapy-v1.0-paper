@@ -719,10 +719,8 @@ even plot the multi-dimensional effective area table.
 \gammapy allows users to treat different kinds of PSFs,
 in particular, parametric multi-dimensional Gaussian distributions (\code{EnergyDependentMultiGaussPSF})
 or King profile functions (\code{PSFKing}). The \code{EnergyDependentMultiGaussPSF}
-class is able to handle up to three
-Gaussians, defined in terms of amplitudes and sigma given for each true energy
-and offset angle bin. Similarly, \code{PSFKing} takes into account the gamma and
-sigma parameters. The general \code{ParametricPSF} class allows users to create a
+class is able to handle up to three Gaussians, defined in terms of amplitudes and sigma given for each true energy
+and offset angle bin. The general \code{ParametricPSF} class allows users to create a
 custom PSF with a parametric representation different from Gaussian(s) or King profile(s).
 The generic \code{PSF3D} class stores a radial symmetric profile of a
 PSF to represent non-parametric shapes, again depending on true energy
@@ -739,9 +737,8 @@ which is used for the prediction of counts from that model component.
 \subsubsection{Energy Dispersion}
 For \iacts, the energy resolution and bias, sometimes called energy dispersion,
 is typically parametrised in terms of the so-called
-migration parameter ($\mu$), which is defined as the ratio between the
-reconstructed energy and the true energy. By definition, the mean of this ratio is
-close to unity for a small energy bias and its distribution can 
+migration parameter ($\mu$, see section \label{sec:gammaray-data-analysis}).
+By definition, the mean of this ratio is close to unity for a small energy bias and its distribution can
 be typically described by a Gaussian profile. However, more complex
 shapes are also common. The migration parameter is given at each offset angle and
 reconstructed energy. The main sub-classes are the \code{EnergyDispersion2D} which is
