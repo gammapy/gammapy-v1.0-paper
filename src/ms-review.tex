@@ -480,7 +480,8 @@ where:
  and reconstructed direction defined by $\Delta p = p_{\rm true} - p$.  
 \item $E_{\rm disp}(E|p_{\rm true}, E_{\rm true})$ is the energy dispersion. It gives the probability to
   reconstruct the photon at energy $E$ when the true energy is $E_{\rm true}$ and the true position $p_{\rm true}$.
-  \gammaray instruments consider $E_{\rm disp}(\mu|p_{\rm true}, E_{\rm true})$, the probability density of the event migration, $\mu=\frac{E}{E_{\rm true}}$.
+  \gammaray instruments consider $E_{\rm disp}(\mu|p_{\rm true}, E_{\rm true})$, the probability density of the event
+  migration, $\mu=\frac{E}{E_{\rm true}}$.
 \end{itemize}
 
 %% CN: except for the figures we never introduced what the DL3 or the Data Level acronym is
@@ -692,7 +693,7 @@ example in Section~\ref{ssec:multi-instrument-analysis}.
 %
 
 The \code{gammapy.irf} sub-package contains all classes and functionalities
-to handle IRFs in a variety of formats.
+to handle IRFs in a variety of functional forms.
 Usually, \irfs store instrument properties in the form of multi-dimensional
 tables, with quantities expressed in terms of energy (true or reconstructed),
 off-axis angles or cartesian detector coordinates. The main quantities stored in
@@ -738,12 +739,11 @@ which is used for the prediction of counts from that model component.
 For \iacts, the energy resolution and bias, sometimes called energy dispersion,
 is typically parametrised in terms of the so-called
 migration parameter ($\mu$, see section \label{sec:gammaray-data-analysis}).
-By definition, the mean of this ratio is close to unity for a small energy bias and its distribution can
-be typically described by a Gaussian profile. However, more complex
-shapes are also common. The migration parameter is given at each offset angle and
-reconstructed energy. The main sub-classes are the \code{EnergyDispersion2D} which is
+ However, more complex
+shapes are also common. The distribution of the migration parameter is given at each offset angle and
+true energy. The main sub-classes are the \code{EnergyDispersion2D} which is
 designed to handle the raw instrument description, and the \code{EDispKernelMap},
-which contains an energy disperion matrix per sky position. I.e., a 4-dimensional
+which contains an energy disperion matrix per sky position, i.e., a 4-dimensional
 sky map where each position is associated to an energy dispersion matrix.
 The energy dispersion matrix is a representation of the energy resolution
 as a function of the true energy only and implemented in \gammapy
