@@ -18,8 +18,6 @@ hawc_lifetime = 6.4 * u.h
 
 offset = [1] * u.deg
 
-#data_store = DataStore.from_dir("../data/input/cta-1dc/index/gps")
-#obs_cta = data_store.obs(110380)
 cta_north = ("../data/cta-caldb/Prod5-North-20deg-AverageAz-4LSTs09MSTs.180000s-v0.1.fits")
 cta_south = ("../data/cta-caldb/Prod5-South-20deg-AverageAz-14MSTs37SSTs.180000s-v0.1.fits")
 irf_cta_north = load_irf_dict_from_file(cta_north)
