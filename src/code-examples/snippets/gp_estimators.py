@@ -3,7 +3,8 @@ from astropy import units as u
 from gammapy.datasets import MapDataset
 from gammapy.estimators import TSMapEstimator
 
-dataset = MapDataset.read("$GAMMAPY_DATA/cta-1dc-gc/cta-1dc-gc.fits.gz")
+filename = "$GAMMAPY_DATA/cta-1dc-gc/cta-1dc-gc.fits.gz"
+dataset = MapDataset.read(filename)
 
 estimator = TSMapEstimator(
     energy_edges=[0.1, 1, 10] * u.TeV,
