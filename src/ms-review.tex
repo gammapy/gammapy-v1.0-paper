@@ -606,7 +606,7 @@ sub-packages, respectively. Parametric models, which are defined in
 \code{gammapy.modeling}, are used to jointly model a combination
 of datasets, for example, to compute a spectrum using data from several facilities. Estimator classes,
 which are contained in \code{gammapy.estimators}, are used to
-compute higher level science products such as flux and signficance maps,
+compute higher level science products such as flux and significance maps,
 light curves or flux points. Finally there is a \code{gammapy.analysis}
 sub-package which provides a high-level interface for executing analyses
 defined from configuration files. In the following sections, we will
@@ -743,7 +743,7 @@ migration parameter ($\mu$, see section \label{sec:gammaray-data-analysis}).
 shapes are also common. The distribution of the migration parameter is given at each offset angle and
 true energy. The main sub-classes are the \code{EnergyDispersion2D} which is
 designed to handle the raw instrument description, and the \code{EDispKernelMap},
-which contains an energy disperion matrix per sky position, i.e., a 4-dimensional
+which contains an energy dispersion matrix per sky position, i.e., a 4-dimensional
 sky map where each position is associated to an energy dispersion matrix.
 The energy dispersion matrix is a representation of the energy resolution
 as a function of the true energy only and implemented in \gammapy
@@ -753,7 +753,7 @@ by the sub-class \code{EDispKernel}.
 The instrumental background rate can be represented as either a 2-dimensional
 data structure named \code{Background2D} or a 3-dimensional one named \code{Background3D}.
 The background rate is stored as a differential count rate, normalised per solid angle
-and energy interval at different reconstructed energies and offset angles.
+and energy interval at different reconstructed energies and position in the FoV.
 In the \code{Background2D} case, the background is expected to follow a radially symmetric shape
 and changes only with the offset angle from FoV center.
 In the \code{Background3D} case, the background is allowed to vary with 
