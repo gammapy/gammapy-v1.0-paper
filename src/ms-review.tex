@@ -498,7 +498,8 @@ where:
  and reconstructed direction defined by $\Delta p = p_{\rm true} - p$.  
 \item $E_{\rm disp}(E|p_{\rm true}, E_{\rm true})$ is the energy dispersion. It gives the probability to
   reconstruct the photon at energy $E$ when the true energy is $E_{\rm true}$ and the true position $p_{\rm true}$.
-  \gammaray instruments consider $E_{\rm disp}(\mu|p_{\rm true}, E_{\rm true})$, the probability density of the event migration, $\mu=\frac{E}{E_{\rm true}}$.
+  \gammaray instruments consider $E_{\rm disp}(\mu|p_{\rm true}, E_{\rm true})$, the probability density of the event
+  migration, $\mu=\frac{E}{E_{\rm true}}$.
 \end{itemize}
 
 %% CN: except for the figures we never introduced what the DL3 or the Data Level acronym is
@@ -535,19 +536,14 @@ $\mathcal{L}(\hat{\theta}, N_{obs})$, usually Poissonian, that is maximised to o
 \subsection{\gammapy data analysis workflow}
 The first step in \gammaray data analysis is the selection and extraction of observations
 based on their metadata including information such as pointing direction, observation
-time and observation conditions. The access to the events data and instrument 
-reponse per observation is supported by classes and methods
-in the \code{gammapy.data} (see Section~\ref{ssec:gammapy-data}) and the \code{gammapy.irf}
-(see Section~\ref{ssec:gammapy-irf}) subpackages.
+time and observation conditions. 
 
 The next step of the analysis is the data reduction, where all observation events and instrument
 responses are filled into or projected onto a common physical coordinate system, defined by
 a map geometry. The definition of the map geometry typically consists of a spectral dimension
 defined by a binned energy axis and of spatial dimensions, which either define 
 a spherical projection from celestial coordinates to a pixelised image space
-or a single region on the sky. The \code{gammapy.maps} subpackage provides
-general multidimensional geometry objects and the associated data structures
-(see Section~\ref{ssec:gammapy-maps}).
+or a single region on the sky.
 
 %% CN: I would actually distingusih two cases here:
 %% 1) the Bkg is already provided as a parametrisation
@@ -563,8 +559,6 @@ Data measured at the FoV or energy boundaries of the instrument are typically
 associated with a systematic uncertainty in the IRF. For this reason this part 
 of the data is often excluded from subsequent analysis by defining regions of
  \enquote{safe} data in the spatial as well as energy dimension.
-All of these data reduction steps are performed by classes and functions
-implemented in the \code{gammapy.makers} subpackage (see Section~\ref{ssec:gammapy-makers}).
 
 %% CN: for 1D analysis datasets, DL4 can actually be written as OGIP files,
 %% so as reduced datasets in a general format, not specific to Gammapy.
@@ -581,8 +575,6 @@ analysis methods and fit statistics. The datasets can be used to perform a joint
 fit, allowing one to combine different measurements, e.g. from different observations
 but also from different instruments or event classes. They can also be used for binned
 simulation as well as event sampling to simulate DL3 events data.
-The various DL4 objects and the associated functionalities are
-implemented in the \code{gammapy.datasets} subpackage (see Section~\ref{ssec:gammapy-datasets}).
 
 The next step is then typically to model and fit the datasets, either
 individually, or in a joint likelihood analysis. For this purpose \gammapy
@@ -595,9 +587,6 @@ mechanisms of accelerated particle populations (e.g. inverse Compton or $\pi^{0}
 Independently or subsequently to the global modelling, the data can be
 re-grouped to compute flux points, light curves and flux maps as well as significance
 maps in different energy bands.
-The modelling and fitting functionalities are implemented in the \code{gammapy.modeling},
-\code{gammapy.estimators} and \code{gammapy.stats} subpackages (see respectively
-Section~\ref{ssec:gammapy-modeling}, \ref{ssec:gammapy-estimators} and \ref{ssec:gammapy-stats}).
 
 \section{\gammapy Package}
 \label{sec:gammapy-package}
@@ -623,7 +612,7 @@ sub-packages, respectively. Parametric models, which are defined in
 \code{gammapy.modeling}, are used to jointly model a combination
 of datasets, for example, to compute a spectrum using data from several facilities. Estimator classes,
 which are contained in \code{gammapy.estimators}, are used to
-compute higher level science products such as flux and signficance maps,
+compute higher level science products such as flux and significance maps,
 light curves or flux points. Finally there is a \code{gammapy.analysis}
 sub-package which provides a high-level interface for executing analyses
 defined from configuration files. In the following sections, we will
@@ -710,7 +699,7 @@ example in Section~\ref{ssec:multi-instrument-analysis}.
 %
 
 The \code{gammapy.irf} sub-package contains all classes and functionalities
-to handle IRFs in a variety of formats.
+to handle IRFs in a variety of functional forms.
 Usually, \irfs store instrument properties in the form of multi-dimensional
 tables, with quantities expressed in terms of energy (true or reconstructed),
 off-axis angles or cartesian detector coordinates. The main quantities stored in
@@ -737,10 +726,8 @@ even plot the multi-dimensional effective area table.
 \gammapy allows users to treat different kinds of PSFs,
 in particular, parametric multi-dimensional Gaussian distributions (\code{EnergyDependentMultiGaussPSF})
 or King profile functions (\code{PSFKing}). The \code{EnergyDependentMultiGaussPSF}
-class is able to handle up to three
-Gaussians, defined in terms of amplitudes and sigma given for each true energy
-and offset angle bin. Similarly, \code{PSFKing} takes into account the gamma and
-sigma parameters. The general \code{ParametricPSF} class allows users to create a
+class is able to handle up to three Gaussians, defined in terms of amplitudes and sigma given for each true energy
+and offset angle bin. The general \code{ParametricPSF} class allows users to create a
 custom PSF with a parametric representation different from Gaussian(s) or King profile(s).
 The generic \code{PSF3D} class stores a radial symmetric profile of a
 PSF to represent non-parametric shapes, again depending on true energy
@@ -757,14 +744,12 @@ which is used for the prediction of counts from that model component.
 \subsubsection{Energy Dispersion}
 For \iacts, the energy resolution and bias, sometimes called energy dispersion,
 is typically parametrised in terms of the so-called
-migration parameter ($\mu$), which is defined as the ratio between the
-reconstructed energy and the true energy. By definition, the mean of this ratio is
-close to unity for a small energy bias and its distribution can 
-be typically described by a Gaussian profile. However, more complex
-shapes are also common. The migration parameter is given at each offset angle and
-reconstructed energy. The main sub-classes are the \code{EnergyDispersion2D} which is
+migration parameter ($\mu$, see section \label{sec:gammaray-data-analysis}).
+ However, more complex
+shapes are also common. The distribution of the migration parameter is given at each offset angle and
+true energy. The main sub-classes are the \code{EnergyDispersion2D} which is
 designed to handle the raw instrument description, and the \code{EDispKernelMap},
-which contains an energy disperion matrix per sky position. I.e., a 4-dimensional
+which contains an energy dispersion matrix per sky position, i.e., a 4-dimensional
 sky map where each position is associated to an energy dispersion matrix.
 The energy dispersion matrix is a representation of the energy resolution
 as a function of the true energy only and implemented in \gammapy
@@ -774,7 +759,7 @@ by the sub-class \code{EDispKernel}.
 The instrumental background rate can be represented as either a 2-dimensional
 data structure named \code{Background2D} or a 3-dimensional one named \code{Background3D}.
 The background rate is stored as a differential count rate, normalised per solid angle
-and energy interval at different reconstructed energies and offset angles.
+and energy interval at different reconstructed energies and position in the FoV.
 In the \code{Background2D} case, the background is expected to follow a radially symmetric shape
 and changes only with the offset angle from FoV center.
 In the \code{Background3D} case, the background is allowed to vary with 
