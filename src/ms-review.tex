@@ -230,14 +230,24 @@
 
 
 %% \gammaray astronomy
-%% CN: I think we should use the expression Water Cherenkov Detectors and use the
-%% abbreviation (WCD) all along the text, later we use "particle samplers"
-The \gammaray range of the electromagnetic spectrum provides us insights into the
-most energetic processes in the universe such as those accelerating particles in the surroundings of
-black holes, and remnants of supernova explosions. As in other
-branches of astronomy, \gammarays can be observed by
-satellite as well as ground-based instruments.
-Ground-based instruments use the Earth's atmosphere as a particle detector.
+In modern astronomy astrophysical objects are studied across
+all wavelengths. The \gammaray range of the electromagnetic spectrum 
+provides us insights into the most energetic processes in the universe such as
+those accelerating particles in the surroundings of black holes or remnants of
+supernova explosions. 
+
+In general \gammaray astronomy relies on the detection of individual 
+photon events and reconstruction of their incident direction as well
+as energy. As in other branches of astronomy, this can be
+achieved by satellite as well as ground-based \gammaray instruments.
+Space based instruments such as the Fermi Large Area Telescope (LAT)
+rely on the pair-conversion effect to detect \gammarays and track
+the positron-electron pairs created in the detector to reconstruct the incident direction 
+of the incoming \gammaray. The energy of the photon is estimated using a calorimeter
+at the bottom of the instrument. The energy range of \fermi ranges from
+\SI{20}{MeV} to \SI{300}{GeV}. 
+
+Ground-based instruments use the Earth's atmosphere as a particle detector instead.
 Very-high-energy (VHE) cosmic \gammarays interact in the atmosphere and
 create large showers of secondary particles that can be observed from the ground.
 Ground-based \gammaray astronomy relies on these extensive air showers to detect the
@@ -287,20 +297,21 @@ lower signal-to-noise ratios compared to IACTs~\citep{2015CRPhy..16..610D}.
 
 
 %% Context
-Ground-based \gammaray astronomy has been historically conducted
-through experiments operated by independent collaborations, each relying
+While \fermi data as well as analysis tools have been public from the
+beginning, ground-based \gammaray astronomy has been historically conducted
+through experiments operated by independent collaborations. Each relying
 on their own proprietary data and analysis software developed as part of the
-instrument. While this model has been successful so far, it does not
-permit easy combination of data from several instruments and therefore
-limits the interoperability of existing facilities. This lack of
+instrument. While the latter model has still been successful so far, it does not
+permit easy combination of data from several instruments. This lack of
 interoperability currently limits the full exploitation of the
 available \gammaray data, especially because the different instruments often have
 complementary sky coverages, and the various detection
 techniques have complementary properties in terms of energy range covered,
-duty cycle and spatial resolution.
+duty cycle and spatial resolution. 
 
 %TODO: better transition into context
-The Cherenkov Telescope Array Observatory (CTAO) will be the first ground-based \gammaray instrument to be operated as an open observatory.
+The Cherenkov Telescope Array Observatory (CTAO) will be the first ground-based
+\gammaray instrument to be operated as an open observatory.
 Its high-level data\footnote{The lowest reduction level of data published by CTAO will be reconstructed event lists and corresponding instrument response functions.} will be shared publicly after
 some proprietary period, and the software required to analyze it will be distributed
 as well. To allow the re-usability of data from existing instruments and their interoperability,
