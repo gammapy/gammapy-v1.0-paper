@@ -31,7 +31,7 @@ obs_magic = data_store.obs(5029748, required_irf=["aeff"])
 
 figsize = config.FigureSizeAA(aspect_ratio=2.6, width_aa="two-column")
 
-xlim = 0.008, 600
+xlim = 0.008, 250
 
 kwargs = {"lw": 2}
 
@@ -84,15 +84,15 @@ for nhit_bin in range(5, 10):
     aeff_hawc = aeff_hawc_map.to_region_nd_map(func=np.mean) / hawc_lifetime
     data = aeff_hawc.quantity[:, 0, 0]
 
-    energy = aeff_hawc.geom.axes["energy_true"].center[:-30]
-    ax_aeff.plot(energy, data[:-30], alpha=0.2, color="k")
+    energy = aeff_hawc.geom.axes["energy_true"].center[:-33]
+    ax_aeff.plot(energy, data[:-33], alpha=0.2, color="k")
     aeff_hawc_max.append(data)
 
 aeff_hawc_max = np.stack(aeff_hawc_max).sum(axis=0)
 
 ax_aeff.plot(
-    aeff_hawc.geom.axes["energy_true"].center[:-26],
-    aeff_hawc_max[:-26],
+    aeff_hawc.geom.axes["energy_true"].center[:-33],
+    aeff_hawc_max[:-33],
     color="k",
     **kwargs,
 )
