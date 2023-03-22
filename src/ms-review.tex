@@ -518,19 +518,14 @@ $\mathcal{L}(\hat{\theta}, N_{obs})$, usually Poissonian, that is maximised to o
 \subsection{\gammapy data analysis workflow}
 The first step in \gammaray data analysis is the selection and extraction of observations
 based on their metadata including information such as pointing direction, observation
-time and observation conditions. The access to the events data and instrument 
-reponse per observation is supported by classes and methods
-in the \code{gammapy.data} (see Section~\ref{ssec:gammapy-data}) and the \code{gammapy.irf}
-(see Section~\ref{ssec:gammapy-irf}) subpackages.
+time and observation conditions. 
 
 The next step of the analysis is the data reduction, where all observation events and instrument
 responses are filled into or projected onto a common physical coordinate system, defined by
 a map geometry. The definition of the map geometry typically consists of a spectral dimension
 defined by a binned energy axis and of spatial dimensions, which either define 
 a spherical projection from celestial coordinates to a pixelised image space
-or a single region on the sky. The \code{gammapy.maps} subpackage provides
-general multidimensional geometry objects and the associated data structures
-(see Section~\ref{ssec:gammapy-maps}).
+or a single region on the sky.
 
 %% CN: I would actually distingusih two cases here:
 %% 1) the Bkg is already provided as a parametrisation
@@ -546,8 +541,6 @@ Data measured at the FoV or energy boundaries of the instrument are typically
 associated with a systematic uncertainty in the IRF. For this reason this part 
 of the data is often excluded from subsequent analysis by defining regions of
  \enquote{safe} data in the spatial as well as energy dimension.
-All of these data reduction steps are performed by classes and functions
-implemented in the \code{gammapy.makers} subpackage (see Section~\ref{ssec:gammapy-makers}).
 
 %% CN: for 1D analysis datasets, DL4 can actually be written as OGIP files,
 %% so as reduced datasets in a general format, not specific to Gammapy.
@@ -564,8 +557,6 @@ analysis methods and fit statistics. The datasets can be used to perform a joint
 fit, allowing one to combine different measurements, e.g. from different observations
 but also from different instruments or event classes. They can also be used for binned
 simulation as well as event sampling to simulate DL3 events data.
-The various DL4 objects and the associated functionalities are
-implemented in the \code{gammapy.datasets} subpackage (see Section~\ref{ssec:gammapy-datasets}).
 
 The next step is then typically to model and fit the datasets, either
 individually, or in a joint likelihood analysis. For this purpose \gammapy
@@ -578,9 +569,6 @@ mechanisms of accelerated particle populations (e.g. inverse Compton or $\pi^{0}
 Independently or subsequently to the global modelling, the data can be
 re-grouped to compute flux points, light curves and flux maps as well as significance
 maps in different energy bands.
-The modelling and fitting functionalities are implemented in the \code{gammapy.modeling},
-\code{gammapy.estimators} and \code{gammapy.stats} subpackages (see respectively
-Section~\ref{ssec:gammapy-modeling}, \ref{ssec:gammapy-estimators} and \ref{ssec:gammapy-stats}).
 
 \section{\gammapy Package}
 \label{sec:gammapy-package}
