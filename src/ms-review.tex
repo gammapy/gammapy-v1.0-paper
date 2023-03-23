@@ -135,7 +135,7 @@
 	Lab Saha \inst{\ref{inst:15}} \and
 	Hubert Siejkowski \inst{\ref{inst:27}} \and
 	Aneta Siemiginowska \inst{\ref{inst:28}} \and
-	Brigitta M {Sipőcz} \inst{\ref{inst:29}} \and
+	Brigitta M. {Sipőcz} \inst{\ref{inst:29}} \and
 	Tim Unbehaun \inst{\ref{inst:19}} \and
 	Thomas Vuillaume \inst{\ref{inst:8}}
 }
@@ -280,7 +280,7 @@ lower signal-to-noise ratios compared to IACTs~\citep{2015CRPhy..16..610D}.
 		Major Atmospheric Gamma Imaging Cherenkov Telescopes (MAGIC),
 		and the Very Energetic Radiation Imaging Telescope Array System (VERITAS).
 		The lower left shows the group of all-sky instruments such as the
-		Fermi Large Area Telescope (Fermi-LAT) and the High Altitude
+		Fermi Large Area Telescope (\textit{Fermi}-LAT) and the High Altitude
 		Water Cherenkov Observatory (HAWC). The calibrated data of all those
 		instruments can be converted and stored into the common GADF data format.
 		\gammapy can read data stored in the GADF format.
@@ -369,10 +369,6 @@ structures, \scipy~\citep{2020SciPy-NMeth} for numerical algorithms, \astropy~\c
 astronomy-specific functionality, \iminuit~\citep{iminuit} for numerical minimisation
 and \matplotlib~\citep{matplotlib} for visualization.
 
-They consist of two
-observations of $20\,{\rm min}$ each, chosen from the dataset used to estimate
-the performance of the upgraded stereo system~\citep{magic_performance} and
-already included in~\cite{joint_crab}.
 
 With the public availability of the \gadf format specifications and the
 \gammapy package, some experiments started to make limited subsets of
@@ -387,9 +383,9 @@ joint analysis across different gamma-ray instruments was first demonstrated in 
 The \hawc collaboration also released
 a limited test dataset of the Crab Nebula, which was used to validate
 the \gammapy package in \cite{Olivera2022}.
-The increased availability of public data that followed the definition of
-a common data format, and the development of \gammapy as a community-driven open software,
-led the way toward a more open science in the very-high-energy \gammaray Astronomy domain.
+The increased availability of public data, that followed the definition of
+a common data format, and the development of \gammapy as a community-driven open software
+led the way toward a more open science in the very-high-energy \gammaray astronomy domain.
 In future CTAO will be an open observatory committed to follow the FAIR
 (Findable, Accessible, Interoperable and Reusable) principles \citep{FAIR16, FAIR22} 
 that define the key requirements for open science. 
@@ -1033,7 +1029,7 @@ factor to another spectral model. They are typically used for
 adjusting template-based models, or, for example, to take into account
 the absorbtion effect on \gammaray spectra caused by the extra-galactic background
 light (EBL) (\code{EBLAbsorptionNormSpectralModel}). \gammapy supports a variety
-of EBL absorption models, such as those from \cite{Franceschini2008}, \cite{Finke2010},
+of EBL absorption models, such as those from \cite{Franceschini2008, Franceschini2017}, \cite{Finke2010},
 and \cite{Dominguez2011}.
 
 The analytical spatial models are all normalized such that they integrate to
@@ -1053,7 +1049,8 @@ The model gallery provides a visual overview of the available models in
 built-in. We also offer a wrapper to radiative models implemented in the Naima
 package~\citep{naima}. The modelling framework can be easily extended with
 user-defined models. For example, the radiative models of jetted Active Galactic Nuclei (AGN)
-implemented in \agnpy, can be wrapped into \gammapy~\citep[see Section 3.5 of ][]{2022A&A...660A..18N}.
+implemented in \agnpy~\citep{agnpy2022}, can be wrapped into 
+\gammapy~\citep[see Section 3.5 of ][]{2022A&A...660A..18N}.
 
 %% CN: here again, print() without output. Is it useful?
 \begin{figure}
@@ -1588,7 +1585,7 @@ By combining \gammapy with astrophysical modelling codes, users can also fit
 astrophysical spectral models to \gammaray data. 
 There are several Python packages that are able to model
 the \gammaray emission, given a physical scenario. Among those
-packages are Agnpy~\citep{agnpy}, Naima~\citep{naima}, Jetset~\citep{jetset}
+packages are Agnpy~\citep{agnpy2022}, Naima~\citep{naima}, Jetset~\citep{jetset}
 and Gamera~\citep{gamera}.
 Typically those emission models predict broadband emission from
 radio, up to very high-energy \gammarays.
@@ -1634,7 +1631,7 @@ instruments scales up the number of detectable sources and the complexity of
 models needed to represent them accurately. As an example, if we compare the
 results of the HGPS to the expectations from the \cta Galactic Plane survey
 simulations, we jump from 78 sources detected by \hess to about 500 detectable by
-CTA~\citep{2021arXiv210903729R}. This large increase in the amount of data to analyse
+CTA~\citep{Remy2021}. This large increase in the amount of data to analyse
 and increase in complexity of modelling scenarios, requires the high-level
 analysis software to be both scalabale as well as performant. 
 
@@ -1857,7 +1854,7 @@ weekly development meetings, etc.
 \subsection{Proposals for Improving \gammapy}
 \label{ssec:pigs}
 An important part of \gammapy's development organisation is the support
-for \textit{Proposals for improving \gammapy}(PIG). This system is very much
+for \textit{Proposals for improving \gammapy} (PIG). This system is very much
 inspired by Python's PEP\footnote{\url{https://peps.python.org/pep-0001/}}
 and Astropy's APE \citep{greenfield_perry_2013} system.
 PIG are self-contained documents which outline a set of significant
