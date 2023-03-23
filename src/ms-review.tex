@@ -184,8 +184,8 @@
 		by experiments employing proprietary data and analysis software.
 		However, the next generation of \gammaray instruments,
 		such as the Cherenkov Telescope Array Observatory (CTAO), will be operated as open observatories.
-		Alongside the data, they will also make associated software tools available to a wider community.
-    This necessity prompted the development of open, high-level astronomy software customised for high-energy astrophysics.
+		Alongside the data, they will also make the associated software tools available to a wider community.
+    This necessity prompted the development of open, high-level, astronomical software customised for high-energy astrophysics.
 	}
 	{
 		In this article, we present \gammapy, an open-source Python package for the analysis of astronomical \gammaray data,
@@ -197,17 +197,17 @@
 	}
 	{
 		Starting from event lists and instrument response functions,
-		\gammapy provides the functionalities for reducing data binned in energy and sky coordinates.
-		Several techniques for background estimation are implemented in the package to handle the residual hadronic background.
+		\gammapy provides functionalities to reduce these data by binning them in energy and sky coordinates.
+		Several techniques for background estimation are implemented in the package to handle the residual hadronic background affecting \gammaray instruments.
 		After the data are binned, the flux and morphology of one or more \gammaray sources can be estimated
 		using Poisson maximum likelihood fitting
 		and assuming a variety of spectral, temporal, and spatial models.
 		Estimation of flux points, likelihood profiles and light curves is also supported.
 	}
 	{
-		After describing the structure of the package, we show the capabilities of \gammapy
-		in multiple traditional and novel \gammaray analysis scenarios using public data, 
-		such as spectral and spectro-morphological modelling and estimations of a spectral energy
+		After describing the structure of the package, we show, using publicly-available gamma-ray data,
+		the capabilities of \gammapy in multiple traditional and novel \gammaray analysis scenarios
+		such as: spectral and spectro-morphological modelling and estimations of a spectral energy
 		distribution and a light curve.
 		Its flexibility and its power are displayed in a final multi-instrument example,
 		where datasets from different instruments, at different stages of data reduction,
@@ -230,30 +230,30 @@
 
 
 %% \gammaray astronomy
-In modern astronomy astrophysical objects are studied across
+Modern astronomy is defined by the possibility to observe and study astrophysical sources across
 all wavelengths. The \gammaray range of the electromagnetic spectrum 
-provides us insights into the most energetic processes in the universe such as
+provides us with insights into the most energetic processes in the universe such as
 those accelerating particles in the surroundings of black holes or remnants of
-supernova explosions. 
+supernova explosions.
 
-In general \gammaray astronomy relies on the detection of individual 
+In general, \gammaray astronomy relies on the detection of individual 
 photon events and reconstruction of their incident direction as well
 as energy. As in other branches of astronomy, this can be
 achieved by satellite as well as ground-based \gammaray instruments.
-Space based instruments such as the Fermi Large Area Telescope (LAT)
+Space-borne instruments such as the Fermi Large Area Telescope (LAT)
 rely on the pair-conversion effect to detect \gammarays and track
 the positron-electron pairs created in the detector to reconstruct the incident direction 
 of the incoming \gammaray. The energy of the photon is estimated using a calorimeter
-at the bottom of the instrument. The energy range of \fermi ranges from
-\SI{20}{MeV} to \SI{300}{GeV}. 
+at the bottom of the instrument. The energy range of instruments like \fermi, referred to as
+high-energy (HE), goes approximately from tens of \si{MeV} to hundreds of \si{GeV}. 
 
-Ground-based instruments use the Earth's atmosphere as a particle detector instead.
-Very-high-energy (VHE) cosmic \gammarays interact in the atmosphere and
-create large showers of secondary particles that can be observed from the ground.
-Ground-based \gammaray astronomy relies on these extensive air showers to detect the
-primary \gammaray photons and infer their incident direction and energy.
-VHE \gammaray astronomy covers the energy range from few tens of \si{GeV} up to the \si{PeV}.
-There are two main categories of ground-based instruments: 
+Ground-based instruments, instead, use the Earth's atmosphere as a particle detector, relying on the fact that
+cosmic \gammarays interacting in the atmosphere create large showers of secondary particles that can be observed from the ground.
+Ground-based \gammaray astronomy relies on these extensive air showers to estimate the
+primary \gammaray photons incident direction and energy.
+These instruments operate in the so-called very-high-energy (VHE) regime,
+covering the energy range from few tens of \si{GeV} up to the \si{PeV}.
+There are two main categories of ground-based instruments.
 
 \textit{Imaging Atmospheric Cherenkov Telescopes (IACTs)} obtain images of the atmospheric showers
 by detecting the Cherenkov radiation emitted by charged particles in the cascade and
@@ -282,12 +282,11 @@ lower signal-to-noise ratios compared to IACTs~\citep{2015CRPhy..16..610D}.
 		The lower left shows the group of all-sky instruments such as the
 		Fermi Large Area Telescope (\textit{Fermi}-LAT) and the High Altitude
 		Water Cherenkov Observatory (HAWC). The calibrated data of all those
-		instruments can be converted and stored into the common GADF data format.
-		\gammapy can read data stored in the GADF format.
+		instruments can be converted and stored into the common GADF data format, that \gammapy can read.
 		The \gammapy package is a community-developed project that
 		provides a common interface to the data and analysis of all
-		these \gammaray instruments. This way users can also easily combine data from
-		different instruments and perform a joint analysis.
+		these \gammaray instruments, allowing users to easily combine data from
+		different instruments and perform joint analyses.
 		\gammapy is built on the scientific Python ecosystem, and the required dependencies
 		are shown below the \gammapy logo.
 	}
@@ -297,33 +296,36 @@ lower signal-to-noise ratios compared to IACTs~\citep{2015CRPhy..16..610D}.
 
 
 %% Context
-While \fermi data as well as analysis tools have been public from the
+%% CN: I think Fermi-LAT data were available from the 2nd year on
+%% https://fermi.gsfc.nasa.gov/ssc/data/policy/
+While \fermi data and analysis tools have been public from the
 beginning, ground-based \gammaray astronomy has been historically conducted
-through experiments operated by independent collaborations. Each relying
+through experiments operated by independent collaborations, each relying
 on their own proprietary data and analysis software developed as part of the
-instrument. While the latter model has still been successful so far, it does not
+instrument. While this model has been so far successful, it does not
 permit easy combination of data from several instruments. This lack of
 interoperability currently limits the full exploitation of the
-available \gammaray data, especially because the different instruments often have
+available \gammaray data, especially in light of the fact that different instruments often have
 complementary sky coverages, and the various detection
 techniques have complementary properties in terms of energy range covered,
-duty cycle and spatial resolution. 
+duty cycle and spatial resolution.
 
 %TODO: better transition into context
+% CN: last-minute transition improvement
 The Cherenkov Telescope Array Observatory (CTAO) will be the first ground-based
 \gammaray instrument to be operated as an open observatory.
-Its high-level data\footnote{The lowest reduction level of data published by CTAO will be reconstructed event lists and corresponding instrument response functions.} will be shared publicly after
-some proprietary period, and the software required to analyze it will be distributed
-as well. To allow the re-usability of data from existing instruments and their interoperability,
-it is required to use open data formats and open tools that can support the various analysis methods
-commonly used in the field.
+Its high-level data\footnote{The lowest reduction level of data published by CTAO will be reconstructed event lists and corresponding instrument response functions.}
+will be shared publicly after some proprietary period, along with the software required to analyze them.
+The adoption of an open and standardised \gammaray data format, beside being a necesity for future observatories such as \cta,
+will be greatly beneficial to the current generation of instruments, eventually allowing to exploit their data legacies even
+beyond the end of their scientific operations.
 
 %% Context : formats
-In practice, the data reduction workflow of all \gammaray observatories
-is remarkably similar. After data calibration, shower events are reconstructed and
-gamma/hadron separation is applied to build lists of \gammaray-like events.
-The lists of \gammaray events are then used to derive scientific results, such as spectra, sky maps
-or light curves, taking into account the observation specific instrument response functions (IRFs).
+The usage of a common data format is facilitated by the remarkable similarity of the data reduction workflow of all \gammaray telescopes.
+After data calibration, shower events are reconstructed and
+a gamma / hadron separation is applied to reject cosmic-ray-intiated showers and build lists of \gammaray-like events.
+The latter can then be used, taking into account the observation-specific instrument response functions (IRFs),
+to derive scientific results, such as spectra, sky maps or light curves.
 Once the data is reduced to a list of events with reconstructed physical properties of the primary particle,
 the information is independent of the data-reduction process, and, eventually, of the detection technique. This implies,
 for example, that high-level data from IACTs and WCDs can be represented
@@ -331,7 +333,7 @@ with the same data model.
 The efforts to create a common format usable by various instruments
 converged in the so-called \textit{Data Formats for \gammaray Astronomy}
 initiative~\citep{gadf_proc,gadf_universe}, abbreviated to
-\texttt{gamma-astro-data-formats} (\gadf). This proposes prototypical
+\texttt{gamma-astro-data-formats} (\gadf). This community-driven intitiative proposes prototypical
 specifications to produce files based on the flexible image transport system
 (FITS) format~\citep{fits} encapsulating this high-level information. This is
 realized by storing a list of \gammaray-like events with their reconstructed and observed
@@ -339,6 +341,9 @@ quantities such as energy, incident direction and arrival time and a parametrisa
 the IRFs associated with the event list data. %% where? in the data units of a FITS file.
 
 %% Context: development of open software
+%% CN: I don't see the parallel between gamma-ray astronomy establishing itself and the success of python
+%% maybe this was the introduction of the very first draft?
+%% I would just write: "In the past decade, \textit{Python} has become..."
 In the past decade, observing the \gammaray sky has transitioned from a niche in the field of
 particle physics to an established branch of astronomy, completing the view of the
 sky in high energies. At the same time \textit{Python}
@@ -348,7 +353,8 @@ mostly attributed to the simple and easy to learn syntax, the ability to act as
 a \enquote{glue} language between different programming languages and last but not least
 the rich ecosystem of packages and its open and supportive community \citep{Momcheva2015}.
 
-In the sub-field of astronomy, the \astropy project \citep{astropy} was created in 2012
+%% CN: astronomy alone not a sub-field
+In the sub-field of computational astronomy, the \astropy project \citep{astropy} was created in 2012
 to build a community-developed core Python package for astronomy.
 It offers basic functionalities that astronomers of many fields need, such as representing
 and transforming astronomical coordinates, manipulating physical quantities including units
@@ -358,17 +364,24 @@ as well as reading and writing FITS files.
 %% \gammapy: concept and goals
 %%% Question: starting date? Is is relevant, what is the real start?
 The \gammapy project was started following the model of \astropy, with the objective of building a common
-software library for very high-energy \gammaray data analysis \citep{gammapy_2015}. 
+software library for \gammaray data analysis \citep{gammapy_2015}. 
 The core of the idea is illustrated in Figure~\ref{fig:big_picture}. The various \gammaray instruments
-can export their data to a common data format (\gadf) and then these data can be combined and
-analysed using a common software library.
-The \gammapy package is an independent community-developed software project. It has been selected to be the core library for the Science Analysis tools of CTAO
+can export their data to a common format (\gadf) and then combine and analyse
+them using a common software library.
+The \gammapy package is an independent community-developed software project.
+It has been selected to be the core library for the Science Analysis tools of \cta,
 but also involves contributors associated to other instruments.
 The \gammapy package is built on the scientific Python ecosystem: it uses \numpy~\citep{numpy} for n-dimensional data
 structures, \scipy~\citep{2020SciPy-NMeth} for numerical algorithms, \astropy~\citep{astropy} for
 astronomy-specific functionality, \iminuit~\citep{iminuit} for numerical minimisation
 and \matplotlib~\citep{matplotlib} for visualization.
 
+%% CN: what's this??? Out of place here! %%%%
+%They consist of two
+%observations of $20\,{\rm min}$ each, chosen from the dataset used to estimate
+%the performance of the upgraded stereo system~\citep{magic_performance} and
+%already included in~\cite{joint_crab}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 With the public availability of the \gadf format specifications and the
 \gammapy package, some experiments started to make limited subsets of
@@ -378,21 +391,24 @@ dataset (about 50 hours of observations taken between 2004 and 2008)
 based on the \gadf DL3 format \citep{HESS_DR1}. This data release served
 as a basis for validation of open analysis tools, including \gammapy 
 \cite[see e.g.][]{Mohrmann2019}. Two observations of the Crab nebula have been
+%% CN: what about VERITAS and FACT?
  released by the \magic collaboration~\citep{magic_performance}, using which a
 joint analysis across different gamma-ray instruments was first demonstrated in ~\cite{joint_crab}.
 The \hawc collaboration also released
 a limited test dataset of the Crab Nebula, which was used to validate
 the \gammapy package in \cite{Olivera2022}.
-The increased availability of public data, that followed the definition of
-a common data format, and the development of \gammapy as a community-driven open software
+%% CN: I would remark this also demonstrated Gammapy could be applied to WCD
+%% depite having been designed for IACTs initially
+The increased availability of public data that followed the definition of
+a common data format, and the development of \gammapy as a community-driven open software,
 led the way toward a more open science in the very-high-energy \gammaray astronomy domain.
-In future CTAO will be an open observatory committed to follow the FAIR
+The adoption of \gammapy as science tools strengthens the commitment of the future \cta Observatory to the FAIR principles
 (Findable, Accessible, Interoperable and Reusable) principles \citep{FAIR16, FAIR22} 
-that define the key requirements for open science. 
+that define the key requirements for open science.
 
 %% Paper outline
 In this article, we describe the general structure of the \gammapy package,
-its main concepts and organisational structure. We start in
+its main concepts, and organisational structure. We start in
 Section~\ref{sec:gammaray-data-analysis} with a general overview
 of the data analysis workflow in very high-energy \gammaray astronomy. Then we
 show how this workflow is reflected in the structure of the \gammapy package 
