@@ -1275,7 +1275,7 @@ with time by users and/or developers according to future needs.
 \subsection{gammapy.catalog}
 \label{ssec:gammapy-catalog}
 Comprehensive source catalogs are increasingly being provided by many high-energy
- astrophysics experiments. The \code{gammapy.catalog} sub-packages
+astrophysics experiments. The \code{gammapy.catalog} sub-packages
 provides a convenient access to the most important \gammaray catalogs.
 Catalogs are represented by the \code{SourceCatalog} object, which
 contains the actual catalog as an Astropy \code{Table} object.
@@ -1284,12 +1284,13 @@ object or any association or alias name listed in the catalog.
 
 Sources are represented in \gammapy by the \code{SourceCatalogObject}
 class, which has the responsibility to translate the information
-contained in the catalog to other \gammapy objects. This includes
+contained in the catalog to \gammapy objects. This includes
 the spatial and spectral models of the source, flux points and
-light curves (if available) for each individual object. Figure ~\ref{fig*:minted:gp_catalogs}
+light curves (if available) for each individual object. 
+Figure ~\ref{fig*:minted:gp_catalogs}
 show how to load a given catalog and access these information for a selected source.
-This module works independently from the rest of the package, and the required
-catalogs are supplied in the \code{GAMMAPY\_DATA} repository.
+The required catalogs are supplied in the \code{GAMMAPY\_DATA} repository, such that 
+user do not have to download them separately.
 The overview of currently supported catalogs, the corresponding
 \gammapy classes and references are shown in Table~\ref{tab:catalogs}.
 Newly released relevant catalogs will be added in future.
@@ -1379,8 +1380,8 @@ log-likelihood profiles were computed using the \code{FluxPointsEstimator}.
 	\centering
 	\includegraphics[width=1.\textwidth]{figures/cta_galactic_center.pdf}
 	\caption{
-		Example of a one dimensional spectral analysis of the Galactic Center for three simulated CTA
-		observations from the first CTA data challenge dataset. The left image shows the maps of counts with the signal
+		Example of a one dimensional spectral analysis of the Galactic Center for three simulated
+		observations from the first CTA data challenge. The left image shows the maps of counts with the signal
 		region in white and the reflected background regions for the three different observations
 		overlaid in different colors. The right image shows the resulting spectral flux points and
 		their corresponding log-likelihood profiles. The flux points are shown in orange, with the
