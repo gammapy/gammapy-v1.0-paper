@@ -631,10 +631,10 @@ The \code{gammapy.data} sub-package implements the functionality to select,
 read, and represent DL3 \gammaray data in memory. It provides the main user
 interface to access the lowest data level. \gammapy currently only
 supports data that is compliant with \code{v0.2} and \code{v0.3} of the \gadf data format.
-DL3 data are typically bundled into individual observations, corresponding to stable periods of data acquisition. For IACT data analysis,
-for which the GADF data model and \gammapy were initially conceived,
-these are usually $20 - 30\,{\rm min}$ long.
-Each observation is assigned a unique integer ID for reference.
+DL3 data are typically bundled into individual observations, corresponding to
+stable periods of data acquisition. For IACT instrumeents, for which the \gadf
+data model and \gammapy were initially conceived, this duration is typically 
+$20 - 30\,{\rm min}$. Each observation is assigned a unique integer ID for reference.
 
 A typical usage example is shown in Figure~\ref{fig*:minted:gp_data}.
 First a \code{DataStore} object is created from the path of the data
@@ -805,7 +805,7 @@ the FITS World Coordinate System (WCS), the HEALPix pixelization and
 region-based data structure (see Figure~\ref{fig*:minted:gp_maps}).
 This allows users to perform the same higher level operations on maps
 independent of the underlying pixelisation scheme. The \code{gammapy.maps}
-package is also used by external packages such as \textit{FermiPy}~\citep{Wood2017}
+package is also used by external packages such as \textit{FermiPy}~\citep{Wood2017}.
 
 \begin{figure}
 	\small
