@@ -1,8 +1,10 @@
+from astropy import units as u
 from gammapy.modeling.models import (
-    SkyModel,
-    PowerLawSpectralModel,
-    PointSpatialModel,
     ConstantTemporalModel,
+    EBLAbsorptionNormSpectralModel,
+    PointSpatialModel,
+    PowerLawSpectralModel,
+    SkyModel,
 )
 
 # define a spectral model
@@ -17,6 +19,7 @@ point = PointSpatialModel(
     frame="galactic"
 )
 
+
 # define a temporal model
 constant = ConstantTemporalModel()
 
@@ -28,3 +31,10 @@ model = SkyModel(
     name="my-model",
 )
 print(model)
+
+ebl = EBLAbsorptionNormSpectralModel.read_builtin(
+    reference="dominguez", redshift=0.5
+)
+
+absorbed = pwl * ebl
+absorbed.plot(energy_bounds=(0.1, 100) * u.TeV)
