@@ -1642,16 +1642,13 @@ Agnpy, Naima, Jetset and Gamera packages\footnote{\url{https://agnpy.readthedocs
 
 \subsection{Surveys, Catalogs, and Population Studies}
 \label{ssec:surveys-catalogs-and-population-studies}
-
-Sky surveys have a large potential for new source detections, and discovery of new phenomena
- in \gammaray astronomy. They also offer less selection bias to perform
-source population studies over a large set of coherently detected and modelled objects.
+As a last application example we describe the use of \gammapy for large scale
+analyses such as \gammaray surveys, catalogs and population studies.
 Early versions of \gammapy were developed in parallel to the preparation of
 the \hess Galactic plane survey catalog~\citep[HGPS, ][]{2018A&A...612A...1H} and
-the associated PWN and SNR populations studies~\citep{2018A&A...612A...2H,
-	2018A&A...612A...3H}. 
+the associated PWN and SNR populations studies~\citep{2018A&A...612A...2H,2018A&A...612A...3H}. 
 
-The increase in sensitivity and resolution provided by the new generation of
+The increase in sensitivity and angular resolution provided by the new generation of
 instruments scales up the number of detectable sources and the complexity of 
 models needed to represent them accurately. As an example, if we compare the
 results of the HGPS to the expectations from the \cta Galactic Plane survey
@@ -1661,53 +1658,52 @@ and increase in complexity of modelling scenarios, requires the high-level
 analysis software to be both scalabale as well as performant. 
 
 In short, the production of catalogs from \gammaray surveys can be divided in
-four main steps: data reduction; object detection; model fitting and model
-selection; associations and classification. All steps can either be done directly
-with \gammapy or by relying on the seamless integration
-of \gammapy with the scientific Python ecosystem. This allows to rely
-on 3rd party functionality wherever needed.
+four main steps: (a) data reduction, (b) object detection, (c) model fitting and model
+selection and (d) associations and classification. All steps can either be done directly
+with \gammapy or by relying on the seamless integration of \gammapy with the
+scientific Python ecosystem. This allows to rely on 3rd party functionality
+wherever needed. A simplifed catalog analysis based on \gammapy typically includes:
 
-The \iacts data reduction step is done in the same way described in the 
-previous sections but scaled up to few thousands of observations. The object
-detection step typically consists in finding local maxima in the significance or TS maps,
-computed by the \code{ExcessMapEstimator} or \code{TSMapEstimator} respectively.
- Further refinements can
-include for example filtering and detection on these maps with techniques from
-the \textit{Scikit-image} package~\citep{scikit-image}, and outlier detection from
-the \textit{Scikit-learn} package~\citep{scikit-learn}. This allows e.g., to 
-reduce the number of spurious detections at this stage using standard
-classification algorithms and then speed up the next step,
-as less objects will have to be fitted simultaneously. During the modelling
-step each object is alternatively fitted with different models in order to
-determine their optimal parameters, and the best-candidate model. The
-subpackage \code{gammapy.modeling.models} offers a large variety of choices, and the
-possibility to add custom models.  Several spatial models (point-source, disk,
-Gaussian...), and spectral models (power law, log parabola...) may be tested
-for each object, so the complexity of the problem increases rapidly in regions
-crowded with multiple extended sources. Finally an object is discarded if its
-best-fit model is not significantly preferred over the null hypothesis (no
-source) comparing the difference in log likelihood between these two
-hypotheses.
+\begin{itemize}
+	\item[a] The \iacts data reduction step is done in the same way described in the 
+	previous sections but scaled up to few thousands of observations. This step can be
+	trivially parallelised by deploying the \gammapy package on a cluster.
+	\item[b] The object detection step typically consists in finding local maxima
+	in the significance or TS maps, computed by the \code{ExcessMapEstimator} or
+	\code{TSMapEstimator} respectively. For this \gammapy provides a simple \code{find_peaks}
+	method. For more advanced methods users can rely on 3rd party packages such as
+	\textit{Scikit-image}~\citep{scikit-image}. This packages provide e.g. general
+	blob detection algorithms and image segmentation methods such as hysteresis thresholding
+	or the watershed transform. 	
+	\item[c] During the modelling step each object is alternatively fitted with different
+	models in order to determine their optimal parameters, and the best-candidate model. The
+	subpackage \code{gammapy.modeling.models} offers a large variety of choices for spatial
+	and spectral models as well as the possibility to add custom models. For the model selection
+	\gammapy provides statisticl helper methods to perform likelihood ratio tests.
+	But users can also rely on 3rd party packages such as \textit{Scikit-learn}~\citep{scikit-learn}
+	to compute quantities such as the Akaike information criterion (AIC) or the Bayesian
+	information criterion (BIC), which also allow for model selection.
+	\item[d] For the association and classification step, which is tightly connected to
+	population studies, we can easily compare the fitted models to the set of
+	existing \gammaray catalogs available in \code{gammapy.catalog}. Further
+	multi-wavelength cross-matches are usually required to characterize the
+	sources. This can easily be achieved by relying on coordinate
+	handling from Astropy in combination with affiliated packages such as
+	\textit{Astroquery}~\citep{astroquery}. For more advanced source classification
+	methods users can again rely e.g. \textit{Scikit-learn} to perform supervised
+	or unsupervised clustering.
+\end{itemize}
 
-For the association and classification step, which is tightly connected to the
-population studies, we can easily compare the fitted models to the set of
-existing \gammaray catalogs available in \code{gammapy.catalog}. Further
-multi-wavelength cross-matches are usually required to characterize the
-sources. This can easily be achieved by relying on coordinate
-handling from Astropy in combination with affiliated packages
-\textit{Astroquery}~\citep{astroquery}.
-
-Studies performed on simulations not only offer a first glimpse on what could
-be the sky seen by CTA (according to our current knowledge on source
-populations), but also give us the opportunity to test the software on complex
-use cases\footnote{Note that the CTA-GPS simulations were performed with the
-	\textit{ctools} package~\citep{2016A&A...593A...1K} and analysed with both
-	\textit{ctools} and \textit{gammapy} packages in order to cross-validate
-	them.}. In this way we can improve performance, optimize our analyse strategies, and
-identify the needs in terms of parallelisation to process the large datasets
-provided by surveys.
-
-
+\gammapy has been succesfully used for catalog studies performed on simulations
+of the future \cta Galactic Plane Survey~\citep{Remy2021}. Besides the scientific
+insights they also gave us the opportunity to test the \gammapy software on complex
+use cases. This resulted in a number of improvements to the \gammapy package, such as
+as improved performance, optimized analysis strategies documented to users, and
+identifying the needs for future developments, including solutions for distributed
+computing. The catalog studies of the \cta Galactic Plane Survey simulations
+also allowed for detailed cross-comparison of the results obtained with the independent
+\gammaray analysis package \textit{ctools}\citep{2016A&A...593A...1K}, with very consistent 
+results.
 
 \section{The \gammapy Project} \label{sec:gammapy-project}
 
