@@ -1053,15 +1053,17 @@ either, for example, from multiple sources and from a diffuse emission, or from 
 components within the same source. To handle a list of multiple \code{SkyModel} objects, \gammapy
 implements a \code{Models} class.
 
-%% CN: a link to the model gallery?
 The model gallery\footnote[number]{\url{https://docs.gammapy.org/1.0/user-guide/model-gallery/index.html}}
  provides a visual overview of the available models in
 \gammapy. Most of the analytic models commonly used in \gammaray astronomy are
 built-in. We also offer a wrapper to radiative models implemented in the Naima
-package~\citep{naima}. The modelling framework can be easily extended with
+package~\citep{naima}. The modeling framework can be easily extended with
 user-defined models. For example, the radiative models of jetted Active Galactic Nuclei (AGN)
 implemented in \agnpy~\citep{agnpy2022}, can be wrapped into 
-\gammapy~\citep[see Section 3.5 of ][]{2022A&A...660A..18N}.
+\gammapy~\citep[see Section 3.5 of ][]{2022A&A...660A..18N}. We provide 
+more examples of user-defined models, such as a parametric model for energy dependent morphology,
+in the online documentation\footnote[number]{\url{https://docs.gammapy.org/1.0/tutorials/api/models.html#implementing-a-custom-model}}.
+
 
 \begin{figure}
 	\small
