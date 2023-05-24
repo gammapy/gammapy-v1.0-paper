@@ -1,5 +1,6 @@
 # reduce the MAGIC data to OGIP files for the 1D analysis
 import logging
+import time
 from pathlib import Path
 
 import astropy.units as u
@@ -128,7 +129,6 @@ def reduce_magic_data():
     datasets = Datasets()
 
     for obs in observations:
-
         # fill the ON counts
         dataset = dataset_maker.run(dataset_empty.copy(name=f"{obs.obs_id}"), obs)
         # fill the OFF counts and set the energy range appropiate for the fit
@@ -180,6 +180,7 @@ def fit_joint_dataset(datasets, models, filename):
 
 if __name__ == "__main__":
     # load the three instruments datasets
+    t_start = time.time()
     fermi_dataset = load_fermi_datasets()
     magic_datasets = reduce_magic_data()
     hawc_dataset = load_hawc_flux_points()
@@ -237,6 +238,12 @@ if __name__ == "__main__":
         "crab-nebula-spectrum-only",
     )
 
+    t_stop = time.time()
+
+    path = Path(".")
+    with (path / "../run-times.csv").open("a") as fh:
+        fh.write(f"multi-istrument-example: {t_stop - t_start}\n")
+
     # fit with the naima IC model
     naima_ic_spectral_model = CrabInverseComptonSpectralModel(
         amplitude=1e32 / u.eV, alpha=2.1, e_0=100 * u.GeV, beta=0.1
@@ -250,3 +257,9 @@ if __name__ == "__main__":
     fit_joint_dataset(
         datasets, models, "results/crab_multi_instrument_fit_naima_ic_model.yaml"
     )
+
+    t_stop = time.time()
+
+    path = Path(".")
+    with (path / "../run-times.csv").open("a") as fh:
+        fh.write(f"multi-istrument-naima-example: {t_stop - t_start}\n")

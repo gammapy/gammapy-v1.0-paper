@@ -1,4 +1,5 @@
 import logging
+import time
 from pathlib import Path
 
 import astropy.units as u
@@ -106,6 +107,7 @@ def light_curve(datasets, time_intervals, sky_model):
 
 
 if __name__ == "__main__":
+    t_start = time.time()
     path = Path(".")
     filename = path / "pks2155_flare_lc.fits.gz"
 
@@ -116,3 +118,8 @@ if __name__ == "__main__":
     lc = light_curve(datasets, time_intervals, sky_model)
     log.info(f"Writing {filename}")
     lc.write(filename, format="lightcurve", overwrite=True)
+
+    t_stop = time.time()
+
+    with (path / "../run-times.csv").open("a") as fh:
+        fh.write(f"lightcurve-example: {t_stop - t_start}\n")

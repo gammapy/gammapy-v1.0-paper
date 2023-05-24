@@ -1376,7 +1376,8 @@ a point source with a power law spectral shape. The model was defined, using
 the \code{SkyModel} class with a \code{PowerLawSpectralModel} spectral component only.
 This model was then combined with the \code{SpectrumDataset}, which contains the reduced data 
 and fitted using the \code{Fit} class. Based on this best-fit model, the final flux points and corresponding
-log-likelihood profiles were computed using the \code{FluxPointsEstimator}.
+log-likelihood profiles were computed using the \code{FluxPointsEstimator}. The
+example takes $<10$ seconds to run on a standard laptop with M1 arm64 CPU.
 
 \begin{figure*}
 	\centering
@@ -1472,10 +1473,10 @@ region. To highlight this, we define a circular \code{RegionGeom} of radius
 in the left panel of Figure~\ref{fig:cube_analysis}. We can now compare the
 measured excess counts integrated in that region to the expected relative
 contribution from each of the three source models. The result can be seen in the right
-panel of Figure~\ref{fig:cube_analysis}.
-
-Note that all the models fitted also have a spectral component, from which flux
-points can be derived in a similar way as described in Section~\ref{ssec:1d-analysis}.
+panel of Figure~\ref{fig:cube_analysis}. Note that all the models fitted also have a
+spectral component, from which flux points can be derived in a similar way as described
+in Section~\ref{ssec:1d-analysis}. The whole example takes $<2$ minutes to run on a standard
+laptop with M1 arm64 CPU.
 %\end{figure*}%	\caption{Fermi-LAT TS map in two energy bands} \label{fig:fermi_ts_map}%	\includegraphics[width=1.\textwidth]{figures/fermi_ts_map.pdf}%Ref:~\citep{Stewart2009} \begin{figure*}[t] \centering%\todo{What to do with } Figure~\ref{fig:fermi_ts_map} ?%
 
 \subsection{Temporal Analysis}
@@ -1520,7 +1521,8 @@ light curve, it is also possible to directly fit temporal models to the reduced
 datasets. By associating an appropriate \code{SkyModel}, consisting of both temporal
 and spectral components, or using custom temporal models with spectroscopic
 variability, to each dataset, a joint fit across the datasets will directly
-return the best fit temporal and spectral parameters.
+return the best fit temporal and spectral parameters. The light curve data reduction
+and computation of flux points takes about $0.5$ minutes to run on a standard laptop with M1 arm64 CPU.
 
 \subsection{Multi-instrument Analysis}
 \label{ssec:multi-instrument-analysis}
@@ -1588,7 +1590,7 @@ Figure~\ref{fig:multi_instrument_analysis}. We remark that the objective of this
 exercise is illustrative. We display the flexibility of \gammapy in
 simultaneously fitting multi-instrument data even at different levels of
 reduction, without aiming to provide a new measurement of the Crab Nebula
-spectrum.
+spectrum. The spectral fit takes $<10$ seconds to run on a standard laptop with M1 arm64 CPU.
 
 %% eventual part for physical modelling with naima
 
@@ -1626,7 +1628,8 @@ electron distribution that scatters photons from:
 We adopt the prescription on the target photon fields provided in the documentation of the \textit{Naima}
 package\footnote{\url{https://naima.readthedocs.io/en/stable/examples.html\#crab-nebula-ssc-model}}.
 The best-fit inverse Compton spectrum is represented with a red dashed line in
-Figure~\ref{fig:multi_instrument_analysis}.
+Figure~\ref{fig:multi_instrument_analysis}. The fit of the astrophysical model
+takes $<5$ minutes to run on a standard laptop with M1 arm64 CPU.
 
 \subsection{Surveys, Catalogs, and Population Studies}
 \label{ssec:surveys-catalogs-and-population-studies}
