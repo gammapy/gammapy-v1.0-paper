@@ -624,7 +624,7 @@ sub-package which provides a high-level interface for executing analyses
 defined from configuration files. In the following sections, we will
 introduce all sub-packages and their functionalities in more detail.
 In the online documentation we also provide an overview of all
-the \gammapy sub-packages\footnote[number]{\url{https://docs.gammapy.org/1.0/user-guide/package.html}}.
+the \gammapy sub-packages\footnote{\url{https://docs.gammapy.org/1.0/user-guide/package.html}}.q
 
 
 \subsection{gammapy.data}
@@ -775,7 +775,7 @@ longitude and latitude of a tangential FoV coordinates system.
 
 Some example IRFs read from public data files and plotted with \gammapy are shown 
 in Figure~\ref{fig:irfs}. More information on \code{gammapy.irf} can be found 
-in the online documentation\footnote{\url{https://docs.gammapy.org/1.0/user-guide/irf/index.html#irf}}.
+in the online documentation\footnote{\url{https://docs.gammapy.org/1.0/user-guide/irf/index.html\#irf}}.
 
 \subsection{gammapy.maps}
 \label{ssec:gammapy-maps}
@@ -870,7 +870,7 @@ for users as well as handling the underlying geometric operations. Region based
 maps are represented by the \code{RegionGeom} and \code{RegionNDMap} classes.
 
 More information on the \code{gammapy.maps} sub-module can be found 
-in the online documentation\footnote{\url{https://docs.gammapy.org/1.0/user-guide/maps/index.html#maps}}.
+in the online documentation\footnote{\url{https://docs.gammapy.org/1.0/user-guide/maps/index.html\#maps}}.
 
 \subsection{gammapy.datasets}
 \label{ssec:gammapy-datasets}
@@ -916,7 +916,7 @@ also create their customized datasets for implementing modified likelihood
 methods.
 
 We also refer to our online documentation for more details on \code{gammapy.datasets}
-\footnote{\url{https://docs.gammapy.org/1.0.1/user-guide/datasets/index.html#datasets}}.
+\footnote{\url{https://docs.gammapy.org/1.0/user-guide/datasets/index.html\#datasets}}.
 
 \subsection{gammapy.makers}
 \label{ssec:gammapy-makers}
@@ -959,7 +959,7 @@ domain is determined by the \code{SafeMaskMaker}. It can be used to limit the
 extent of the FoV used, or to limit the energy range to, e.g., a domain
 where the energy reconstruction bias is below a given value.
 
-More detailed information on the \code{gammapy.makers} sub-package is available online\footnote{\url{https://docs.gammapy.org/1.0/user-guide/makers/index.html#makers}}.
+More detailed information on the \code{gammapy.makers} sub-package is available online\footnote{\url{https://docs.gammapy.org/1.0/user-guide/makers/index.html\#makers}}.
 
 
 \subsection{gammapy.stats}
@@ -1012,7 +1012,7 @@ significance~\citep{LiMa} of a set of measurements.
 \end{figure}
 
 Our online documentation provides more information on \code{gammapy.stats}
-\footnote{\url{https://docs.gammapy.org/1.0/user-guide/stats/index.html#stats}}. 
+\footnote{\url{https://docs.gammapy.org/1.0/user-guide/stats/index.html\#stats}}. 
 
 
 \subsection{gammapy.modeling}
@@ -1067,7 +1067,7 @@ either, for example, from multiple sources and from a diffuse emission, or from 
 components within the same source. To handle a list of multiple \code{SkyModel} objects, \gammapy
 implements a \code{Models} class.
 
-The model gallery\footnote[number]{\url{https://docs.gammapy.org/1.0/user-guide/model-gallery/index.html}}
+The model gallery\footnote{\url{https://docs.gammapy.org/1.0/user-guide/model-gallery/index.html}}
  provides a visual overview of the available models in
 \gammapy. Most of the analytic models commonly used in \gammaray astronomy are
 built-in. We also offer a wrapper to radiative models implemented in the Naima
@@ -1076,7 +1076,7 @@ user-defined models. For example, the radiative models of jetted Active Galactic
 implemented in \agnpy~\citep{agnpy2022}, can be wrapped into 
 \gammapy~\citep[see Section 3.5 of ][]{2022A&A...660A..18N}. We provide 
 more examples of user-defined models, such as a parametric model for energy dependent morphology,
-in the online documentation\footnote[number]{\url{https://docs.gammapy.org/1.0/tutorials/api/models.html#implementing-a-custom-model}}.
+in the online documentation\footnote{\url{https://docs.gammapy.org/1.0/tutorials/api/models.html\#implementing-a-custom-model}}.
 
 
 \begin{figure}
@@ -1214,7 +1214,7 @@ the \code{TSMapEstimator} objects with a given input \code{MapDataset}.
 In addition to the model, it allows to specify the energy
 bins of the resulting flux and TS maps.
 
-More details on the \code{gammapy.estimators} sub-module are available online \footnote{\url{https://docs.gammapy.org/1.0/user-guide/estimators.html#estimators}}.
+More details on the \code{gammapy.estimators} sub-module are available online \footnote{\url{https://docs.gammapy.org/1.0/user-guide/estimators.html\#estimators}}.
 
 \begin{figure}
 	\small
@@ -1647,11 +1647,11 @@ Figure~\ref{fig:multi_instrument_analysis}. The fit of the astrophysical model
 takes $<5$ minutes to run on a standard laptop with M1 arm64 CPU.
 
 More examples for modelling the broadband emission of \gammaray sources, which 
-partly involve \gammpy are available in the online documentation of the
-Agnpy, Naima, Jetset and Gamera packages\footnote{\url{https://agnpy.readthedocs.io/en/latest/tutorials/ssc_gammapy_fit.html}},
+partly involve \gammapy are available in the online documentation of the
+Agnpy, Naima, Jetset and Gamera packages\footnote{\url{https://agnpy.readthedocs.io/en/latest/tutorials/ssc\_gammapy\_fit.html}},
 \footnote{\url{https://naima.readthedocs.io/en/stable/tutorial.html}}, 
-\footnote{\url{https://jetset.readthedocs.io/en/stable/user_guide/documentation_notebooks/gammapy_plugin/gammapy_plugin.html}},
-\footnote{\url{http://libgamera.github.io/GAMERA/docs/fitting_data.html}}.
+\footnote{\url{https://jetset.readthedocs.io/en/stable/user\_guide/documentation\_notebooks/gammapy\_plugin/gammapy\_plugin.html}},
+\footnote{\url{http://libgamera.github.io/GAMERA/docs/fitting\_data.html}}.
 
 
 
@@ -1685,7 +1685,7 @@ wherever needed. A simplifed catalog analysis based on \gammapy typically includ
 	trivially parallelised by deploying the \gammapy package on a cluster.
 	\item[b] The object detection step typically consists in finding local maxima
 	in the significance or TS maps, computed by the \code{ExcessMapEstimator} or
-	\code{TSMapEstimator} respectively. For this \gammapy provides a simple \code{find_peaks}
+	\code{TSMapEstimator} respectively. For this \gammapy provides a simple \code{find\_peaks}
 	method. For more advanced methods users can rely on 3rd party packages such as
 	\textit{Scikit-image}~\citep{scikit-image}. This packages provide e.g. general
 	blob detection algorithms and image segmentation methods such as hysteresis thresholding
