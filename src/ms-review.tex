@@ -623,6 +623,8 @@ light curves or flux points. Finally there is a \code{gammapy.analysis}
 sub-package which provides a high-level interface for executing analyses
 defined from configuration files. In the following sections, we will
 introduce all sub-packages and their functionalities in more detail.
+In the online documentation we also provide an overview of all
+the \gammapy sub-packages\footnote[number]{\url{https://docs.gammapy.org/1.0/user-guide/package.html}}.
 
 
 \subsection{gammapy.data}
@@ -772,7 +774,8 @@ In the \code{Background3D} case, the background is allowed to vary with
 longitude and latitude of a tangential FoV coordinates system.
 
 Some example IRFs read from public data files and plotted with \gammapy are shown 
-in Figure~\ref{fig:irfs}.
+in Figure~\ref{fig:irfs}. More information on \code{gammapy.irf} can be found 
+in the online documentation\footnote{\url{https://docs.gammapy.org/1.0/user-guide/irf/index.html#irf}}.
 
 \subsection{gammapy.maps}
 \label{ssec:gammapy-maps}
@@ -866,6 +869,8 @@ package \citep{AstropyRegions2022}, which is both used as an API to define regio
 for users as well as handling the underlying geometric operations. Region based
 maps are represented by the \code{RegionGeom} and \code{RegionNDMap} classes.
 
+More information on the \code{gammapy.maps} sub-module can be found 
+in the online documentation\footnote{\url{https://docs.gammapy.org/1.0/user-guide/maps/index.html#maps}}.
 
 \subsection{gammapy.datasets}
 \label{ssec:gammapy-datasets}
@@ -910,6 +915,9 @@ manipulating reduced data, e.g. stacking, sub-grouping, plotting. Users can
 also create their customized datasets for implementing modified likelihood
 methods.
 
+We also refer to our online documentation for more details on \code{gammapy.datasets}
+\footnote{\url{https://docs.gammapy.org/1.0.1/user-guide/datasets/index.html#datasets}}.
+
 \subsection{gammapy.makers}
 \label{ssec:gammapy-makers}
 %
@@ -950,6 +958,8 @@ Finally, to limit other sources of systematic uncertainties, a data validity
 domain is determined by the \code{SafeMaskMaker}. It can be used to limit the
 extent of the FoV used, or to limit the energy range to, e.g., a domain
 where the energy reconstruction bias is below a given value.
+
+More detailed information on the \code{gammapy.makers} sub-package is available online\footnote{\url{https://docs.gammapy.org/1.0/user-guide/makers/index.html#makers}}.
 
 
 \subsection{gammapy.stats}
@@ -1000,6 +1010,10 @@ significance~\citep{LiMa} of a set of measurements.
     }
 	\label{fig*:minted:gp_stats}
 \end{figure}
+
+Our online documentation provides more information on \code{gammapy.stats}
+\footnote{\url{https://docs.gammapy.org/1.0/user-guide/stats/index.html#stats}}. 
+
 
 \subsection{gammapy.modeling}
 \label{ssec:gammapy-modeling}
@@ -1200,6 +1214,7 @@ the \code{TSMapEstimator} objects with a given input \code{MapDataset}.
 In addition to the model, it allows to specify the energy
 bins of the resulting flux and TS maps.
 
+More details on the \code{gammapy.estimators} sub-module are available online \footnote{\url{https://docs.gammapy.org/1.0/user-guide/estimators.html#estimators}}.
 
 \begin{figure}
 	\small
