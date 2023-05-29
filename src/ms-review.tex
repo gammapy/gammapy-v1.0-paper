@@ -226,46 +226,7 @@
 % Main part
 \section{Introduction}
 \label{sec:introduction}
-
-
-%% \gammaray astronomy
-Modern astronomy offers the possibility to observe and study astrophysical sources across
-all wavelengths. The \gammaray range of the electromagnetic spectrum 
-provides us with insights into the most energetic processes in the universe such as
-those accelerating particles in the surroundings of black holes or remnants of
-supernova explosions.
-
-In general, \gammaray astronomy relies on the detection of individual 
-photon events and reconstruction of their incident direction as well
-as energy. As in other branches of astronomy, this can be
-achieved by satellite as well as ground-based \gammaray instruments.
-Space-borne instruments such as the Fermi Large Area Telescope (LAT)
-rely on the pair-conversion effect to detect \gammarays and track
-the positron-electron pairs created in the detector to reconstruct the incident direction 
-of the incoming \gammaray. The energy of the photon is estimated using a calorimeter
-at the bottom of the instrument. The energy range of instruments like \fermi \citep{Atwood2009}, referred to as
-high-energy (HE), goes approximately from tens of \si{MeV} to hundreds of \si{GeV}. 
-
-Ground-based instruments, instead, use the Earth's atmosphere as a particle detector, relying on the fact that
-cosmic \gammarays interacting in the atmosphere create large showers of secondary particles that can be observed from the ground.
-Ground-based \gammaray astronomy relies on these extensive air showers to estimate the
-primary \gammaray photons incident direction and energy.
-These instruments operate in the so-called very-high-energy (VHE) regime,
-covering the energy range from few tens of \si{GeV} up to the \si{PeV}.
-There are two main categories of ground-based instruments.
-
-\textit{Imaging Atmospheric Cherenkov Telescopes (IACTs)} obtain images of the atmospheric showers
-by detecting the Cherenkov radiation emitted by charged particles in the cascade and
-use these images to reconstruct the properties of the incident particle.
-Those instruments have a limited field of view (FoV) and duty cycle, but
-good energy and angular resolution.
-	
-\textit{Water Cherenkov Detectors (WCDs)} detect particles directly from the tail of the
-shower when it reaches the ground. These instruments have a very
-large FoV, and large duty-cycle, but a higher energy threshold and
-lower signal-to-noise ratios compared to IACTs~\citep{2015CRPhy..16..610D}.
-
-
+%
 \begin{figure*}[t]
 	\centering
 	\includegraphics[width=\textwidth]{figures/big-picture.pdf}
@@ -292,13 +253,59 @@ lower signal-to-noise ratios compared to IACTs~\citep{2015CRPhy..16..610D}.
 	\label{fig:big_picture}
 
 \end{figure*}
+%
+%% \gammaray astronomy
+Modern astronomy offers the possibility to observe and study astrophysical sources across
+all wavelengths. The \gammaray range of the electromagnetic spectrum 
+provides us with insights into the most energetic processes in the universe such as
+those accelerating particles in the surroundings of black holes or remnants of
+supernova explosions.
 
+In general, \gammaray astronomy relies on the detection of individual 
+photon events and reconstruction of their incident direction as well
+as energy. As in other branches of astronomy, this can be
+achieved by satellite as well as ground-based \gammaray instruments.
+Space-borne instruments such as the Fermi Large Area Telescope (LAT)
+rely on the pair-conversion effect to detect \gammarays and track
+the positron-electron pairs created in the detector to reconstruct the incident direction 
+of the incoming \gammaray. The energy of the photon is estimated using a calorimeter
+at the bottom of the instrument. The energy range of instruments like \fermi \citep{Atwood2009}, referred to as
+high-energy (HE), goes approximately from tens of \si{MeV} to hundreds of \si{GeV}. 
+
+Ground-based instruments, instead, use the Earth's atmosphere as a particle detector, relying on the effect that
+cosmic \gammarays interacting in the atmosphere create large showers of secondary particles that can be observed from the ground.
+Ground-based \gammaray astronomy relies on the observation of these extensive air showers to estimate the
+primary \gammaray photons incident direction and energy.
+These instruments operate in the so-called very-high-energy (VHE) regime,
+covering the energy range from few tens of \si{GeV} up to the \si{PeV}.
+There are two main categories of ground-based instruments.
+
+\begin{itemize}
+\setlength\itemsep{1em}
+
+\item \textit{Imaging Atmospheric Cherenkov Telescopes (IACTs)} obtain images of the atmospheric showers
+by detecting the Cherenkov radiation emitted by charged particles in the cascade and
+use these images to reconstruct the properties of the incident particle.
+Those instruments have a limited field of view (FoV) and duty cycle, but
+good energy and angular resolution.
+	
+\item \textit{Water Cherenkov Detectors (WCDs)} detect particles directly from the tail of the
+shower when it reaches the ground. These instruments have a very
+large FoV, and large duty-cycle, but a higher energy threshold and
+lower signal-to-noise ratios compared to IACTs~\citep{2015CRPhy..16..610D}.
+
+\end{itemize}
 
 %% Context
 %% CN: I think Fermi-LAT data were available from the 2nd year on
 %% https://fermi.gsfc.nasa.gov/ssc/data/policy/
+<<<<<<< HEAD
 While \fermi data and analysis tools have been public from the
 beginning \citep{Atwood2009}, ground-based \gammaray astronomy has been historically conducted
+=======
+While \fermi data and analysis tools have been public from early years
+of the project \citep{Atwood2009}, ground-based \gammaray astronomy has been historically conducted
+>>>>>>> fe956e5 (Merge sections 2 and 2.1)
 through experiments operated by independent collaborations, each relying
 on their own proprietary data and analysis software developed as part of the
 instrument. While this model has been so far successful, it does not
@@ -348,8 +355,6 @@ in particular in the field of data sciences. This success is
 mostly attributed to the simple and easy to learn syntax, the ability to act as
 a \enquote{glue} language between different programming languages and last but not least
 the rich ecosystem of packages and its open and supportive community \citep{Momcheva2015}.
-
-%% CN: astronomy alone not a sub-field
 In the sub-field of computational astronomy, the \astropy project \citep{astropy} was created in 2012
 to build a community-developed core Python package for astronomy.
 It offers basic functionalities that astronomers of many fields need, such as representing
@@ -435,55 +440,34 @@ finally discusses the project organization.
 \end{figure*}
 %
 \label{sec:gammaray-data-analysis}
-% This might not be the bast place compared to introduction
-The data analysis process in \gammaray astronomy is usually split into two parts.
+The data analysis process in \gammaray astronomy is usually split into two stages.
 The first one deals with the data processing from detector measurement, calibration, event
 reconstruction and selection to yield a list of reconstructed \gammaray event candidates.
 This part of the data reduction sequence, sometimes referred to as low-level analysis,
 is usually very specific to a given observation technique and even to a given instrument.
 
-The other sequence, referred to as high-level analysis, deals with the extraction of physical
-quantities related to \gammaray sources and the production of high-level products such as spectra,
-light curves and catalogs. The methods applied here are more generic and are broadly
-shared across the field. The similarity in the high-level analysis would also allow
-for combining data from multiple instruments.
+The second stage, referred to as high-level analysis, deals with the extraction of physical
+quantities related to \gammaray sources and the production of high-level science products
+such as spectra, light curves and catalogs. The core of the analysis consists in predicting
+the result of an observation by modelling the flux distribution of an astrophysical
+object and pass it through a model of the instrument. The methods applied here are more
+generic and are broadly shared across the field. The similarity in the high-level
+analysis conceptionally also allow for easily combining data from multiple instruments.
+This part of the data analysis is supported by \gammapy. 
 
-%\subsection{Predicted counts and Instrument Response Functions}
+\subsection{DL3: Events And Instrument Response Functions}
+An overview of the typical steps in the high level analysis is shown in the upper
+row of Figure~\ref{fig:data_flow}. The high level analysis starts at the DL3 
+data level, where \gammaray data is represented as lists of \gammaray-like events and their
+corresponding IRFs $R$. DL3 data are typically bundled into individual observations, corresponding to
+stable periods of data acquisition. For IACT instruments, for which the \gadf
+data model and \gammapy were initially conceived, this duration is typically 
+$t_{\rm obs}=20 - 30\,{\rm min}$. Each observation is assigned a unique integer ID for reference.
+The event list is just a simple table with one event per row and
+the measured event properties as columns. These properties e.g., include reconstructed
+incident direction and energy, arrival time and reconstruction quality.
 
-To extract physically relevant information, such as the flux, spatial or spectral shape of one or more sources,
-an analytical model is commonly adopted to describe the intensity of the radiation from gamma-ray sources
-as a function of the energy, $E_{\rm true}$, and of the position in the FoV, $p_{\rm true}$:
-\begin{equation}
-    \Phi(p_{\rm true}, E_{\rm true}; \hat{\theta}), [\Phi] = \si{TeV^{-1}.cm^{-2}.s^{-1}}
-    \label{eq:general_source_model}
-\end{equation}
-where $\hat{\theta}$ is a set of model parameters that can be adjusted in a fit. To convert this analytical flux model
-into a prediction on the number of gamma-ray events detected by an instrument, $N_{\rm pred}$,
-with their estimated energy $E$ and position $p$, the model is convolved with the response function of the instrument.
-
-%% CN: not sure if we already commented about this, but align is artificially
-%% numbering every new line as a new equation
-%% I think
-%% \begin{equation}
-%%   \begin{split}
-%%     ...
-%%   \begin{split}
-%% \begin{equation}
-%% will avoid to number each new line
-
-In the most general way, we can write the expected number of detected events from the sky model $\Phi$ at measured position $p$ and energy $E$, for
-a given set of parameters $\hat{\theta}$, as:
-%
-\begin{equation}
-	\begin{split}
-   		N(p, E, \hat{\theta})\,{\rm d}p\,{\rm d}E = &t_{\rm obs} \int_{E_{\rm true}} \int_{p_{\rm true}}  R(p, E|p_{\rm true}, E_{\rm true}) \\
-   		&\cdot \Phi(p_{\rm true}, E_{\rm true}, \hat{\theta} ) {\rm d}E_{\rm true} {\rm d}p_{\rm true}
-	\end{split}
-\end{equation}
-
-where $R(p, E| p_{\rm true}, E_{\rm true})$ is the instrument response and $t_{\rm obs}$ is the observation duration.
-
-A common assumption is that the instrument response can be simplified as the product
+A common assumption for the instrument response is that it can be simplified as the product 
 of three independent functions:
 
 \begin{equation}
@@ -494,7 +478,7 @@ of three independent functions:
 	\end{split}
 \end{equation}
 
-where:
+\noindent Where:
 \begin{itemize}
 \setlength\itemsep{1em}
 \item $A_{\rm eff}(p_{\rm true}, E_{\rm true})$ is the effective collection area of the detector. It is the product
@@ -510,6 +494,7 @@ where:
   migration, $\mu=\frac{E}{E_{\rm true}}$.
 \end{itemize}
 
+<<<<<<< HEAD
 DL3 \gammaray data therefore consist of lists of \gammaray-like events and their
 corresponding instrument response functions. The latter include the effective area ($A_{\rm eff}$),
 PSF and energy dispersion ($E_{\rm disp}$).
@@ -544,6 +529,28 @@ The first step in \gammaray data analysis is the selection and extraction of obs
 based on their metadata including information such as pointing direction, observation
 time and observation conditions. 
 
+=======
+In addition to the instrument characteristics described above, there is also the instrumental
+background, that results from hadronic events being misclassified as \gammaray events. These
+events constitute a uniform background to the \gammaray events For \fermi the residual hadronic background
+is very small ($<1\%$) because of its veto layer and can often be neglected. For IACTs and WCTs in contrast
+the background can account for a very large part ($>95\%$) of the events and must be treated
+accordingly in the analysis. As the background is very specific to the instrument, \gammapy typically 
+relies on the background models provided with the DL3 data. The background typically only depends
+on the reconstructed event positon and energy $Bkg(p, E)$. However in general all IRFs depend on the
+geometrical parameters of the detector, e.g. location of an event in the FoV or the elevation
+angle of the incoming direction of the event. Consequently IRFs might be parametrised as functions
+of detector specific coordinates as well.
+
+The first step in \gammaray data analysis is the selection and extraction of a subset of
+observations based on their metadata including information such as pointing direction,
+observation time and observation conditions. All functionality related to representation, 
+access and selection of DL3 data is available in the \code{gammapy.data} and \code{gammapy.irf}
+sub-packages.
+
+
+\subsection{From DL3 to DL4: Data Reduction}
+>>>>>>> fe956e5 (Merge sections 2 and 2.1)
 The next step of the analysis is the data reduction, where all observation events and instrument
 responses are filled into or projected onto a common physical coordinate system, defined by
 a map geometry. The definition of the map geometry typically consists of a spectral dimension
@@ -551,57 +558,118 @@ defined by a binned energy axis and of spatial dimensions, which either define
 a spherical projection from celestial coordinates to a pixelised image space
 or a single region on the sky.
 
-%% CN: I would actually distingusih two cases here:
-%% 1) the Bkg is already provided as a parametrisation
-%% 2) the Bkg is not provided and, thus, has to be estimated from the obs.
 After all data have been projected into the same geometry, it is typically
 required to improve the residual hadronic background estimate. As residual hadronic
 background models can be subject to significant systematic uncertainties,
 these models can be improved by taking into account actual data
 from regions without known \gammaray sources. This includes methods 
-such as the ring or the FoV background techniques or
-background measurements performed within, e.g. reflected regions~\citep{Berge07}.
+such as the ring or the FoV background techniques or background measurements
+performed within, e.g. reflected regions~\citep{Berge07}.
+
 Data measured at the FoV or energy boundaries of the instrument are typically
 associated with a systematic uncertainty in the IRF. For this reason this part 
 of the data is often excluded from subsequent analysis by defining regions of
- \enquote{safe} data in the spatial as well as energy dimension.
+\enquote{safe} data in the spatial as well as energy dimension.
 
-%% CN: for 1D analysis datasets, DL4 can actually be written as OGIP files,
-%% so as reduced datasets in a general format, not specific to Gammapy.
-%% Maybe you can briefly mention that this is due to the fact that the 1D Poisson
-%% spectral analysis is liong consilidated, but this also means that Gammapy 's
-%% dataset can handle lower energy data, e.g. X-ray.
-%% We also said in the abstract that Gammapy is compliant with other specifications
-%% adopted in high-energy astrophysics.
-The counts data and the reduced IRFs in the form of maps are bundled into datasets
-that represent the fourth data level (DL4). These reduced datasets can be written to disk,
-in a format specific to \gammapy to allow users to read them back at any time later
-for modelling and fitting. Different variations of such datasets support different 
-analysis methods and fit statistics. The datasets can be used to perform a joint-likelihood
-fit, allowing one to combine different measurements, e.g. from different observations
-but also from different instruments or event classes. They can also be used for binned
-simulation as well as event sampling to simulate DL3 events data.
+All the code related to reduce the DL3 data to binned data structures 
+is contained in the \code{gammapy.makers} sub-package.
 
-The next step is then typically to model and fit the datasets, either
-individually, or in a joint likelihood analysis. For this purpose \gammapy
-provides a uniform interface to multiple fitting backends. In addition to
-providing a variety of built-in models, including spectral,
-spatial and temporal model classes to describe the \gammaray emission in the sky,
-custom user-defined models are also supported.
-Spectral models can be simple analytical models or more complex ones from radiation
-mechanisms of accelerated particle populations (e.g. inverse Compton or $\pi^{0}$ decay).
-Independently or subsequently to the global modelling, the data can be
-re-grouped to compute flux points, light curves and flux maps as well as significance
-maps in different energy bands.
+
+ \subsubsection{DL4: Binned Data Structures}
+ The counts data and the reduced IRFs in the form of maps are bundled into datasets
+ that represent the fourth data level (DL4). These reduced datasets can be written to disk,
+ in a format specific to \gammapy to allow users to read them back at any time later
+ for modelling and fitting. Different variations of such datasets support different 
+ analysis methods and fit statistics. The datasets can be used to perform a joint-likelihood
+ fit, allowing one to combine different measurements, e.g. from different observations
+ but also from different instruments or event classes. They can also be used for binned
+ simulation as well as event sampling to simulate DL3 events data.
+
+
+Binned maps and datasets, which represent a collection of binned
+maps, are defined in the \code{gammapy.maps} and \code{gammapy.datasets}
+sub-packages, respectively. 
+
+
+\subsection{From DL4 to DL5/6: Modeling and Fitting}
+The next step is then typically to model the datasets using binned Poisson maximum likelihood fitting.
+Assuming Poisson statistics per bin the log-likelihood of an observation is given by the Cash statistics\citep{Cash}:
+%
+\begin{equation}
+	\mathcal{C} = \sum_{i=0}^K N_{\mathrm{Pred, i}} - N_{\mathrm{Obs, i}} \log{N_{\mathrm{Pred, i}}} 
+\end{equation}
+
+Where the expected number of events in a \gammaray observation is given by:
+ \begin{equation}
+	 \begin{split}
+		N_{\mathrm{Pred}}(p, E; \hat{\theta})\ {\rm d}p\ {\rm d}E =  &E_{\rm disp} \circledast \left[ PSF \circledast \left( A_{\rm eff} \cdot t_{\rm obs} \cdot \Phi(\hat{\theta}) \right) \right]\\
+						& + Bkg(p, E) \cdot t_{\rm obs}
+	 \end{split}
+ \end{equation}
+
+With the IRF components described in the previous section as well as an analytical model to describe the
+intensity of the radiation from gamma-ray sources as a function of the energy, $E_{\rm true}$,
+and of the position in the FoV, $p_{\rm true}$:
+%
+\begin{equation}
+    \Phi(p_{\rm true}, E_{\rm true}; \hat{\theta}), [\Phi] = \si{TeV^{-1}.cm^{-2}.s^{-1}}
+    \label{eq:general_source_model}
+\end{equation}
+Where $\hat{\theta}$ is a set of model parameters that can be adjusted in a fit. 
+Observtaions can be either modelled individually, or in a joint likelihood analysis.
+In the latter case the total (jpint) log-likleihood is given by the sum of the log-likelihoods
+per observation $\mathcal{L} = \sum{i=0}^M \mathcal{C_i}$ for M observations. Other fit
+statistics such as \textit{WStat} or a simple $\chi^2$ for flux points are also often used
+and are supported by \gammapy as well. Models can be simple analytical models or more complex
+ones from radiation mechanisms of accelerated particle populations (e.g. inverse Compton or $\pi^{0}$ decay).
+
+Independently or subsequently to the global modelling, the data can be re-grouped to compute
+flux points, light curves and flux maps as well as significance maps in different energy bands.
+
+Parametric models and all the functionality realted to fitting is implemented in 
+\code{gammapy.modeling} and \code{gammapy.estimators}, where the latter is used to
+compute higher level science products such as flux and significance maps,
+light curves or flux points. 
+
+
+
+% In the most general way, we can write the expected number of detected events from the sky model $\Phi$ at measured position $p$ and energy $E$, for
+%  a given set of parameters $\hat{\theta}$, as:
+%  %
+% %  \begin{equation}
+% % 	 \begin{split}
+% % 			N_{\mathrm{Pred}}(p, E, \hat{\theta})\,{\rm d}p\,{\rm d}E = &t_{\rm obs} \int_{E_{\rm true}} \int_{p_{\rm true}}  R(p, E|p_{\rm true}, E_{\rm true}) \\
+% % 			&\cdot \Phi(p_{\rm true}, E_{\rm true}, \hat{\theta} ) {\rm d}E_{\rm true} {\rm d}p_{\rm true}
+% % 	 \end{split}
+% %  \end{equation}
+ 
+%  where $R(p, E| p_{\rm true}, E_{\rm true})$ is the instrument response and $t_{\rm obs}$ is the observation duration.
+ 
+ 
+%  An additional component of DL3 IRFs is the residual hadronic background model $Bkg$.
+%  It represents the intensity of charged particles misidentified as \gammarays that are expected
+%  during an observation. It is defined as a function of the measured position in the FoV
+%  and measured energy.
+ 
+ 
+%  Finally, predicted and observed events, $N_{obs}$, can be combined in a likelihood function,
+%  $\mathcal{L}(\hat{\theta}, N_{obs})$, usually Poissonian, that is maximised to obtain the best-fit parameters of the flux model, $\hat{\theta}$.
+ 
+
+
+
+
 
 \section{\gammapy Package}
 \label{sec:gammapy-package}
 \subsection{Overview}
 \label{ssec:overview}
 %
-%
-The \gammapy package is structured into multiple sub-packages. The definition
+The \gammapy package is structured into multiple sub-packages. 
+Figure~\ref{fig:data_flow} also shows the overview of the different sub-packages and
+their relation to each other. The definition
 of the content of the different sub-packages follows mostly the stages of the
+<<<<<<< HEAD
 data reduction workflow described in the previous section. Sub-packages
 either contain structures representing data at different reduction
 levels or algorithms to transition between these different levels.
@@ -625,6 +693,13 @@ defined from configuration files. In the following sections, we will
 introduce all sub-packages and their functionalities in more detail.
 In the online documentation we also provide an overview of all
 the \gammapy sub-packages\footnote{\url{https://docs.gammapy.org/1.0/user-guide/package.html}}.
+=======
+data reduction workflow described in the previous section. Sub-packages either
+contain structures representing data at different reduction levels or algorithms
+to transition between these different levels. In the following sections, we will
+introduce all sub-packages and their functionalities in more detail. In the online 
+documentation we also provide an overview of all the \gammapy sub-packages\footnote{\url{https://docs.gammapy.org/1.0/user-guide/package.html}}.
+>>>>>>> fe956e5 (Merge sections 2 and 2.1)
 
 
 \subsection{gammapy.data}
@@ -633,10 +708,13 @@ The \code{gammapy.data} sub-package implements the functionality to select,
 read, and represent DL3 \gammaray data in memory. It provides the main user
 interface to access the lowest data level. \gammapy currently only
 supports data that is compliant with \code{v0.2} and \code{v0.3} of the \gadf data format.
+<<<<<<< HEAD
 DL3 data are typically bundled into individual observations, corresponding to
 stable periods of data acquisition. For IACT instruments, for which the \gadf
 data model and \gammapy were initially conceived, this duration is typically 
 $15 - 30\,{\rm min}$. Each observation is assigned a unique integer ID for reference.
+=======
+>>>>>>> fe956e5 (Merge sections 2 and 2.1)
 
 A typical usage example is shown in Figure~\ref{fig*:minted:gp_data}.
 First a \code{DataStore} object is created from the path of the data
@@ -661,8 +739,6 @@ example, to read \fermi data, the user can read separately their event list
 IRF classes representing the response functions provided by \fermi, see
 example in Section~\ref{ssec:multi-instrument-analysis}.
 
-%% CN: Shouldn't we display the output of this snippet?
-%% otherwise what's the point of the `print`' functions?
 \begin{figure}
 	\small
 	\import{code-examples/generated/}{gp_data}
