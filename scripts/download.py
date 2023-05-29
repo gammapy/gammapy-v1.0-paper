@@ -23,6 +23,8 @@ FILENAMES_FERMI_3FHL_GC = [
 
 FILENAMES_FERMI_CATALOG = ["catalogs/fermi/gll_psc_v28.fit.gz"]
 
+FILENAMES_EBL = ["ebl/ebl_dominguez11.fits.gz"]
+
 FILENAMES_FERMI_3FHL_CRAB = [
     "fermi-3fhl-crab/Fermi-LAT-3FHL_data_Fermi-LAT.fits",
     "fermi-3fhl-crab/Fermi-LAT-3FHL_iem.fits",
@@ -149,6 +151,11 @@ def download_hess_dr1_data():
     download_data_files(FILENAMES_HESS_DR1)
 
 
+def download_ebl_models():
+    """Download EBL models"""
+    download_data_files(FILENAMES_EBL)
+
+
 def download_multi_instrument():
     download_fermi_crab_3fhl()
     download_magic_data()
@@ -161,6 +168,7 @@ DATASETS_REGISTRY = {
     "pks-flare": download_hess_dr1_data,
     "multi-instrument": download_multi_instrument,
     "hawc-dl3": download_hawc_dl3_data,
+    "ebl": download_ebl_models,
 }
 
 

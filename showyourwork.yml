@@ -15,6 +15,7 @@ dependencies:
         - src/code-examples/generated-output/gp_maps.tex
         - src/code-examples/generated-output/gp_models.tex
         - src/code-examples/generated-output/gp_stats.tex
+        - src/data/input/ebl/ebl_dominguez11.fits.gz
     src/figures/cta_galactic_center.py:
         - src/data/cta-galactic-center/datasets/datasets.yaml
         - src/data/cta-galactic-center/datasets/pha_obsobs-110380.fits
@@ -66,7 +67,7 @@ dependencies:
     src/figures/code_example_gp_catalogs.py:
         - src/data/input/catalogs/fermi/gll_psc_v28.fit.gz
     src/figures/code_example_gp_estimators.py:
-        - src/data/input/cta-1dc-gc/cta-1dc-gc.fits.gz
+        - src/data/input/cta-1dc-gc/cta-1dc-gc.fits.gz        
     src/figures/codestats.py:
         - src/data/codestats.csv
     

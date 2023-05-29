@@ -263,3 +263,13 @@ rule download_hawc_dl3:
     shell:
         "cd scripts && python download.py hawc-dl3"
 
+
+
+# Custom rule to download multi-instrument data, Fermi-LAT
+rule download_ebl_models:
+    output:
+        "src/data/input/ebl/ebl_dominguez11.fits.gz",
+    conda:
+        "environment.yml"
+    shell:
+        "cd scripts && python download.py ebl"
