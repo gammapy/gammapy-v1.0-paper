@@ -491,12 +491,12 @@ of three independent functions:
 
 In addition to the instrument characteristics described above, there is also the instrumental
 background, that results from hadronic events being misclassified as \gammaray events. These
-events constitute a uniform background to the \gammaray events For \fermi the residual hadronic background
+events constitute a uniform background to the \gammaray events. For \fermi the residual hadronic background
 is very small ($<1\%$) because of its veto layer and can often be neglected. For IACTs and WCTs in contrast
 the background can account for a very large part ($>95\%$) of the events and must be treated
 accordingly in the analysis. As the background is very specific to the instrument, \gammapy typically 
 relies on the background models provided with the DL3 data. The background typically only depends
-on the reconstructed event positon and energy $Bkg(p, E)$. However in general all IRFs depend on the
+on the reconstructed event position and energy $Bkg(p, E)$. However in general all IRFs depend on the
 geometrical parameters of the detector, e.g. location of an event in the FoV or the elevation
 angle of the incoming direction of the event. Consequently IRFs might be parametrised as functions
 of detector specific coordinates as well.
@@ -554,7 +554,7 @@ The next step is then typically to model the datasets using binned Poisson maxim
 Assuming Poisson statistics per bin the log-likelihood of an observation is given by the Cash statistics\citep{Cash}:
 %
 \begin{equation}
-	\mathcal{C} = \sum_{i=0}^K N_{\mathrm{Pred, i}} - N_{\mathrm{Obs, i}} \log{N_{\mathrm{Pred, i}}} 
+	\mathcal{C} = 2 \sum_{i=0}^K N_{\mathrm{Pred, i}} - N_{\mathrm{Obs, i}} \log{N_{\mathrm{Pred, i}}} 
 \end{equation}
 
 Where the expected number of events in a \gammaray observation is given by:
@@ -574,8 +574,8 @@ and of the position in the FoV, $p_{\rm true}$:
     \label{eq:general_source_model}
 \end{equation}
 Where $\hat{\theta}$ is a set of model parameters that can be adjusted in a fit. 
-Observtaions can be either modelled individually, or in a joint likelihood analysis.
-In the latter case the total (jpint) log-likleihood is given by the sum of the log-likelihoods
+Observations can be either modeled individually, or in a joint likelihood analysis.
+In the latter case the total (joint) log-likelihood is given by the sum of the log-likelihoods
 per observation $\mathcal{L} = \sum{i=0}^M \mathcal{C_i}$ for M observations. Other fit
 statistics such as \textit{WStat} or a simple $\chi^2$ for flux points are also often used
 and are supported by \gammapy as well. Models can be simple analytical models or more complex
@@ -584,7 +584,7 @@ ones from radiation mechanisms of accelerated particle populations (e.g. inverse
 Independently or subsequently to the global modelling, the data can be re-grouped to compute
 flux points, light curves and flux maps as well as significance maps in different energy bands.
 
-Parametric models and all the functionality realted to fitting is implemented in 
+Parametric models and all the functionality related to fitting is implemented in 
 \code{gammapy.modeling} and \code{gammapy.estimators}, where the latter is used to
 compute higher level science products such as flux and significance maps,
 light curves or flux points. 
