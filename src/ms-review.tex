@@ -455,10 +455,12 @@ This part of the data analysis is supported by \gammapy.
 An overview of the typical steps in the high level analysis is shown in the upper
 row of Figure~\ref{fig:data_flow}. The high level analysis starts at the DL3 
 data level, where \gammaray data is represented as lists of \gammaray-like events and their
-corresponding IRFs $R$. DL3 data are typically bundled into individual observations, corresponding to
+corresponding IRFs $R$ and ends at the DL5/6 data level, where the physicallyy relevant 
+quantities such as fluxes, spectra and light curves of sources have been derived. DL3 data are typically 
+bundled into individual observations, corresponding to
 stable periods of data acquisition. For IACT instruments, for which the \gadf
 data model and \gammapy were initially conceived, this duration is typically 
-$t_{\rm obs}=20 - 30\,{\rm min}$. Each observation is assigned a unique integer ID for reference.
+$t_{\rm obs}=15 - 30\,{\rm min}$. Each observation is assigned a unique integer ID for reference.
 The event list is just a simple table with one event per row and
 the measured event properties as columns. These properties e.g., include reconstructed
 incident direction and energy, arrival time and reconstruction quality.
@@ -496,7 +498,7 @@ events constitute a uniform background to the \gammaray events. For \fermi the r
 is very small ($<1\%$) because of its veto layer and can often be neglected. For IACTs and WCDs in contrast,
 the background can account for a very large part ($>95\%$) of the events and must be treated
 accordingly in the analysis. As the background is very specific to the instrument, \gammapy typically 
-relies on the background models provided with the DL3 data. The background typically only depends
+relies on the background models provided with the DL3 data. The background usually only depends
 on the reconstructed event position and energy $Bkg(p, E)$. However in general all IRFs depend on the
 geometrical parameters of the detector, e.g. location of an event in the FoV or the elevation
 angle of the incoming direction of the event. Consequently IRFs might be parametrised as functions
@@ -517,7 +519,7 @@ defined by a binned energy axis and of spatial dimensions, which either define
 a spherical projection from celestial coordinates to a pixelised image space
 or a single region on the sky.
 
-After all data have been projected into the same geometry, it is typically
+After all data have been projected onto the same geometry, it is typically
 required to improve the residual hadronic background estimate. As residual hadronic
 background models can be subject to significant systematic uncertainties,
 these models can be improved by taking into account actual data
@@ -534,16 +536,15 @@ All the code related to reduce the DL3 data to binned data structures
 is contained in the \code{gammapy.makers} sub-package.
 
 
- \subsection{DL4: Binned Data Structures}
- The counts data and the reduced IRFs in the form of maps are bundled into datasets
- that represent the fourth data level (DL4). These reduced datasets can be written to disk,
- in a format specific to \gammapy to allow users to read them back at any time later
- for modelling and fitting. Different variations of such datasets support different 
- analysis methods and fit statistics. The datasets can be used to perform a joint-likelihood
- fit, allowing one to combine different measurements, e.g. from different observations
- but also from different instruments or event classes. They can also be used for binned
- simulation as well as event sampling to simulate DL3 events data.
-
+\subsection{DL4: Binned Data Structures}
+The counts data and the reduced IRFs in the form of maps are bundled into datasets
+that represent the fourth data level (DL4). These reduced datasets can be written to disk,
+in a format specific to \gammapy to allow users to read them back at any time later
+for modelling and fitting. Different variations of such datasets support different 
+analysis methods and fit statistics. The datasets can be used to perform a joint-likelihood
+fit, allowing one to combine different measurements, e.g. from different observations
+but also from different instruments or event classes. They can also be used for binned
+simulation as well as event sampling to simulate DL3 events data.
 
 Binned maps and datasets, which represent a collection of binned
 maps, are defined in the \code{gammapy.maps} and \code{gammapy.datasets}
@@ -576,7 +577,8 @@ and of the position in the FoV, $p_{\rm true}$:
     \label{eq:general_source_model}
 \end{equation}
 
-Where $\hat{\theta}$ is a set of model parameters that can be adjusted in a fit. 
+Where $\hat{\theta}$ is a set of model parameters that can be adjusted in a fit.
+
 Observations can be either modeled individually, or in a joint likelihood analysis.
 In the latter case the total (joint) log-likelihood is given by the sum of the log-likelihoods
 per observation $\mathcal{L} = \sum{i=0}^M \mathcal{C_i}$ for M observations. Other fit
