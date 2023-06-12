@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import logging
+import time
 from pathlib import Path
 
 import astropy.units as u
@@ -121,6 +122,7 @@ def fit_model(datasets):
 
 
 if __name__ == "__main__":
+    t_start = time.time()
     path = Path(".")
 
     filename = path / "stacked-counts.fits"
@@ -145,3 +147,8 @@ if __name__ == "__main__":
     fp = make_flux_points(datasets)
     log.info(f"Writing {filename}")
     fp.write(filename, overwrite=True)
+
+    t_stop = time.time()
+
+    with (path / "../run-times.csv").open("a") as fh:
+        fh.write(f"cta-gc-example: {t_stop - t_start}\n")

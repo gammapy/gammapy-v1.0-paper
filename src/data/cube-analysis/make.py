@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import codecs
 import logging
+import time
 from pathlib import Path
 
 import astropy.units as u
@@ -70,7 +71,6 @@ def make_map_dataset(observations):
 
 
 def simulate_counts(stacked):
-
     spectral_model_1 = PowerLawSpectralModel(
         index=1.95, amplitude="5e-12 cm-2 s-1 TeV-1", reference="1 TeV"
     )
@@ -192,6 +192,7 @@ def make_contribution_to_region(stacked, models, region):
 
 
 if __name__ == "__main__":
+    t_start = time.time()
     path = Path(".")
     observations = get_observations()
     stacked = make_map_dataset(observations)
@@ -231,3 +232,8 @@ if __name__ == "__main__":
     filename_source3 = path / "npred_3.fits"
     log.info(f"Writing {filename_source3}")
     npred_3.write(filename_source3, format="ogip", overwrite=True)
+
+    t_stop = time.time()
+
+    with (path / "../run-times.csv").open("a") as fh:
+        fh.write(f"cube-example: {t_stop - t_start}\n")

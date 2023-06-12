@@ -130,7 +130,7 @@ def plot_image(ax):
     log.info(f"Reading: {filename}")
     m = Map.read(filename)
     m.plot(ax=ax, cmap="inferno", stretch="sqrt")
-    ax.set_title("Sky maps", color=GP_GRAY, pad=4)
+    ax.set_title("Sky Maps", color=GP_GRAY, pad=4)
     format_dl5_ax(ax=ax)
 
 

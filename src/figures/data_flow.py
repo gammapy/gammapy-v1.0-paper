@@ -206,7 +206,7 @@ def plot_lightcurve(ax):
     # ax.set_ylim(3e-11, 4e-10)
     # ax.set_xlim(53945.85, 53946.09)
     ax.legend(fontsize=8, labelspacing=0.1)
-    ax.set_xlabel("Time", labelpad=0)
+    ax.set_title("Lightcurves", color=GP_GRAY, pad=4)
 
 
 def plot_sed(ax):
@@ -225,8 +225,7 @@ def plot_sed(ax):
 
     flux_points.plot_ts_profiles(ax=ax, sed_type="e2dnde", add_cbar=False)
     format_dl5_ax(ax=ax)
-    ax.set_title("Flux Points", color=GP_GRAY, pad=4)
-    ax.set_xlabel("Energy", labelpad=0)
+    ax.set_title("Spectra", color=GP_GRAY, pad=4)
 
 
 def plot_image(ax):
@@ -384,7 +383,7 @@ def main(draft=True):
     ax_fp = add_sub_axes(ax, [148, 31, 30, 20])
     plot_sed(ax=ax_fp)
 
-    ax_lc = add_sub_axes(ax, [148, 5, 30, 20])
+    ax_lc = add_sub_axes(ax, [148, 3, 30, 20])
     plot_lightcurve(ax=ax_lc)
 
     ax_cat = add_sub_axes(ax, [148, 86, 30, 20])
