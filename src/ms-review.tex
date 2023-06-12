@@ -533,7 +533,7 @@ All the code related to reduce the DL3 data to binned data structures
 is contained in the \code{gammapy.makers} sub-package.
 
 
- \subsubsection{DL4: Binned Data Structures}
+ \subsection{DL4: Binned Data Structures}
  The counts data and the reduced IRFs in the form of maps are bundled into datasets
  that represent the fourth data level (DL4). These reduced datasets can be written to disk,
  in a format specific to \gammapy to allow users to read them back at any time later
@@ -557,7 +557,8 @@ Assuming Poisson statistics per bin the log-likelihood of an observation is give
 	\mathcal{C} = 2 \sum_{i=0}^K N_{\mathrm{Pred, i}} - N_{\mathrm{Obs, i}} \log{N_{\mathrm{Pred, i}}} 
 \end{equation}
 
-Where the expected number of events in a \gammaray observation is given by:
+Where the expected number of events for the observation is given by forward folding a source model through
+the instrument response:
  \begin{equation}
 	 \begin{split}
 		N_{\mathrm{Pred}}(p, E; \hat{\theta})\ {\rm d}p\ {\rm d}E =  &E_{\rm disp} \circledast \left[ PSF \circledast \left( A_{\rm eff} \cdot t_{\rm obs} \cdot \Phi(\hat{\theta}) \right) \right]\\
@@ -565,19 +566,21 @@ Where the expected number of events in a \gammaray observation is given by:
 	 \end{split}
  \end{equation}
 
-With the IRF components described in the previous section as well as an analytical model to describe the
-intensity of the radiation from gamma-ray sources as a function of the energy, $E_{\rm true}$,
+The equation includes the IRF components described in the previous section, as well as an analytical model to describe the
+intensity of the radiation from \gammaray sources as a function of the energy, $E_{\rm true}$,
 and of the position in the FoV, $p_{\rm true}$:
 %
 \begin{equation}
     \Phi(p_{\rm true}, E_{\rm true}; \hat{\theta}), [\Phi] = \si{TeV^{-1}.cm^{-2}.s^{-1}}
     \label{eq:general_source_model}
 \end{equation}
+
 Where $\hat{\theta}$ is a set of model parameters that can be adjusted in a fit. 
 Observations can be either modeled individually, or in a joint likelihood analysis.
 In the latter case the total (joint) log-likelihood is given by the sum of the log-likelihoods
 per observation $\mathcal{L} = \sum{i=0}^M \mathcal{C_i}$ for M observations. Other fit
-statistics such as \textit{WStat} or a simple $\chi^2$ for flux points are also often used
+statistics such as \textit{WStat}, where the background is estimated from an independent
+measurement or a simple $\chi^2$ for flux points are also often used
 and are supported by \gammapy as well. Models can be simple analytical models or more complex
 ones from radiation mechanisms of accelerated particle populations (e.g. inverse Compton or $\pi^{0}$ decay).
 
