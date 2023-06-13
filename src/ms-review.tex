@@ -524,8 +524,9 @@ required to improve the residual hadronic background estimate. As residual hadro
 background models can be subject to significant systematic uncertainties,
 these models can be improved by taking into account actual data
 from regions without known \gammaray sources. This includes methods 
-such as the ring or the FoV background techniques or background measurements
+such as the ring or the FoV background normalisation techniques or background measurements
 performed within, e.g. reflected regions~\citep{Berge07}.
+
 
 Data measured at the FoV or energy boundaries of the instrument are typically
 associated with a systematic uncertainty in the IRF. For this reason this part 
@@ -582,7 +583,7 @@ Where $\hat{\theta}$ is a set of model parameters that can be adjusted in a fit.
 Observations can be either modeled individually, or in a joint likelihood analysis.
 In the latter case the total (joint) log-likelihood is given by the sum of the log-likelihoods
 per observation $\mathcal{L} = \sum{i=0}^M \mathcal{C_i}$ for M observations. Other fit
-statistics such as \textit{WStat}, where the background is estimated from an independent
+statistics such as \emph{WStat}~\citep{WStat}, where the background is estimated from an independent
 measurement or a simple $\chi^2$ for flux points are also often used
 and are supported by \gammapy as well. Models can be simple analytical models or more complex
 ones from radiation mechanisms of accelerated particle populations (e.g. inverse Compton or $\pi^{0}$ decay).
@@ -620,10 +621,6 @@ light curves or flux points.
 %  $\mathcal{L}(\hat{\theta}, N_{obs})$, usually Poissonian, that is maximised to obtain the best-fit parameters of the flux model, $\hat{\theta}$.
  
 
-
-
-
-
 \section{\gammapy Package}
 \label{sec:gammapy-package}
 \subsection{Overview}
@@ -658,9 +655,8 @@ content of the data unit of each file. The \code{DataStore} allows for
 selecting a list of observations based on specific filters.
 
 The DL3 level data represented by the \code{Observation} class consist
-of two types of elements: first, a list of \gammaray events with relevant physical
-quantities such as estimated energy, direction and arrival
-times, which is represented by the \code{EventList} class. Second, a set of
+of two types of elements: first, the list of \gammaray events 
+which is represented by the \code{EventList} class. Second, a set of
 associated IRFs, providing the response of the system, typically
 factorised in independent components as described in
 Section~\ref{ssec:gammapy-irf}. The separate handling of event lists and IRFs
@@ -760,8 +756,7 @@ which is used for the prediction of counts from that model component.
 For \iacts, the energy resolution and bias, sometimes called energy dispersion,
 is typically parametrised in terms of the so-called
 migration parameter ($\mu$, see section \label{sec:gammaray-data-analysis}).
- However, more complex
-shapes are also common. The distribution of the migration parameter is given at each offset angle and
+The distribution of the migration parameter is given at each offset angle and
 true energy. The main sub-classes are the \code{EnergyDispersion2D} which is
 designed to handle the raw instrument description, and the \code{EDispKernelMap},
 which contains an energy dispersion matrix per sky position, i.e., a 4-dimensional
@@ -911,8 +906,7 @@ Those require the use of a different fit statistics, which takes into account th
 uncertainty of the background measurement. This case is covered by the \code{MapDatasetOnOff}
 and \code{SpectrumDatasetOnOff} classes, which use the \emph{WStat}~\citep{WStat} statistic.
 
-The predicted counts are computed by convolution of the models with the associated
-IRFs. Fitting of precomputed flux points is enabled through \code{FluxPointsDataset},
+Fitting of precomputed flux points is enabled through \code{FluxPointsDataset},
 using \emph{$\chi^2$} statistics. Multiple datasets of same or different types can be
 bundled together in \code{Datasets} (e.g., Figure \ref{fig*:minted:gp_datasets}),
 where the likelihood from each constituent member is added, thus facilitating
@@ -946,19 +940,19 @@ We also refer to our online documentation for more details on \code{gammapy.data
 \end{figure}
 %
 The \code{gammapy.makers} sub-package contains the various classes and functions required
-to process and prepare \gammaray data from the DL3 to the DL4, representing the input for modelling and fitting.
-First, events are binned and IRFs are interpolated and projected onto the chosen analysis
-geometry. The end product of the data reduction process is a set of binned counts,
-background exposure, psf and energy dispersion maps at the DL4 level. 
+to process and prepare \gammaray data from the DL3 to the DL4.
+The end product of the data reduction process is a set of binned counts,
+background exposure, psf and energy dispersion maps at the DL4 level, bundled
+into a \code{MapDataset} object.
 The \code{MapDatasetMaker} and \code{SpectrumDatasetMaker} are
 responsible for this task for 3D and 1D analyses, respectively (see Figure~\ref{fig*:minted:gp_makers}).
 
-Because background models usually suffer from strong uncertainties, it is required
-to correct them from the data themselves. Several techniques are commonly used
-in TeV \gammaray astronomy such as FoV background normalization or
-background measurement in reflected regions, see~\cite{Berge07}.
-Specific \code{Makers} such as the \code{FoVBackgroundMaker} or the
-\code{ReflectedRegionsBackgroundMaker} are in charge of this process.
+The correction of background models from the data themselves is supported 
+by specific \code{Maker} classes such as the \code{FoVBackgroundMaker} or the
+\code{ReflectedRegionsBackgroundMaker}. The former is used to estimate the
+normalisation of the background model from the data themselves, while the
+latter is used to estimate teh background from regions reflected from the
+poiting position.
 %% CN: I would add a single line explaining what each of them do
 
 Finally, to limit other sources of systematic uncertainties, a data validity
