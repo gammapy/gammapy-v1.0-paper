@@ -434,7 +434,7 @@ generic and are broadly shared across the field. The similarity in the high-leve
 analysis conceptionally also allow for easily combining data from multiple instruments.
 This part of the data analysis is supported by \gammapy. 
 
-\subsection{DL3: Events And Instrument Response Functions}
+\subsection{DL3: events and instrument response functions}
 An overview of the typical steps in the high level analysis is shown in the upper
 row of Figure~\ref{fig:data_flow}. The high level analysis starts at the DL3 
 data level, where \gammaray data is represented as lists of \gammaray-like events and their
@@ -494,7 +494,7 @@ access and selection of DL3 data is available in the \code{gammapy.data} and \co
 sub-packages.
 
 
-\subsection{From DL3 to DL4: Data Reduction}
+\subsection{From DL3 to DL4: data reduction}
 The next step of the analysis is the data reduction, where all observation events and instrument
 responses are filled into or projected onto a common physical coordinate system, defined by
 a map geometry. The definition of the map geometry typically consists of a spectral dimension
@@ -519,7 +519,7 @@ related to reduce the DL3 data to binned data structures is contained in the
 \code{gammapy.makers} sub-package.
 
 
-\subsection{DL4: Binned Data Structures}
+\subsection{DL4: binned data structures}
 The counts data and the reduced IRFs in the form of maps are bundled into datasets
 that represent the fourth data level (DL4). These reduced datasets can be written to disk,
 in a format specific to \gammapy to allow users to read them back at any time later
@@ -534,7 +534,7 @@ maps, are defined in the \code{gammapy.maps} and \code{gammapy.datasets}
 sub-packages, respectively. 
 
 
-\subsection{From DL4 to DL5/6: Modeling and Fitting}
+\subsection{From DL4 to DL5/6: modeling and fitting}
 The next step is then typically to model the datasets using binned Poisson maximum likelihood fitting.
 Assuming Poisson statistics per bin the log-likelihood of an observation is given by the Cash statistics\citep{Cash}:
 %
@@ -603,7 +603,7 @@ light curves or flux points.
 %  $\mathcal{L}(\hat{\theta}, N_{obs})$, usually Poissonian, that is maximised to obtain the best-fit parameters of the flux model, $\hat{\theta}$.
  
 
-\section{\gammapy Package}
+\section{\gammapy package}
 \label{sec:gammapy-package}
 \subsection{Overview}
 \label{ssec:overview}
@@ -705,7 +705,7 @@ axes, convert their format or units, plot or write them into
 output files. In the following, we list the main classes of the
 sub-package:
 
-\subsubsection{Effective Area}
+\subsubsection{Effective area}
 \gammapy provides the class \code{EffectiveAreaTable2D} to
 manage the effective area, which is usually defined in terms of true energy and offset angle.
 The class functionalities offer the possibility to read from files or to create
@@ -714,7 +714,7 @@ write, and evaluate the effective area for a given energy and offset angle, or
 even plot the multidimensional effective area table.
 
 
-\subsubsection{Point Spread Function}
+\subsubsection{Point spread function}
 \gammapy allows users to treat different kinds of PSFs,
 in particular, parametric multidimensional Gaussian distributions (\code{EnergyDependentMultiGaussPSF})
 or King profile functions (\code{PSFKing}). The \code{EnergyDependentMultiGaussPSF}
@@ -733,7 +733,7 @@ looked up at its current position and converted into a 3D convolution kernel
 which is used for the prediction of counts from that model component.
 
 
-\subsubsection{Energy Dispersion}
+\subsubsection{Energy dispersion}
 For \iacts, the energy resolution and bias, sometimes called energy dispersion,
 is typically parameterized in terms of the so-called
 migration parameter ($\mu$, see section \label{sec:gammaray-data-analysis}).
@@ -746,7 +746,7 @@ The energy dispersion matrix is a representation of the energy resolution
 as a function of the true energy only and implemented in \gammapy
 by the subclass \code{EDispKernel}.
 
-\subsubsection{Instrumental Background}
+\subsubsection{Instrumental background}
 The instrumental background rate can be represented as either a 2D
 data structure named \code{Background2D} or a 3D one named \code{Background3D}.
 The background rate is stored as a differential count rate, normalized per solid angle
@@ -812,7 +812,7 @@ package is also used by external packages such as \enquote{FermiPy}~\citep{Wood2
     \label{fig*:minted:gp_maps}
 \end{figure}
 
-\subsubsection{WCS Maps}
+\subsubsection{WCS maps}
 The FITS WCS pixelization supports a number of different projections to
 represent celestial spherical coordinates in a regular rectangular grid.
 \gammapy provides full support to data structures using this pixelization
@@ -822,7 +822,7 @@ observations and is represented by a combination of the
 \code{WcsGeom} and \code{WcsNDMap} class.
 
 
-\subsubsection{HEALPix Maps}
+\subsubsection{HEALPix maps}
 This pixelization scheme ~\citep{Calabretta2002, Gorski2005} provides a
 subdivision of a sphere in which each pixel covers the same surface area as
 every other pixel. As a consequence, however, pixel shapes are no longer
@@ -840,7 +840,7 @@ This data structure is represented by the \code{HpxGeom} and \code{HpxNDMap}
 classes. 
 
 
-\subsubsection{Region Maps}
+\subsubsection{Region maps}
 In this case, instead of a fine spatial grid
 dividing a rectangular sky region, the spatial dimension is reduced to a single
 bin with an arbitrary shape, describing a region in the sky with that same
@@ -852,7 +852,6 @@ tangential plane using a WCS transform. This approach follows Astropy's \enquote
 package \citep{AstropyRegions2022}, which is both used as an API to define regions
 for users as well as handling the underlying geometric operations. Region based
 maps are represented by the \code{RegionGeom} and \code{RegionNDMap} classes.
-
 More information on the \code{gammapy.maps} sub-module can be found 
 in the online documentation\footnote{\url{https://docs.gammapy.org/1.0/user-guide/maps/index.html\#maps}}.
 
@@ -1343,7 +1342,7 @@ and hence with Gammapy's data structures, there is no limitation on performing
 analyses of data from a given instrument.
 
 
-\subsection{1D Analysis}
+\subsection{1D analysis}
 \label{ssec:1d-analysis}
 One of the most common analysis cases in \gammaray astronomy is measuring the
 spectrum of a source in a given region defined on the sky, in conventional
@@ -1386,7 +1385,7 @@ example takes $<10$ seconds to run on a standard laptop with M1 arm64 CPU.
         \label{fig:cta_galactic_center}
 \end{figure*}
 
-\subsection{3D Analysis}
+\subsection{3D analysis}
 \label{ssec:3d-analysis}
 %
 \begin{figure*}[t]
@@ -1470,7 +1469,7 @@ in Section~\ref{ssec:1d-analysis}. The whole example takes $<2$ minutes to run o
 laptop with M1 arm64 CPU.
 %\end{figure*}% \caption{Fermi-LAT TS map in two energy bands} \label{fig:fermi_ts_map}%        \includegraphics[width=1.\textwidth]{figures/fermi_ts_map.pdf}%Ref:~\citep{Stewart2009} \begin{figure*}[t] \centering%\todo{What to do with } Figure~\ref{fig:fermi_ts_map} ?%
 
-\subsection{Temporal Analysis}
+\subsection{Temporal analysis}
 \label{ssec:temporal-analysis}
 A common use case in many astrophysical scenarios is to study the temporal
 variability of a source. The most basic way to do this is to construct a
@@ -1516,7 +1515,7 @@ variability, to each dataset, a joint fit across the datasets will directly
 return the best fit temporal and spectral parameters. The light curve data reduction
 and computation of flux points takes about $0.5$ minutes to run on a standard laptop with M1 arm64 CPU.
 
-\subsection{Multi-instrument Analysis}
+\subsection{Multi-instrument analysis}
 \label{ssec:multi-instrument-analysis}
 %
 \begin{figure*}[t]
@@ -1631,7 +1630,7 @@ Agnpy, Naima, Jetset and Gamera packages\footnote{\url{https://agnpy.readthedocs
 
 
 
-\subsection{Surveys, Catalogs, and Population Studies}
+\subsection{Surveys, catalogs, and population studies}
 \label{ssec:surveys-catalogs-and-population-studies}
 As a last application example we describe the use of \gammapy for large scale
 analyses such as \gammaray surveys, catalogs and population studies.
@@ -1696,7 +1695,7 @@ also allowed for detailed cross-comparison of the results obtained with the inde
 \gammaray analysis package \enquote{ctools} \citep{2016A&A...593A...1K}, with very consistent 
 results.
 
-\section{The \gammapy Project} \label{sec:gammapy-project}
+\section{The \gammapy project} \label{sec:gammapy-project}
 
 In this section, we provide an overview of the organization of the \gammapy
 project. We briefly describe the main roles and responsibilities within the
@@ -1708,7 +1707,7 @@ customized solution for a versioned and thoroughly tested documentation in the f
 of user-friendly playable tutorials. This section concludes with an outlook on
 the road map for future directions.
 
-\subsection{Organizational Structure}
+\subsection{Organizational structure}
 \label{ssec:organizational-structure}
 
 \gammapy is an international open-source project with a broad
@@ -1726,7 +1725,7 @@ of developers from the contributing institutions is in charge of the regular
 development, which benefits from regular contributions of the community at
 large.
 
-\subsection{Technical Infrastructure}
+\subsection{Technical infrastructure}
 \label{ssec:technical-infrastructure}
 
 \gammapy follows an open-source and open-contribution development model based on
@@ -1775,7 +1774,7 @@ contributions to conferences, other digital assets, etc). Finally, third-party
 services for code quality metrics are also set and may be found as status
 shields in the codebase repository.
 
-\subsection{Software Distribution}
+\subsection{Software distribution}
 \label{ssec:software-distribution}
 \gammapy is distributed for Linux, Windows and Mac environments, and installed
 in the usual way for Python packages. Each stable release is uploaded to the
@@ -1808,7 +1807,7 @@ over time. The French open publication archive, HAL~\footnote{\url{https://hal.a
 is using the \gammapy SWHIDs to register the releases as scientific
 products~\footnote{\url{https://hal.science/hal-03885031v1}} of open science.
 
-\subsection{Documentation and User-support}
+\subsection{Documentation and user-support}
 \label{ssec:documentation-and-user-support}
 \gammapy provides its user community with a tested and versioned up-to-date
 online
@@ -1848,7 +1847,7 @@ mailing lists, a Twitter account\footnote{\url{https://twitter.com/gammapyST}},
 regular public coding sprint meetings, hands-on sessions within collaborations,
 weekly development meetings, etc.
 
-\subsection{Proposals for Improving \gammapy}
+\subsection{Proposals for improving \gammapy}
 \label{ssec:pigs}
 An important part of \gammapy's development organization is the support
 for \enquote{Proposals for improving \gammapy} (PIG). This system is very much
@@ -1879,7 +1878,7 @@ follows the normal PIG guidelines. Typically road maps are written
 to outline and agree on a common vision for the next long term
 support release of \gammapy.
 
-\subsection{Release Cycle, Versioning, and Long-term Support}
+\subsection{Release cycle, versioning, and long-term support}
 \label{ssec:release-cycle}
 With the first long term support (LTS) release v1.0, the \gammapy project
 enters a new development phase. The development will change from
